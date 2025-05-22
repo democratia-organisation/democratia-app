@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.democratia.view", "com.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.democratia.test", "com.democratia.Test\com.democratia.test.csproj", "{43FF50B0-F7D8-4DE4-8B11-0139C76004C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.democratia.core", "com.democratia\com.democratia.core.csproj", "{E793CF71-D11B-4FD7-9E44-91D4F74706B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.democratia.core", "com.democratia.core\com.democratia.core.csproj", "{E793CF71-D11B-4FD7-9E44-91D4F74706B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

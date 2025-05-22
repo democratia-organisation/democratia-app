@@ -1,4 +1,6 @@
-﻿namespace com.democratia
+﻿using System.Diagnostics;
+
+namespace com.democratia
 {
     public partial class App : Application
     {
@@ -6,6 +8,9 @@
         {
             
             InitializeComponent();
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) => {
+                Debug.WriteLine($"CRASH: {e.ExceptionObject}");
+            };
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

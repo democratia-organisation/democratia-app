@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\com.democratia\com.democratia.core.csproj" />
+    <ProjectReference Include="..\com.democratia.core\com.democratia.core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

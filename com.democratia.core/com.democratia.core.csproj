@@ -5,7 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<OutputType Condition="'$(TargetFramework)' == 'net9.0'">Library</OutputType>
-    <RootNamespace>com.democratia</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
