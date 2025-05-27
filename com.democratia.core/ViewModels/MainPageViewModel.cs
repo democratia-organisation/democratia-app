@@ -1,11 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using com.democratia.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 
 namespace com.democratia.ViewModels
 {
-    public partial class MainPageViewModel : ObservableObject
+    public partial class MainPageViewModel : ObservableObject, IViewModel
     {
+
+        public Client? client { get; }
 
         [ObservableProperty]
         private string? adresseMail ;
@@ -32,6 +36,9 @@ namespace com.democratia.ViewModels
             // TODO : vérifier si l'utilisateur existe et si le mot de passe est correct en récupérant 
             // sa version dans la base de données
             // TODO : trouver la classe pour décrypter le mot de passe
+            
+
+
         }
     }
 }

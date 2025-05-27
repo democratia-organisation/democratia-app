@@ -9,16 +9,12 @@ namespace com.democratia
             
             InitializeComponent();
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => {
-                Debug.WriteLine($"CRASH: {e.ExceptionObject}");
+                Current?.Windows[0]?.Page?.DisplayAlert("Erreur","Une erreur inattendu est survenue. Voici le message : \n" + e.ExceptionObject.ToString(),"OK");
+                Current?.Quit();
             };
         }
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
-        }
-
-
+        protected override Window CreateWindow(IActivationState? activationState) =>new(new AppShell());
 
     }
 }
