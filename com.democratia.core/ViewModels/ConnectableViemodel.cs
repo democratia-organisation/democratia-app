@@ -11,6 +11,8 @@ namespace com.democratia.ViewModels
     {
         protected Client? client;
 
+        public ConnectableViewModel() {}
+
     }
 
 }

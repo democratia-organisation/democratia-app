@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using com.democratia.Views;
 
 namespace com.democratia
 {
@@ -17,6 +18,9 @@ namespace com.democratia
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            builder.Services.AddServices();
+            builder.Services.AddTransient<MainPage>();
+
 
 
 #if DEBUG

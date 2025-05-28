@@ -10,10 +10,6 @@
              x:DataType="viewModels:MainPageViewModel"
              Style="{DynamicResource fondEcran}">
     
-    <ContentPage.BindingContext>
-        <viewModels:MainPageViewModel
-            x:Name="viewModel"/>
-    </ContentPage.BindingContext>
 
     <ContentPage.Resources>
         <ResourceDictionary>
