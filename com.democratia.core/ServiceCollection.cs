@@ -1,10 +1,10 @@
-﻿using com.democratia.core.Services;
+﻿using com.democratia.Services;
 using com.democratia.Models;
 using com.democratia.Services;
 using com.democratia.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace com.democratia.core
+namespace com.democratia
 {
     public static class ServiceCollection
     {
@@ -15,8 +15,6 @@ namespace com.democratia.core
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             // Ajout des services nécessaires
-            services.AddTransient<IClient, InternauteClient>();
-            services.AddTransient<IViewModel, MainPageViewModel>();
             services.AddTransient<IModel, Internaute>();
 
             return services;

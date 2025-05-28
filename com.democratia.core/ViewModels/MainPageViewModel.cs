@@ -1,4 +1,4 @@
-﻿using com.democratia.core.Services;
+﻿using com.democratia.Services;
 using com.democratia.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -47,15 +47,15 @@ namespace com.democratia.ViewModels
         }
         private Tuple<string, string> RecuprerInformationConnexion()
         {
-            throw NotImplementedException("Not implemented");
+            throw new NotImplementedException("Not implemented");
         }
         private string DecrypterMotDePasseUtilisateur()
         {
-            throw NotImplementedException("Not implemented");
+            throw new NotImplementedException("Not implemented");
         }
         private bool VerifierBonneInformation()
         {
-            throw NotImplementedException("Not implemented");
+            throw new NotImplementedException("Not implemented");
         }
 
     }

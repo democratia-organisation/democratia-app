@@ -1,7 +1,7 @@
 ﻿using com.democratia.Services;
 using System.Text.Json.Nodes;
 
-namespace com.democratia.core.Services
+namespace com.democratia.Services
 {
     public class InternauteClient : Client
     {
