@@ -1,17 +1,16 @@
-﻿
-using com.democratia.core.Services;
+﻿using com.democratia.core.Services;
 using com.democratia.Models;
-using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
+using System;
+
 
 namespace com.democratia.ViewModels
 {
-    public partial class MainPageViewModel : ObservableObject, IViewModel
+    public partial class MainPageViewModel : ConnectableViewModel, INavigeablleViewModel
     {
         
-        public IClient? client { get; }
 
         [ObservableProperty]
         private string? adresseMail;
@@ -37,23 +36,28 @@ namespace com.democratia.ViewModels
             }
         }
 
-        public MainPageViewModel(IClient? client)
-        {
-            this.client = client;
-            AdresseMail = string.Empty;
-            MotDePasse = string.Empty;
-            ErrorMessage = string.Empty;
-        }
-
-        public MainPageViewModel() : this(null){}
-
         public Internaute ConnecterInternaute()
         {
-            
+
+            client = new InternauteClient();
             return new Internaute(null, null, null, null, AdresseMail, null);
             // TODO : vérifier si l'utilisateur existe et si le mot de passe est correct en récupérant 
             // sa version dans la base de données
             // TODO : trouver la classe pour décrypter le mot de passe
         }
+        private Tuple<string, string> RecuprerInformationConnexion()
+        {
+            throw NotImplementedException("Not implemented");
+        }
+        private string DecrypterMotDePasseUtilisateur()
+        {
+            throw NotImplementedException("Not implemented");
+        }
+        private bool VerifierBonneInformation()
+        {
+            throw NotImplementedException("Not implemented");
+        }
+
     }
 }
+
