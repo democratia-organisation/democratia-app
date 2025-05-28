@@ -1,4 +1,5 @@
-﻿using com.democratia.ViewModels;
+﻿using com.democratia.core.Services;
+using com.democratia.ViewModels;
 
 namespace com.democratia.test.ViewModels
 {
@@ -8,11 +9,11 @@ namespace com.democratia.test.ViewModels
         [Fact]
         public void ConnecterInternauteTest()
         {
-            MainPageViewModel mainPageViewModel = new()
+            MainPageViewModel mainPageViewModel = new(new InternauteClient())
             {
                 AdresseMail = "modaherry@gmail.com",
                 MotDePasse = "Djonodo20050207/",
-                ErrorMessage = null
+                ErrorMessage = null,
             };
             var internaute = mainPageViewModel.ConnecterInternaute();
             

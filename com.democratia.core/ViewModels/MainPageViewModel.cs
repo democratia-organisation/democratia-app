@@ -37,6 +37,16 @@ namespace com.democratia.ViewModels
             }
         }
 
+        public MainPageViewModel(IClient? client)
+        {
+            this.client = client;
+            AdresseMail = string.Empty;
+            MotDePasse = string.Empty;
+            ErrorMessage = string.Empty;
+        }
+
+        public MainPageViewModel() : this(null){}
+
         public Internaute ConnecterInternaute()
         {
             
