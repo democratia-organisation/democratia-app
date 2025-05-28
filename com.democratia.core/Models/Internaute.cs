@@ -1,7 +1,8 @@
-﻿namespace com.democratia.Models
+﻿
+namespace com.democratia.Models
 {
     
-    public class Internaute(int? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postal, string? courriel, string? role)
+    public class Internaute(int? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postal, string? courriel, string? role) : IModel
     {
         public int? id_internaute { get; private set; } = id_internaute;
         public string? nom_internaute { get; private set; } = nom_internaute;

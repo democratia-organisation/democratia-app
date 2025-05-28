@@ -5,6 +5,6 @@ namespace com.democratia.ViewModels
 {
 	public interface IViewModel 
 	{
-		protected Client? client { get; }
+		public IClient? client { get; }
     }
 }
