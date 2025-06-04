@@ -12,17 +12,29 @@ namespace com.democratia.Services
 
         protected Client()
         {
-            client = new() {BaseAddress = new(BASE_URL)};
+            client = new() { BaseAddress = new(BASE_URL) };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             statutsMessage = string.Empty;
             statuts = 0;
         }
 
-        public abstract JsonArray GetInstance();
-
+        public abstract JsonArray GetInstance(int id);
 
         public abstract bool SuprimmerInstance(int id);
-        
+
+        public async Task<string> GetMethode()
+        {
+            var response = await client!.GetAsync("?request=getMethode");
+                response.EnsureSuccessStatusCode();
+            MettreAJourStatuts(response);
+            return await response.Content.ReadAsStringAsync();
+         }
+
+        protected void MettreAJourStatuts(HttpResponseMessage? response)
+        {
+            statuts = (int)response!.StatusCode;
+            statutsMessage = response.ReasonPhrase;
+        }
     }
 }

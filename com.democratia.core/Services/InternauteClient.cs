@@ -1,5 +1,4 @@
-﻿using com.democratia.Services;
-using System.Text.Json.Nodes;
+﻿using System.Text.Json.Nodes;
 
 namespace com.democratia.Services
 {
@@ -10,7 +9,7 @@ namespace com.democratia.Services
         public InternauteClient() : base() {}
 
         
-        public override JsonArray GetInstance()
+        public override JsonArray GetInstance(int id)
         {
             throw new NotImplementedException();
         }

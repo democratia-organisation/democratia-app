@@ -11,7 +11,7 @@ namespace com.democratia.Services
         /// Fonction qui permet une instance d'un modèle
         /// </summary>
         /// <returns>un json contenant du modèle nécessaire</returns>
-        public JsonArray GetInstance();
+        public JsonArray GetInstance(int id);
         public bool SuprimmerInstance(int id);
 
     }

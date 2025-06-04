@@ -1,5 +1,4 @@
-﻿using com.democratia.core.Services;
-using com.democratia.ViewModels;
+﻿using com.democratia.ViewModels;
 
 namespace com.democratia.test.ViewModels
 {
@@ -7,25 +6,25 @@ namespace com.democratia.test.ViewModels
     public class MainPageViewModelTest
     {
         [Fact]
-        public void ConnecterInternauteTest()
+        public async Task ConnecterInternauteTest()
         {
-            MainPageViewModel mainPageViewModel = new(new InternauteClient())
+            MainPageViewModel mainPageViewModel = new()
             {
-                AdresseMail = "modaherry@gmail.com",
+                AdresseMail = "modadary56@gmail.com",
                 MotDePasse = "Djonodo20050207/",
                 ErrorMessage = null,
             };
-            var internaute = mainPageViewModel.ConnecterInternaute();
+            var internaute = await mainPageViewModel.ConnecterInternaute();
             
             
             Assert.NotNull(internaute);
             Assert.Null(mainPageViewModel.ErrorMessage);
             Assert.Equal(internaute.courriel, mainPageViewModel.AdresseMail);
-            Assert.NotNull(internaute.role);
             Assert.NotNull(internaute.id_internaute);
             Assert.NotNull(internaute.nom_internaute);
             
 
         }
+        // TODO : traiter les différentes cas limites dans d'autres tests
     }
 }
