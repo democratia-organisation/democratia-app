@@ -1,6 +1,5 @@
 ﻿using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System;
 
 namespace com.democratia.ViewModels
 {
@@ -9,9 +8,9 @@ namespace com.democratia.ViewModels
     /// </summary>
     public abstract class ConnectableViewModel : ObservableObject
     {
-        protected Client? client;
+        protected IClient? client;
 
-        public ConnectableViewModel() {}
+        public ConnectableViewModel(IClient? client) { this.client = client; }
 
     }
 

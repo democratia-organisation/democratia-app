@@ -1,4 +1,4 @@
-﻿using com.democratia.Models;
+﻿using com.democratia.Services;
 using com.democratia.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +13,7 @@ namespace com.democratia
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddSingleton<INavigationService, ShellNavigationService>();
+            services.AddSingleton<IClient, InternauteClient>();
             services.AddTransient<MainPageViewModel>();
 
             return services;

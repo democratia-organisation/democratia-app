@@ -1,5 +1,3 @@
-using com.democratia.Services;
-using System;
 
 namespace com.democratia.ViewModels 
 {

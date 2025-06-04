@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Headers;
-using System.Text.Json.Nodes;
 
 namespace com.democratia.Services
 {
@@ -19,17 +18,15 @@ namespace com.democratia.Services
             statuts = 0;
         }
 
-        public abstract JsonArray GetInstance(int id);
-
-        public abstract bool SuprimmerInstance(int id);
-
         public async Task<string> GetMethode()
         {
             var response = await client!.GetAsync("?request=getMethode");
-                response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();
             MettreAJourStatuts(response);
             return await response.Content.ReadAsStringAsync();
          }
+
+        public abstract Task<string> GetModelAsync(params object?[] parameters);
 
         protected void MettreAJourStatuts(HttpResponseMessage? response)
         {

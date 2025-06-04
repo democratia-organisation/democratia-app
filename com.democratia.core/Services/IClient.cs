@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Nodes;
+﻿using com.democratia.Models;
 
 namespace com.democratia.Services
 {
@@ -7,12 +7,7 @@ namespace com.democratia.Services
     /// </summary>
     public interface IClient
     {
-        /// <summary>
-        /// Fonction qui permet une instance d'un modèle
-        /// </summary>
-        /// <returns>un json contenant du modèle nécessaire</returns>
-        public JsonArray GetInstance(int id);
-        public bool SuprimmerInstance(int id);
+        Task<string> GetModelAsync(params object?[] parameters);
 
     }
 }
