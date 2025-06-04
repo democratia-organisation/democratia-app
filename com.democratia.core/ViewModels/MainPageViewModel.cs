@@ -1,4 +1,5 @@
-﻿using com.democratia.Models;
+﻿using BCrypt.Net;
+using com.democratia.Models;
 using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -99,7 +100,7 @@ namespace com.democratia.ViewModels
 
         }
 
-        private bool VerifierMotDePasseUtilisateur(string hashedMotDePasse) => BCrypt.Verify(MotDePasse,hashedMotDePasse);
+        private bool VerifierMotDePasseUtilisateur(string hashedMotDePasse) => BCrypt.Net.BCrypt.Verify(MotDePasse,hashedMotDePasse);
         
     }
 }
