@@ -18,13 +18,13 @@ namespace com.democratia.Services
             statuts = 0;
         }
 
-        public async Task<string> GetMethode()
+        protected async Task<string> GetMethode()
         {
             var response = await client!.GetAsync("?request=getMethode");
             response.EnsureSuccessStatusCode();
             MettreAJourStatuts(response);
             return await response.Content.ReadAsStringAsync();
-         }
+        }
 
         public abstract Task<string> GetModelAsync(params object?[] parameters);
 

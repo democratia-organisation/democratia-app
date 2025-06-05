@@ -3,7 +3,7 @@ using com.democratia.ViewModels;
 
 public static class TestServiceCollection
 {
-    public static IServiceProvider CreateTestServiceProvider()
+    public static IServiceProvider CreateTestServiceProviderForMainViewModel()
     {
         var services = new ServiceCollection();
 

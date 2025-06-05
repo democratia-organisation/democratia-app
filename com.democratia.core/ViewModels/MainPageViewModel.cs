@@ -1,4 +1,4 @@
-﻿using BCrypt.Net;
+﻿using Crypt = BCrypt.Net.BCrypt;
 using com.democratia.Models;
 using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -21,7 +21,7 @@ namespace com.democratia.ViewModels
         [ObservableProperty]
         private string? errorMessage;
 
-        private INavigationService? navigationService;
+        private readonly INavigationService? navigationService;
 
         public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients) 
             : this(clients?.OfType<InternauteClient>().FirstOrDefault())
@@ -50,7 +50,6 @@ namespace com.democratia.ViewModels
             }
             catch (Exception ex)
             {
-                // TODO : dans la branche main, garder comme message d'erreur : $"Erreur lors de la navigation vers {commande}"
                 ErrorMessage = ex.Message;
             }
         }
@@ -59,7 +58,10 @@ namespace com.democratia.ViewModels
         {
                 
             var dictionnary = await client?.GetModelAsync(AdresseMail) !;
-            var listeInformation = RecuprerInformationConnexion(dictionnary);
+            var listeInformation = RecuprerInformationConnexion(dictionnary) ?? throw new Exception("Aucun internaute trouvé avec cette adresse mail");
+            var motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString() ?? string.Empty;
+            if(!VerifierMotDePasseUtilisateur(motDePasseHash)) throw new Exception("Mot de passe incorrecte");
+            
             // /!\ le casting est important car les valeurs ne
             // sont pas dans le type voulu mais dans le type JsonElement
             return new(
@@ -72,10 +74,10 @@ namespace com.democratia.ViewModels
         }
 
 
-        private List<Dictionary<string, object>>? RecuprerInformationConnexion(string jsonArray)
+        private List<Dictionary<string, object>>? RecuprerInformationConnexion(string stringJson)
         {
             Dictionary<string, object> dictionnary;
-            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonArray)!; }
+            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(stringJson)!; }
             catch (Exception) { throw new Exception($"erreur de réception des données"); }
             var rawElement = (JsonElement)dictionnary["data"];
             Object message;
@@ -83,7 +85,7 @@ namespace com.democratia.ViewModels
             {
 
                 case JsonValueKind.Number:
-                    message = rawElement.GetInt32(); // ou raw.GetInt32().ToString(), selon besoin
+                    message = rawElement.GetInt32();
                     break;
 
                 case JsonValueKind.True:
@@ -91,16 +93,20 @@ namespace com.democratia.ViewModels
                     message = rawElement.GetBoolean();
                     break;
 
-                default:
-                    message = rawElement.GetRawText(); // renvoie le JSON brut (utile si objet/tableau)
+                case JsonValueKind.Array:
+                    message = rawElement.GetRawText();
                     break;
+
+                default:
+                    throw new Exception("erreur de réception des données, donnée inattendue");
+
             }
             if (message is int) return null;
             else  return JsonSerializer.Deserialize<List<Dictionary<string, object>>>(message.ToString()!)!;
 
         }
 
-        private bool VerifierMotDePasseUtilisateur(string hashedMotDePasse) => BCrypt.Net.BCrypt.Verify(MotDePasse,hashedMotDePasse);
+        private bool VerifierMotDePasseUtilisateur(string hashedMotDePasse) => Crypt.Verify(MotDePasse,hashedMotDePasse);
         
     }
 }
