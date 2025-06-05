@@ -33,13 +33,20 @@ namespace com.democratia.test.ViewModels
         }
 
         [Theory]
-        [InlineData("", "Djonodo20050207/")]
+        [InlineData("fezfzfzefz", "Djonodo20050207/")]
         [InlineData("modadary56@gmail.com", "Djonodo20050207/erreur")]
+        [InlineData("", "")]
         public async Task ConnecterInternauteErrorIdentificationTest(string? identifiant, string? motDePasse)
         {
+
             mainPageViewModel!.AdresseMail = identifiant;
             mainPageViewModel.MotDePasse = motDePasse;
-            await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel.ConnecterInternaute());
+
+            if (string.IsNullOrEmpty(mainPageViewModel.MotDePasse) || string.IsNullOrEmpty(mainPageViewModel.AdresseMail))
+                await Assert.ThrowsAsync<ArgumentException>(async () => await mainPageViewModel!.ConnecterInternaute());
+            else
+                await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel.ConnecterInternaute());
+            
         }
     }
 }

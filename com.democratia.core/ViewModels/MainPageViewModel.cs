@@ -57,8 +57,13 @@ namespace com.democratia.ViewModels
         internal async Task<Internaute?> ConnecterInternaute()
         {
                 
-            var dictionnary = await client?.GetModelAsync(AdresseMail) !;
-            var listeInformation = RecuprerInformationConnexion(dictionnary) ?? throw new Exception("Aucun internaute trouvé avec cette adresse mail");
+            if(string.IsNullOrEmpty(AdresseMail) || string.IsNullOrEmpty(MotDePasse))
+            {
+                if (string.IsNullOrEmpty(AdresseMail)) throw new ArgumentException("Veuillez saisir votre adresse mail");
+                else throw new ArgumentException("Veuillez saisir votre mot de passe");
+            }
+            var jsonString = await client?.GetModelAsync(AdresseMail) !;
+            var listeInformation = RecuprerInformationConnexion(jsonString) ?? throw new Exception("Aucun internaute trouvé avec cette adresse mail");
             var motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString() ?? string.Empty;
             if(!VerifierMotDePasseUtilisateur(motDePasseHash)) throw new Exception("Mot de passe incorrecte");
             
@@ -78,7 +83,7 @@ namespace com.democratia.ViewModels
         {
             Dictionary<string, object> dictionnary;
             try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(stringJson)!; }
-            catch (Exception) { throw new Exception($"erreur de réception des données"); }
+            catch (Exception) { throw new Exception("Erreur de réception des données"); }
             var rawElement = (JsonElement)dictionnary["data"];
             Object message;
             switch (rawElement.ValueKind)
@@ -98,7 +103,7 @@ namespace com.democratia.ViewModels
                     break;
 
                 default:
-                    throw new Exception("erreur de réception des données, donnée inattendue");
+                    throw new Exception("Erreur de réception des données");
 
             }
             if (message is int) return null;
