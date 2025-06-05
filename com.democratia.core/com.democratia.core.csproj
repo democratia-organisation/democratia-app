@@ -5,14 +5,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<OutputType Condition="'$(TargetFramework)' == 'net9.0'">Library</OutputType>
+	  <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="FluentAssertions" Version="8.3.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
     <PackageReference Include="Microsoft.Maui.Controls.Core" Version="9.0.70" />
     <PackageReference Include="NSubstitute" Version="5.3.0" />
+	<InternalsVisibleTo Include="com.democratia.Test"/>
   </ItemGroup>
 
 </Project>

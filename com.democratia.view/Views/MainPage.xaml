@@ -4,14 +4,19 @@
              xmlns:local="clr-namespace:com.democratia.Views"
              xmlns:component="clr-namespace:com.democratia.Views.Component"
              xmlns:viewModels="clr-namespace:com.democratia.ViewModels;assembly=com.democratia.core"
+             xmlns:converters="clr-namespace:com.democratia.Utils;assembly=com.democratia.core"
              x:Class="com.democratia.Views.MainPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewModels:MainPageViewModel"
              Style="{DynamicResource fondEcran}">
     
-    <ContentPage.BindingContext>
-        <viewModels:MainPageViewModel/>
-    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
 
     <ScrollView>
         <Grid x:Name="grille">
@@ -59,6 +64,11 @@
                             <TapGestureRecognizer Command="{Binding NavigateTappedCommand}" CommandParameter="Creation" />
                         </Label.GestureRecognizers>
                     </Label>
+                    <Label Text="{Binding ErrorMessage}"
+                        Style="{DynamicResource LabelStyle}"
+                        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}"
+                        x:Name="errorMessageLabel"
+                        HorizontalOptions="Center"/>
                 </HorizontalStackLayout>
 
                 <BoxView HeightRequest="30"/>

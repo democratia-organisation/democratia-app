@@ -1,7 +1,9 @@
 using System;
 
 namespace com.democratia.Models {
-	public interface Model {
+	public interface IModel 
+	{
+
 	}
 
 }
