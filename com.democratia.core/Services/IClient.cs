@@ -8,6 +8,7 @@ namespace com.democratia.Services
     public interface IClient
     {
         Task<string> GetModelAsync(params object?[] parameters);
+        public void SetPort(int port);
 
     }
 }

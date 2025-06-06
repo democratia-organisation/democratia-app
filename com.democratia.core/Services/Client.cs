@@ -11,6 +11,7 @@ namespace com.democratia.Services
 
         protected Client()
         {
+            // TODO : peut-être mettre un timeout si le temps d'attente est vraiment invivable côté client
             client = new() { BaseAddress = new(BASE_URL) };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -24,6 +25,11 @@ namespace com.democratia.Services
             response.EnsureSuccessStatusCode();
             MettreAJourStatuts(response);
             return await response.Content.ReadAsStringAsync();
+        }
+
+        public void SetPort(int port)
+        {
+            client!.BaseAddress = new Uri($"https://projets.iut-orsay.fr:{port}/saes3-mmarti32/API/rest.php");
         }
 
         public abstract Task<string> GetModelAsync(params object?[] parameters);

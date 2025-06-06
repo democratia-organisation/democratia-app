@@ -32,21 +32,37 @@ namespace com.democratia.test.ViewModels
 
         }
 
+        [Fact]
+        public async Task ConnecterInternauteErrorInternetTest()
+        {
+            mainPageViewModel!.client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
+            
+            var exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
+            
+            Assert.Equal("Erreur de connexion inattendu", exception.Message);
+
+        }
+
         [Theory]
-        [InlineData("fezfzfzefz", "Djonodo20050207/")]
-        [InlineData("modadary56@gmail.com", "Djonodo20050207/erreur")]
-        [InlineData("", "")]
-        public async Task ConnecterInternauteErrorIdentificationTest(string? identifiant, string? motDePasse)
+        [InlineData("fezfzfzefz", "Djonodo20050207/", "Aucun internaute trouvé avec cette adresse mail")]
+        [InlineData("modadary56@gmail.com", "Djonodo20050207/erreur", "Mot de passe incorrecte")]
+        [InlineData("", "", "Veuillez saisir votre adresse mail")]
+        [InlineData("dadadzadzada", "", "Veuillez saisir votre mot de passe")]
+        public async Task ConnecterInternauteErrorIdentificationTest(string? identifiant, string? motDePasse, string? messageDerreur)
         {
 
             mainPageViewModel!.AdresseMail = identifiant;
             mainPageViewModel.MotDePasse = motDePasse;
+            Exception exception;
 
             if (string.IsNullOrEmpty(mainPageViewModel.MotDePasse) || string.IsNullOrEmpty(mainPageViewModel.AdresseMail))
-                await Assert.ThrowsAsync<ArgumentException>(async () => await mainPageViewModel!.ConnecterInternaute());
-            else
-                await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel.ConnecterInternaute());
+                exception = await Assert.ThrowsAsync<ArgumentException>(async () => await mainPageViewModel!.ConnecterInternaute());
             
+            else
+                exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel.ConnecterInternaute());
+
+            Assert.Equal(messageDerreur, exception.Message);
+
         }
     }
 }
