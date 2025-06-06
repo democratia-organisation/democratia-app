@@ -62,10 +62,14 @@ namespace com.democratia.ViewModels
                 if (string.IsNullOrEmpty(AdresseMail)) throw new ArgumentException("Veuillez saisir votre adresse mail");
                 else throw new ArgumentException("Veuillez saisir votre mot de passe");
             }
-            var jsonString = await client?.GetModelAsync(AdresseMail) !;
+            string jsonString;
+            try 
+                { jsonString = await client?.GetModelAsync(AdresseMail)!; } 
+            catch (Exception) 
+                { throw new Exception("Erreur de connexion inattendu"); }
             var listeInformation = RecuprerInformationConnexion(jsonString) ?? throw new Exception("Aucun internaute trouvé avec cette adresse mail");
-            var motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString() ?? string.Empty;
-            if(!VerifierMotDePasseUtilisateur(motDePasseHash)) throw new Exception("Mot de passe incorrecte");
+            var motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString();
+            if(!VerifierMotDePasseUtilisateur(motDePasseHash!)) throw new Exception("Mot de passe incorrecte");
             
             // /!\ le casting est important car les valeurs ne
             // sont pas dans le type voulu mais dans le type JsonElement
@@ -106,7 +110,7 @@ namespace com.democratia.ViewModels
                     throw new Exception("Erreur de réception des données");
 
             }
-            if (message is int) return null;
+            if (message is int || message is bool) return null;
             else  return JsonSerializer.Deserialize<List<Dictionary<string, object>>>(message.ToString()!)!;
 
         }

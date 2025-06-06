@@ -13,7 +13,11 @@ namespace com.democratia.Services
             client!.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = await client.GetAsync($"""?request=SELECT * FROM internaute WHERE courriel=?&parameters=+["{parameters[0]}"]""");
+            HttpResponseMessage? response; 
+            try
+            { response = await client.GetAsync($"""?request=SELECT * FROM internaute WHERE courriel=?&parameters=+["{parameters[0]}"]""");}
+            catch (Exception ex) when (ex is HttpRequestException)
+            { throw new HttpRequestException("Erreur de connexion inattendu", ex); }
             if (!response.IsSuccessStatusCode)
             {
                 MettreAJourStatuts(response);
