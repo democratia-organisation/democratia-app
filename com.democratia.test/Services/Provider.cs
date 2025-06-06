@@ -1,17 +1,10 @@
-﻿
-using com.democratia.Services;
+﻿using com.democratia.Services;
 
 namespace com.democratia.test.Services
 {
-    public class Provider
+    public class Provider(IEnumerable<IClient?>? clients)
     {
 
-        public readonly IEnumerable<IClient?>? clients;
-
-        public Provider(IEnumerable<IClient?>? clients)
-        {
-            
-            this.clients = clients;
-        }
+        public readonly IEnumerable<IClient?>? clients = clients;
     }
 }

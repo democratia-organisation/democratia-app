@@ -6,11 +6,7 @@ namespace com.democratia.test.Services
     {
         private IServiceProvider? _serviceProvider;
 
-        public static IEnumerable<object[]> ClientData =>
-            new List<object[]>
-            {
-                    new object[] { new InternauteClient(), "modadary56@gmail.com" },
-            };
+        public static IEnumerable<object[]> ClientData => [[new InternauteClient(), "modadary56@gmail.com"]];
 
         [Theory]
         [MemberData(nameof(ClientData))]
