@@ -1,10 +1,12 @@
 ﻿using System.Net.Http.Headers;
+using Xunit.Abstractions;
 
 namespace com.democratia.Services
 {
+    
     public abstract class Client : IClient
     {
-        protected static readonly string BASE_URL = "https://projets.iut-orsay.fr/saes3-mmarti32/API/rest.php";
+        private static string? BASE_URL;
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
@@ -12,19 +14,17 @@ namespace com.democratia.Services
         protected Client()
         {
             // TODO : peut-être mettre un timeout si le temps d'attente est vraiment invivable côté client
+            BASE_URL = "https://projets.iut-orsay.fr/saes3-mmarti32/API/rest.php";
             client = new() { BaseAddress = new(BASE_URL) };
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             statutsMessage = string.Empty;
             statuts = 0;
         }
 
         protected async Task<string> GetMethode()
         {
+            DebutRequete();
             var response = await client!.GetAsync("?request=getMethode");
-            response.EnsureSuccessStatusCode();
-            MettreAJourStatuts(response);
-            return await response.Content.ReadAsStringAsync();
+            return await FinRequete(response);
         }
 
         public void SetPort(int port)
@@ -38,6 +38,39 @@ namespace com.democratia.Services
         {
             statuts = (int)response!.StatusCode;
             statutsMessage = response.ReasonPhrase;
+        }
+
+        public void Deserialize(IXunitSerializationInfo info)
+        {
+            BASE_URL = info.GetValue<string>("BaseUrl");
+            statutsMessage = info.GetValue<string>("StatutsMessage");
+            statuts = info.GetValue<int?>("Statuts");
+            
+            client = new HttpClient { BaseAddress = new Uri(BASE_URL) };
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        public void Serialize(IXunitSerializationInfo info)
+        {
+            info.AddValue("BaseUrl", BASE_URL);
+            info.AddValue("StatutsMessage", statutsMessage);
+            info.AddValue("Statuts", statuts);
+        }
+
+        protected async Task<string> FinRequete(HttpResponseMessage response)
+        {
+            MettreAJourStatuts(response);
+            if (!response.IsSuccessStatusCode) throw new Exception("Requete râté");
+
+            else
+                return await response.Content.ReadAsStringAsync();
+        }
+
+        protected void DebutRequete()
+        {
+            client!.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
     }
 }

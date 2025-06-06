@@ -83,33 +83,19 @@ namespace com.democratia.ViewModels
         }
 
 
-        private List<Dictionary<string, object>>? RecuprerInformationConnexion(string stringJson)
+        private static List<Dictionary<string, object>>? RecuprerInformationConnexion(string stringJson)
         {
             Dictionary<string, object> dictionnary;
             try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(stringJson)!; }
             catch (Exception) { throw new Exception("Erreur de réception des données"); }
             var rawElement = (JsonElement)dictionnary["data"];
-            Object message;
-            switch (rawElement.ValueKind)
+            object message = rawElement.ValueKind switch
             {
-
-                case JsonValueKind.Number:
-                    message = rawElement.GetInt32();
-                    break;
-
-                case JsonValueKind.True:
-                case JsonValueKind.False:
-                    message = rawElement.GetBoolean();
-                    break;
-
-                case JsonValueKind.Array:
-                    message = rawElement.GetRawText();
-                    break;
-
-                default:
-                    throw new Exception("Erreur de réception des données");
-
-            }
+                JsonValueKind.Number => rawElement.GetInt32(),
+                JsonValueKind.True or JsonValueKind.False => rawElement.GetBoolean(),
+                JsonValueKind.Array => rawElement.GetRawText(),
+                _ => throw new Exception("Erreur de réception des données"),
+            };
             if (message is int || message is bool) return null;
             else  return JsonSerializer.Deserialize<List<Dictionary<string, object>>>(message.ToString()!)!;
 

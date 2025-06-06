@@ -21,6 +21,7 @@ namespace com.democratia.test.ViewModels
         public async Task ConnecterInternauteTest()
         {
             var internaute = await mainPageViewModel!.ConnecterInternaute();
+
             Assert.NotNull(internaute);
             Assert.NotNull(internaute.id_internaute);
             Assert.Null(mainPageViewModel.ErrorMessage);

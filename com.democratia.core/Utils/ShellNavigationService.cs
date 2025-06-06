@@ -1,5 +1,7 @@
 using Microsoft.Maui.Controls;
 
+namespace com.democratia.ViewModels;
+
 public class ShellNavigationService : INavigationService
 {
     public Task GoToAsync(string route, ShellNavigationQueryParameters? parameters = null)
@@ -7,7 +9,6 @@ public class ShellNavigationService : INavigationService
         // Ensure parameters is not null by initializing it if necessary
         parameters ??= [];
 
-        // Example implementation of navigation logic
         return Shell.Current.GoToAsync(route, parameters);
     }
 }
