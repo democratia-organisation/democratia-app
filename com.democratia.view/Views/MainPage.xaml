@@ -9,7 +9,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewModels:MainPageViewModel"
              Style="{DynamicResource fondEcran}">
-    
+    <!--refléchir à comment faire pour afficher un texte après une création avec succès d'un compte depuis l'écran viewModel-->
 
     <ContentPage.Resources>
         <ResourceDictionary>

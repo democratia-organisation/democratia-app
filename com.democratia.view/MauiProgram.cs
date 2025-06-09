@@ -20,6 +20,7 @@ namespace com.democratia
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
             builder.Services.AddServices();
+            builder.Services.AddTransient<Creation>();
             builder.Services.AddTransient<MainPage>();
 
 

@@ -1,9 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using com.democratia.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace com.democratia.ViewModels
 {
-    public partial class CreationViewModel : ObservableObject, INavigeablleViewModel
+    public partial class CreationViewModel : ConnectableViewModel, INavigeablleViewModel
     {
         
         [ObservableProperty] private string? nomDeFamille ;
@@ -18,6 +19,17 @@ namespace com.democratia.ViewModels
         
         private INavigationService? navigationService;
 
+        public CreationViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
+            : this(clients?.OfType<InternauteClient>().FirstOrDefault())
+        {
+            this.navigationService = navigationService;
+        }
+
+        public CreationViewModel(Client? client) : base(client) { }
+
+
+        public CreationViewModel() : base(null) { }
+
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
@@ -31,7 +43,7 @@ namespace com.democratia.ViewModels
         
         private bool VerifierChampComplet()
         {
-            throw new   NotImplementedException("Not implemented");
+            throw new NotImplementedException("Not implemented");
         }
         private bool VerifierFormatageMail()
         {

@@ -8,9 +8,6 @@
              x:DataType="viewModel:CreationViewModel"
              Style="{DynamicResource fondEcran}"
              >
-    <ContentPage.BindingContext>
-        <viewModel:CreationViewModel/>
-    </ContentPage.BindingContext>
 
         <ScrollView>
         <Grid>
@@ -24,18 +21,18 @@
         <StackLayout Padding="10" Grid.Row="1">
             <BoxView HeightRequest="50"/>
             <component:EntryComponent Title="Nom de Famille" x:Name="nomDeFamilleComponent" ValeurDonne="{Binding NomDeFamille}"/>
-                <component:EntryComponent Title="Prénom" x:Name="prenomComponent" ValeurDonne="{Binding Prenom}"/>
-                <component:EntryComponent Title="Adresse Postale" x:Name="addresseComponent" ValeurDonne="{Binding AdressePostal}"/>
-                <component:EntryComponent Title="Adresse mail" x:Name="mailComponent" ValeurDonne="{Binding AdresseMail}"/>
-                <component:EntryComponent Title="Mot de passe" PassWord="True" x:Name="passwordComponent" ValeurDonne="{Binding MotDePasse}"/>
+            <component:EntryComponent Title="Prénom" x:Name="prenomComponent" ValeurDonne="{Binding Prenom}"/>
+            <component:EntryComponent Title="Adresse Postale" x:Name="addresseComponent" ValeurDonne="{Binding AdressePostal}"/>
+            <component:EntryComponent Title="Adresse mail" x:Name="mailComponent" ValeurDonne="{Binding AdresseMail}"/>
+            <component:EntryComponent Title="Mot de passe" PassWord="True" x:Name="passwordComponent" ValeurDonne="{Binding MotDePasse}"/>
             <BoxView HeightRequest="100"/>
-                <Button
+            <Button
                 Text="M'inscrire"
                 x:Name="inscriptionButton"
                 Style="{DynamicResource ButtonStyle}"
                 MaximumWidthRequest="300"
-                Command="{Binding InscriptionCommand}"
-                />
+                Command="{Binding NavigateTappedCommand}"
+            />
             </StackLayout>
         </Grid>
     </ScrollView>
