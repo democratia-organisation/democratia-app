@@ -9,6 +9,7 @@ namespace com.democratia.Services
     {
         Task<string> GetModelAsync(params object?[] parameters);
         public void SetPort(int port);
+        public Task<string> CreateModelAsync(params object?[]? parameters);
 
     }
 }

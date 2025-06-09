@@ -2,7 +2,7 @@
 using com.democratia.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace com.democratia
+namespace com.democratia.Utils
 {
     public static class ServiceCollection
     {

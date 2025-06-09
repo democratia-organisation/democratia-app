@@ -72,5 +72,7 @@ namespace com.democratia.Services
             client!.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+
+        public abstract Task<string> CreateModelAsync(params object?[]? parameters);
     }
 }

@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace com.democratia.ViewModels
 {
-    public partial class CreationViewModel : ObservableObject
+    public partial class CreationViewModel : ObservableObject, INavigeablleViewModel
     {
         
         [ObservableProperty] private string? nomDeFamille ;
@@ -15,15 +15,45 @@ namespace com.democratia.ViewModels
         [ObservableProperty] private string? adresseMail ;
 
         [ObservableProperty] private string? motDePasse ;
+        
+        private INavigationService? navigationService;
 
         [RelayCommand]
-        private void Inscription()
+        public async Task NavigateTapped(string commande)
         {
-            // TODO : Implémenter la logique d'inscription
+            throw new NotImplementedException();
         }
 
+        internal async Task CreerInternaute()
+        {
+            throw new NotImplementedException("Not implemented");
+        }
+        
+        private bool VerifierChampComplet()
+        {
+            throw new   NotImplementedException("Not implemented");
+        }
+        private bool VerifierFormatageMail()
+        {
+            throw new NotImplementedException("Not implemented");
+        }
+        private void VerifierMailDoublon()
+        {
+            throw new NotImplementedException("Not implemented");
+        }
+        private void VerifieFormattageMotDePasse()
+        {
+            throw new NotImplementedException("Not implemented");
+        }
+        private object RecupererValeurRetour()
+        {
+            throw new   NotImplementedException("Not implemented");
+        }
+        private List<Dictionary<string,object>> ConversionToObject()
+        {
+            throw new   NotImplementedException("Not implemented");
+        }
 
-
-
+        
     }
 }

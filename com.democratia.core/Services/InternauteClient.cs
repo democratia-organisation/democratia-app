@@ -8,6 +8,11 @@ namespace com.democratia.Services
 
         public InternauteClient() : base() {}
 
+        public override Task<string> CreateModelAsync(params object?[]? parameters)
+        {
+            throw new NotImplementedException("Not implemented");
+        }
+
         public async override Task<string> GetModelAsync(params object?[] parameters)
         {
             DebutRequete();
