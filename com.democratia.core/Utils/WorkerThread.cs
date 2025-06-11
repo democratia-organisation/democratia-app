@@ -93,7 +93,7 @@ namespace com.democratia.Utils
 
         private dynamic? DynamicInvokeSmart(object?[]? flatArgs)
         {
-            var parameters = @delegate.Method.GetParameters();
+            ParameterInfo [] parameters = @delegate.Method.GetParameters();
 
             if (parameters.Length == 0) try { return @delegate.DynamicInvoke(); } catch (TargetInvocationException targ) { throw targ.InnerException ?? targ; }
 
@@ -112,10 +112,10 @@ namespace com.democratia.Utils
 
             if (hasParams)
             {
-                var paramElementType = parameters.Last().ParameterType.GetElementType()!;
-                var paramArgs = flatArgs?.Skip(fixedCount).ToArray();
+                Type? paramElementType = parameters.Last().ParameterType.GetElementType()!;
+                object? [] paramArgs = flatArgs?.Skip(fixedCount).ToArray() !;
 
-                var paramArray = paramArgs != null ? Array.CreateInstance(paramElementType, paramArgs.Length) : throw new NullReferenceException("référencement null");
+                Array paramArray = paramArgs != null ? Array.CreateInstance(paramElementType, paramArgs.Length) : throw new NullReferenceException("référencement null");
                 for (int i = 0; i < paramArgs.Length; i++)
                     paramArray.SetValue(paramArgs[i], i);
 

@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
     public MainPage(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
     {
         InitializeComponent();
-        var viewModel = navigeablleViewModels!.OfType<MainPageViewModel>().FirstOrDefault();
+        MainPageViewModel? viewModel = navigeablleViewModels!.OfType<MainPageViewModel>().FirstOrDefault();
         BindingContext = viewModel ?? throw new ArgumentNullException(nameof(viewModel), "ViewModel cannot be null.");
         viewModel.PropertyChanged += (sender, args) =>
         {

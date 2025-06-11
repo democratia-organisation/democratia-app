@@ -1,4 +1,5 @@
-﻿using com.democratia.ViewModels;
+﻿using com.democratia.Models;
+using com.democratia.ViewModels;
 
 namespace com.democratia.test.ViewModels
 {
@@ -20,7 +21,7 @@ namespace com.democratia.test.ViewModels
         [Fact]
         public async Task ConnecterInternauteTest()
         {
-            var internaute = await mainPageViewModel!.ConnecterInternaute();
+            Internaute? internaute = await mainPageViewModel!.ConnecterInternaute();
 
             Assert.NotNull(internaute);
             Assert.NotNull(internaute.id_internaute);
@@ -38,7 +39,7 @@ namespace com.democratia.test.ViewModels
         {
             mainPageViewModel!.client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
             
-            var exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
+            Exception exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
             
             Assert.Equal("Erreur de connexion inattendu", exception.Message);
 

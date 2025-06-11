@@ -67,8 +67,8 @@ namespace com.democratia.ViewModels
                 { jsonString = await client?.GetModelAsync(AdresseMail)!; } 
             catch (Exception) 
                 { throw new Exception("Erreur de connexion inattendu"); }
-            var listeInformation = RecuprerInformationConnexion(jsonString) ?? throw new Exception("Aucun internaute trouvé avec cette adresse mail");
-            var motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString();
+            List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString) ?? throw new Exception("Aucun internaute trouvé avec cette adresse mail");
+            string motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString() !;
             if(!VerifierMotDePasseUtilisateur(motDePasseHash!)) throw new Exception("Mot de passe incorrecte");
             
             // /!\ le casting est important car les valeurs ne

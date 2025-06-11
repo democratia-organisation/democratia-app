@@ -23,7 +23,7 @@ namespace com.democratia.Services
         protected async Task<string> GetMethode()
         {
             DebutRequete();
-            var response = await client!.GetAsync("?request=getMethode");
+            HttpResponseMessage response = await client!.GetAsync("?request=getMethode");
             return await FinRequete(response);
         }
 
