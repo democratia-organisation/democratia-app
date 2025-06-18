@@ -8,15 +8,20 @@ namespace com.democratia.test.Services
 
         public static TheoryData<Client, string> ClientData => new()
         {
+            // TODO : ajouter les autres clients à tester quand ils seront implémentés
             { new InternauteClient(), "modadary56@gmail.com" }
         };
+
+        public ClientTest()
+        {
+            _serviceProvider = TestServiceCollection.CreateTestServiceProviderForClients();
+        }
 
         [Theory]
         [MemberData(nameof(ClientData))]
         public async Task GetMethodeTest(Client client, params object?[]? parameters)
         {
-            _serviceProvider = TestServiceCollection.CreateTestServiceProviderForClients();
-            Provider provider = _serviceProvider.GetRequiredService<Provider>();
+            Provider provider = _serviceProvider!.GetRequiredService<Provider>();
             IEnumerable<IClient?>? clients = provider.clients;
             IClient? testeur = clients!.FirstOrDefault(c => c?.GetType() == client.GetType());
 
@@ -33,8 +38,7 @@ namespace com.democratia.test.Services
         public async Task GetMethodeErroConnexoTest(Client client, params object?[]? parameters)
         {
             
-            _serviceProvider = TestServiceCollection.CreateTestServiceProviderForClients();
-            Provider provider = _serviceProvider.GetRequiredService<Provider>();
+            Provider provider = _serviceProvider!.GetRequiredService<Provider>();
             IEnumerable<IClient?>? clients = provider.clients;
             IClient? testeur = clients!.FirstOrDefault(c => c?.GetType() == client.GetType());
             testeur?.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
@@ -44,5 +48,7 @@ namespace com.democratia.test.Services
             HttpRequestException result = await Assert.ThrowsAsync<HttpRequestException>(async () => await testeur!.GetModelAsync(parameters![0]));
             Assert.Equal("Erreur de connexion inattendu", result.Message);
         }
+
+        // TODO : tester CreateModelAsync quand il sera implémenté
     }
 }

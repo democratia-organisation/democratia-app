@@ -37,7 +37,7 @@ namespace com.democratia.test.ViewModels
         [Fact]
         public async Task ConnecterInternauteErrorInternetTest()
         {
-            mainPageViewModel!.client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
+            mainPageViewModel!.Client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
             
             Exception exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
             

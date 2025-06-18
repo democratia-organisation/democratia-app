@@ -8,7 +8,8 @@ namespace com.democratia.ViewModels
     /// </summary>
     public abstract class ConnectableViewModel(IClient? client) : ObservableObject
     {
-        public readonly IClient? client = client;
+        protected readonly IClient? client = client;
+        public IClient? Client => client;
     }
 
 }

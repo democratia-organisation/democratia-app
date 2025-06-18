@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using com.democratia.ViewModels;
 
 namespace com.democratia.test.ViewModels
 {
-    internal class CreationViewModelTest
+    public class CreationViewModelTest
     {
+        [Fact]  
+        public void TestCreationViewModel()
+        {
+            // Arrange
+            var viewModel = new CreationViewModel();
+            
+        }
     }
 }

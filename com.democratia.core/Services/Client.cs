@@ -6,7 +6,7 @@ namespace com.democratia.Services
     
     public abstract class Client : IClient
     {
-        private static string? BASE_URL;
+        protected static string? BASE_URL;
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
@@ -27,6 +27,11 @@ namespace com.democratia.Services
             return await FinRequete(response);
         }
 
+        /// <summary>
+        /// fonction qui permet de changer le port de l'API.
+        /// Utilisée pour les tests unitaires afin de simuler une erreur de connexion internet.
+        /// </summary>
+        /// <param name="port">le numéro de port</param>
         public void SetPort(int port)
         {
             client!.BaseAddress = new Uri($"https://projets.iut-orsay.fr:{port}/saes3-mmarti32/API/rest.php");
