@@ -24,7 +24,7 @@ namespace UITests
             if((AppiumSetup.device=="ios" || AppiumSetup.device == "macos") && SystemInfo.GetHostOS()=="Windows")
             {
                 // string sortie = AppiumSetup.sshSortie;
-                // TODO interpréter la sortie pour l'affichier sur le runner de test
+                // TODO interpréter la sortie pour l'affichier sur l'explorateur de test
                 return;
                 
             }
