@@ -23,6 +23,8 @@ namespace UITests
             
             if((AppiumSetup.device=="ios" || AppiumSetup.device == "macos") && SystemInfo.GetHostOS()=="Windows")
             {
+                // TODO : à décommenter quand je serai connecté en ssh à un Mac et que le mac aura
+                // installé Appium, dotnet et le projet
                 // string sortie = AppiumSetup.sshSortie;
                 // TODO interpréter la sortie pour l'affichier sur l'explorateur de test
                 return;

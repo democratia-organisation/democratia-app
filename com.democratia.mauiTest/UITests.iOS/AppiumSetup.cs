@@ -18,9 +18,11 @@ namespace UITests
         {
             if (SystemInfo.GetHostOS() != "macOS")
             {
+                // TODO : à décommenter quand je serai connecté en ssh à un Mac et que le mac aura
+                // installé Appium, dotnet et le projet
                 //var sortie = RunAppiumIOSOverSSH("<macIp>", "<macUser>", "<macProjectDir>");
-                //if (sortie.Contains("Error:"))
-                //else 
+                //if (!sortie.Contains("Test Output")) throw new Exception($"Error starting Appium: {sortie}");
+                //else sshSortie = sortie;
 
                 return;
             }
@@ -67,7 +69,7 @@ namespace UITests
             var output = proc?.StandardOutput.ReadToEnd();
             var error = proc?.StandardError.ReadToEnd();
 
-            return !string.IsNullOrEmpty(error) ? $"Test Output:\n{output}\nError:\n{error}" : $"Test Output:\n{output}";
+            return !string.IsNullOrEmpty(error) ? $"Error:\n{error}" : $"Test Output:\n{output}";
         }
 
         public static void RunBeforeAnyTests()
