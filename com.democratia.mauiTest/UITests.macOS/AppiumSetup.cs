@@ -36,7 +36,7 @@ namespace UITests
                     // Always Mac for Mac
                     PlatformName = "Mac",
                     // The full path to the .app file to test
-                    App = "C:\\Users\\naher\\Documents\\autre\\projet\\projets_personnel\\democratia\\application\\com.democratia.view\\bin\\Debug\\net9.0-maccatalyst\\maccatalyst-x64\\com.democratia.view.app",
+                    App = "/path/to/project/com.democratia.view/bin/Debug/net9.0-maccatalyst/maccatalyst-x64/com.democratia.view.app"
                 };
 
                 // Setting the Bundle ID is required, else the automation will run on Finder
