@@ -1,6 +1,7 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.Mac;
+using System.Diagnostics;
 
 namespace UITests
 {
@@ -8,26 +9,62 @@ namespace UITests
     {
         private static AppiumDriver? driver;
 
+        public static string device = "macos";
+
+        public static string sshSortie = string.Empty;
+
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
 
         public AppiumSetup()
         {
-            var macOptions = new AppiumOptions
+            if (SystemInfo.GetHostOS() != "macOS")
             {
-                // Specify mac2 as the driver, typically don't need to change this
-                AutomationName = "mac2",
-                // Always Mac for Mac
-                PlatformName = "Mac",
-                // The full path to the .app file to test
-                App = "C:\\Users\\naher\\Documents\\autre\\projet\\projets_personnel\\democratia\\application\\com.democratia.view\\bin\\Debug\\net9.0-maccatalyst\\maccatalyst-x64\\com.democratia.view.app",
+                //var sortie = RunAppiumIOSOverSSH("<macIp>", "<macUser>", "<macProjectDir>");
+                //if (sortie.Contains("Error:"))
+                //else 
+                
+                return;
+            }
+            else
+            {
+                var macOptions = new AppiumOptions
+                {
+                    // Specify mac2 as the driver, typically don't need to change this
+                    AutomationName = "mac2",
+                    // Always Mac for Mac
+                    PlatformName = "Mac",
+                    // The full path to the .app file to test
+                    App = "C:\\Users\\naher\\Documents\\autre\\projet\\projets_personnel\\democratia\\application\\com.democratia.view\\bin\\Debug\\net9.0-maccatalyst\\maccatalyst-x64\\com.democratia.view.app",
+                };
+
+                // Setting the Bundle ID is required, else the automation will run on Finder
+                macOptions.AddAdditionalAppiumOption(IOSMobileCapabilityType.BundleId, "com.democratia");
+
+                // Note there are many more options that you can use to influence the app under test according to your needs
+
+                driver = new MacDriver(macOptions);
+            }
+        }
+
+        private static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir)
+        {
+            var command = $"ssh {macUser}@{macIp} \"cd {macProjectDir} && nohup appium > appium.log 2>&1 & dotnet test\"";
+            var process = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = $"/C {command}",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
             };
 
-            // Setting the Bundle ID is required, else the automation will run on Finder
-            macOptions.AddAdditionalAppiumOption(IOSMobileCapabilityType.BundleId, "com.democratia");
+            using var proc = Process.Start(process);
+            proc?.WaitForExit();
+            var output = proc?.StandardOutput.ReadToEnd();
+            var error = proc?.StandardError.ReadToEnd();
 
-            // Note there are many more options that you can use to influence the app under test according to your needs
-
-            driver = new MacDriver(macOptions);
+            return !string.IsNullOrEmpty(error) ? $"Test Output:\n{output}\nError:\n{error}" : $"Test Output:\n{output}";
         }
 
         public static void RunBeforeAnyTests()

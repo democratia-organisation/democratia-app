@@ -1,5 +1,6 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
+using System.Diagnostics;
 
 namespace UITests
 {
@@ -7,27 +8,66 @@ namespace UITests
     {
         private static AppiumDriver? driver;
 
+        public static string device = "ios";
+
+        public static string sshSortie = string.Empty;
+
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
 
         public AppiumSetup()
         {
-            var iOSOptions = new AppiumOptions
+            if (SystemInfo.GetHostOS() != "macOS")
             {
-                // Specify XCUITest as the driver, typically don't need to change this
-                AutomationName = "XCUITest",
-                // Always iOS for iOS
-                PlatformName = "iOS",
-                // iOS Version
-                PlatformVersion = "17.0",
-                // Don't specify if you don't want a specific device
-                DeviceName = "device",
-                // The full path to the .app file to test or the bundle id if the app is already installed on the device
-                App = "C:\\Users\\naher\\Documents\\autre\\projet\\projets_personnel\\democratia\\application\\com.democratia.view\\bin\\Debug\\net9.0-ios\\iossimulator-x64\\com.democratia.view.app",
+                //var sortie = RunAppiumIOSOverSSH("<macIp>", "<macUser>", "<macProjectDir>");
+                //if (sortie.Contains("Error:"))
+                //else 
+
+                return;
+            }
+
+            else
+            {
+                var iOSOptions = new AppiumOptions
+                {
+                    // Specify XCUITest as the driver, typically don't need to change this
+                    AutomationName = "XCUITest",
+                    // Always iOS for iOS
+                    PlatformName = "iOS",
+                    // iOS Version
+                    PlatformVersion = "17.0",
+                    // Don't specify if you don't want a specific device
+                    DeviceName = "device",
+                    // The full path to the .app file to test or the bundle id if the app is already installed on the device
+                    App = "C:\\Users\\naher\\Documents\\autre\\projet\\projets_personnel\\democratia\\application\\com.democratia.view\\bin\\Debug\\net9.0-ios\\iossimulator-x64\\com.democratia.view.app",
+                };
+
+                // Note there are many more options that you can use to influence the app under test according to your needs
+
+                driver = new IOSDriver(iOSOptions);
+
+            }
+
+        }
+
+        private static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir)
+        {
+            var command = $"ssh {macUser}@{macIp} \"cd {macProjectDir} && nohup appium > appium.log 2>&1 & dotnet test\"";
+            var process = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = $"/C {command}",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
             };
 
-            // Note there are many more options that you can use to influence the app under test according to your needs
+            using var proc = Process.Start(process);
+            proc?.WaitForExit();
+            var output = proc?.StandardOutput.ReadToEnd();
+            var error = proc?.StandardError.ReadToEnd();
 
-            driver = new IOSDriver(iOSOptions);
+            return !string.IsNullOrEmpty(error) ? $"Test Output:\n{output}\nError:\n{error}" : $"Test Output:\n{output}";
         }
 
         public static void RunBeforeAnyTests()

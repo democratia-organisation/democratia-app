@@ -7,6 +7,10 @@ namespace UITests
     {
         private static AppiumDriver? driver;
 
+        public static string device = "windows";
+
+        public static string sshSortie = string.Empty;
+
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
 
         public static void RunBeforeAnyTests()
