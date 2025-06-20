@@ -92,7 +92,6 @@ namespace com.democratia.ViewModels
             object message = rawElement.ValueKind switch
             {
                 JsonValueKind.Number => rawElement.GetInt32(),
-                JsonValueKind.True or JsonValueKind.False => rawElement.GetBoolean(),
                 JsonValueKind.Array => rawElement.GetRawText(),
                 _ => throw new Exception("Erreur de réception des données"),
             };

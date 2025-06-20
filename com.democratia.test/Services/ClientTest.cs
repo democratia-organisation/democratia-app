@@ -17,6 +17,9 @@ namespace com.democratia.test.Services
             _serviceProvider = TestServiceCollection.CreateTestServiceProviderForClients();
         }
 
+        // TODO : tester
+        //      - GetMethode
+
         [Theory]
         [MemberData(nameof(ClientData))]
         public async Task GetMethodeTest(Client client, params object?[]? parameters)

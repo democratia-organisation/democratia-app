@@ -9,6 +9,11 @@ namespace com.democratia.test.ViewModels
         private readonly IServiceProvider _serviceProvider;
         private readonly MainPageViewModel? mainPageViewModel;
 
+        // TODO : tester :
+        //      - NavigateTapped via Appium
+        //      - si le serveur renvoie une page html au lieu d'un json
+        //      - si les données json ne sont ni un tableau ni un nombre
+
         public MainPageViewModelTest()
         {
             _serviceProvider = TestServiceCollection.CreateTestServiceProviderForMainViewModel();
