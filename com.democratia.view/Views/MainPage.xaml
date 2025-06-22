@@ -8,6 +8,7 @@
              x:Class="com.democratia.Views.MainPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewModels:MainPageViewModel"
+             AutomationId="ConnexionPage"
              Style="{DynamicResource fondEcran}">
     <!--TODO : 
     refléchir à comment faire pour afficher un texte après une création avec succès d'un compte depuis l'écran viewModel-->

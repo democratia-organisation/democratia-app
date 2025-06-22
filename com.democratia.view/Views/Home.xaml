@@ -7,6 +7,7 @@
              x:DataType="viewModels:HomeViewModel"
              x:Class="com.democratia.Views.Home"
              Style="{DynamicResource fondEcran}"
+             AutomationId="HomePage"
              Title="Home">
     <VerticalStackLayout>
         <component:Header/>

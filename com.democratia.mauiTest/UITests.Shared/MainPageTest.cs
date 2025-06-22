@@ -1,6 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Xunit;
@@ -20,6 +21,7 @@ namespace UITests
         public MainPageTest()
         {
             if(AppiumSetup.device == "windows") AppiumSetup.RunBeforeAnyTests();
+            
             if (SystemInfo.SSHHost())
             {
                 // TODO : à décommenter quand je serai connecté en ssh à un Mac et que le mac aura
@@ -31,14 +33,40 @@ namespace UITests
         }
         
         [Fact]
-        public void AppLaunches()
+        public void PresenceDesEntriesTest()
         {
             if(SystemInfo.SSHHost()) return;
-            AppiumElement element = FindUIElement("Se connecter Button");
-            string text = element.Text;
-            Assert.Equal("Se connecter", text);
-            Assert.NotNull(element);
+            ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
+            ReadOnlyCollection<AppiumElement> labels = FindUIElements("Label");
+            Assert.Equal(2,entries.Count);
+            Assert.Equal(2, labels.Count);
+            Assert.Equal("Adresse mail", labels[0].Text);
+            Assert.Equal("Mot de passe", labels[1].Text);
         }
+
+        [Fact]
+        public void NavigationPage()
+        {
+            if (SystemInfo.SSHHost()) return;
+            
+
+            
+            App.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            AppiumElement seConecterButton = FindUIElement("Se connecter Button");
+            ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
+            entries[0].Clear();
+            entries[1].Clear();
+
+            // TODO : comprendre le problème de sendkeys qui tape les lettres en qwerty afin 
+            // de les avoir en azerty quand la fonction est appelé
+            entries[0].SendKeys(";odqdqry56@g;qil<co;");
+            entries[1].SendKeys("Djonodo20050207/");
+            seConecterButton.Click();
+
+            Assert.Equal("HomePage", FindUIElement("HomePage").Text);
+        }
+
+        
     }
 
     public class SystemInfo

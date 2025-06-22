@@ -1,5 +1,7 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace UITests
@@ -29,5 +31,17 @@ namespace UITests
 
             return App.FindElement(MobileBy.Id(id));
         }
+
+        protected ReadOnlyCollection<AppiumElement> FindUIElements(string id)
+        {
+            if (App is WindowsDriver)
+            {
+                return App.FindElements(MobileBy.AccessibilityId(id));
+            }
+
+            return App.FindElements(MobileBy.Id(id));
+        }
+
+        
     }
 }
