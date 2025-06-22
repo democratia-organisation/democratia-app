@@ -1,3 +1,7 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Windows;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Xunit;
 
@@ -10,27 +14,30 @@ namespace UITests
 {
     // This is an example of tests that do not need anything platform specific.
     // Typically you will want all your tests to be in the shared project so they are ran across all platforms.
+    
     public class MainPageTest : BaseTest
     {
         public MainPageTest()
         {
             if(AppiumSetup.device == "windows") AppiumSetup.RunBeforeAnyTests();
-        }
-        
-        [Fact]
-        public void AppLaunches()
-        {
-            
-            if((AppiumSetup.device=="ios" || AppiumSetup.device == "macos") && SystemInfo.GetHostOS()=="Windows")
+            if (SystemInfo.SSHHost())
             {
                 // TODO : à décommenter quand je serai connecté en ssh à un Mac et que le mac aura
                 // installé Appium, dotnet et le projet
                 // string sortie = AppiumSetup.sshSortie;
                 // TODO interpréter la sortie pour l'affichier sur l'explorateur de test
                 return;
-                
             }
-            App.GetScreenshot().SaveAsFile($"{nameof(AppLaunches)}.png");
+        }
+        
+        [Fact]
+        public void AppLaunches()
+        {
+            if(SystemInfo.SSHHost()) return;
+            AppiumElement element = FindUIElement("Se connecter Button");
+            string text = element.Text;
+            Assert.Equal("Se connecter", text);
+            Assert.NotNull(element);
         }
     }
 
@@ -46,5 +53,7 @@ namespace UITests
                 return "Linux";
             return "Unknown OS";
         }
+
+        public static bool SSHHost() => (AppiumSetup.device == "ios" || AppiumSetup.device == "macos") && SystemInfo.GetHostOS() == "Windows";
     }
 }

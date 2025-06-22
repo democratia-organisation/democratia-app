@@ -39,7 +39,7 @@ namespace UITests
         {
             driver?.Quit();
             // If an Appium server was started locally above, make sure we clean it up here
-            AppiumServerHelper.DisposeAppiumLocalServer();
+            // AppiumServerHelper.DisposeAppiumLocalServer();
         }
     }
 }

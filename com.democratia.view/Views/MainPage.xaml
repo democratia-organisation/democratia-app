@@ -26,7 +26,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
-            <component:Header Grid.Row="0"/>
+            <component:Header Grid.Row="0" AutomationId="Header"/>
             
             <StackLayout Padding="10" Grid.Row="1">
                 
@@ -37,11 +37,12 @@
                     Style="{DynamicResource LabelStyle}"
                     Text="Se connecter"
                     HorizontalOptions="Center"
+                    AutomationId="Se connecter Label"
                 />
 
                 <BoxView HeightRequest="30"/>
 
-                <component:EntryComponent Title="Adresse mail" x:Name="mailComponant" ValeurDonne="{Binding AdresseMail}" />
+                <component:EntryComponent Title="Adresse mail" x:Name="mailComponant" ValeurDonne="{Binding AdresseMail}"/>
 
                 <component:EntryComponent Title="Mot de passe" x:Name="passwordComponant" PassWord="True" ValeurDonne="{Binding MotDePasse}"/>
 
@@ -54,13 +55,15 @@
                         Text="Pas de compte ?"
                         Style="{DynamicResource LabelStyle}"
                         HorizontalOptions="Center"
+                        AutomationId="Pas de compte ?"
                     />
 
                     <Label Text="Créez en un !"
                         TextColor="Blue"
                         x:Name="pageSuivanteLabel"
                         HorizontalOptions="Center"
-                        TextDecorations="Underline">
+                        TextDecorations="Underline"
+                           AutomationId="Créez en un !">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateTappedCommand}" CommandParameter="Creation" />
                         </Label.GestureRecognizers>
@@ -69,7 +72,8 @@
                         Style="{DynamicResource LabelStyle}"
                         IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}"
                         x:Name="errorMessageLabel"
-                        HorizontalOptions="Center"/>
+                        HorizontalOptions="Center"
+                        AutomationId="Error message"/>
                 </HorizontalStackLayout>
 
                 <BoxView HeightRequest="30"/>
@@ -83,6 +87,7 @@
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="Home"
                     VerticalOptions="End"
+                    AutomationId="Se connecter Button"
                 />
             </StackLayout>
         </Grid>

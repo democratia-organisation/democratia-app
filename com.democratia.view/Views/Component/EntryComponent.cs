@@ -59,6 +59,7 @@ public partial class EntryComponent : ContentView
                   HorizontalOptions = LayoutOptions.Center,
                   Text = _title,
                   Style = (Style?)Application.Current?.Resources["SubHeadlineStyle"],
+                  AutomationId = "Label",
               },
               new BoxView {
                   HeightRequest = 30
@@ -66,6 +67,7 @@ public partial class EntryComponent : ContentView
               new Entry {
                     Style = (Style?)Application.Current?.Resources["EntryStyle"],
                     MaximumWidthRequest = 300,
+                    AutomationId = "Entry"   
               },
               new BoxView {
                   HeightRequest = 30
