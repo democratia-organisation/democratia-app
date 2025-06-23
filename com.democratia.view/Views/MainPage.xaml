@@ -31,7 +31,7 @@
             
             <StackLayout Padding="10" Grid.Row="1">
 
-                <Label AutomationId="HomePage" Text="HomePage" IsVisible="False"/>
+                <Label AutomationId="ConnexionPage"/>
 
                 <BoxView HeightRequest="15"/>
 

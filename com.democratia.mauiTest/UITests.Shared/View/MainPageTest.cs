@@ -1,6 +1,7 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Xunit;
 
 // You will have to make sure that all the namespaces match
@@ -8,7 +9,7 @@ using Xunit;
 // code files. This has to do with how we initialize the AppiumDriver
 // through the AppiumSetup.cs files and NUnit SetUpFixture attributes.
 // Also see: https://docs.nunit.org/articles/nunit/writing-tests/attributes/setupfixture.html
-namespace UITests
+namespace UITests.View
 {
     // This is an example of tests that do not need anything platform specific.
     // Typically you will want all your tests to be in the shared project so they are ran across all platforms.
@@ -30,6 +31,7 @@ namespace UITests
         {
 
             if (SystemInfo.SSHHost()) return;
+            Debug.WriteLine(App.PageSource);
             ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement> labels = FindUIElements("Label");
             

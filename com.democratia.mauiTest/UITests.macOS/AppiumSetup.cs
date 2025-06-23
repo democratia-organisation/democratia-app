@@ -2,6 +2,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.Mac;
 using System.Diagnostics;
+using UITests.View;
 
 namespace UITests
 {

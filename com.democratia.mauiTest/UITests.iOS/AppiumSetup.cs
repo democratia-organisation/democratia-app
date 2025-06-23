@@ -1,6 +1,7 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 using System.Diagnostics;
+using UITests.View;
 
 namespace UITests
 {

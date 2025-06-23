@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using Xunit;
 
-namespace UITests
+namespace UITests.View
 {
     // Add a CollectionDefinition together with a ICollectionFixture
     // to ensure that the setup only runs once
