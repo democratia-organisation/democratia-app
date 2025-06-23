@@ -1,3 +1,4 @@
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
@@ -43,6 +44,9 @@ namespace UITests
             androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.NoReset, "true");
             string activity = ResolveAppActivity("com.democratia");
             androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
+            androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.democratia");
+            // If you are using a debug build, you can specify the path to the .apk file
+            // androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Release\net9.0-android\com.democratia-Signed.apk");
 
 
 
@@ -56,7 +60,10 @@ namespace UITests
 
             // Note there are many more options that you can use to influence the app under test according to your needs
 
-            try { driver = new AndroidDriver(androidOptions); }
+            try {
+                driver = new AndroidDriver(androidOptions, TimeSpan.FromSeconds(180));
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10); 
+            }
             catch (Exception ex)
             {
                 
@@ -100,5 +107,6 @@ namespace UITests
             // If an Appium server was started locally above, make sure we clean it up here
             AppiumServerHelper.DisposeAppiumLocalServer();
         }
+        public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir) { return ""; }
     }
 }

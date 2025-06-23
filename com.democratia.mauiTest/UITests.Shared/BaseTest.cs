@@ -1,7 +1,7 @@
 using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Windows;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using Xunit;
 
 namespace UITests
@@ -15,11 +15,15 @@ namespace UITests
 
     }
 
+    
+
     // Add all tests to the same collection as above so that the Appium server is only setup once
     [Collection("UITests")]
-    public abstract class BaseTest
+    public abstract class BaseTest : IDisposable
     {
         protected AppiumDriver App => AppiumSetup.App;
+
+        public abstract void Dispose();
 
         // This could also be an extension method to AppiumDriver if you prefer
         protected AppiumElement FindUIElement(string id)
@@ -28,7 +32,7 @@ namespace UITests
             {
                 return App.FindElement(MobileBy.AccessibilityId(id));
             }
-
+            
             return App.FindElement(MobileBy.Id(id));
         }
 

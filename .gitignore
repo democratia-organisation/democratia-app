@@ -64,3 +64,6 @@ com.democratia/com.democratia/Resources/Styles/material-theme.json
 /com.democratia/global.json
 /com.democratia/GlobalSuppressions.cs
 /TODO.txt
+*.txt
+/com.democratia.view/Views/convert.py
+/com.democratia.view/Resources/Raw/convert.py

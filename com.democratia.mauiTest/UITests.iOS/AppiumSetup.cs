@@ -51,7 +51,7 @@ namespace UITests
 
         }
 
-        private static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir)
+        public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir)
         {
             var command = $"ssh {macUser}@{macIp} \"cd {macProjectDir} && nohup appium > appium.log 2>&1 & dotnet test\"";
             var process = new ProcessStartInfo

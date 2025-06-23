@@ -41,5 +41,7 @@ namespace UITests
             // If an Appium server was started locally above, make sure we clean it up here
             // AppiumServerHelper.DisposeAppiumLocalServer();
         }
+
+        public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir) { return ""; }
     }
 }

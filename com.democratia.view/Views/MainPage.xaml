@@ -30,7 +30,9 @@
             <component:Header Grid.Row="0" AutomationId="Header"/>
             
             <StackLayout Padding="10" Grid.Row="1">
-                
+
+                <Label AutomationId="HomePage" Text="HomePage" IsVisible="False"/>
+
                 <BoxView HeightRequest="15"/>
 
                 <Label

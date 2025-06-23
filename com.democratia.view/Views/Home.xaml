@@ -11,6 +11,7 @@
              Title="Home">
     <VerticalStackLayout>
         <component:Header/>
+        <Label AutomationId="HomePage" Text="HomePage" IsVisible="False"/>
         <Label 
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
