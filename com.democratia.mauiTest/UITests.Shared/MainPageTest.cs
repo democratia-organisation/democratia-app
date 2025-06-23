@@ -1,7 +1,6 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Xunit;
 
@@ -48,9 +47,7 @@ namespace UITests
         [Fact]
         public void NavigationPageTest()
         {
-            
 
-            Debug.WriteLine(App.PageSource);
             AppiumElement seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
             AppiumElement adresseMailEntry = entries[0];
@@ -78,9 +75,6 @@ namespace UITests
         public void NavigationPageErrorTest(string adresseMail,string motDePasse)
         {
             
-
-
-            Debug.WriteLine(App.PageSource);
             AppiumElement seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
             AppiumElement adresseMailEntry = entries[0];
