@@ -1,5 +1,6 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using UITests.View;
 
 namespace UITests
 {
@@ -13,11 +14,12 @@ namespace UITests
 
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
 
-        public static void RunBeforeAnyTests()
+        public AppiumSetup()
         {
             // If you started an Appium server manually, make sure to comment out the next line
             // This line starts a local Appium server for you as part of the test run
-            //AppiumServerHelper.StartAppiumLocalServer();
+            if (SystemInfo.SSHHost()) return;
+            AppiumServerHelper.StartAppiumLocalServer();
             var windowsOptions = new AppiumOptions
             {
                 // Specify windows as the driver, typically don't need to change this
@@ -39,7 +41,7 @@ namespace UITests
         {
             driver?.Quit();
             // If an Appium server was started locally above, make sure we clean it up here
-            // AppiumServerHelper.DisposeAppiumLocalServer();
+            AppiumServerHelper.DisposeAppiumLocalServer();
         }
 
         public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir) { return ""; }

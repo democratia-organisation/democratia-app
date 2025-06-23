@@ -13,25 +13,15 @@ namespace UITests.View
 {
     // This is an example of tests that do not need anything platform specific.
     // Typically you will want all your tests to be in the shared project so they are ran across all platforms.
-    
-    public class MainPageTest : BaseTest, IClassFixture<MainPageTestFixture>
+    [Collection("UITests")]
+    public class MainPageTest : BaseTest
     {
-        private readonly MainPageTestFixture? _mainPageTestFixture;
 
-        public MainPageTest(MainPageTestFixture? mainPageTestFixture)
-        {
-            if (SystemInfo.SSHHost()) return;
-            if (AppiumSetup.device == "windows") AppiumSetup.RunBeforeAnyTests();
-            _mainPageTestFixture = mainPageTestFixture;
-            
-        }
-        
         [Fact]
         public void PresenceDesEntriesTest()
         {
 
             if (SystemInfo.SSHHost()) return;
-            Debug.WriteLine(App.PageSource);
             ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement> labels = FindUIElements("Label");
             
@@ -105,37 +95,8 @@ namespace UITests.View
 
         public override void Dispose() 
         {
-            if (SystemInfo.SSHHost()) return;
-            if (AppiumSetup.device == "windows")
-            {
-                App.Dispose();
-            }
-        }
-
-    }
-
-    public class MainPageTestFixture : IDisposable
-    {
-        public MainPageTestFixture()
-        {
             
-            // TODO : à décommenter quand je serai connecté en ssh à un Mac et que le mac aura
-            // installé Appium, dotnet et le projet
-            //if (SystemInfo.SSHHost())
-            //{
-            //   string output = AppiumSetup.RunAppiumIOSOverSSH("macIP","macUser","acProjectDir");
-            //    if (!output.Contains("Error"))
-            //    {
-            //        // TODO : 
-            //        // - créer un fichier tsx à partir de la sortie de la commande
-            //    }
-            //}
-
         }
 
-        public void Dispose()
-        {
-            // AfterAllTestsInClass
-        }
     }
 }

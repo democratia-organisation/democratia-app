@@ -2,6 +2,7 @@
 
 namespace com.democratia.test.ViewModels
 {
+    [Collection("UITests")]
     public class CreationViewModelTest
     {
         [Fact]  

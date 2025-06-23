@@ -4,16 +4,6 @@ namespace UITests.View
 {
     public class CreationPageTest : BaseTest, IClassFixture<CreationPageTestFixture>
     {
-        private readonly MainPageTestFixture? _mainPageTestFixture;
-
-        public CreationPageTest(MainPageTestFixture? mainPageTestFixture)
-        {
-            if (SystemInfo.SSHHost()) return;
-            if (AppiumSetup.device == "windows") AppiumSetup.RunBeforeAnyTests();
-            _mainPageTestFixture = mainPageTestFixture;
-
-        }
-
         public override void Dispose()
         {
             throw new NotImplementedException();

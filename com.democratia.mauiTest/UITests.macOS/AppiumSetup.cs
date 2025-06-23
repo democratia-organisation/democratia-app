@@ -18,6 +18,7 @@ namespace UITests
 
         public AppiumSetup()
         {
+            AppiumServerHelper.StartAppiumLocalServer();
             if (SystemInfo.GetHostOS() != "macOS")
             {
                 // TODO : à décommenter quand je serai connecté en ssh à un Mac et que le mac aura
@@ -25,7 +26,6 @@ namespace UITests
                 //var sortie = RunAppiumIOSOverSSH("<macIp>", "<macUser>", "<macProjectDir>");
                 //if (!sortie.Contains("Test Output")) throw new Exception($"Error starting Appium: {sortie}");
                 //else sshSortie = sortie;
-
                 return;
             }
             else
@@ -69,16 +69,11 @@ namespace UITests
 
             return !string.IsNullOrEmpty(error) ? $"Error:\n{error}" : $"Test Output:\n{output}";
         }
-
-        public static void RunBeforeAnyTests()
-        {
-
-        }
-
-
+        
         public void Dispose()
         {
             driver?.Quit();
+            AppiumServerHelper.DisposeAppiumLocalServer();
         }
     }
 }

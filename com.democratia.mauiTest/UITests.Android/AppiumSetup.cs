@@ -2,6 +2,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using System.Diagnostics;
+using UITests.View;
 
 namespace UITests
 {
@@ -19,7 +20,8 @@ namespace UITests
         {
             // If you started an Appium server manually, make sure to comment out the next line
             // This line starts a local Appium server for you as part of the test run
-            //AppiumServerHelper.StartAppiumLocalServer();
+            if (SystemInfo.SSHHost()) return;
+            AppiumServerHelper.StartAppiumLocalServer();
             var androidOptions = new AppiumOptions
             {
                 // Specify UIAutomator2 as the driver, typically don't need to change this
@@ -73,11 +75,6 @@ namespace UITests
                     throw new Exception(ex.Message,ex);
                 
             }
-        }
-
-        public static void RunBeforeAnyTests()
-        {
-
         }
 
         private static string ResolveAppActivity(string packageName)
