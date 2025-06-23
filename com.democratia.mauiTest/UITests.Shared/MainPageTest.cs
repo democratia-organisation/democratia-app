@@ -16,7 +16,14 @@ namespace UITests
     
     public class MainPageTest : BaseTest, IClassFixture<MainPageTestFixture>
     {
-        public MainPageTest()
+        private readonly MainPageTestFixture? _mainPageTestFixture;
+
+        public MainPageTest(MainPageTestFixture? mainPageTestFixture)
+        {
+            _mainPageTestFixture = mainPageTestFixture;
+        }
+
+        public MainPageTest() : this(null)
         {
             if(AppiumSetup.device == "windows") AppiumSetup.RunBeforeAnyTests();
             
