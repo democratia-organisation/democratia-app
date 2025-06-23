@@ -2,6 +2,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Windows;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace UITests
@@ -15,7 +16,23 @@ namespace UITests
 
     }
 
-    
+    public class SystemInfo
+    {
+        public static string GetHostOS()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return "Windows";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                return "macOS";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                return "Linux";
+            return "Unknown OS";
+        }
+
+        public static bool SSHHost() => (AppiumSetup.device == "ios" || AppiumSetup.device == "macos") && SystemInfo.GetHostOS() == "Windows";
+    }
+
+
 
     // Add all tests to the same collection as above so that the Appium server is only setup once
     [Collection("UITests")]

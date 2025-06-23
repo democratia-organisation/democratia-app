@@ -1,7 +1,6 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using Xunit;
 
 // You will have to make sure that all the namespaces match
@@ -20,23 +19,17 @@ namespace UITests
 
         public MainPageTest(MainPageTestFixture? mainPageTestFixture)
         {
-            _mainPageTestFixture = mainPageTestFixture;
-        }
-
-        public MainPageTest() : this(null)
-        {
-            if(AppiumSetup.device == "windows") AppiumSetup.RunBeforeAnyTests();
-            
             if (SystemInfo.SSHHost()) return;
+            if (AppiumSetup.device == "windows") AppiumSetup.RunBeforeAnyTests();
+            _mainPageTestFixture = mainPageTestFixture;
             
         }
         
         [Fact]
         public void PresenceDesEntriesTest()
         {
-            
 
-
+            if (SystemInfo.SSHHost()) return;
             ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement> labels = FindUIElements("Label");
             
@@ -55,6 +48,8 @@ namespace UITests
         public void NavigationPageTest()
         {
 
+
+            if (SystemInfo.SSHHost()) return;
             AppiumElement seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
             AppiumElement adresseMailEntry = entries[0];
@@ -81,7 +76,8 @@ namespace UITests
         [InlineData("dadadzadzada", "")]
         public void NavigationPageErrorTest(string adresseMail,string motDePasse)
         {
-            
+
+            if (SystemInfo.SSHHost()) return;
             AppiumElement seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
             AppiumElement adresseMailEntry = entries[0];
@@ -95,7 +91,7 @@ namespace UITests
             adresseMailEntry.SendKeys(adresseMail);
             motDePasseEntry.SendKeys(motDePasse);
             seConecterButton.Click();
-            if(AppiumSetup.device!="windows")
+            if(AppiumSetup.device!="android")
             {
                 AppiumElement? button = wait.Until(d => FindUIElement("OK"));
                 button.Click();
@@ -105,30 +101,22 @@ namespace UITests
             
         }
 
-        public override void Dispose() => App.Dispose();
-        
-    }
-
-    public class SystemInfo
-    {
-        public static string GetHostOS()
+        public override void Dispose() 
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                return "Windows";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                return "macOS";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                return "Linux";
-            return "Unknown OS";
+            if (SystemInfo.SSHHost()) return;
+            if (AppiumSetup.device == "windows")
+            {
+                App.Dispose();
+            }
         }
 
-        public static bool SSHHost() => (AppiumSetup.device == "ios" || AppiumSetup.device == "macos") && SystemInfo.GetHostOS() == "Windows";
     }
 
     public class MainPageTestFixture : IDisposable
     {
         public MainPageTestFixture()
         {
+            
             // TODO : à décommenter quand je serai connecté en ssh à un Mac et que le mac aura
             // installé Appium, dotnet et le projet
             //if (SystemInfo.SSHHost())
@@ -140,7 +128,7 @@ namespace UITests
             //        // - créer un fichier tsx à partir de la sortie de la commande
             //    }
             //}
-               
+
         }
 
         public void Dispose()
