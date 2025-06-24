@@ -63,7 +63,7 @@ namespace UITests.View
             Assert.NotNull(FindUIElement("HomePage"));
         }
 
-        [DisplayName("Tests des différents cas d'entrées d'erreurs")]
+        
         [Theory(DisplayName = "Test de la page en cas d'entrée incorrecte")]
         [InlineData("fezfzfzefz", "Djonodo20050207/")]
         [InlineData("modadary56@gmail.com", "Djonodo20050207/erreur")]
