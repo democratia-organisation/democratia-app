@@ -2,8 +2,6 @@
 using com.democratia.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Hosting;
 
 namespace com.democratia
 {
@@ -25,42 +23,7 @@ namespace com.democratia
             builder.Services.AddTransient<Creation>();
             builder.Services.AddTransient<MainPage>();
 
-#if ANDROID
-            builder.ConfigureMauiHandlers(handlers =>
-            {
-                // Active l'AutomationId pour tous les contrôles
-                handlers.AddHandler(typeof(Label), typeof(LabelHandler));
-                handlers.AddHandler(typeof(Entry), typeof(EntryHandler));
-                handlers.AddHandler(typeof(Button), typeof(ButtonHandler));
 
-                LabelHandler.Mapper.AppendToMapping("AutomationId", (h, v) =>
-                {
-                    if (h.PlatformView is Android.Views.View view && !string.IsNullOrEmpty(v.AutomationId))
-                    {
-                        view.ContentDescription = v.AutomationId;
-                        view.Id = global::Android.Views.View.GenerateViewId();
-                    }
-                });
-
-                EntryHandler.Mapper.AppendToMapping("AutomationId", (h, v) =>
-                {
-                    if (h.PlatformView is Android.Views.View view && !string.IsNullOrEmpty(v.AutomationId))
-                    {
-                        view.ContentDescription = v.AutomationId;
-                        view.Id = global::Android.Views.View.GenerateViewId();
-                    }
-                });
-
-                ButtonHandler.Mapper.AppendToMapping("AutomationId", (h, v) =>
-                {
-                    if (h.PlatformView is Android.Views.View view && !string.IsNullOrEmpty(v.AutomationId))
-                    {
-                        view.ContentDescription = v.AutomationId;
-                        view.Id = global::Android.Views.View.GenerateViewId();
-                    }
-                });
-            });
-#endif
 
 
 #if DEBUG

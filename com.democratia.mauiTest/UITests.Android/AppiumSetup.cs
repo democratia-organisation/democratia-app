@@ -10,9 +10,9 @@ namespace UITests
     {
         private static AppiumDriver? driver;
 
-        public static string device = "android";
+        public readonly static string device = "android";
 
-        public static string sshSortie = string.Empty;
+        public readonly static string sshSortie = string.Empty;
 
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
 
@@ -47,7 +47,7 @@ namespace UITests
             androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
             androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.democratia");
             // If you are using a debug build, you can specify the path to the .apk file
-            // androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Release\net9.0-android\com.democratia-Signed.apk");
+            //androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Release\net9.0-android\com.democratia-Signed.apk");
 
 
 
@@ -102,6 +102,7 @@ namespace UITests
             driver?.Quit();
             // If an Appium server was started locally above, make sure we clean it up here
             AppiumServerHelper.DisposeAppiumLocalServer();
+            GC.SuppressFinalize(this);
         }
         public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir) { return ""; }
     }

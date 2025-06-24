@@ -54,29 +54,37 @@ public partial class EntryComponent : ContentView
     public EntryComponent()
     {
         Content = new VerticalStackLayout {
+            
             Children = {
-              new Label {
+                new Label {
                   HorizontalOptions = LayoutOptions.Center,
                   Text = _title,
                   Style = (Style?)Application.Current?.Resources["SubHeadlineStyle"],
                   AutomationId = "Label",
-              },
-              new BoxView {
+                },
+
+                new BoxView {
                   HeightRequest = 30
-              },
-              new Entry {
-                    Style = (Style?)Application.Current?.Resources["EntryStyle"],
-                    MaximumWidthRequest = 300,
-                    AutomationId = "Entry"   
-              },
-              new BoxView {
-                  HeightRequest = 30
-              }
+                },
+                
+                new Border {
+                    Style = (Style?)Application.Current?.Resources["BorderStyle"],
+                    
+                    Content = new Entry {
+                        Style = (Style?)Application.Current?.Resources["EntryStyle"],
+                        MaximumWidthRequest = 300,
+                        AutomationId = "Entry"
+                    }
+                },
+                
+                new BoxView {
+                    HeightRequest = 30
+                } 
             }
         };
 
         // Ajout de l'abonnement à l'événement TextChanged  
-        if (Content is VerticalStackLayout layout && layout.Children[2] is Entry entryControl)
+        if (Content is VerticalStackLayout layout && layout.Children[2] is Border border && border.Content is Entry entryControl)
         {
             entryControl.TextChanged += OnTitleChanged;
         }

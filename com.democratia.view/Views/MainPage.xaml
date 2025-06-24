@@ -49,6 +49,15 @@
 
                 <component:EntryComponent Title="Mot de passe" x:Name="passwordComponant" PassWord="True" ValeurDonne="{Binding MotDePasse}"/>
 
+                <Label Text="{Binding ErrorMessage}"
+                    Style="{DynamicResource ErrorLabelStyle}"
+                    x:Name="errorMessageLabel"
+                    HorizontalOptions="Center"
+                    AutomationId="Error message"
+                />
+
+                <BoxView HeightRequest="15"/>
+
                 <HorizontalStackLayout
                     HorizontalOptions="Center"
                     Spacing="30"
@@ -66,17 +75,11 @@
                         x:Name="pageSuivanteLabel"
                         HorizontalOptions="Center"
                         TextDecorations="Underline"
-                           AutomationId="Créez en un !">
+                        AutomationId="Créez en un !">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateTappedCommand}" CommandParameter="Creation" />
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label Text="{Binding ErrorMessage}"
-                        Style="{DynamicResource LabelStyle}"
-                        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}"
-                        x:Name="errorMessageLabel"
-                        HorizontalOptions="Center"
-                        AutomationId="Error message"/>
                 </HorizontalStackLayout>
 
                 <BoxView HeightRequest="30"/>

@@ -43,6 +43,7 @@ namespace com.democratia.ViewModels
                 {
                     modele = await ConnecterInternaute();
                     var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
+                    ErrorMessage = "";
                     await navigationService!.GoToAsync(commande, parameters);
                 }
                 else await navigationService!.GoToAsync(commande,null);
@@ -69,7 +70,8 @@ namespace com.democratia.ViewModels
                 { throw new Exception("Erreur de connexion inattendu"); }
             List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString) ?? throw new Exception("Aucun internaute trouvé avec cette adresse mail");
             string motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString() !;
-            if(!VerifierMotDePasseUtilisateur(motDePasseHash!)) throw new Exception("Mot de passe incorrecte");
+            bool motDePasseValide = await VerifierMotDePasseUtilisateur(motDePasseHash);
+            if (!motDePasseValide) throw new Exception("Mot de passe incorrecte");
             
             // /!\ le casting est important car les valeurs ne
             // sont pas dans le type voulu mais dans le type JsonElement
@@ -100,7 +102,8 @@ namespace com.democratia.ViewModels
 
         }
 
-        private bool VerifierMotDePasseUtilisateur(string hashedMotDePasse) => Crypt.Verify(MotDePasse,hashedMotDePasse);
+        // Tâche rendu asynchrone à cause du temps d'execution de la fonction Verify
+        private async Task<bool> VerifierMotDePasseUtilisateur(string hashedMotDePasse) => await Task.Run(() => Crypt.Verify(MotDePasse,hashedMotDePasse));
         
     }
 }

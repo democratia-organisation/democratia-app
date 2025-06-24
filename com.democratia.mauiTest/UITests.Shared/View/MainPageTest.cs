@@ -1,6 +1,7 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using Xunit;
 
@@ -14,10 +15,11 @@ namespace UITests.View
     // This is an example of tests that do not need anything platform specific.
     // Typically you will want all your tests to be in the shared project so they are ran across all platforms.
     [Collection("UITests")]
+    [DisplayName("Page d'accueil")]
     public class MainPageTest : BaseTest
     {
 
-        [Fact]
+        [Fact(DisplayName = "Test de la présence des éléments dans la page")]
         public void PresenceDesEntriesTest()
         {
 
@@ -36,7 +38,7 @@ namespace UITests.View
             Assert.Equal("Mot de passe", labels[1].Text);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Test de la navigation vers la page home")]
         public void NavigationPageTest()
         {
 
@@ -61,7 +63,8 @@ namespace UITests.View
             Assert.NotNull(FindUIElement("HomePage"));
         }
 
-        [Theory]
+        [DisplayName("Tests des différents cas d'entrées d'erreurs")]
+        [Theory(DisplayName = "Test de la page en cas d'entrée incorrecte")]
         [InlineData("fezfzfzefz", "Djonodo20050207/")]
         [InlineData("modadary56@gmail.com", "Djonodo20050207/erreur")]
         [InlineData("", "")]
@@ -70,6 +73,7 @@ namespace UITests.View
         {
 
             if (SystemInfo.SSHHost()) return;
+            Debug.WriteLine(App.PageSource);
             AppiumElement seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
             AppiumElement adresseMailEntry = entries[0];
@@ -83,19 +87,17 @@ namespace UITests.View
             adresseMailEntry.SendKeys(adresseMail);
             motDePasseEntry.SendKeys(motDePasse);
             seConecterButton.Click();
-            if(AppiumSetup.device!="android")
-            {
-                AppiumElement? button = wait.Until(d => FindUIElement("OK"));
-                button.Click();
-                Assert.NotNull(FindUIElement("ConnexionPage"));
-            }
+
+            string messageDErreur = FindUIElement("Error message").Text;
+            // on ne teste que la présence d'un texte car la présence du comtenu du texte est déjà testé dans un autre test
+            Assert.False(string.IsNullOrWhiteSpace(messageDErreur));
 
             
         }
 
         public override void Dispose() 
         {
-            
+            GC.SuppressFinalize(this);
         }
 
     }

@@ -1,24 +1,32 @@
-﻿using Xunit;
+﻿using OpenQA.Selenium.Appium;
+using System.ComponentModel;
+using Xunit;
 
 namespace UITests.View
 {
-    public class CreationPageTest : BaseTest, IClassFixture<CreationPageTestFixture>
+    [Collection("UITest")]
+    [DisplayName("Création de compte")]
+    public class CreationPageTest : BaseTest
     {
+
+        public CreationPageTest() : base()
+        {
+            new AppiumSetup();
+            if (SystemInfo.SSHHost()) return;
+            AppiumElement creationPage = FindUIElement("Créez en un !"); ;
+            creationPage.Click();
+        }
+        
+        [Fact(DisplayName = "Création de compte")]
+        public void CreationCompteTest()
+        {
+            if (SystemInfo.SSHHost()) return;
+            
+        }
+
         public override void Dispose()
         {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class CreationPageTestFixture : IDisposable
-    {
-        public CreationPageTestFixture()
-        {
-            // Initialization code for the fixture
-        }
-        public void Dispose()
-        {
-            // Cleanup code for the fixture
-        }
+            GC.SuppressFinalize(this);
+        }      
     }   
 }

@@ -10,9 +10,9 @@ namespace UITests
     {
         private static AppiumDriver? driver;
 
-        public static string device = "macos";
+        public readonly static string device = "macos";
 
-        public static string sshSortie = string.Empty;
+        public readonly static string sshSortie = string.Empty;
 
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
 
