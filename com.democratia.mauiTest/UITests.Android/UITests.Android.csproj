@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <IsTestProject>true</IsTestProject>
     <RootNamespace>UITests</RootNamespace>
+	<LangVersion>preview</LangVersion>
+	<DefineConstants>$(DefineConstants);UITEST</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

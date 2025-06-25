@@ -3,9 +3,9 @@
   <PropertyGroup>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
     <ActiveDebugFramework>net9.0-android</ActiveDebugFramework>
-    <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
+    <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
     <DefaultDevice>Pixel_6</DefaultDevice>
-    <ActiveDebugProfile>Motorola moto g13 (Android 14.0 - API 34)</ActiveDebugProfile>
+    <ActiveDebugProfile>Pixel 6 (Android 14.0 - API 34)</ActiveDebugProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

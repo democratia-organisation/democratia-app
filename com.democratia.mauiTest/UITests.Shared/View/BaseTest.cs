@@ -1,3 +1,4 @@
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Windows;
@@ -43,24 +44,31 @@ namespace UITests.View
         public abstract void Dispose();
 
         // This could also be an extension method to AppiumDriver if you prefer
-        protected AppiumElement FindUIElement(string id)
+        protected AppiumElement? FindUIElement(string id)
         {
-            if (App is WindowsDriver)
+            try
             {
-                return App.FindElement(MobileBy.AccessibilityId(id));
+                if (App is WindowsDriver)
+                {
+                    return App.FindElement(MobileBy.AccessibilityId(id));
+                }
+
+                return App.FindElement(MobileBy.Id(id));
             }
-            
-            return App.FindElement(MobileBy.Id(id));
+            catch (NoSuchElementException)
+            {
+                return null;
+            }
         }
 
-        protected ReadOnlyCollection<AppiumElement> FindUIElements(string id)
+        protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
         {
             if (App is WindowsDriver)
             {
-                return App.FindElements(MobileBy.AccessibilityId(id));
+                return App.FindElements(MobileBy.AccessibilityId(id)).Count > 0 ? App.FindElements(MobileBy.AccessibilityId(id)) : null;
             }
 
-            return App.FindElements(MobileBy.Id(id));
+            return App.FindElements(MobileBy.Id(id)).Count > 0 ? App.FindElements(MobileBy.Id(id)) : null;
         }
 
         

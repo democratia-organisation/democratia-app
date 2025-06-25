@@ -18,24 +18,27 @@ namespace UITests.View
     [DisplayName("Page d'accueil")]
     public class MainPageTest : BaseTest
     {
+        // /!\ écrire les paramètres de SendKeys en qwerti, afin que les caractères utf-8 interprétés
+        // par C# puis envoyé dans le driver soit les bons
+        // /!\ on ne teste que la présence d'un élément UI car la présence du comtenu du texte est déjà
+        // testé dans les test du vue modèle
 
         [Fact(DisplayName = "Test de la présence des éléments dans la page")]
         public void PresenceDesEntriesTest()
         {
 
             if (SystemInfo.SSHHost()) return;
-            ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
-            ReadOnlyCollection<AppiumElement> labels = FindUIElements("Label");
-            
+            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
+            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             var nombresEntrees = 2;
 
-            var nombresLabels = labels.Count;
-            var nombresEntries = entries.Count;
+            var nombresLabels = labels?.Count;
+            var nombresEntries = entries?.Count;
 
             Assert.Equal(nombresEntrees, nombresLabels);
             Assert.Equal(nombresEntrees, nombresEntries);
-            Assert.Equal("Adresse mail", labels[0].Text);
-            Assert.Equal("Mot de passe", labels[1].Text);
+            Assert.Equal("Adresse mail", labels?[0].Text);
+            Assert.Equal("Mot de passe", labels?[1].Text);
         }
 
         [Fact(DisplayName = "Test de la navigation vers la page home")]
@@ -44,21 +47,19 @@ namespace UITests.View
 
 
             if (SystemInfo.SSHHost()) return;
-            AppiumElement seConecterButton = FindUIElement("Se connecter Button");
-            ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
-            AppiumElement adresseMailEntry = entries[0];
-            AppiumElement motDePasseEntry = entries[1];
-            adresseMailEntry.Clear();
-            motDePasseEntry.Clear();
+            Debug.WriteLine(App.PageSource);
+            AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
+            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
+            var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
+            adresseMailEntry?.Clear();
+            motDePasseEntry?.Clear();
             // /!\ important afin de laisser le temps d'arriver la page HomePage
             if(AppiumSetup.device!="android")
                 App.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
-            // TODO : écrire les paramètres de SendKeys en qwerti, afin que les caractères utf-8 interprétés
-            // par C# puis envoyé dans le driver soit les bons 
-            adresseMailEntry.SendKeys("modadary56@gmail.com");
-            motDePasseEntry.SendKeys("Djonodo20050207/");
-            seConecterButton.Click();
+            adresseMailEntry?.SendKeys("modadary56@gmail.com");
+            motDePasseEntry?.SendKeys("Djonodo20050207/");
+            seConecterButton?.Click();
 
             Assert.NotNull(FindUIElement("HomePage"));
         }
@@ -74,31 +75,20 @@ namespace UITests.View
 
             if (SystemInfo.SSHHost()) return;
             Debug.WriteLine(App.PageSource);
-            AppiumElement seConecterButton = FindUIElement("Se connecter Button");
-            ReadOnlyCollection<AppiumElement> entries = FindUIElements("Entry");
-            AppiumElement adresseMailEntry = entries[0];
-            AppiumElement motDePasseEntry = entries[1];
-            adresseMailEntry.Clear();
-            motDePasseEntry.Clear();
-            var wait = new WebDriverWait(AppiumSetup.App, TimeSpan.FromSeconds(3));
+            AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
+            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
+            var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
+            adresseMailEntry?.Clear();
+            motDePasseEntry?.Clear();
+ 
+            adresseMailEntry?.SendKeys(adresseMail);
+            motDePasseEntry?.SendKeys(motDePasse);
+            seConecterButton?.Click();
 
-            // /!\ écrire les paramètres de SendKeys en qwerti, afin que les caractères utf-8 interprétés
-            // par C# puis envoyé dans le driver soit les bons 
-            adresseMailEntry.SendKeys(adresseMail);
-            motDePasseEntry.SendKeys(motDePasse);
-            seConecterButton.Click();
+            Assert.NotNull(FindUIElement("Error message"));
 
-            string messageDErreur = FindUIElement("Error message").Text;
-            // on ne teste que la présence d'un texte car la présence du comtenu du texte est déjà testé dans un autre test
-            Assert.False(string.IsNullOrWhiteSpace(messageDErreur));
-
-            
         }
-
-        public override void Dispose() 
-        {
-            GC.SuppressFinalize(this);
-        }
+        public override void Dispose() => GC.SuppressFinalize(this);
 
     }
 }

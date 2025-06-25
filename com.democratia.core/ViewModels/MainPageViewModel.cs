@@ -22,14 +22,18 @@ namespace com.democratia.ViewModels
         private string? errorMessage;
 
         private readonly INavigationService? navigationService;
+        private readonly IEnumerable<IClient?>? clients;
 
         public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients) 
             : this(clients?.OfType<InternauteClient>().FirstOrDefault())
         {
             this.navigationService = navigationService;
+            this.clients = clients;
+            if (client is null)
+                this.client = clients?.OfType<FakeClient>().FirstOrDefault();
         }
 
-        public MainPageViewModel(Client? client) : base(client) { }
+        private MainPageViewModel(IClient? client) : base(client) {}
 
 
         public MainPageViewModel() : base(null) { }
@@ -68,7 +72,7 @@ namespace com.democratia.ViewModels
                 { jsonString = await client?.GetModelAsync(AdresseMail)!; } 
             catch (Exception) 
                 { throw new Exception("Erreur de connexion inattendu"); }
-            List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString) ?? throw new Exception("Aucun internaute trouvé avec cette adresse mail");
+            List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString);
             string motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString() !;
             bool motDePasseValide = await VerifierMotDePasseUtilisateur(motDePasseHash);
             if (!motDePasseValide) throw new Exception("Mot de passe incorrecte");
@@ -85,21 +89,18 @@ namespace com.democratia.ViewModels
         }
 
 
-        private static List<Dictionary<string, object>>? RecuprerInformationConnexion(string stringJson)
+        private static List<Dictionary<string, object>> RecuprerInformationConnexion(string stringJson)
         {
             Dictionary<string, object> dictionnary;
             try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(stringJson)!; }
-            catch (Exception) { throw new Exception("Erreur de réception des données"); }
+            catch (Exception) { throw new Exception("Erreur lors de la récupération des données"); }
             var rawElement = (JsonElement)dictionnary["data"];
             object message = rawElement.ValueKind switch
             {
-                JsonValueKind.Number => rawElement.GetInt32(),
                 JsonValueKind.Array => rawElement.GetRawText(),
-                _ => throw new Exception("Erreur de réception des données"),
+                _ => throw new Exception("Erreur lors de la connexion du compte"),
             };
-            if (message is int || message is bool) return null;
-            else  return JsonSerializer.Deserialize<List<Dictionary<string, object>>>(message.ToString()!)!;
-
+            return JsonSerializer.Deserialize<List<Dictionary<string, object>>>(message.ToString()!)!;
         }
 
         // Tâche rendu asynchrone à cause du temps d'execution de la fonction Verify

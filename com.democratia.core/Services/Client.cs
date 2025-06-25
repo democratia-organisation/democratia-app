@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 namespace com.democratia.Services
 {
     
-    public abstract class Client : IClient
+    public class Client
     {
         protected static string? BASE_URL;
         protected string? statutsMessage;
@@ -37,7 +37,6 @@ namespace com.democratia.Services
             client!.BaseAddress = new Uri($"https://projets.iut-orsay.fr:{port}/saes3-mmarti32/API/rest.php");
         }
 
-        public abstract Task<string> GetModelAsync(params object?[] parameters);
 
         protected void MettreAJourStatuts(HttpResponseMessage? response)
         {
@@ -77,7 +76,5 @@ namespace com.democratia.Services
             client!.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
-        public abstract Task<string> CreateModelAsync(params object?[]? parameters);
     }
 }

@@ -2,18 +2,18 @@
 
 namespace com.democratia.Services
 {
-    public class InternauteClient : Client
+    public class InternauteClient : Client, IClient
     {
         
 
         public InternauteClient() : base() {}
 
-        public override Task<string> CreateModelAsync(params object?[]? parameters)
+        public Task<string> CreateModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException("Not implemented");
         }
 
-        public async override Task<string> GetModelAsync(params object?[] parameters)
+        public async Task<string> GetModelAsync(params object?[] parameters)
         {
             DebutRequete();
 

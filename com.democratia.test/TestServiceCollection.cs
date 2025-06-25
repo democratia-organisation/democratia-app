@@ -15,6 +15,17 @@ public static class TestServiceCollection
         return services.BuildServiceProvider();
     }
 
+    public static IServiceProvider CreateFakeServiceProviderForMainViewModel(string? fakeResponse)
+    {
+        var services = new ServiceCollection();
+
+        services.AddSingleton<INavigationService, ShellNavigationService>();
+        services.AddSingleton<IClient>(sp => new FakeClient(fakeResponse));
+        services.AddTransient<MainPageViewModel>();
+
+        return services.BuildServiceProvider();
+    }
+
     public static IServiceProvider CreateTestServiceProviderForClients()
     {
         var services = new ServiceCollection();

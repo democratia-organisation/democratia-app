@@ -18,7 +18,7 @@ namespace com.democratia.test.Services
         }
 
         // TODO : tester
-        //      - GetMethode
+        //      - CreateMethode
 
         [Theory]
         [MemberData(nameof(ClientData))]

@@ -25,7 +25,7 @@ namespace com.democratia.ViewModels
             this.navigationService = navigationService;
         }
 
-        public CreationViewModel(Client? client) : base(client) { }
+        public CreationViewModel(IClient? client) : base(client) { }
 
 
         public CreationViewModel() : base(null) { }

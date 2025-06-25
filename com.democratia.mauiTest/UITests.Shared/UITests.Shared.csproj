@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.Build.NoTargets/3.7.0">
+﻿<Project Sdk="Microsoft.Build.NoTargets/3.7.0">
     
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -6,14 +6,12 @@
     <GenerateMSBuildEditorConfigFile>False</GenerateMSBuildEditorConfigFile>
     <GenerateTargetFrameworkAttribute>False</GenerateTargetFrameworkAttribute>
     <RootNamespace>UITests</RootNamespace>
+	<LangVersion>preview</LangVersion>
+	<DefineConstants>$(DefineConstants);UITEST</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="**\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\com.democratia.view\com.democratia.view.csproj" />
   </ItemGroup>
 
 </Project>

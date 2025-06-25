@@ -6,13 +6,8 @@ namespace com.democratia.test.ViewModels
     
     public class MainPageViewModelTest
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly MainPageViewModel? mainPageViewModel;
-
-        // TODO : tester :
-        //      - NavigateTapped via Appium
-        //      - si le serveur renvoie une page html au lieu d'un json
-        //      - si les données json ne sont ni un tableau ni un nombre
+        private IServiceProvider _serviceProvider;
+        private MainPageViewModel? mainPageViewModel;
 
         public MainPageViewModelTest()
         {
@@ -38,6 +33,22 @@ namespace com.democratia.test.ViewModels
             Assert.Equal(mainPageViewModel.AdresseMail, internaute.courriel);
 
         }
+
+        [Theory]
+        [InlineData("<html>","Erreur lors de la récupération des données")]
+        [InlineData("{\"data\" : 1 }","Erreur lors de la connexion du compte")]
+        public async Task NotTextExceptedError(string? fakeResponse, string? messageAttendu)
+        {
+            _serviceProvider = TestServiceCollection.CreateFakeServiceProviderForMainViewModel(fakeResponse);
+            mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
+            mainPageViewModel.AdresseMail = "modadary56@gmail.com";
+            mainPageViewModel.MotDePasse = "Djonodo20050207/";
+
+            var exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
+
+            Assert.Equal(messageAttendu, exception.Message);
+        }
+
 
         [Fact]
         public async Task ConnecterInternauteErrorInternetTest()
