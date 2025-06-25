@@ -25,16 +25,13 @@ namespace com.democratia.ViewModels
         private readonly IEnumerable<IClient?>? clients;
 
         public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients) 
-            : this(clients?.OfType<InternauteClient>().FirstOrDefault())
+            : base(clients?.OfType<InternauteClient>().FirstOrDefault())
         {
             this.navigationService = navigationService;
             this.clients = clients;
             if (client is null)
                 this.client = clients?.OfType<FakeClient>().FirstOrDefault();
         }
-
-        private MainPageViewModel(IClient? client) : base(client) {}
-
 
         public MainPageViewModel() : base(null) { }
 
