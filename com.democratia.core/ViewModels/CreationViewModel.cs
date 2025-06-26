@@ -17,16 +17,21 @@ namespace com.democratia.ViewModels
 
         [ObservableProperty] private string? motDePasse ;
         
-        private INavigationService? navigationService;
+        [ObservableProperty] private string? retourMessage;
+
+
+        private readonly INavigationService? navigationService;
+        private readonly IEnumerable<IClient?>? clients;
 
         public CreationViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
-            : this(clients?.OfType<InternauteClient>().FirstOrDefault())
+            : base(clients?.OfType<InternauteClient>().FirstOrDefault())
         {
             this.navigationService = navigationService;
+            this.navigationService = navigationService;
+            this.clients = clients;
+            if (client is null)
+                this.client = clients?.OfType<FakeClient>().FirstOrDefault();
         }
-
-        public CreationViewModel(IClient? client) : base(client) { }
-
 
         public CreationViewModel() : base(null) { }
 

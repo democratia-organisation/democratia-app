@@ -41,7 +41,12 @@ namespace UITests.View
     {
         protected AppiumDriver App => AppiumSetup.App;
 
-        public abstract void Dispose();
+        public virtual void Dispose()
+        {
+            if (SystemInfo.SSHHost()) return;
+            App?.Dispose();
+            GC.SuppressFinalize(this);
+        }
 
         // This could also be an extension method to AppiumDriver if you prefer
         protected AppiumElement? FindUIElement(string id)

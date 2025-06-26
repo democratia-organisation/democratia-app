@@ -62,8 +62,7 @@ namespace UITests
             // Note there are many more options that you can use to influence the app under test according to your needs
 
             try {
-                driver = new AndroidDriver(androidOptions, TimeSpan.FromSeconds(180));
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10); 
+                driver = new AndroidDriver(androidOptions);
             }
             catch (Exception ex)
             {

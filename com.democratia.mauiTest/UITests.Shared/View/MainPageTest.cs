@@ -47,9 +47,9 @@ namespace UITests.View
 
 
             if (SystemInfo.SSHHost()) return;
-            Debug.WriteLine(App.PageSource);
             AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
+            foreach (var entry in entries!) entry.Clear();
             var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
             adresseMailEntry?.Clear();
             motDePasseEntry?.Clear();
@@ -74,9 +74,9 @@ namespace UITests.View
         {
 
             if (SystemInfo.SSHHost()) return;
-            Debug.WriteLine(App.PageSource);
             AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
+            foreach (var entry in entries!) entry.Clear();
             var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
             adresseMailEntry?.Clear();
             motDePasseEntry?.Clear();
@@ -88,7 +88,5 @@ namespace UITests.View
             Assert.NotNull(FindUIElement("Error message"));
 
         }
-        public override void Dispose() => GC.SuppressFinalize(this);
-
     }
 }

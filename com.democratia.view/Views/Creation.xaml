@@ -26,12 +26,13 @@
             <component:EntryComponent Title="Adresse mail" x:Name="mailComponent" ValeurDonne="{Binding AdresseMail}"/>
             <component:EntryComponent Title="Mot de passe" PassWord="True" x:Name="passwordComponent" ValeurDonne="{Binding MotDePasse}"/>
             <BoxView HeightRequest="100"/>
-            <Button
+                <Button
                 Text="M'inscrire"
                 x:Name="inscriptionButton"
                 Style="{DynamicResource ButtonStyle}"
                 MaximumWidthRequest="300"
                 Command="{Binding NavigateTappedCommand}"
+                AutomationId="M'inscrire"
             />
             </StackLayout>
         </Grid>

@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium.Appium;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using Xunit;
 
 namespace UITests.View
@@ -13,10 +14,34 @@ namespace UITests.View
         // par C# puis envoyé dans le driver soit les bons
         // /!\ on ne teste que la présence d'un élément UI car la présence du comtenu du texte est déjà
         // testé dans les test du vue modèle
+        [Fact(DisplayName = "Test de la présence des éléments dans la page")]
+        public void PresenceDesEntriesTest()
+        {
+
+            if (SystemInfo.SSHHost()) return;
+            Debug.WriteLine(App.PageSource);
+            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
+            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
+            AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
+            var nombresEntrees = 5;
+
+            var nombresLabels = labels?.Count;
+            var nombresEntries = entries?.Count;
+
+            Assert.Equal(nombresEntrees, nombresLabels);
+            Assert.Equal(nombresEntrees, nombresEntries);
+            Assert.NotNull(mInscrireButton);
+            Assert.Equal("Nom de Famille", labels?[0].Text);
+            Assert.Equal("Prénom", labels?[1].Text);
+            Assert.Equal("Adresse Postale", labels?[2].Text);
+            Assert.Equal("Adresse mail", labels?[3].Text);
+            Assert.Equal("Mot de passe", labels?[4].Text);
+            Assert.Equal("M'inscrire", mInscrireButton?.Text);
+        }
         public CreationPageTest() : base()
         {
-            var _ = new AppiumSetup();
             if (SystemInfo.SSHHost()) return;
+            var _ = new AppiumSetup();
             AppiumElement? creationPage = FindUIElement("Créez en un !"); ;
             creationPage?.Click();
         }
@@ -29,8 +54,11 @@ namespace UITests.View
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Labels");
             AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
             var nombreElements = 5;
+            foreach (var entry in entries !) entry.Clear();
+            
             var (nomDeFamille, prenom, adressePostale, adresseMail, motDePass) =
                 (entries?[0], entries?[1], entries?[2], entries?[3], entries?[4]);
+
 
             nomDeFamille?.SendKeys("Dupont");
             prenom?.SendKeys("Jean");
@@ -85,9 +113,5 @@ namespace UITests.View
             Assert.NotNull(FindUIElement("Error message"));
 
         }
-
-        public override void Dispose() => GC.SuppressFinalize(this);
-        
-
     }
 }

@@ -2,6 +2,8 @@ using com.democratia.Services;
 using com.democratia.test.Services;
 using com.democratia.ViewModels;
 
+namespace com.democratia.test;
+
 public static class TestServiceCollection
 {
     public static IServiceProvider CreateTestServiceProviderForMainViewModel()
@@ -11,6 +13,17 @@ public static class TestServiceCollection
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IClient, InternauteClient>();
         services.AddTransient<MainPageViewModel>();
+
+        return services.BuildServiceProvider();
+    }
+
+    public static IServiceProvider CreateTestServiceProviderForCreationViewModel()
+    {
+        var services = new ServiceCollection();
+
+        services.AddSingleton<INavigationService, ShellNavigationService>();
+        services.AddSingleton<IClient, InternauteClient>();
+        services.AddTransient<CreationViewModel>();
 
         return services.BuildServiceProvider();
     }
