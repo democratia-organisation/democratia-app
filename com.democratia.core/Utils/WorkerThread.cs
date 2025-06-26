@@ -21,7 +21,7 @@ namespace com.democratia.Utils
         private readonly Action<object?, ProgressChangedEventArgs>? onProgression;
 
 
-        
+
 
         /// <summary>
         /// Constructeur de la classe WorkerThread pour une fonction sans paramètres.
@@ -70,7 +70,7 @@ namespace com.democratia.Utils
             if (backgroundWorker.IsBusy) throw new InvalidOperationException("Le thread est déjà occupé");
             backgroundWorker.RunWorkerAsync(parameters);
         }
-        
+
         private void BackgroundWorker_workerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -93,7 +93,7 @@ namespace com.democratia.Utils
 
         private dynamic? DynamicInvokeSmart(object?[]? flatArgs)
         {
-            ParameterInfo [] parameters = @delegate.Method.GetParameters();
+            ParameterInfo[] parameters = @delegate.Method.GetParameters();
 
             if (parameters.Length == 0) try { return @delegate.DynamicInvoke(); } catch (TargetInvocationException targ) { throw targ.InnerException ?? targ; }
 
@@ -113,7 +113,7 @@ namespace com.democratia.Utils
             if (hasParams)
             {
                 Type? paramElementType = parameters.Last().ParameterType.GetElementType()!;
-                object? [] paramArgs = flatArgs?.Skip(fixedCount).ToArray() !;
+                object?[] paramArgs = flatArgs?.Skip(fixedCount).ToArray()!;
 
                 Array paramArray = paramArgs != null ? Array.CreateInstance(paramElementType, paramArgs.Length) : throw new NullReferenceException("référencement null");
                 for (int i = 0; i < paramArgs.Length; i++)

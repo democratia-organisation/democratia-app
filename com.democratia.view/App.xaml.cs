@@ -3,8 +3,6 @@
 using com.democratia.Platforms.Android;
 #endif
 using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Platform;
-using System.Diagnostics;
 
 namespace com.democratia
 {
@@ -50,33 +48,33 @@ namespace com.democratia
             if (handler.PlatformView is Android.Views.View androidView)
             {
                 if (String.IsNullOrWhiteSpace(view.AutomationId))
-                return;
+                    return;
 
-            if (AndroidX.Core.View.ViewCompat.GetAccessibilityDelegate(androidView) is not TestDelegate)
-                AndroidX.Core.View.ViewCompat.SetAccessibilityDelegate(androidView, new TestDelegate());
+                if (AndroidX.Core.View.ViewCompat.GetAccessibilityDelegate(androidView) is not TestDelegate)
+                    AndroidX.Core.View.ViewCompat.SetAccessibilityDelegate(androidView, new TestDelegate());
 
-            if (AndroidX.Core.View.ViewCompat.GetAccessibilityDelegate(androidView) is TestDelegate td)
-                td.AutomationId = view.AutomationId;
+                if (AndroidX.Core.View.ViewCompat.GetAccessibilityDelegate(androidView) is TestDelegate td)
+                    td.AutomationId = view.AutomationId;
 
-            androidView.ContentDescription = view.AutomationId;
+                androidView.ContentDescription = view.AutomationId;
+            }
         }
-}
 #endif
-//private void UnhadledException(object? sender = null, EventArgs? e = null)
-//        {
-//            if (e is not null && e is UnhandledExceptionEventArgs unhandledExceptionEventArgs)
-//                Current?.Windows[0]?.Page?.DisplayAlert("Erreur", "Une erreur inattendu est survenue. Voici le message : \n" + unhandledExceptionEventArgs.ExceptionObject.ToString(), "OK");
+        //private void UnhadledException(object? sender = null, EventArgs? e = null)
+        //        {
+        //            if (e is not null && e is UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        //                Current?.Windows[0]?.Page?.DisplayAlert("Erreur", "Une erreur inattendu est survenue. Voici le message : \n" + unhandledExceptionEventArgs.ExceptionObject.ToString(), "OK");
 
-//            else 
-//                Current?.Windows[0]?.Page?.DisplayAlert("Erreur", "Une erreur inattendu est survenue", "OK");
+        //            else 
+        //                Current?.Windows[0]?.Page?.DisplayAlert("Erreur", "Une erreur inattendu est survenue", "OK");
 
-//            Current?.Quit();
-//        }
+        //            Current?.Quit();
+        //        }
 
-        protected override Window CreateWindow(IActivationState? activationState) =>new(new AppShell());
+        protected override Window CreateWindow(IActivationState? activationState) => new(new AppShell());
 
     }
-    
+
 
 
 }

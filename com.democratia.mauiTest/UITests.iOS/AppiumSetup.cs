@@ -25,7 +25,7 @@ namespace UITests
                 //var sortie = RunAppiumIOSOverSSH("<macIp>", "<macUser>", "<macProjectDir>");
                 //if (!sortie.Contains("Test Output")) throw new Exception($"Error starting Appium: {sortie}");
                 //else sshSortie = sortie;
-                
+
                 return;
             }
 

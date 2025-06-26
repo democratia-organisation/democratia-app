@@ -9,11 +9,11 @@ namespace com.democratia.test.Models
         public void ConstructeurPropositionTest()
         {
             // Arrange
-            Proposition proposition = new (1,"Test Proposition",
+            Proposition proposition = new(1, "Test Proposition",
                 "mettre une plante dans le jardin",
                 "prendre une plante",
                 1000.0f,
-                0,"ecologie",1
+                0, "ecologie", 1
             );
             // Act & Assert
             Assert.NotNull(proposition);

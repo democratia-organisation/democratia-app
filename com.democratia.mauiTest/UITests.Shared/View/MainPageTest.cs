@@ -1,8 +1,6 @@
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using Xunit;
 
 // You will have to make sure that all the namespaces match
@@ -54,7 +52,7 @@ namespace UITests.View
             adresseMailEntry?.Clear();
             motDePasseEntry?.Clear();
             // /!\ important afin de laisser le temps d'arriver la page HomePage
-            if(AppiumSetup.device!="android")
+            if (AppiumSetup.device != "android")
                 App.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
             adresseMailEntry?.SendKeys("modadary56@gmail.com");
@@ -64,13 +62,13 @@ namespace UITests.View
             Assert.NotNull(FindUIElement("HomePage"));
         }
 
-        
+
         [Theory(DisplayName = "Test de la page en cas d'entrée incorrecte")]
         [InlineData("fezfzfzefz", "Djonodo20050207/")]
         [InlineData("modadary56@gmail.com", "Djonodo20050207/erreur")]
         [InlineData("", "")]
         [InlineData("dadadzadzada", "")]
-        public void NavigationPageErrorTest(string adresseMail,string motDePasse)
+        public void NavigationPageErrorTest(string adresseMail, string motDePasse)
         {
 
             if (SystemInfo.SSHHost()) return;
@@ -80,7 +78,7 @@ namespace UITests.View
             var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
             adresseMailEntry?.Clear();
             motDePasseEntry?.Clear();
- 
+
             adresseMailEntry?.SendKeys(adresseMail);
             motDePasseEntry?.SendKeys(motDePasse);
             seConecterButton?.Click();

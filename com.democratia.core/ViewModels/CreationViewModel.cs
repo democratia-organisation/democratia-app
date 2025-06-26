@@ -6,17 +6,17 @@ namespace com.democratia.ViewModels
 {
     public partial class CreationViewModel : ConnectableViewModel, INavigeablleViewModel
     {
-        
-        [ObservableProperty] private string? nomDeFamille ;
 
-        [ObservableProperty] private string? prenom ;
+        [ObservableProperty] private string? nomDeFamille;
+
+        [ObservableProperty] private string? prenom;
 
         [ObservableProperty] private string? adressePostal;
 
-        [ObservableProperty] private string? adresseMail ;
+        [ObservableProperty] private string? adresseMail;
 
-        [ObservableProperty] private string? motDePasse ;
-        
+        [ObservableProperty] private string? motDePasse;
+
         [ObservableProperty] private string? retourMessage;
 
 
@@ -45,7 +45,7 @@ namespace com.democratia.ViewModels
         {
             throw new NotImplementedException("Not implemented");
         }
-        
+
         private bool VerifierChampComplet()
         {
             throw new NotImplementedException("Not implemented");
@@ -64,13 +64,13 @@ namespace com.democratia.ViewModels
         }
         private object RecupererValeurRetour()
         {
-            throw new   NotImplementedException("Not implemented");
+            throw new NotImplementedException("Not implemented");
         }
-        private List<Dictionary<string,object>> ConversionToObject()
+        private List<Dictionary<string, object>> ConversionToObject()
         {
-            throw new   NotImplementedException("Not implemented");
+            throw new NotImplementedException("Not implemented");
         }
 
-        
+
     }
 }

@@ -44,7 +44,7 @@ public static class TestServiceCollection
         var services = new ServiceCollection();
 
         // TODO : ajouter d'autres clients si nécessaire
-        services.AddSingleton<IClient,InternauteClient>();
+        services.AddSingleton<IClient, InternauteClient>();
         services.AddTransient<Provider>();
 
         return services.BuildServiceProvider();

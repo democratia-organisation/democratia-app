@@ -54,8 +54,8 @@ namespace UITests.View
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Labels");
             AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
             var nombreElements = 5;
-            foreach (var entry in entries !) entry.Clear();
-            
+            foreach (var entry in entries!) entry.Clear();
+
             var (nomDeFamille, prenom, adressePostale, adresseMail, motDePass) =
                 (entries?[0], entries?[1], entries?[2], entries?[3], entries?[4]);
 
@@ -83,11 +83,11 @@ namespace UITests.View
         }
 
         [Theory(DisplayName = "Différents cas d'erreurs")]
-        [InlineData("","","","","")]
+        [InlineData("", "", "", "", "")]
         [InlineData("hello", "bonjour", "132 rue de Lyon", "dzadazda", "Djonodo8/")]
         [InlineData("hello", "bonjour", "132 rue de Lyon", "email@example.com", "Djonodo/")]
         [InlineData("hello", "bonjour", "132 rue de Lyon", "modadary56@gmail.com", "Djonodo8/")]
-        public void CreationCompteTestError(string nom,string prenom, string adressePostale,string adresseMail,string motDePasse)
+        public void CreationCompteTestError(string nom, string prenom, string adressePostale, string adresseMail, string motDePasse)
         {
             if (SystemInfo.SSHHost()) return;
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");

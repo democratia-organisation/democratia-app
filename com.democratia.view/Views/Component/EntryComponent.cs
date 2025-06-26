@@ -3,7 +3,7 @@ namespace com.democratia.Views.Component;
 public partial class EntryComponent : ContentView
 {
     private string? _title;
-    
+
     private bool? _passWord;
 
 
@@ -35,7 +35,7 @@ public partial class EntryComponent : ContentView
         }
     }
 
-    
+
 
     public bool? PassWord
     {
@@ -53,8 +53,9 @@ public partial class EntryComponent : ContentView
 
     public EntryComponent()
     {
-        Content = new VerticalStackLayout {
-            
+        Content = new VerticalStackLayout
+        {
+
             Children = {
                 new Label {
                   HorizontalOptions = LayoutOptions.Center,
@@ -66,20 +67,20 @@ public partial class EntryComponent : ContentView
                 new BoxView {
                   HeightRequest = 30
                 },
-                
+
                 new Border {
                     Style = (Style?)Application.Current?.Resources["BorderStyle"],
-                    
+
                     Content = new Entry {
                         Style = (Style?)Application.Current?.Resources["EntryStyle"],
                         MaximumWidthRequest = 300,
                         AutomationId = "Entry"
                     }
                 },
-                
+
                 new BoxView {
                     HeightRequest = 30
-                } 
+                }
             }
         };
 

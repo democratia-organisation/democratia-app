@@ -1,10 +1,10 @@
-﻿using Crypt = BCrypt.Net.BCrypt;
-using com.democratia.Models;
+﻿using com.democratia.Models;
 using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Text.Json;
+using Crypt = BCrypt.Net.BCrypt;
 
 namespace com.democratia.ViewModels
 {
@@ -24,7 +24,7 @@ namespace com.democratia.ViewModels
         private readonly INavigationService? navigationService;
         private readonly IEnumerable<IClient?>? clients;
 
-        public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients) 
+        public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
             : base(clients?.OfType<InternauteClient>().FirstOrDefault())
         {
             this.navigationService = navigationService;
@@ -47,8 +47,8 @@ namespace com.democratia.ViewModels
                     ErrorMessage = "";
                     await navigationService!.GoToAsync(commande, parameters);
                 }
-                else await navigationService!.GoToAsync(commande,null);
-                
+                else await navigationService!.GoToAsync(commande, null);
+
             }
             catch (Exception ex)
             {
@@ -58,22 +58,22 @@ namespace com.democratia.ViewModels
 
         internal async Task<Internaute?> ConnecterInternaute()
         {
-                
-            if(string.IsNullOrEmpty(AdresseMail) || string.IsNullOrEmpty(MotDePasse))
+
+            if (string.IsNullOrEmpty(AdresseMail) || string.IsNullOrEmpty(MotDePasse))
             {
                 if (string.IsNullOrEmpty(AdresseMail)) throw new ArgumentException("Veuillez saisir votre adresse mail");
                 else throw new ArgumentException("Veuillez saisir votre mot de passe");
             }
             string jsonString;
-            try 
-                { jsonString = await client?.GetModelAsync(AdresseMail)!; } 
-            catch (Exception) 
-                { throw new Exception("Erreur de connexion inattendu"); }
+            try
+            { jsonString = await client?.GetModelAsync(AdresseMail)!; }
+            catch (Exception)
+            { throw new Exception("Erreur de connexion inattendu"); }
             List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString);
-            string motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString() !;
+            string motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString()!;
             bool motDePasseValide = await VerifierMotDePasseUtilisateur(motDePasseHash);
             if (!motDePasseValide) throw new Exception("Mot de passe incorrecte");
-            
+
             // /!\ le casting est important car les valeurs ne
             // sont pas dans le type voulu mais dans le type JsonElement
             return new(
@@ -101,8 +101,8 @@ namespace com.democratia.ViewModels
         }
 
         // Tâche rendu asynchrone à cause du temps d'execution de la fonction Verify
-        private async Task<bool> VerifierMotDePasseUtilisateur(string hashedMotDePasse) => await Task.Run(() => Crypt.Verify(MotDePasse,hashedMotDePasse));
-        
+        private async Task<bool> VerifierMotDePasseUtilisateur(string hashedMotDePasse) => await Task.Run(() => Crypt.Verify(MotDePasse, hashedMotDePasse));
+
     }
 }
 

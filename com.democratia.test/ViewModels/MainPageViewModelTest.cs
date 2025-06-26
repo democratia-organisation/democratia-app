@@ -3,7 +3,7 @@ using com.democratia.ViewModels;
 
 namespace com.democratia.test.ViewModels
 {
-    
+
     public class MainPageViewModelTest
     {
         private IServiceProvider _serviceProvider;
@@ -35,8 +35,8 @@ namespace com.democratia.test.ViewModels
         }
 
         [Theory]
-        [InlineData("<html>","Erreur lors de la récupération des données")]
-        [InlineData("{\"data\" : 1 }","Erreur lors de la connexion du compte")]
+        [InlineData("<html>", "Erreur lors de la récupération des données")]
+        [InlineData("{\"data\" : 1 }", "Erreur lors de la connexion du compte")]
         public async Task NotTextExceptedError(string? fakeResponse, string? messageAttendu)
         {
             _serviceProvider = TestServiceCollection.CreateFakeServiceProviderForMainViewModel(fakeResponse);
@@ -54,9 +54,9 @@ namespace com.democratia.test.ViewModels
         public async Task ConnecterInternauteErrorInternetTest()
         {
             mainPageViewModel!.Client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
-            
+
             Exception exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
-            
+
             Assert.Equal("Erreur de connexion inattendu", exception.Message);
 
         }
@@ -75,7 +75,7 @@ namespace com.democratia.test.ViewModels
 
             if (string.IsNullOrEmpty(mainPageViewModel.MotDePasse) || string.IsNullOrEmpty(mainPageViewModel.AdresseMail))
                 exception = await Assert.ThrowsAsync<ArgumentException>(async () => await mainPageViewModel!.ConnecterInternaute());
-            
+
             else
                 exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel.ConnecterInternaute());
 

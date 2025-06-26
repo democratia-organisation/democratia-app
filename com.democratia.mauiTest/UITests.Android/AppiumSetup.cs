@@ -61,18 +61,19 @@ namespace UITests
 
             // Note there are many more options that you can use to influence the app under test according to your needs
 
-            try {
+            try
+            {
                 driver = new AndroidDriver(androidOptions);
             }
             catch (Exception ex)
             {
-                
+
                 if (ex.Message.Contains("Could not find a connected Android device in 20000ms"))
-                throw new Exception("J'ai oublié d'allumer de connecter un appareil à l'ordinateur");
-                
+                    throw new Exception("J'ai oublié d'allumer de connecter un appareil à l'ordinateur");
+
                 else
-                    throw new Exception(ex.Message,ex);
-                
+                    throw new Exception(ex.Message, ex);
+
             }
         }
 

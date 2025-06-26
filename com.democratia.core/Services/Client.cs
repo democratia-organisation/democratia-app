@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace com.democratia.Services
 {
-    
+
     public class Client
     {
         protected static string? BASE_URL;
@@ -49,7 +49,7 @@ namespace com.democratia.Services
             BASE_URL = info.GetValue<string>("BaseUrl");
             statutsMessage = info.GetValue<string>("StatutsMessage");
             statuts = info.GetValue<int?>("Statuts");
-            
+
             client = new HttpClient { BaseAddress = new Uri(BASE_URL) };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

@@ -8,7 +8,7 @@ namespace com.democratia.Services
     public interface IClient : IXunitSerializable
     {
         public Task<string> GetModelAsync(params object?[] parameters);
-        
+
         /// <summary>
         /// fonction qui permet de changer le port de l'API.
         /// Utilisée pour les tests unitaires afin de simuler une erreur de connexion internet.

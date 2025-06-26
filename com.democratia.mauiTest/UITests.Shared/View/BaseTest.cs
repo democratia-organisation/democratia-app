@@ -1,6 +1,5 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Windows;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
@@ -76,6 +75,6 @@ namespace UITests.View
             return App.FindElements(MobileBy.Id(id)).Count > 0 ? App.FindElements(MobileBy.Id(id)) : null;
         }
 
-        
+
     }
 }

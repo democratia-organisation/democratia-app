@@ -1,10 +1,10 @@
 ﻿
 namespace com.democratia.Models
 {
-    
+
     public class Internaute(int? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postal, string? courriel) : IModel
     {
-        public Internaute() : this(null,null,null,null,null)
+        public Internaute() : this(null, null, null, null, null)
         {
         }
 

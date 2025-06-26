@@ -69,7 +69,7 @@ namespace UITests
 
             return !string.IsNullOrEmpty(error) ? $"Error:\n{error}" : $"Test Output:\n{output}";
         }
-        
+
         public void Dispose()
         {
             driver?.Quit();
