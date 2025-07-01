@@ -91,6 +91,7 @@ namespace com.democratia.ViewModels
         }
         private async Task<bool> VerifierMailDoublon()
         {
+            // /!\ En mode test, le client est un FakeClient, réflféchir à la manière de tester cette méthode
             string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(AdresseMail!)!;
             List<Dictionary<string, object>>? listeInformation = RecuprerInformationConnexion(retourJson);
             int? nombreMail = ((JsonElement?)listeInformation?[0]["courriel"])?.GetInt32();
