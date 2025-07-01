@@ -102,7 +102,7 @@ namespace com.democratia.ViewModels
         private bool VerifierFormatageMotDePasse()
         {
             FormatRule passwordRule = new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$");
-            return passwordRule.Check(AdresseMail!);
+            return passwordRule.Check(MotDePasse!);
         }
 
 
