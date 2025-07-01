@@ -47,7 +47,7 @@ namespace com.democratia.ViewModels
                     ErrorMessage = "";
                     await navigationService!.GoToAsync(commande, parameters);
                 }
-                else await navigationService!.GoToAsync(commande, null);
+                else await navigationService!.GoToAsync(commande);
 
             }
             catch (Exception ex)

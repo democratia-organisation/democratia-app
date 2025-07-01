@@ -38,7 +38,7 @@ namespace com.democratia.ViewModels
         public CreationViewModel() : base(null) { }
 
         [RelayCommand]
-        public async Task NavigateTapped(string commande) => await navigationService?.GoToAsync("MainPage", null)!;
+        public async Task NavigateTapped(string commande) => await navigationService?.GoToAsync("MainPage")!;
 
         [RelayCommand]
         public async Task CreerInternauteTapped()
