@@ -38,7 +38,7 @@ namespace com.democratia.ViewModels
         public CreationViewModel() : base(null) { }
 
         [RelayCommand]
-        public async Task NavigateTapped(string commande) => await navigationService?.GoToAsync("MainPage",null) !;
+        public async Task NavigateTapped(string commande) => await navigationService?.GoToAsync("MainPage", null)!;
 
         [RelayCommand]
         public async Task CreerInternauteTapped()
@@ -64,14 +64,14 @@ namespace com.democratia.ViewModels
                 {
                     string reponse = await client?.CreateModelAsync(NomDeFamille, Prenom, AdresseMail, AdressePostal, MotDePasse)!;
                 }
-                
+
 
             }
             catch (Exception)
             {
                 throw;
             }
-            
+
         }
 
         private bool VerifierChampComplet()
@@ -91,7 +91,7 @@ namespace com.democratia.ViewModels
         }
         private async Task<bool> VerifierMailDoublon()
         {
-            // /!\ En mode test, le client est un FakeClient, réflféchir à la manière de tester cette méthode
+            // /!\ En mode test, le client est un FakeClient, réfléchir à la manière de tester cette méthode
             string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(AdresseMail!)!;
             List<Dictionary<string, object>>? listeInformation = RecuprerInformationConnexion(retourJson);
             int? nombreMail = ((JsonElement?)listeInformation?[0]["courriel"])?.GetInt32();
@@ -99,21 +99,19 @@ namespace com.democratia.ViewModels
                 ? true
                 : throw new Exception("L'adresse mail est déjà utilisée");
         }
-        private bool VerifieFormattageMotDePasse()
+        private bool VerifierFormatageMotDePasse()
         {
             FormatRule passwordRule = new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$");
             return passwordRule.Check(AdresseMail!);
         }
-        
 
-        private async Task<bool> VerifierToutesLesConditions() => VerifierChampComplet() && VerifierFormatageMail() && await VerifierMailDoublon() && VerifieFormattageMotDePasse();
 
-        
+        private async Task<bool> VerifierToutesLesConditions() => VerifierChampComplet() && VerifierFormatageMail() && await VerifierMailDoublon() && VerifierFormatageMotDePasse();
+
+
         private class FormatRule(string pattern)
         {
             private readonly GeneratedRegexAttribute _regex = new(pattern);
-
-            public string? ValidationMessage { get; set; }
 
             public bool Check(string value) =>
                 value is string str && _regex.Match(str);

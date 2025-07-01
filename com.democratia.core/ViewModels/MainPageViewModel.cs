@@ -78,7 +78,7 @@ namespace com.democratia.ViewModels
             // sont pas dans le type voulu mais dans le type JsonElement
             return new(
                     ((JsonElement?)listeInformation?[0]["id_internaute"])?.GetInt32() ?? 0,
-                    listeInformation[0]["nom_internaute"]?.ToString() ?? string.Empty,
+                    listeInformation![0]["nom_internaute"]?.ToString() ?? string.Empty,
                     listeInformation[0]["prenom_internaute"]?.ToString() ?? string.Empty,
                     listeInformation[0]["adresse_postale"]?.ToString() ?? string.Empty,
                     listeInformation[0]["courriel"]?.ToString() ?? string.Empty

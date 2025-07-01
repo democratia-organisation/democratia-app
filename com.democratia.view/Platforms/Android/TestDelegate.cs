@@ -6,7 +6,7 @@ namespace com.democratia.Platforms.Android
 {
     public class TestDelegate : MauiAccessibilityDelegateCompat
     {
-        public string AutomationId { get; internal set; }
+        public string? AutomationId { get; internal set; }
 
         public override void OnInitializeAccessibilityNodeInfo(Vue host, AccessibilityNodeInfoCompat info)
         {

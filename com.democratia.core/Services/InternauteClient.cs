@@ -33,7 +33,8 @@ namespace com.democratia.Services
 
             HttpResponseMessage? response;
             try
-            { response = await client!.GetAsync($"""?request=SELECT COUNT(courriel) FROM internaute WHERE courriel=?&parameters=["{email}"]"""); 
+            {
+                response = await client!.GetAsync($"""?request=SELECT COUNT(courriel) FROM internaute WHERE courriel=?&parameters=["{email}"]""");
             }
             catch (HttpRequestException ex)
             { throw new HttpRequestException("Erreur de connexion inattendu", ex); }

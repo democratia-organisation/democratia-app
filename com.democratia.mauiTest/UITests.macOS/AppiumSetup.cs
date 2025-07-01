@@ -73,6 +73,7 @@ namespace UITests
         public void Dispose()
         {
             driver?.Quit();
+            GC.SuppressFinalize(this);
             AppiumServerHelper.DisposeAppiumLocalServer();
         }
     }
