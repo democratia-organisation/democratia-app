@@ -6,6 +6,7 @@ public partial class EntryComponent : ContentView
 
     private bool? _passWord;
 
+    private Entry entryComponent { get; }
 
     public static readonly BindableProperty ValeurDonneProperty = BindableProperty.Create(
     nameof(ValeurDonne),
@@ -43,16 +44,20 @@ public partial class EntryComponent : ContentView
         set
         {
             _passWord = value;
-            // Met à jour le texte du Label si nécessaire  
-            if (Content is VerticalStackLayout layout && layout.Children[2] is Entry entry)
-            {
-                entry.IsPassword = (bool)_passWord;
-            }
+            entryComponent.IsPassword = (bool)_passWord;
         }
     }
 
     public EntryComponent()
     {
+        entryComponent = new Entry()
+        {
+            Style = (Style?)Application.Current?.Resources["EntryStyle"],
+            MaximumWidthRequest = 300,
+            AutomationId = "Entry",
+
+        };
+        entryComponent.TextChanged += OnTitleChanged;
         Content = new VerticalStackLayout
         {
 
@@ -70,12 +75,7 @@ public partial class EntryComponent : ContentView
 
                 new Border {
                     Style = (Style?)Application.Current?.Resources["BorderStyle"],
-
-                    Content = new Entry {
-                        Style = (Style?)Application.Current?.Resources["EntryStyle"],
-                        MaximumWidthRequest = 300,
-                        AutomationId = "Entry"
-                    }
+                    Content = entryComponent,
                 },
 
                 new BoxView {
@@ -83,12 +83,6 @@ public partial class EntryComponent : ContentView
                 }
             }
         };
-
-        // Ajout de l'abonnement à l'événement TextChanged  
-        if (Content is VerticalStackLayout layout && layout.Children[2] is Border border && border.Content is Entry entryControl)
-        {
-            entryControl.TextChanged += OnTitleChanged;
-        }
     }
 
     private void OnTitleChanged(object? sender, TextChangedEventArgs e)

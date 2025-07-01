@@ -18,22 +18,23 @@
             
         <component:Header Grid.Row="0"/>
         
-        <StackLayout Padding="10" Grid.Row="1">
+        <StackLayout Padding="10" Grid.Row="1" x:Name="stackLayout">
             <BoxView HeightRequest="50"/>
             <component:EntryComponent Title="Nom de Famille" x:Name="nomDeFamilleComponent" ValeurDonne="{Binding NomDeFamille}"/>
             <component:EntryComponent Title="Prénom" x:Name="prenomComponent" ValeurDonne="{Binding Prenom}"/>
             <component:EntryComponent Title="Adresse Postale" x:Name="addresseComponent" ValeurDonne="{Binding AdressePostal}"/>
             <component:EntryComponent Title="Adresse mail" x:Name="mailComponent" ValeurDonne="{Binding AdresseMail}"/>
             <component:EntryComponent Title="Mot de passe" PassWord="True" x:Name="passwordComponent" ValeurDonne="{Binding MotDePasse}"/>
-            <BoxView HeightRequest="100"/>
+            <Label Text="{Binding RetourMessage}" Style="{DynamicResource ErrorLabelStyle}" HorizontalOptions="Center" x:Name="retourMessageLabel"/>
+                <BoxView HeightRequest="100"/>
                 <Button
-                Text="M'inscrire"
-                x:Name="inscriptionButton"
-                Style="{DynamicResource ButtonStyle}"
-                MaximumWidthRequest="300"
-                Command="{Binding NavigateTappedCommand}"
-                AutomationId="M'inscrire"
-            />
+                    Text="M'inscrire"
+                    x:Name="inscriptionButton"
+                    Style="{DynamicResource ButtonStyle}"
+                    MaximumWidthRequest="300"
+                    Command="{Binding CreerInternauteTappedCommand}"
+                    AutomationId="M'inscrire"
+                />
             </StackLayout>
         </Grid>
     </ScrollView>

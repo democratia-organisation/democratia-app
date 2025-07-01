@@ -1,6 +1,8 @@
 ﻿using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace com.democratia.ViewModels
 {
@@ -36,40 +38,86 @@ namespace com.democratia.ViewModels
         public CreationViewModel() : base(null) { }
 
         [RelayCommand]
-        public async Task NavigateTapped(string commande)
+        public async Task NavigateTapped(string commande) => await navigationService?.GoToAsync("MainPage",null) !;
+
+        [RelayCommand]
+        public async Task CreerInternauteTapped()
         {
-            throw new NotImplementedException();
+            try
+            {
+                await CreerInternaute();
+                RetourMessage = "Création réussie";
+
+            }
+            catch (Exception ex)
+            {
+                RetourMessage = ex.Message;
+            }
         }
+
 
         internal async Task CreerInternaute()
         {
-            throw new NotImplementedException("Not implemented");
+            try
+            {
+                if (await VerifierToutesLesConditions())
+                {
+                    string reponse = await client?.CreateModelAsync(NomDeFamille, Prenom, AdresseMail, AdressePostal, MotDePasse)!;
+                }
+                
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         private bool VerifierChampComplet()
         {
-            throw new NotImplementedException("Not implemented");
+            if (!(!string.IsNullOrEmpty(AdressePostal) &&
+              !string.IsNullOrEmpty(NomDeFamille) &&
+              !string.IsNullOrEmpty(Prenom) &&
+              !string.IsNullOrEmpty(MotDePasse) &&
+              !string.IsNullOrEmpty(AdresseMail)))
+                throw new Exception("Vérifier que tous les champs soient complets");
+            else return true;
         }
         private bool VerifierFormatageMail()
         {
-            throw new NotImplementedException("Not implemented");
+            FormatRule emailRule = new(@"^([w.-]+)@([w-]+)((.(w){2,3})+)$");
+            return emailRule.Check(AdresseMail!);
         }
-        private void VerifierMailDoublon()
+        private async Task<bool> VerifierMailDoublon()
         {
-            throw new NotImplementedException("Not implemented");
+            string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(AdresseMail!)!;
+            List<Dictionary<string, object>>? listeInformation = RecuprerInformationConnexion(retourJson);
+            int? nombreMail = ((JsonElement?)listeInformation?[0]["courriel"])?.GetInt32();
+            return nombreMail == 0
+                ? true
+                : throw new Exception("L'adresse mail est déjà utilisée");
         }
-        private void VerifieFormattageMotDePasse()
+        private bool VerifieFormattageMotDePasse()
         {
-            throw new NotImplementedException("Not implemented");
+            FormatRule passwordRule = new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$");
+            return passwordRule.Check(AdresseMail!);
         }
-        private object RecupererValeurRetour()
+        
+
+        private async Task<bool> VerifierToutesLesConditions() => VerifierChampComplet() && VerifierFormatageMail() && await VerifierMailDoublon() && VerifieFormattageMotDePasse();
+
+        
+        private class FormatRule(string pattern)
         {
-            throw new NotImplementedException("Not implemented");
+            private readonly GeneratedRegexAttribute _regex = new(pattern);
+
+            public string? ValidationMessage { get; set; }
+
+            public bool Check(string value) =>
+                value is string str && _regex.Match(str);
         }
-        private List<Dictionary<string, object>> ConversionToObject()
-        {
-            throw new NotImplementedException("Not implemented");
-        }
+
 
 
     }

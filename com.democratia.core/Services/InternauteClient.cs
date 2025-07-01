@@ -19,8 +19,23 @@ namespace com.democratia.Services
 
             HttpResponseMessage? response;
             try
-            { response = await client!.GetAsync($"""?request=SELECT * FROM internaute WHERE courriel=?&parameters=+["{parameters[0]}"]"""); }
-            catch (Exception ex) when (ex is HttpRequestException)
+            { response = await client!.GetAsync($"""?request=SELECT * FROM internaute WHERE courriel=?&parameters=["{parameters[0]}"]"""); }
+            catch (HttpRequestException ex)
+            { throw new HttpRequestException("Erreur de connexion inattendu", ex); }
+
+            return await FinRequete(response);
+
+        }
+
+        public async Task<string> DoublonEmailAsync(string email)
+        {
+            DebutRequete();
+
+            HttpResponseMessage? response;
+            try
+            { response = await client!.GetAsync($"""?request=SELECT COUNT(courriel) FROM internaute WHERE courriel=?&parameters=["{email}"]"""); 
+            }
+            catch (HttpRequestException ex)
             { throw new HttpRequestException("Erreur de connexion inattendu", ex); }
 
             return await FinRequete(response);

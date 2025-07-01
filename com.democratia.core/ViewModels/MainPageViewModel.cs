@@ -84,22 +84,6 @@ namespace com.democratia.ViewModels
                     listeInformation[0]["courriel"]?.ToString() ?? string.Empty
             );
         }
-
-
-        private static List<Dictionary<string, object>> RecuprerInformationConnexion(string stringJson)
-        {
-            Dictionary<string, object> dictionnary;
-            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(stringJson)!; }
-            catch (Exception) { throw new Exception("Erreur lors de la récupération des données"); }
-            var rawElement = (JsonElement)dictionnary["data"];
-            object message = rawElement.ValueKind switch
-            {
-                JsonValueKind.Array => rawElement.GetRawText(),
-                _ => throw new Exception("Erreur lors de la connexion du compte"),
-            };
-            return JsonSerializer.Deserialize<List<Dictionary<string, object>>>(message.ToString()!)!;
-        }
-
         // Tâche rendu asynchrone à cause du temps d'execution de la fonction Verify
         private async Task<bool> VerifierMotDePasseUtilisateur(string hashedMotDePasse) => await Task.Run(() => Crypt.Verify(MotDePasse, hashedMotDePasse));
 
