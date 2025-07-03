@@ -13,6 +13,17 @@ namespace com.democratia.test.ViewModels
             creationViewModel = _serviceProvider.GetRequiredService<CreationViewModel>();
         }
 
+        [Fact(DisplayName = "Simulation d'erreur de connexion")]
+        public async Task ConnecterInternauteErrorInternetTest()
+        {
+            creationViewModel!.Client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
+
+            Exception exception = await Assert.ThrowsAsync<Exception>(async () => await creationViewModel!.CreerInternaute());
+
+            Assert.Equal("Erreur de connexion inattendu", exception.Message);
+
+        }
+
 
         [Fact(DisplayName = "Cas de base")]
         public async Task TestCreationViewModel()

@@ -29,7 +29,6 @@ namespace com.democratia.ViewModels
             : base(clients?.OfType<InternauteClient>().FirstOrDefault())
         {
             this.navigationService = navigationService;
-            this.navigationService = navigationService;
             this.clients = clients;
             if (client is null)
                 this.client = clients?.OfType<FakeClient>().FirstOrDefault();
@@ -63,8 +62,10 @@ namespace com.democratia.ViewModels
                 if (await VerifierToutesLesConditions())
                 {
                     string reponse = await client?.CreateModelAsync(NomDeFamille, Prenom, AdresseMail, AdressePostal, MotDePasse)!;
+                    List<Dictionary<string,object>> values = RecuprerInformationConnexion(reponse);
+                    int? valeurRetourne = ((JsonElement?)values?[0]["courriel"])?.GetInt32();
+                    if (valeurRetourne != 0) throw new Exception("Erreur lors de la création du compte");
                 }
-
 
             }
             catch (Exception)
@@ -87,11 +88,10 @@ namespace com.democratia.ViewModels
         private bool VerifierFormatageMail()
         {
             FormatRule emailRule = new(@"^([w.-]+)@([w-]+)((.(w){2,3})+)$");
-            return emailRule.Check(AdresseMail!);
+            return emailRule.Check(AdresseMail!) ? true : throw new Exception("Le format de l'adresse mail est incorrecte");
         }
         private async Task<bool> VerifierMailDoublon()
         {
-            // /!\ En mode test, le client est un FakeClient, réfléchir à la manière de tester cette méthode
             string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(AdresseMail!)!;
             List<Dictionary<string, object>>? listeInformation = RecuprerInformationConnexion(retourJson);
             int? nombreMail = ((JsonElement?)listeInformation?[0]["courriel"])?.GetInt32();
@@ -102,14 +102,13 @@ namespace com.democratia.ViewModels
         private bool VerifierFormatageMotDePasse()
         {
             FormatRule passwordRule = new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$");
-            return passwordRule.Check(MotDePasse!);
+            return passwordRule.Check(MotDePasse!) ? true : throw new Exception("Le format du mot de passe est incorrecte");
         }
-
 
         private async Task<bool> VerifierToutesLesConditions() => VerifierChampComplet() && VerifierFormatageMail() && await VerifierMailDoublon() && VerifierFormatageMotDePasse();
 
 
-        private class FormatRule(string pattern)
+        private record FormatRule(string pattern)
         {
             private readonly GeneratedRegexAttribute _regex = new(pattern);
 

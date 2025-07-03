@@ -1,6 +1,7 @@
 ﻿using com.democratia.Models;
 using com.democratia.ViewModels;
 
+
 namespace com.democratia.test.ViewModels
 {
 
@@ -18,7 +19,7 @@ namespace com.democratia.test.ViewModels
             mainPageViewModel.ErrorMessage = null;
         }
 
-        [Fact]
+        [Fact(DisplayName = "Cas de base")]
         public async Task ConnecterInternauteTest()
         {
             Internaute? internaute = await mainPageViewModel!.ConnecterInternaute();
@@ -34,7 +35,7 @@ namespace com.democratia.test.ViewModels
 
         }
 
-        [Theory]
+        [Theory(DisplayName="En cas de renvoie inattendu du serveur")]
         [InlineData("<html>", "Erreur lors de la récupération des données")]
         [InlineData("{\"data\" : 1 }", "Erreur lors de la connexion du compte")]
         public async Task NotTextExceptedError(string? fakeResponse, string? messageAttendu)
@@ -50,7 +51,7 @@ namespace com.democratia.test.ViewModels
         }
 
 
-        [Fact]
+        [Fact(DisplayName = "Simulation d'erreur de connexion")]
         public async Task ConnecterInternauteErrorInternetTest()
         {
             mainPageViewModel!.Client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
@@ -61,7 +62,7 @@ namespace com.democratia.test.ViewModels
 
         }
 
-        [Theory]
+        [Theory(DisplayName = "Différentes fautes de frappes possible")]
         [InlineData("fezfzfzefz", "Djonodo20050207/", "Aucun internaute trouvé avec cette adresse mail")]
         [InlineData("modadary56@gmail.com", "Djonodo20050207/erreur", "Mot de passe incorrecte")]
         [InlineData("", "", "Veuillez saisir votre adresse mail")]

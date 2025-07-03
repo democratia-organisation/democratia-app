@@ -4,13 +4,34 @@ namespace com.democratia.Services
 {
     public class InternauteClient : Client, IClient
     {
-
-
         public InternauteClient() : base() { }
 
-        public Task<string> CreateModelAsync(params object?[]? parameters)
+        public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
-            throw new NotImplementedException("Not implemented");
+            DebutRequete();
+
+            HttpResponseMessage? response;
+
+            try
+            {
+                var content = new StringContent(
+                    $$"""
+                        {
+                            "request": "INSERT INTO internaute (nom_de_famille, prenom, courriel, adresse_postale, mot_de_passe) VALUES (?,?,?,?,?)",
+                            "parameters": ["{{parameters![0]}}", "{{parameters[1]}}", "{{parameters[3]}}", "{{parameters[2]}}", "{{parameters[4]}}"]
+                        }
+                        """,
+                    System.Text.Encoding.UTF8,
+                    "application/x-www-form-urlencoded");
+
+                response = await client!.PostAsync("", content);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+
+            return await FinRequete(response);
         }
 
         public async Task<string> GetModelAsync(params object?[] parameters)
@@ -19,12 +40,18 @@ namespace com.democratia.Services
 
             HttpResponseMessage? response;
             try
-            { response = await client!.GetAsync($"""?request=SELECT * FROM internaute WHERE courriel=?&parameters=["{parameters[0]}"]"""); }
+            {
+                response = await client!.GetAsync(
+                    $$"""
+                        ?request=SELECT * FROM internaute WHERE courriel=?&parameters=["{{parameters[0]}}"]
+                        """);
+            }
             catch (HttpRequestException ex)
-            { throw new HttpRequestException("Erreur de connexion inattendu", ex); }
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
 
             return await FinRequete(response);
-
         }
 
         public async Task<string> DoublonEmailAsync(string email)
@@ -34,13 +61,17 @@ namespace com.democratia.Services
             HttpResponseMessage? response;
             try
             {
-                response = await client!.GetAsync($"""?request=SELECT COUNT(courriel) FROM internaute WHERE courriel=?&parameters=["{email}"]""");
+                response = await client!.GetAsync(
+                    $$"""
+                        ?request=SELECT COUNT(courriel) FROM internaute WHERE courriel=?&parameters=["{{email}}"]
+                        """);
             }
             catch (HttpRequestException ex)
-            { throw new HttpRequestException("Erreur de connexion inattendu", ex); }
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
 
             return await FinRequete(response);
-
         }
     }
 }
