@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Crypt = BCrypt.Net.BCrypt;
 
 namespace com.democratia.ViewModels
 {
@@ -50,7 +51,7 @@ namespace com.democratia.ViewModels
             }
             catch (Exception ex)
             {
-                RetourMessage = ex.Message;
+                RetourMessage = ex.Message; // TODO : à changer en phase de prod
             }
         }
 
@@ -61,7 +62,8 @@ namespace com.democratia.ViewModels
             {
                 if (await VerifierToutesLesConditions())
                 {
-                    string reponse = await client?.CreateModelAsync(NomDeFamille, Prenom, AdresseMail, AdressePostal, MotDePasse)!;
+
+                    string reponse = await client?.CreateModelAsync(NomDeFamille, Prenom, AdresseMail, AdressePostal, Crypt.HashPassword(MotDePasse))!;
                     List<Dictionary<string,object>> values = RecuprerInformationConnexion(reponse);
                     int? valeurRetourne = ((JsonElement?)values?[0]["courriel"])?.GetInt32();
                     if (valeurRetourne != 0) throw new Exception("Erreur lors de la création du compte");

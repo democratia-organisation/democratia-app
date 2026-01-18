@@ -10,11 +10,11 @@ namespace com.democratia.Services
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
-
+        
         protected Client()
         {
             // TODO : peut-être mettre un timeout si le temps d'attente est vraiment invivable côté client
-            BASE_URL = "https://projets.iut-orsay.fr/saes3-mmarti32/API/rest.php";
+            BASE_URL = ""; // TODO : trouver un autre hébergeur pour l'api et utiliser les variables d'environnement pour y mettre le lien
             client = new() { BaseAddress = new(BASE_URL) };
             statutsMessage = string.Empty;
             statuts = 0;
@@ -34,7 +34,7 @@ namespace com.democratia.Services
         /// <param name="port">le numéro de port</param>
         public void SetPort(int port)
         {
-            client!.BaseAddress = new Uri($"https://projets.iut-orsay.fr:{port}/saes3-mmarti32/API/rest.php");
+            client!.BaseAddress = new Uri($""); // TODO : héberger tout seul et surtout caché les liens
         }
 
 
