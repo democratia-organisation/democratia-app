@@ -8,82 +8,99 @@ namespace UITests
     public class AppiumSetup : IDisposable
     {
         private static AppiumDriver? driver;
-
         public readonly static string device = "ios";
 
-        public readonly static string sshSortie = string.Empty;
+        // URL du serveur Appium sur le Mac Scaleway
+        private const string MacIp = "51.159.121.26";
+        private const string AppiumServerUrl = $"http://{MacIp}:4723/";
 
-        public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
+        public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null. Vérifiez que le serveur Appium tourne sur le Mac.");
 
         public AppiumSetup()
         {
-            AppiumServerHelper.StartAppiumLocalServer();
+            // Si on est sur Windows, on considère que le serveur Appium tourne déjà sur le Mac distant
             if (SystemInfo.GetHostOS() != "macOS")
             {
-                // TODO : à décommenter quand je serai connecté en ssh à un Mac et que le mac aura
-                // installé Appium, dotnet et le projet
-                //var sortie = RunAppiumIOSOverSSH("<macIp>", "<macUser>", "<macProjectDir>");
-                //if (!sortie.Contains("Test Output")) throw new Exception($"Error starting Appium: {sortie}");
-                //else sshSortie = sortie;
-
-                return;
+                InitRemoteDriver();
             }
-
             else
             {
-                var iOSOptions = new AppiumOptions
-                {
-                    // Specify XCUITest as the driver, typically don't need to change this
-                    AutomationName = "XCUITest",
-                    // Always iOS for iOS
-                    PlatformName = "iOS",
-                    // iOS Version
-                    PlatformVersion = "17.0",
-                    // Don't specify if you don't want a specific device
-                    DeviceName = "device",
-                    // The full path to the .app file to test or the bundle id if the app is already installed on the device
-                    App = "/path/to/project/com.democratia.view/bin/Debug/net9.0-ios/iossimulator-x64/com.democratia.view.app"
-                };
-
-                // Note there are many more options that you can use to influence the app under test according to your needs
-
-                driver = new IOSDriver(iOSOptions);
-
+                // Cas où le test roulerait directement sur le Mac
+                InitLocalDriver();
             }
-
         }
 
-        public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir)
+        private void InitRemoteDriver()
         {
-            var command = $"ssh {macUser}@{macIp} \"cd {macProjectDir} && nohup appium > appium.log 2>&1 & dotnet test\"";
+            var iOSOptions = new AppiumOptions
+            {
+                AutomationName = "XCUITest",
+                PlatformName = "iOS",
+                PlatformVersion = "18.4",
+                DeviceName = "iPhone 16",
+            };
+
+            // UDID spécifique de votre simulateur identifié précédemment
+            iOSOptions.AddAdditionalAppiumOption("udid", "74DF4917-44E5-4298-9791-7EA5220C48AF");
+
+            // Chemin absolu de l'APP sur le disque du MAC (généré par votre build net10.0-ios)
+            iOSOptions.App = "/Users/m1/Library/Caches/Xamarin/mtbs/builds/com.democratia.view/bin/Debug/net10.0-ios/iossimulator-arm64/com.democratia.view.app";
+
+            // Évite de réinstaller l'application si elle est déjà présente
+            iOSOptions.AddAdditionalAppiumOption("noReset", true);
+
+            try
+            {
+                // On se connecte au serveur Appium distant
+                driver = new IOSDriver(new Uri(AppiumServerUrl), iOSOptions, TimeSpan.FromSeconds(120));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Impossible de se connecter au serveur Appium sur {AppiumServerUrl}. Erreur: {ex.Message}");
+            }
+        }
+
+        private void InitLocalDriver()
+        {
+            // Version simplifiée si vous lancez les tests directement depuis le terminal du Mac
+            var iOSOptions = new AppiumOptions
+            {
+                AutomationName = "XCUITest",
+                PlatformName = "iOS",
+                PlatformVersion = "18.4",
+                DeviceName = "iPhone 16",
+                App = "/Users/m1/Library/Caches/Xamarin/mtbs/builds/com.democratia.view/bin/Debug/net10.0-ios/iossimulator-arm64/com.democratia.view.app"
+            };
+
+            driver = new IOSDriver(new Uri("http://localhost:4723/"), iOSOptions);
+        }
+
+        /// <summary>
+        /// Méthode utilitaire pour lancer Appium sur le Mac à distance via SSH depuis Windows
+        /// </summary>
+        public static string StartAppiumOnMacViaSSH(string macUser, string macPass)
+        {
+            // Commande pour lancer appium en tâche de fond sur le Mac
+            // Note: Nécessite que 'appium' soit dans le PATH du Mac
+            var command = $"ssh {macUser}@{MacIp} \"nohup appium --address 0.0.0.0 --port 4723 --allow-insecure chromedriver_autodownload > appium.log 2>&1 &\"";
+
             var process = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
                 Arguments = $"/C {command}",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
-                RedirectStandardError = true,
                 CreateNoWindow = true
             };
 
             using var proc = Process.Start(process);
-            proc?.WaitForExit();
-            var output = proc?.StandardOutput.ReadToEnd();
-            var error = proc?.StandardError.ReadToEnd();
-
-            return !string.IsNullOrEmpty(error) ? $"Error:\n{error}" : $"Test Output:\n{output}";
+            return "Commande de lancement Appium envoyée au Mac.";
         }
-
-        public static void RunBeforeAnyTests()
-        {
-
-        }
-
 
         public void Dispose()
         {
             driver?.Quit();
-            AppiumServerHelper.DisposeAppiumLocalServer();
+            driver?.Dispose();
         }
     }
 }

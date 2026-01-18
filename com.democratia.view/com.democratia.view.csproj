@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net10.0-android;net10.0-windows</TargetFrameworks>
+    <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(TargetFrameworks);net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
     <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
@@ -10,8 +10,13 @@
 		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
 		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
-    <!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
-    <OutputType Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0' &#xD;&#xA;                      Or '$(TargetFramework)' == 'net10.0-android' &#xD;&#xA;                      Or '$(TargetFramework)' == 'net10.0-tizen'">Exe</OutputType>
+    <!--<RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers>-->
+	  
+	  <OutputType Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0' 
+                        Or '$(TargetFramework)' == 'net10.0-android' 
+                        Or '$(TargetFramework)' == 'net10.0-ios' 
+                        Or '$(TargetFramework)' == 'net10.0-maccatalyst' 
+                        Or '$(TargetFramework)' == 'net10.0-tizen'">Exe</OutputType>
     <RootNamespace>com.democratia.view</RootNamespace>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
@@ -31,9 +36,18 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">7.0</SupportedOSPlatformVersion>
     <UserSecretsId>c026941f-3829-4e74-bd61-6855fd2a538c</UserSecretsId>
+	  <AssemblyName>com.democratia.view</AssemblyName>
+	  <ArchiveOnBuild>false</ArchiveOnBuild>
   </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-maccatalyst' And '$(Configuration)' == 'Release'">
+		<RuntimeIdentifier>maccatalyst-arm64</RuntimeIdentifier>
+		<SelfContained>true</SelfContained>
+		<CreatePackage>true</CreatePackage>
+		<EnableCodeSigning>false</EnableCodeSigning>
+		<EnablePackageSigning>false</EnablePackageSigning>
+		<_RemoteBuildSteps>true</_RemoteBuildSteps>
+	</PropertyGroup>
   <ItemGroup>
     <!-- App Icon -->
     <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />

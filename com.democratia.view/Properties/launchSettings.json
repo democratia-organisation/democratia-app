@@ -1,10 +1,18 @@
 {
   "profiles": {
+    "iOS Simulator": {
+      "commandName": "Project",
+      "targetFramework": "net10.0-ios"
+    },
     "Windows Machine": {
       "commandName": "Project",
       "nativeDebugging": true,
       "externalConsole": true,
       "keepConsoleOpen": true
+    },
+    "Mac Catalyst": {
+      "commandName": "Project",
+      "targetFramework": "net10.0-maccatalyst"
     }
   }
 }

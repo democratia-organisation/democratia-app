@@ -14,7 +14,7 @@ namespace com.democratia.Services
         protected Client()
         {
             // TODO : peut-être mettre un timeout si le temps d'attente est vraiment invivable côté client
-            BASE_URL = ""; // TODO : trouver un autre hébergeur pour l'api et utiliser les variables d'environnement pour y mettre le lien
+            BASE_URL = "http://localhost:80/rest.php"; // TODO : trouver un autre hébergeur pour l'api et utiliser les variables d'environnement pour y mettre le lien
             client = new() { BaseAddress = new(BASE_URL) };
             statutsMessage = string.Empty;
             statuts = 0;
