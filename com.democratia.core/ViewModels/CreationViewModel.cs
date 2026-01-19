@@ -46,7 +46,7 @@ namespace com.democratia.ViewModels
             try
             {
                 await CreerInternaute();
-                RetourMessage = "Création réussie";
+                RetourMessage = "Création réussie; Connectez-vous maintenant";
                 
 
             }
