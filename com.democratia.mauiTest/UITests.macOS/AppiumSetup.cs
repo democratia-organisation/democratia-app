@@ -34,17 +34,15 @@ namespace UITests
         {
             var options = new AppiumOptions
             {
-                AutomationName = "mac2", // Indispensable pour macOS
-                PlatformName = "Mac",
+                AutomationName = "mac2",
+                PlatformName = "macOS", // "macOS" est la valeur standard attendue par Mac2Driver
                 App = MacAppPath
             };
 
-            // Le BundleId est souvent requis pour macOS pour éviter de piloter le Finder par erreur
-            options.AddAdditionalAppiumOption("bundleId", "com.democratia.view");
-            options.AddAdditionalAppiumOption("appium:waitForAppLaunch", "30");
+            // Ajoutez ceci pour éviter les erreurs de "Path" sur le Mac
+            Environment.SetEnvironmentVariable("NODE_BINARY_PATH", "/opt/homebrew/bin/node");
 
-            // Pour macOS, le driver spécifique est MacDriver
-            driver = new MacDriver(new Uri("http://localhost:4723/"), options, TimeSpan.FromSeconds(120));
+            driver = new MacDriver(new Uri("http://127.0.0.1:4723/"), options, TimeSpan.FromSeconds(120));
         }
         private void RunTestsRemotelyOnMac()
         {
@@ -52,7 +50,7 @@ namespace UITests
             string localResultsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MacResults.trx");
 
             // 1. Commande pour lancer les tests et générer le fichier .trx
-            var testCommand = $"ssh {MacUser}@{MacIp} \"pgrep appium || nohup appium --address 0.0.0.0 > /tmp/appium.log 2>&1 & sleep 5 && cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test --logger 'trx;LogFileName=results.trx'\"";
+            var testCommand = $"ssh {MacUser}@{MacIp} \"pgrep appium || nohup appium --address 0.0.0.0 --use-drivers mac2 > /tmp/appium.log 2>&1 & sleep 5 && cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test --logger 'trx;LogFileName=results.trx'\"";
 
             // 2. Commande pour rapatrier le fichier de résultat
             var copyCommand = $"scp {MacUser}@{MacIp}:{remoteResultsPath} \"{localResultsPath}\"";
