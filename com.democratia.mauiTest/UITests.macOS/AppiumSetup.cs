@@ -23,6 +23,7 @@ namespace UITests
             {
                 // On délègue au Mac
                 RunTestsRemotelyOnMac();
+                return;
             }
             else
             {
@@ -41,6 +42,10 @@ namespace UITests
 
             // Ajoutez ceci pour éviter les erreurs de "Path" sur le Mac
             Environment.SetEnvironmentVariable("NODE_BINARY_PATH", "/opt/homebrew/bin/node");
+            options.AddAdditionalAppiumOption("bundleId", "com.democratia.view");
+
+            // On donne du temps à l'application pour apparaître à l'écran
+            options.AddAdditionalAppiumOption("appium:waitForAppLaunch", "30");
 
             driver = new MacDriver(new Uri("http://127.0.0.1:4723/"), options, TimeSpan.FromSeconds(120));
         }
