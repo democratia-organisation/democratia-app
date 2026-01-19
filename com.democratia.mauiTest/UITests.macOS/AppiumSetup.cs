@@ -42,7 +42,9 @@ namespace UITests
 
             // Ajoutez ceci pour éviter les erreurs de "Path" sur le Mac
             Environment.SetEnvironmentVariable("NODE_BINARY_PATH", "/opt/homebrew/bin/node");
-            options.AddAdditionalAppiumOption("bundleId", "com.democratia.view");
+            options.AddAdditionalAppiumOption("appium:bundleId", "com.democratia.view");
+            options.AddAdditionalAppiumOption("appium:systemPort", 10100); // On force le port
+            options.AddAdditionalAppiumOption("appium:showServerLogs", true);
 
             // On donne du temps à l'application pour apparaître à l'écran
             options.AddAdditionalAppiumOption("appium:waitForAppLaunch", "30");
