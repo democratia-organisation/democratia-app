@@ -50,7 +50,7 @@ namespace UITests
             string localResultsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MacResults.trx");
 
             // 1. Commande pour lancer les tests et générer le fichier .trx
-            var testCommand = $"ssh {MacUser}@{MacIp} \"appium & sleep 5 && cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test com.democratia.mauiTest/UITests.macOS/UITests.macOS.csproj --logger 'trx;LogFileName=results.trx'\"";
+            var testCommand = $"ssh {MacUser}@{MacIp} \"/opt/homebrew/bin/appium & sleep 5 && cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test com.democratia.mauiTest/UITests.macOS/UITests.macOS.csproj --logger 'trx;LogFileName=results.trx'\"";
 
             // 2. Commande pour rapatrier le fichier de résultat
             var copyCommand = $"scp {MacUser}@{MacIp}:{remoteResultsPath} \"{localResultsPath}\"";
