@@ -28,13 +28,13 @@ namespace UITests
                 PlatformName = "Windows",
 
                 // The identifier of the deployed application to test
-                App = @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\com.democratia.view.exe",
+                App = @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe",
             };
 
 
             // Note there are many more options that you can use to influence the app under test according to your needs
 
-            driver = new WindowsDriver(new Uri("http://127.0.0.1:4723"), windowsOptions);
+            driver = new WindowsDriver(new Uri("http://127.0.0.1:4724"), windowsOptions);
         }
 
         public void Dispose()
