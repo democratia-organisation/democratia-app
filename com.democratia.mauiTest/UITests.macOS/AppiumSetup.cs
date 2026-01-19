@@ -15,7 +15,7 @@ namespace UITests
         private const string MacUser = "m1";
         // Le chemin vers votre app macOS (.app Catalyst ou native)
         private const string MacAppPath = "/Users/m1/Documents/democratia-mobile/com.democratia.view/bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app";
-        private const string MacProjectDir = "/Users/m1/Documents/democratia-mobile";
+        private const string MacProjectDir = "/Users/m1/Documents/democratia-mobile/com.democratia.mauiTest/UITests.macOS/";
 
         public AppiumSetup()
         {
@@ -46,11 +46,11 @@ namespace UITests
         }
         private void RunTestsRemotelyOnMac()
         {
-            string remoteResultsPath = $"{MacProjectDir}/TestResults/results.trx";
+            string remoteResultsPath = $"{MacProjectDir}/results.trx";
             string localResultsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MacResults.trx");
 
             // 1. Commande pour lancer les tests et générer le fichier .trx
-            var testCommand = $"ssh {MacUser}@{MacIp} \"/opt/homebrew/bin/appium & sleep 5 && cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test com.democratia.mauiTest/UITests.macOS/UITests.macOS.csproj --logger 'trx;LogFileName=results.trx'\"";
+            var testCommand = $"ssh {MacUser}@{MacIp} \"/opt/homebrew/bin/appium & sleep 5 && cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test UITests.macOS.csproj --logger 'trx;LogFileName=results.trx'\"";
 
             // 2. Commande pour rapatrier le fichier de résultat
             var copyCommand = $"scp {MacUser}@{MacIp}:{remoteResultsPath} \"{localResultsPath}\"";
