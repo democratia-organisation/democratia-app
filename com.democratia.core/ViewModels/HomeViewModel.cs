@@ -1,8 +1,12 @@
-﻿namespace com.democratia.ViewModels
+﻿using com.democratia.Services;
+
+namespace com.democratia.ViewModels
 {
-
-    public partial class HomeViewModel
+    public partial class HomeViewModel : ConnectableViewModel
     {
+        public HomeViewModel(IClient? client) : base(client)
+        {
 
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using com.democratia.Utils;
+using com.democratia.view.Views;
 using com.democratia.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
@@ -22,6 +23,7 @@ namespace com.democratia
             builder.Services.AddServices();
             builder.Services.AddTransient<Creation>();
             builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<Home>();
 
 #if DEBUG
             builder.Logging.AddDebug();
