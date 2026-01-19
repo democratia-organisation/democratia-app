@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
+﻿using com.democratia.Utils;
 using com.democratia.Views;
+using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 
 namespace com.democratia
 {
@@ -8,7 +9,7 @@ namespace com.democratia
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
+            MauiAppBuilder builder = MauiApp.CreateBuilder();
 
             builder
                 .UseMauiApp<App>()
@@ -19,9 +20,8 @@ namespace com.democratia
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
             builder.Services.AddServices();
+            builder.Services.AddTransient<Creation>();
             builder.Services.AddTransient<MainPage>();
-
-
 
 #if DEBUG
             builder.Logging.AddDebug();
@@ -29,6 +29,7 @@ namespace com.democratia
 #endif
 
             return builder.Build();
+
         }
     }
 }

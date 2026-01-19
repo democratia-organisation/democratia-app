@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>net10.0</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsTestProject>true</IsTestProject>
+        <RootNamespace>UITests</RootNamespace>
+        <LangVersion>preview</LangVersion>
+        <NoWarn>$(NoWarn);CS8981</NoWarn>
+        
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
+        <IsHotRestartEnabled>false</IsHotRestartEnabled>
+        <IsAppExtension>false</IsAppExtension>
+        <RuntimeIdentifier>iossimulator-arm64</RuntimeIdentifier>
+        
+        <IsXcodeVersionCheckEnabled>false</IsXcodeVersionCheckEnabled>
+    </PropertyGroup>
+	<PropertyGroup>
+		<IsXcodeVersionCheckEnabled>false</IsXcodeVersionCheckEnabled>
+		<MtouchExtraArgs>--compiler-ignore-version-mismatch</MtouchExtraArgs>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Appium.WebDriver" Version="8.0.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+		<PackageReference Include="xunit" Version="2.9.3" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\UITests.Shared\**\*.cs" LinkBase="Shared" />
+	</ItemGroup>
+<ItemGroup>
+  <Using Remove="nfloat" />
+</ItemGroup>
+</Project>

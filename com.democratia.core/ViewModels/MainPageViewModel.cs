@@ -1,10 +1,10 @@
-﻿using Crypt = BCrypt.Net.BCrypt;
-using com.democratia.Models;
+﻿using com.democratia.Models;
 using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Text.Json;
+using Crypt = BCrypt.Net.BCrypt;
 
 namespace com.democratia.ViewModels
 {
@@ -22,15 +22,16 @@ namespace com.democratia.ViewModels
         private string? errorMessage;
 
         private readonly INavigationService? navigationService;
+        private readonly IEnumerable<IClient?>? clients;
 
-        public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients) 
-            : this(clients?.OfType<InternauteClient>().FirstOrDefault())
+        public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
+            : base(clients?.OfType<InternauteClient>().FirstOrDefault())
         {
             this.navigationService = navigationService;
+            this.clients = clients;
+            if (client is null)
+                this.client = clients?.OfType<FakeClient>().FirstOrDefault();
         }
-
-        public MainPageViewModel(Client? client) : base(client) { }
-
 
         public MainPageViewModel() : base(null) { }
 
@@ -43,10 +44,11 @@ namespace com.democratia.ViewModels
                 {
                     modele = await ConnecterInternaute();
                     var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
+                    ErrorMessage = "";
                     await navigationService!.GoToAsync(commande, parameters);
                 }
-                else await navigationService!.GoToAsync(commande,null);
-                
+                else await navigationService!.GoToAsync(commande);
+
             }
             catch (Exception ex)
             {
@@ -56,53 +58,35 @@ namespace com.democratia.ViewModels
 
         internal async Task<Internaute?> ConnecterInternaute()
         {
-                
-            if(string.IsNullOrEmpty(AdresseMail) || string.IsNullOrEmpty(MotDePasse))
+
+            if (string.IsNullOrEmpty(AdresseMail) || string.IsNullOrEmpty(MotDePasse))
             {
                 if (string.IsNullOrEmpty(AdresseMail)) throw new ArgumentException("Veuillez saisir votre adresse mail");
                 else throw new ArgumentException("Veuillez saisir votre mot de passe");
             }
             string jsonString;
-            try 
-                { jsonString = await client?.GetModelAsync(AdresseMail)!; } 
-            catch (Exception) 
-                { throw new Exception("Erreur de connexion inattendu"); }
-            var listeInformation = RecuprerInformationConnexion(jsonString) ?? throw new Exception("Aucun internaute trouvé avec cette adresse mail");
-            var motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString();
-            if(!VerifierMotDePasseUtilisateur(motDePasseHash!)) throw new Exception("Mot de passe incorrecte");
-            
+            try
+            { jsonString = await client?.GetModelAsync(AdresseMail)!; }
+            catch (Exception)
+            { throw new Exception("Erreur de connexion inattendu"); }
+            List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString);
+            string motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString()!;
+            bool motDePasseValide = await VerifierMotDePasseUtilisateur(motDePasseHash);
+            if (!motDePasseValide && motDePasseHash!=MotDePasse) throw new Exception("Mot de passe incorrecte"); // verification brut car user ont des mot de passe non hashé dans la BDD 
+
             // /!\ le casting est important car les valeurs ne
             // sont pas dans le type voulu mais dans le type JsonElement
             return new(
                     ((JsonElement?)listeInformation?[0]["id_internaute"])?.GetInt32() ?? 0,
-                    listeInformation[0]["nom_internaute"]?.ToString() ?? string.Empty,
+                    listeInformation![0]["nom_internaute"]?.ToString() ?? string.Empty,
                     listeInformation[0]["prenom_internaute"]?.ToString() ?? string.Empty,
                     listeInformation[0]["adresse_postale"]?.ToString() ?? string.Empty,
                     listeInformation[0]["courriel"]?.ToString() ?? string.Empty
             );
         }
+        // Tâche rendu asynchrone à cause du temps d'execution de la fonction Verify
+        private async Task<bool> VerifierMotDePasseUtilisateur(string hashedMotDePasse) => await Task.Run(() => Crypt.Verify(MotDePasse, hashedMotDePasse));
 
-
-        private static List<Dictionary<string, object>>? RecuprerInformationConnexion(string stringJson)
-        {
-            Dictionary<string, object> dictionnary;
-            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(stringJson)!; }
-            catch (Exception) { throw new Exception("Erreur de réception des données"); }
-            var rawElement = (JsonElement)dictionnary["data"];
-            object message = rawElement.ValueKind switch
-            {
-                JsonValueKind.Number => rawElement.GetInt32(),
-                JsonValueKind.True or JsonValueKind.False => rawElement.GetBoolean(),
-                JsonValueKind.Array => rawElement.GetRawText(),
-                _ => throw new Exception("Erreur de réception des données"),
-            };
-            if (message is int || message is bool) return null;
-            else  return JsonSerializer.Deserialize<List<Dictionary<string, object>>>(message.ToString()!)!;
-
-        }
-
-        private bool VerifierMotDePasseUtilisateur(string hashedMotDePasse) => Crypt.Verify(MotDePasse,hashedMotDePasse);
-        
     }
 }
 

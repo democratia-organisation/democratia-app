@@ -1,14 +1,12 @@
 ﻿using com.democratia.Models;
-using System;
-using System.Security;
 
 namespace com.democratia.test.Models
 {
-    
+
     public class InternauteTest
     {
-        private string? exceptPrenom = "Jean", exceptNom = "Louis", exceptAdress = "10 rue de champigny", exceptMail = "mono@g.com";
-        private int? exceptId = 1;
+        private readonly string? exceptPrenom = "Jean", exceptNom = "Louis", exceptAdress = "10 rue de champigny", exceptMail = "mono@g.com";
+        private readonly int? exceptId = 1;
         [Fact]
         public void ConstruteurTest()
         {

@@ -1,12 +1,14 @@
-﻿using com.democratia.ViewModels;
+﻿using com.democratia.Models;
+using com.democratia.ViewModels;
+
 
 namespace com.democratia.test.ViewModels
 {
-    
+
     public class MainPageViewModelTest
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly MainPageViewModel? mainPageViewModel;
+        private IServiceProvider _serviceProvider;
+        private MainPageViewModel? mainPageViewModel;
 
         public MainPageViewModelTest()
         {
@@ -17,10 +19,10 @@ namespace com.democratia.test.ViewModels
             mainPageViewModel.ErrorMessage = null;
         }
 
-        [Fact]
+        [Fact(DisplayName = "Cas de base")]
         public async Task ConnecterInternauteTest()
         {
-            var internaute = await mainPageViewModel!.ConnecterInternaute();
+            Internaute? internaute = await mainPageViewModel!.ConnecterInternaute();
 
             Assert.NotNull(internaute);
             Assert.NotNull(internaute.id_internaute);
@@ -33,18 +35,34 @@ namespace com.democratia.test.ViewModels
 
         }
 
-        [Fact]
+        [Theory(DisplayName="En cas de renvoie inattendu du serveur")]
+        [InlineData("<html>", "Erreur lors de la récupération des données")]
+        [InlineData("{\"data\" : 1 }", "Erreur lors de la connexion du compte")]
+        public async Task NotTextExceptedError(string? fakeResponse, string? messageAttendu)
+        {
+            _serviceProvider = TestServiceCollection.CreateFakeServiceProviderForMainViewModel(fakeResponse);
+            mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
+            mainPageViewModel.AdresseMail = "modadary56@gmail.com";
+            mainPageViewModel.MotDePasse = "Djonodo20050207/";
+
+            var exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
+
+            Assert.Equal(messageAttendu, exception.Message);
+        }
+
+
+        [Fact(DisplayName = "Simulation d'erreur de connexion")]
         public async Task ConnecterInternauteErrorInternetTest()
         {
-            mainPageViewModel!.client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
-            
-            var exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
-            
+            mainPageViewModel!.Client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
+
+            Exception exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
+
             Assert.Equal("Erreur de connexion inattendu", exception.Message);
 
         }
 
-        [Theory]
+        [Theory(DisplayName = "Différentes fautes de frappes possible")]
         [InlineData("fezfzfzefz", "Djonodo20050207/", "Aucun internaute trouvé avec cette adresse mail")]
         [InlineData("modadary56@gmail.com", "Djonodo20050207/erreur", "Mot de passe incorrecte")]
         [InlineData("", "", "Veuillez saisir votre adresse mail")]
@@ -58,7 +76,7 @@ namespace com.democratia.test.ViewModels
 
             if (string.IsNullOrEmpty(mainPageViewModel.MotDePasse) || string.IsNullOrEmpty(mainPageViewModel.AdresseMail))
                 exception = await Assert.ThrowsAsync<ArgumentException>(async () => await mainPageViewModel!.ConnecterInternaute());
-            
+
             else
                 exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel.ConnecterInternaute());
 

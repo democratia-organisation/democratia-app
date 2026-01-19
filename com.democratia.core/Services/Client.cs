@@ -3,18 +3,18 @@ using Xunit.Abstractions;
 
 namespace com.democratia.Services
 {
-    
-    public abstract class Client : IClient
+
+    public class Client
     {
-        private static string? BASE_URL;
+        protected static string? BASE_URL;
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
-
+        
         protected Client()
         {
             // TODO : peut-être mettre un timeout si le temps d'attente est vraiment invivable côté client
-            BASE_URL = "https://projets.iut-orsay.fr/saes3-mmarti32/API/rest.php";
+            BASE_URL = "http://localhost:80/rest.php"; // TODO : trouver un autre hébergeur pour l'api et utiliser les variables d'environnement pour y mettre le lien
             client = new() { BaseAddress = new(BASE_URL) };
             statutsMessage = string.Empty;
             statuts = 0;
@@ -23,16 +23,20 @@ namespace com.democratia.Services
         protected async Task<string> GetMethode()
         {
             DebutRequete();
-            var response = await client!.GetAsync("?request=getMethode");
+            HttpResponseMessage response = await client!.GetAsync("?request=getMethode");
             return await FinRequete(response);
         }
 
+        /// <summary>
+        /// fonction qui permet de changer le port de l'API.
+        /// Utilisée pour les tests unitaires afin de simuler une erreur de connexion internet.
+        /// </summary>
+        /// <param name="port">le numéro de port</param>
         public void SetPort(int port)
         {
-            client!.BaseAddress = new Uri($"https://projets.iut-orsay.fr:{port}/saes3-mmarti32/API/rest.php");
+            client!.BaseAddress = new Uri($""); // TODO : héberger tout seul et surtout caché les liens
         }
 
-        public abstract Task<string> GetModelAsync(params object?[] parameters);
 
         protected void MettreAJourStatuts(HttpResponseMessage? response)
         {
@@ -45,7 +49,7 @@ namespace com.democratia.Services
             BASE_URL = info.GetValue<string>("BaseUrl");
             statutsMessage = info.GetValue<string>("StatutsMessage");
             statuts = info.GetValue<int?>("Statuts");
-            
+
             client = new HttpClient { BaseAddress = new Uri(BASE_URL) };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -61,7 +65,10 @@ namespace com.democratia.Services
         protected async Task<string> FinRequete(HttpResponseMessage response)
         {
             MettreAJourStatuts(response);
-            if (!response.IsSuccessStatusCode) throw new Exception("Requete râté");
+            if (!response.IsSuccessStatusCode) {
+                string content = await response.Content.ReadAsStringAsync();
+                throw new Exception("Requete râté");
+            } 
 
             else
                 return await response.Content.ReadAsStringAsync();

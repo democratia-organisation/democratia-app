@@ -1,0 +1,50 @@
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Windows;
+using UITests.View;
+
+namespace UITests
+{
+    public class AppiumSetup : IDisposable
+    {
+        private static AppiumDriver? driver;
+
+        public readonly static string device = "windows";
+
+        public readonly static string sshSortie = string.Empty;
+
+        public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
+
+        public AppiumSetup()
+        {
+            // If you started an Appium server manually, make sure to comment out the next line
+            // This line starts a local Appium server for you as part of the test run
+            if (SystemInfo.SSHHost()) return;
+            AppiumServerHelper.StartAppiumLocalServer();
+            var windowsOptions = new AppiumOptions
+            {
+                // Specify windows as the driver, typically don't need to change this
+                AutomationName = "windows",
+                // Always Windows for Windows
+                PlatformName = "Windows",
+
+                // The identifier of the deployed application to test
+                App = @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe",
+            };
+
+
+            // Note there are many more options that you can use to influence the app under test according to your needs
+
+            driver = new WindowsDriver(new Uri("http://127.0.0.1:4724"), windowsOptions);
+        }
+
+        public void Dispose()
+        {
+            driver?.Quit();
+            GC.SuppressFinalize(this);
+            // If an Appium server was started locally above, make sure we clean it up here
+            AppiumServerHelper.DisposeAppiumLocalServer();
+        }
+
+        public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir) { return ""; }
+    }
+}

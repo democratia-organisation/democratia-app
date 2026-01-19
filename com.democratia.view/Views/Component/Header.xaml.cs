@@ -37,7 +37,7 @@ public partial class Header : ContentView
 
     private void SetTheme() =>
         switchImageButton.Source = Application.Current?.RequestedTheme == AppTheme.Dark ? "dark.png" : "light.png";
-        
-        
-    
+
+
+
 }

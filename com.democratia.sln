@@ -1,13 +1,23 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35507.96
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.democratia.view", "com.democratia.view\com.democratia.view.csproj", "{C84BCBBB-43B6-47EF-A8DC-DB3A80FE040B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "com.democratia.view", "com.democratia.view\com.democratia.view.csproj", "{C84BCBBB-43B6-47EF-A8DC-DB3A80FE040B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.democratia.test", "com.democratia.Test\com.democratia.test.csproj", "{43FF50B0-F7D8-4DE4-8B11-0139C76004C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "com.democratia.test", "com.democratia.Test\com.democratia.test.csproj", "{43FF50B0-F7D8-4DE4-8B11-0139C76004C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.democratia.core", "com.democratia.core\com.democratia.core.csproj", "{E793CF71-D11B-4FD7-9E44-91D4F74706B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "com.democratia.core", "com.democratia.core\com.democratia.core.csproj", "{E793CF71-D11B-4FD7-9E44-91D4F74706B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UITests.Shared", "com.democratia.mauiTest\UITests.Shared\UITests.Shared.csproj", "{A254F661-1D30-46A1-8F4C-E754716B4DA8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UITests.Android", "com.democratia.mauiTest\UITests.Android\UITests.Android.csproj", "{16A3952E-A18F-4A64-81CF-C87C3B321AD6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UITests.iOS", "com.democratia.mauiTest\UITests.iOS\UITests.iOS.csproj", "{E80746FF-3546-435F-B9E0-1B9F3F71DF23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UITests.macOS", "com.democratia.mauiTest\UITests.macOS\UITests.macOS.csproj", "{71815D89-3B45-4BC5-803D-9FA9050849D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UITests.Windows", "com.democratia.mauiTest\UITests.Windows\UITests.Windows.csproj", "{935AA264-FBA4-4846-8785-DFAA903F4ED9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +39,26 @@ Global
 		{E793CF71-D11B-4FD7-9E44-91D4F74706B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E793CF71-D11B-4FD7-9E44-91D4F74706B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E793CF71-D11B-4FD7-9E44-91D4F74706B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A254F661-1D30-46A1-8F4C-E754716B4DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A254F661-1D30-46A1-8F4C-E754716B4DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A254F661-1D30-46A1-8F4C-E754716B4DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A254F661-1D30-46A1-8F4C-E754716B4DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16A3952E-A18F-4A64-81CF-C87C3B321AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16A3952E-A18F-4A64-81CF-C87C3B321AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16A3952E-A18F-4A64-81CF-C87C3B321AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16A3952E-A18F-4A64-81CF-C87C3B321AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E80746FF-3546-435F-B9E0-1B9F3F71DF23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E80746FF-3546-435F-B9E0-1B9F3F71DF23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E80746FF-3546-435F-B9E0-1B9F3F71DF23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E80746FF-3546-435F-B9E0-1B9F3F71DF23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71815D89-3B45-4BC5-803D-9FA9050849D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71815D89-3B45-4BC5-803D-9FA9050849D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71815D89-3B45-4BC5-803D-9FA9050849D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71815D89-3B45-4BC5-803D-9FA9050849D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{935AA264-FBA4-4846-8785-DFAA903F4ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{935AA264-FBA4-4846-8785-DFAA903F4ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{935AA264-FBA4-4846-8785-DFAA903F4ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{935AA264-FBA4-4846-8785-DFAA903F4ED9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,7 +19,7 @@ namespace com.democratia.test.Models
         {
             Assert.Equal(idGroupe, groupe.IdGroupe);
             Assert.Equal(nombreJourDeVote, groupe.NombreDeJourVote);
-            Assert.Equal(image,groupe.Image);
+            Assert.Equal(image, groupe.Image);
             Assert.Equal(nombreDeJourDiscussion, groupe.NombreDeJourDiscuss);
             Assert.Equal(budget, groupe.Budget);
             Assert.Equal(couleurGroupe, groupe.CouleurGroupe);

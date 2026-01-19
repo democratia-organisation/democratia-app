@@ -1,7 +1,7 @@
 ﻿
 namespace com.democratia.Models
 {
-    public class Proposition(int? idProposition,string? titre, string? description, string? publication, float? budget, int? nombreSignalement, string? thematique, int? idGroupe)
+    public class Proposition(int? idProposition, string? titre, string? description, string? publication, float? budget, int? nombreSignalement, string? thematique, int? idGroupe)
     {
         public int? IdProposition { get; private set; } = idProposition;
         public string? Titre { get; private set; } = titre;
@@ -11,7 +11,7 @@ namespace com.democratia.Models
         public int? nombreSignalement { get; private set; } = nombreSignalement;
         public string? Thematique { get; private set; } = thematique;
         public int? IdGroupe { get; private set; } = idGroupe;
-        public Proposition() : this(null, null, null, null, null, null, null, null) {}
+        public Proposition() : this(null, null, null, null, null, null, null, null) { }
 
     }
 }

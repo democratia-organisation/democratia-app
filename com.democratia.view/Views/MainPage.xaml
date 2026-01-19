@@ -8,8 +8,10 @@
              x:Class="com.democratia.Views.MainPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewModels:MainPageViewModel"
+             AutomationId="ConnexionPage"
              Style="{DynamicResource fondEcran}">
-    
+    <!--TODO : 
+    refléchir à comment faire pour afficher un texte après une création avec succès d'un compte depuis l'écran viewModel-->
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -25,10 +27,12 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
-            <component:Header Grid.Row="0"/>
+            <component:Header Grid.Row="0" AutomationId="Header"/>
             
             <StackLayout Padding="10" Grid.Row="1">
-                
+
+                <Label AutomationId="ConnexionPage"/>
+
                 <BoxView HeightRequest="15"/>
 
                 <Label
@@ -36,13 +40,23 @@
                     Style="{DynamicResource LabelStyle}"
                     Text="Se connecter"
                     HorizontalOptions="Center"
+                    AutomationId="Se connecter Label"
                 />
 
                 <BoxView HeightRequest="30"/>
 
-                <component:EntryComponent Title="Adresse mail" x:Name="mailComponant" ValeurDonne="{Binding AdresseMail}" />
+                <component:EntryComponent Title="Adresse mail" x:Name="mailComponant" ValeurDonne="{Binding AdresseMail}"/>
 
                 <component:EntryComponent Title="Mot de passe" x:Name="passwordComponant" PassWord="True" ValeurDonne="{Binding MotDePasse}"/>
+
+                <Label Text="{Binding ErrorMessage}"
+                    Style="{DynamicResource ErrorLabelStyle}"
+                    x:Name="errorMessageLabel"
+                    HorizontalOptions="Center"
+                    AutomationId="Error message"
+                />
+
+                <BoxView HeightRequest="15"/>
 
                 <HorizontalStackLayout
                     HorizontalOptions="Center"
@@ -53,22 +67,19 @@
                         Text="Pas de compte ?"
                         Style="{DynamicResource LabelStyle}"
                         HorizontalOptions="Center"
+                        AutomationId="Pas de compte ?"
                     />
 
-                    <Label Text="Créez en un !"
+                    <Label Text="Créez en un"
                         TextColor="Blue"
                         x:Name="pageSuivanteLabel"
                         HorizontalOptions="Center"
-                        TextDecorations="Underline">
+                        TextDecorations="Underline"
+                        AutomationId="Créez en un !">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateTappedCommand}" CommandParameter="Creation" />
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label Text="{Binding ErrorMessage}"
-                        Style="{DynamicResource LabelStyle}"
-                        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}"
-                        x:Name="errorMessageLabel"
-                        HorizontalOptions="Center"/>
                 </HorizontalStackLayout>
 
                 <BoxView HeightRequest="30"/>
@@ -82,6 +93,7 @@
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="Home"
                     VerticalOptions="End"
+                    AutomationId="Se connecter Button"
                 />
             </StackLayout>
         </Grid>

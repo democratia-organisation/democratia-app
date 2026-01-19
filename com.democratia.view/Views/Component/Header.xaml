@@ -24,6 +24,7 @@
             MaximumWidthRequest="50"
             Clicked="OnClicked"
             Grid.Column="0"
+            AutomationId="BackButton"
         />
         <ImageButton
             Source="logo.png"
@@ -33,6 +34,7 @@
             VerticalOptions="Center"
             Grid.Column="1"
             Clicked="OnClicked"
+            AutomationId="LogoImage"
         />
         <!-- En haut à droite -->
         <ImageButton
@@ -45,6 +47,7 @@
             VerticalOptions="Center"
             Clicked="OnClicked"
             Grid.Column="2"
+            AutomationId="SwitchImageButton"
         />
     </Grid>
 

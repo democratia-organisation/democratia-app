@@ -1,8 +1,8 @@
-
-namespace com.democratia.ViewModels 
+namespace com.democratia.ViewModels
 {
-	public interface INavigeablleViewModel
+    public interface INavigeablleViewModel
     {
+
         public Task NavigateTapped(string commande);
     }
 }

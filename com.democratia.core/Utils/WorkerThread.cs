@@ -21,7 +21,7 @@ namespace com.democratia.Utils
         private readonly Action<object?, ProgressChangedEventArgs>? onProgression;
 
 
-        
+
 
         /// <summary>
         /// Constructeur de la classe WorkerThread pour une fonction sans paramètres.
@@ -45,7 +45,7 @@ namespace com.democratia.Utils
             };
             backgroundWorker.DoWork += BackgroundWorker_doWork;
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_workerCompleted;
-            if (backgroundWorker.WorkerReportsProgress) backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+            if (backgroundWorker.WorkerReportsProgress) backgroundWorker.ProgressChanged += new ProgressChangedEventHandler(onProgression!);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace com.democratia.Utils
         /// <param name="onFinish">fonction à executer à la fin de la fonction en arrière qui prend en paramètre, le résultat de la fonction en arrière plan</param>
         /// <param name="onCancel">fonction a executer en cas d'annulation, sans paramètre et ne retourne rien</param>
         /// <param name="wantProgressBar">si vrai, la progression pourra être suivi via onProgression</param>
-        /// <param name="onProgression">fonction à executer pendant la phase de progression, qui prend en paramètre l'appelant, un objet et l'événement, un ProgressChangedEventArgs</param>
+        /// <param name="onProgression">fonction à executer pendant l   a phase de progression, qui prend en paramètre l'appelant, un objet et l'événement, un ProgressChangedEventArgs</param>
         /// <param name="parameters">les paramètres de la fonction</param>
         public WorkerThread(Delegate @delegate, Action<object>? onFinish, bool cancellation, Action? onCancel, bool wantProgressBar, Action<object?, ProgressChangedEventArgs>? onProgression, params Object[] parameters)
             : this(@delegate, onFinish, cancellation, onCancel, wantProgressBar, onProgression) => this.parameters = parameters;
@@ -71,8 +71,6 @@ namespace com.democratia.Utils
             backgroundWorker.RunWorkerAsync(parameters);
         }
 
-        private void BackgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e) => onProgression?.Invoke(sender, e);
-        
         private void BackgroundWorker_workerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -95,7 +93,7 @@ namespace com.democratia.Utils
 
         private dynamic? DynamicInvokeSmart(object?[]? flatArgs)
         {
-            var parameters = @delegate.Method.GetParameters();
+            ParameterInfo[] parameters = @delegate.Method.GetParameters();
 
             if (parameters.Length == 0) try { return @delegate.DynamicInvoke(); } catch (TargetInvocationException targ) { throw targ.InnerException ?? targ; }
 
@@ -114,10 +112,10 @@ namespace com.democratia.Utils
 
             if (hasParams)
             {
-                var paramElementType = parameters.Last().ParameterType.GetElementType()!;
-                var paramArgs = flatArgs?.Skip(fixedCount).ToArray();
+                Type? paramElementType = parameters.Last().ParameterType.GetElementType()!;
+                object?[] paramArgs = flatArgs?.Skip(fixedCount).ToArray()!;
 
-                var paramArray = paramArgs != null ? Array.CreateInstance(paramElementType, paramArgs.Length) : throw new NullReferenceException("référencement null");
+                Array paramArray = paramArgs != null ? Array.CreateInstance(paramElementType, paramArgs.Length) : throw new NullReferenceException("référencement null");
                 for (int i = 0; i < paramArgs.Length; i++)
                     paramArray.SetValue(paramArgs[i], i);
 
