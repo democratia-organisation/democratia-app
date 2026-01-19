@@ -43,11 +43,12 @@ namespace UITests
             // Ajoutez ceci pour éviter les erreurs de "Path" sur le Mac
             Environment.SetEnvironmentVariable("NODE_BINARY_PATH", "/opt/homebrew/bin/node");
             options.AddAdditionalAppiumOption("appium:bundleId", "com.democratia.view");
-            options.AddAdditionalAppiumOption("appium:systemPort", 10100); // On force le port
-            options.AddAdditionalAppiumOption("appium:showServerLogs", true);
 
-            // On donne du temps à l'application pour apparaître à l'écran
+            // On demande à Appium d'ouvrir l'app lui-même via son ID
+            options.AddAdditionalAppiumOption("appium:arguments", new List<string>());
             options.AddAdditionalAppiumOption("appium:waitForAppLaunch", "30");
+
+            
 
             driver = new MacDriver(new Uri("http://127.0.0.1:4723/"), options, TimeSpan.FromSeconds(120));
         }
