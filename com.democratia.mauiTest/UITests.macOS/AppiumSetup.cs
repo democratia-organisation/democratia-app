@@ -46,7 +46,7 @@ namespace UITests
         }
         private void RunTestsRemotelyOnMac()
         {
-            string remoteResultsPath = $"{MacProjectDir}/results.trx";
+            string remoteResultsPath = $"/Users/m1/Documents/democratia-mobile/com.democratia.mauiTest/UITests.macOS/TestResults/results.trx";
             string localResultsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MacResults.trx");
 
             // 1. Commande pour lancer les tests et générer le fichier .trx
