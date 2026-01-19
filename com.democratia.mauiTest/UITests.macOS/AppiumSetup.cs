@@ -1,80 +1,98 @@
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.Mac;
 using System.Diagnostics;
-using UITests.View;
 
 namespace UITests
 {
     public class AppiumSetup : IDisposable
     {
         private static AppiumDriver? driver;
+        public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver est null.");
+        public static string device = "macos";
 
-        public readonly static string device = "macos";
-
-        public readonly static string sshSortie = string.Empty;
-
-        public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
+        // Configuration du Mac Scaleway
+        private const string MacIp = "51.159.121.26";
+        private const string MacUser = "m1";
+        // Le chemin vers votre app macOS (.app Catalyst ou native)
+        private const string MacAppPath = "/Users/m1/Documents/democratia-mobile/com.democratia.view/bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app";
+        private const string MacProjectDir = "/Users/m1/Documents/democratia-mobile/com.democratia.mauiTest/UITests.macOS";
 
         public AppiumSetup()
         {
-            AppiumServerHelper.StartAppiumLocalServer();
-            if (SystemInfo.GetHostOS() != "macOS")
+            if (OperatingSystem.IsWindows())
             {
-                // TODO : à décommenter quand je serai connecté en ssh à un Mac et que le mac aura
-                // installé Appium, dotnet et le projet
-                //var sortie = RunAppiumIOSOverSSH("<macIp>", "<macUser>", "<macProjectDir>");
-                //if (!sortie.Contains("Test Output")) throw new Exception($"Error starting Appium: {sortie}");
-                //else sshSortie = sortie;
-                return;
+                // On délègue au Mac
+                RunTestsRemotelyOnMac();
             }
             else
             {
-                var macOptions = new AppiumOptions
-                {
-                    // Specify mac2 as the driver, typically don't need to change this
-                    AutomationName = "mac2",
-                    // Always Mac for Mac
-                    PlatformName = "Mac",
-                    // The full path to the .app file to test
-                    App = "/path/to/project/com.democratia.view/bin/Debug/net9.0-maccatalyst/maccatalyst-x64/com.democratia.view.app"
-                };
-
-                // Setting the Bundle ID is required, else the automation will run on Finder
-                macOptions.AddAdditionalAppiumOption(IOSMobileCapabilityType.BundleId, "com.democratia");
-
-                // Note there are many more options that you can use to influence the app under test according to your needs
-
-                driver = new MacDriver(macOptions);
+                // On exécute localement sur l'interface macOS
+                InitLocalMacDriver();
             }
         }
-
-        public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir)
+        private void InitLocalMacDriver()
         {
-            var command = $"ssh {macUser}@{macIp} \"cd {macProjectDir} && nohup appium > appium.log 2>&1 & dotnet test\"";
-            var process = new ProcessStartInfo
+            var options = new AppiumOptions
+            {
+                AutomationName = "mac2", // Indispensable pour macOS
+                PlatformName = "Mac",
+                App = MacAppPath
+            };
+
+            // Le BundleId est souvent requis pour macOS pour éviter de piloter le Finder par erreur
+            options.AddAdditionalAppiumOption("bundleId", "com.democratia.view");
+            options.AddAdditionalAppiumOption("appium:waitForAppLaunch", "30");
+
+            // Pour macOS, le driver spécifique est MacDriver
+            driver = new MacDriver(new Uri("http://localhost:4723/"), options, TimeSpan.FromSeconds(120));
+        }
+        private void RunTestsRemotelyOnMac()
+        {
+            string remoteResultsPath = $"{MacProjectDir}/TestResults/results.trx";
+            string localResultsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MacResults.trx");
+
+            // 1. Commande pour lancer les tests et générer le fichier .trx
+            var testCommand = $"ssh {MacUser}@{MacIp} \"pgrep appium || nohup appium --address 0.0.0.0 > /tmp/appium.log 2>&1 & sleep 5 && cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test --logger 'trx;LogFileName=results.trx'\"";
+
+            // 2. Commande pour rapatrier le fichier de résultat
+            var copyCommand = $"scp {MacUser}@{MacIp}:{remoteResultsPath} \"{localResultsPath}\"";
+
+            Console.WriteLine("--- EXÉCUTION DISTANTE ET GÉNÉRATION DE RAPPORT ---");
+
+            // Execution des tests
+            ExecuteCommand(testCommand);
+
+            // Récupération du rapport
+            Console.WriteLine("--- RÉCUPÉRATION DU RAPPORT DE TEST ---");
+            ExecuteCommand(copyCommand);
+
+            Console.WriteLine($"Rapport disponible localement : {localResultsPath}");
+            Process.Start(new ProcessStartInfo(localResultsPath) { UseShellExecute = true });
+        }
+
+        private void ExecuteCommand(string command)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
                 Arguments = $"/C {command}",
-                UseShellExecute = false,
                 RedirectStandardOutput = true,
-                RedirectStandardError = true,
+                UseShellExecute = false,
                 CreateNoWindow = true
             };
 
-            using var proc = Process.Start(process);
-            proc?.WaitForExit();
-            var output = proc?.StandardOutput.ReadToEnd();
-            var error = proc?.StandardError.ReadToEnd();
-
-            return !string.IsNullOrEmpty(error) ? $"Error:\n{error}" : $"Test Output:\n{output}";
+            using var process = Process.Start(psi);
+            while (process != null && !process.StandardOutput.EndOfStream)
+            {
+                Console.WriteLine(process.StandardOutput.ReadLine());
+            }
+            process?.WaitForExit();
         }
 
         public void Dispose()
         {
             driver?.Quit();
-            GC.SuppressFinalize(this);
-            AppiumServerHelper.DisposeAppiumLocalServer();
+            driver?.Dispose();
         }
     }
 }

@@ -1,6 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using System;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using Xunit;

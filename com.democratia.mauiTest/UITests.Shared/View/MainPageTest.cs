@@ -1,4 +1,5 @@
 using OpenQA.Selenium.Appium;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Xunit;

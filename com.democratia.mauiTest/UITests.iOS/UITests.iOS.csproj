@@ -1,23 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>net10.0</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsTestProject>true</IsTestProject>
+        <RootNamespace>UITests</RootNamespace>
+        <LangVersion>preview</LangVersion>
+        <NoWarn>$(NoWarn);CS8981</NoWarn>
+        
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
+        <IsHotRestartEnabled>false</IsHotRestartEnabled>
+        <IsAppExtension>false</IsAppExtension>
+        <RuntimeIdentifier>iossimulator-arm64</RuntimeIdentifier>
+        
+        <IsXcodeVersionCheckEnabled>false</IsXcodeVersionCheckEnabled>
+    </PropertyGroup>
 	<PropertyGroup>
-		<TargetFrameworks>net10.0;net10.0-ios</TargetFrameworks>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<IsTestProject>true</IsTestProject>
-		<RootNamespace>UITests</RootNamespace>
-		<LangVersion>preview</LangVersion>
-		<DefineConstants>$(DefineConstants);UITEST</DefineConstants>
+		<IsXcodeVersionCheckEnabled>false</IsXcodeVersionCheckEnabled>
+		<MtouchExtraArgs>--compiler-ignore-version-mismatch</MtouchExtraArgs>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
-		<IsHotRestartEnabled>false</IsHotRestartEnabled>
-		<ServerAddress>51.159.121.26</ServerAddress>
-		<ServerUser>m1</ServerUser>
-		<ServerPassword>cGH4GSG5VXvD</ServerPassword>
-		<MlaunchSimulatorId>74DF4917-44E5-4298-9791-7EA5220C48AF</MlaunchSimulatorId>
-		<RuntimeIdentifier>iossimulator-arm64</RuntimeIdentifier>
-	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<PackageReference Include="Appium.WebDriver" Version="8.0.1" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
@@ -31,4 +36,7 @@
 	<ItemGroup>
 		<Compile Include="..\UITests.Shared\**\*.cs" LinkBase="Shared" />
 	</ItemGroup>
+<ItemGroup>
+  <Using Remove="nfloat" />
+</ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
+using System;
 using System.Diagnostics;
 using UITests.View;
 
@@ -42,9 +43,12 @@ namespace UITests
 
             // UDID spécifique de votre simulateur identifié précédemment
             iOSOptions.AddAdditionalAppiumOption("udid", "74DF4917-44E5-4298-9791-7EA5220C48AF");
+            iOSOptions.AddAdditionalAppiumOption("appium:derivedDataPath", "/Users/m1/Library/Developer/Xcode/DerivedData");
+            iOSOptions.AddAdditionalAppiumOption("appium:noReset", false);
+
 
             // Chemin absolu de l'APP sur le disque du MAC (généré par votre build net10.0-ios)
-            iOSOptions.App = "/Users/m1/Library/Caches/Xamarin/mtbs/builds/com.democratia.view/bin/Debug/net10.0-ios/iossimulator-arm64/com.democratia.view.app";
+            iOSOptions.App = "/Users/m1/apps/democratia_test.ipa";
 
             // Évite de réinstaller l'application si elle est déjà présente
             iOSOptions.AddAdditionalAppiumOption("noReset", true);
@@ -69,7 +73,7 @@ namespace UITests
                 PlatformName = "iOS",
                 PlatformVersion = "18.4",
                 DeviceName = "iPhone 16",
-                App = "/Users/m1/Library/Caches/Xamarin/mtbs/builds/com.democratia.view/bin/Debug/net10.0-ios/iossimulator-arm64/com.democratia.view.app"
+                App = "/Users/m1/apps/democratia_test.ipa"
             };
 
             driver = new IOSDriver(new Uri("http://localhost:4723/"), iOSOptions);
@@ -80,23 +84,23 @@ namespace UITests
         /// </summary>
         public static string StartAppiumOnMacViaSSH(string macUser, string macPass)
         {
-            // Commande pour lancer appium en tâche de fond sur le Mac
-            // Note: Nécessite que 'appium' soit dans le PATH du Mac
-            var command = $"ssh {macUser}@{MacIp} \"nohup appium --address 0.0.0.0 --port 4723 --allow-insecure chromedriver_autodownload > appium.log 2>&1 &\"";
-
-            var process = new ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                Arguments = $"/C {command}",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                CreateNoWindow = true
-            };
-
-            using var proc = Process.Start(process);
-            return "Commande de lancement Appium envoyée au Mac.";
+#if WINDOWS
+    // Ce code ne sera compilé et exécuté QUE sur Windows
+    var command = $"ssh {macUser}@51.159.121.26 \"nohup appium ... &\"";
+    var process = new ProcessStartInfo
+    {
+        FileName = "cmd.exe",
+        Arguments = $"/C {command}",
+        UseShellExecute = false,
+        CreateNoWindow = true
+    };
+    Process.Start(process);
+    return "Commande envoyée depuis Windows.";
+#else
+            // Sur iOS ou MacCatalyst, on ne fait rien ou on logue un message
+            return "Lancement SSH non supporté nativement depuis cette plateforme.";
+#endif
         }
-
         public void Dispose()
         {
             driver?.Quit();
