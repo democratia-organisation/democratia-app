@@ -70,7 +70,7 @@
                         AutomationId="Pas de compte ?"
                     />
 
-                    <Label Text="Créez en un !"
+                    <Label Text="Créez en un"
                         TextColor="Blue"
                         x:Name="pageSuivanteLabel"
                         HorizontalOptions="Center"

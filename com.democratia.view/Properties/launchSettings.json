@@ -2,7 +2,9 @@
   "profiles": {
     "iOS Simulator": {
       "commandName": "Project",
-      "targetFramework": "net10.0-ios"
+      "targetFramework": "net10.0-ios",
+      "remoteDebugEnabled": true,
+      "authenticationMode": "None"
     },
     "Windows Machine": {
       "commandName": "Project",
@@ -12,7 +14,8 @@
     },
     "Mac Catalyst": {
       "commandName": "Project",
-      "targetFramework": "net10.0-maccatalyst"
+      "targetFramework": "net10.0-maccatalyst",
+      "remoteDebugEnabled": true
     }
   }
 }

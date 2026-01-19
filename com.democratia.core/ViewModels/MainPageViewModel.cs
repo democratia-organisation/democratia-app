@@ -72,7 +72,7 @@ namespace com.democratia.ViewModels
             List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString);
             string motDePasseHash = listeInformation?[0]["hashageMDP"]?.ToString()!;
             bool motDePasseValide = await VerifierMotDePasseUtilisateur(motDePasseHash);
-            if (!motDePasseValide) throw new Exception("Mot de passe incorrecte");
+            if (!motDePasseValide && motDePasseHash!=MotDePasse) throw new Exception("Mot de passe incorrecte"); // verification brut car user ont des mot de passe non hashé dans la BDD 
 
             // /!\ le casting est important car les valeurs ne
             // sont pas dans le type voulu mais dans le type JsonElement

@@ -89,14 +89,14 @@ namespace com.democratia.ViewModels
         }
         private bool VerifierFormatageMail()
         {
-            FormatRule emailRule = new(@"^([w.-]+)@([w-]+)((.(w){2,3})+)$");
+            FormatRule emailRule = new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$");
             return emailRule.Check(AdresseMail!) ? true : throw new Exception("Le format de l'adresse mail est incorrecte");
         }
         private async Task<bool> VerifierMailDoublon()
         {
             string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(AdresseMail!)!;
             List<Dictionary<string, object>>? listeInformation = RecuprerInformationConnexion(retourJson);
-            int? nombreMail = ((JsonElement?)listeInformation?[0]["courriel"])?.GetInt32();
+            int? nombreMail = ((JsonElement?)listeInformation?[0]["COUNT(courriel)"])?.GetInt32();
             return nombreMail == 0
                 ? true
                 : throw new Exception("L'adresse mail est déjà utilisée");
@@ -112,10 +112,10 @@ namespace com.democratia.ViewModels
 
         private record FormatRule(string pattern)
         {
-            private readonly GeneratedRegexAttribute _regex = new(pattern);
+            private readonly System.Text.RegularExpressions.Regex _regex = new(pattern, System.Text.RegularExpressions.RegexOptions.Compiled | System.Text.RegularExpressions.RegexOptions.CultureInvariant);
 
             public bool Check(string value) =>
-                value is string str && _regex.Match(str);
+                value is string str && _regex.IsMatch(str);
         }
 
 
