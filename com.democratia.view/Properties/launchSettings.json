@@ -3,7 +3,7 @@
     "iOS Simulator": {
       "commandName": "Project",
       "targetFramework": "net10.0-ios",
-      "remoteDebugEnabled": true,
+      "remoteDebugEnabled": false,
       "authenticationMode": "None"
     },
     "Windows Machine": {
@@ -15,7 +15,9 @@
     "Mac Catalyst": {
       "commandName": "Project",
       "targetFramework": "net10.0-maccatalyst",
-      "remoteDebugEnabled": true
+      "remoteDebugEnabled": false,
+      "remoteDebugMachine": "51.159.121.26:4026",
+      "authenticationMode": "Windows"
     }
   }
 }

@@ -47,6 +47,7 @@ namespace com.democratia.ViewModels
             {
                 await CreerInternaute();
                 RetourMessage = "Création réussie";
+                
 
             }
             catch (Exception ex)
@@ -65,8 +66,7 @@ namespace com.democratia.ViewModels
 
                     string reponse = await client?.CreateModelAsync(NomDeFamille, Prenom, AdresseMail, AdressePostal, Crypt.HashPassword(MotDePasse))!;
                     List<Dictionary<string,object>> values = RecuprerInformationConnexion(reponse);
-                    int? valeurRetourne = ((JsonElement?)values?[0]["courriel"])?.GetInt32();
-                    if (valeurRetourne != 0) throw new Exception("Erreur lors de la création du compte");
+                    if (values.Count != 0) throw new Exception("Erreur lors de la création du compte");
                 }
 
             }

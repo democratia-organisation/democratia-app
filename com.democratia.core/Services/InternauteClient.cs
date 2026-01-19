@@ -14,17 +14,8 @@ namespace com.democratia.Services
 
             try
             {
-                var content = new StringContent(
-                    $$"""
-                        {
-                            "request": "INSERT INTO internaute (nom_de_famille, prenom, courriel, adresse_postale, mot_de_passe) VALUES (?,?,?,?,?)",
-                            "parameters": ["{{parameters![0]}}", "{{parameters[1]}}", "{{parameters[3]}}", "{{parameters[2]}}", "{{parameters[4]}}"]
-                        }
-                        """,
-                    System.Text.Encoding.UTF8,
-                    "application/x-www-form-urlencoded");
-
-                response = await client!.PostAsync("", content);
+                var content = $$"""?request=CreerUtilisateur&parameters=["{{parameters![0]}}", "{{parameters[1]}}", "{{parameters[3]}}", "{{parameters[2]}}", "{{parameters[4]}}"]""";
+                response = await client!.PostAsync(content, null);
             }
             catch (HttpRequestException ex)
             {

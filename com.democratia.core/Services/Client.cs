@@ -65,7 +65,10 @@ namespace com.democratia.Services
         protected async Task<string> FinRequete(HttpResponseMessage response)
         {
             MettreAJourStatuts(response);
-            if (!response.IsSuccessStatusCode) throw new Exception("Requete râté");
+            if (!response.IsSuccessStatusCode) {
+                string content = await response.Content.ReadAsStringAsync();
+                throw new Exception("Requete râté");
+            } 
 
             else
                 return await response.Content.ReadAsStringAsync();
