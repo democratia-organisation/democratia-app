@@ -50,15 +50,19 @@ namespace UITests
             string localResultsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MacResults.trx");
 
             // 1. Commande pour lancer les tests et générer le fichier .trx
-            var testCommand = $"ssh {MacUser}@{MacIp} \"/opt/homebrew/bin/appium & sleep 5 && cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test UITests.macOS.csproj --logger 'trx;LogFileName=results.trx'\"";
-
+            var command = $"ssh {MacUser}@{MacIp} \"" +
+                            "killall -9 node dotnet 2>/dev/null; sleep 2; " +
+                            "/usr/bin/nohup /opt/homebrew/bin/appium --address 0.0.0.0 --use-drivers mac2 > /tmp/appium.log 2>&1 & " +
+                            "echo 'Attente du serveur Appium...'; " +
+                            "timeout 30s /bin/bash -c 'until printf \"\" 2>>/dev/null >/dev/tcp/127.0.0.1/4723; do sleep 1; done'; " +
+                            $"cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test UITests.macos.csproj --logger 'trx;LogFileName=results.trx'\"";
             // 2. Commande pour rapatrier le fichier de résultat
             var copyCommand = $"scp {MacUser}@{MacIp}:{remoteResultsPath} \"{localResultsPath}\"";
 
             Console.WriteLine("--- EXÉCUTION DISTANTE ET GÉNÉRATION DE RAPPORT ---");
 
             // Execution des tests
-            ExecuteCommand(testCommand);
+            ExecuteCommand(command);
 
             // Récupération du rapport
             Console.WriteLine("--- RÉCUPÉRATION DU RAPPORT DE TEST ---");
