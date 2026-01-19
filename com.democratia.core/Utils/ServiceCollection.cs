@@ -14,6 +14,7 @@ namespace com.democratia.Utils
         {
             services.AddSingleton<INavigationService, ShellNavigationService>();
             services.AddSingleton<IClient, InternauteClient>();
+            services.AddSingleton<IClient, GroupClient>();
             services.AddTransient<MainPageViewModel>();
             services.AddTransient<CreationViewModel>();
             services.AddTransient<HomeViewModel>();
