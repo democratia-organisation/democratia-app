@@ -1,5 +1,6 @@
 using com.democratia.ViewModels;
 using CommunityToolkit.Mvvm.Input;
+using System.Diagnostics;
 
 namespace com.democratia.view.Views.Component;
 
@@ -9,13 +10,21 @@ public class ButtonGroupe : ContentView
     private string? title;
     private HomeViewModel? viewModel;
     private ImageSource? imageSource;
+    private ImageButton? button;
 
     public ButtonGroupe(string? imageUrl, string? title, IAsyncRelayCommand command, int? groupeParameter, HomeViewModel viewModel)
     {
         this.imageUrl = imageUrl;
         this.title = title;
         this.viewModel = viewModel;
-        CreateImageSourceAsync();
+        button = new ImageButton
+        {
+            HeightRequest = 50,
+            WidthRequest = 50,
+            HorizontalOptions = LayoutOptions.Center,
+            Command = command,
+            CommandParameter = groupeParameter.ToString()
+        };
         var label = new Label
         {
             HorizontalOptions = LayoutOptions.Center,
@@ -32,18 +41,20 @@ public class ButtonGroupe : ContentView
         Content = new VerticalStackLayout
         {
             Children = {
-                new ImageButton {
-                    Source = this.imageSource ,
-                    HeightRequest = 50,
-                    WidthRequest = 50,
-                    HorizontalOptions = LayoutOptions.Center,
-                    Command = command,
-                    CommandParameter = groupeParameter.ToString()
-                },
+                button,
                 label
             }
         };
+        CreateImageSourceAsync();
     }
-    public async void CreateImageSourceAsync() => this.imageSource = await viewModel!.GetImageAsync(this.imageUrl!);
+    public async void CreateImageSourceAsync() {
+
+        try {
+            this.imageSource = await viewModel!.GetImageAsync(this.imageUrl!);
+            MainThread.BeginInvokeOnMainThread(() => {
+                button!.Source = this.imageSource;
+            });
+        } catch (Exception e) { Debug.WriteLine("bug"); }
+    }
     
 }

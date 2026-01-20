@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -37,10 +38,7 @@ namespace com.democratia.Services
 
         internal async Task<ImageSource> GetImageAsync(string url)
         {
-            var requete = $"""
-                ?request=obtenirImage
-                &parameters=["{url}"]
-                """;
+            var requete = $"""?request=obtenirImage&parameters=["{url}"]""";
             DebutRequete();
             HttpResponseMessage? response;
             try
@@ -60,10 +58,15 @@ namespace com.democratia.Services
 
             else
             {
-                using (var stream = await response.Content.ReadAsStreamAsync())
-                {
-                    return ImageSource.FromStream(() => stream);
-                }
+                // 1. On lit tout sous forme de tableau d'octets (byte[])
+                byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
+
+                if (imageBytes == null || imageBytes.Length == 0)
+                    return null;
+
+                // 2. On retourne l'ImageSource
+                // Chaque fois que MAUI en a besoin, il recrée un stream à partir du tableau en mémoire
+                return ImageSource.FromStream(() => new MemoryStream(imageBytes));
             }
 
         }
