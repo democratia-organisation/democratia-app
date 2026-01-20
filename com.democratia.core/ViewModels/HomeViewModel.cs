@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Text.Json;
+using System.Drawing;
 // sophie.lemoine@example.com
 
 namespace com.democratia.ViewModels
@@ -26,7 +27,7 @@ namespace com.democratia.ViewModels
             internaute = (Internaute)query["modele"];
         }
 
-        public async Task InitializeAsync()
+        public async void InitializeAsync()
         {
 
             var jsonString = string.Empty;
@@ -48,6 +49,11 @@ namespace com.democratia.ViewModels
                     ((JsonElement?)groupe["nb_signalement"])?.GetInt32() ?? 0
                     ));
             });
+        }
+
+        public async Task<ImageSource> GetImageAsync(string url)
+        {
+            return await ((GroupClient)client!).GetImageAsync(url)!;
         }
 
         [RelayCommand]

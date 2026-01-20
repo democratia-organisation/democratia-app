@@ -1,6 +1,5 @@
-using com.democratia.Resources.Styles;
+using com.democratia.ViewModels;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls; 
 
 namespace com.democratia.view.Views.Component;
 
@@ -8,11 +7,15 @@ public class ButtonGroupe : ContentView
 {
     private string? imageUrl;
     private string? title;
+    private HomeViewModel? viewModel;
+    private ImageSource? imageSource;
 
-    public ButtonGroupe(string? imageUrl, string? title, IAsyncRelayCommand command, int? groupeParameter)
+    public ButtonGroupe(string? imageUrl, string? title, IAsyncRelayCommand command, int? groupeParameter, HomeViewModel viewModel)
     {
         this.imageUrl = imageUrl;
         this.title = title;
+        this.viewModel = viewModel;
+        CreateImageSourceAsync();
         var label = new Label
         {
             HorizontalOptions = LayoutOptions.Center,
@@ -30,7 +33,7 @@ public class ButtonGroupe : ContentView
         {
             Children = {
                 new ImageButton {
-                    Source = this.imageUrl,
+                    Source = this.imageSource ,
                     HeightRequest = 50,
                     WidthRequest = 50,
                     HorizontalOptions = LayoutOptions.Center,
@@ -41,4 +44,6 @@ public class ButtonGroupe : ContentView
             }
         };
     }
+    public async void CreateImageSourceAsync() => this.imageSource = await viewModel!.GetImageAsync(this.imageUrl!);
+    
 }

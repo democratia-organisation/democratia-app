@@ -1,4 +1,5 @@
 ﻿using com.democratia.Models;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,6 +33,39 @@ namespace com.democratia.Services
 
             return await FinRequete(response);
             
+        }
+
+        internal async Task<ImageSource> GetImageAsync(string url)
+        {
+            var requete = $"""
+                ?request=obtenirImage
+                &parameters=["{url}"]
+                """;
+            DebutRequete();
+            HttpResponseMessage? response;
+            try
+            {
+                response = await client!.GetAsync(requete);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+            MettreAJourStatuts(response);
+            if (!response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                throw new Exception("Requete râté");
+            }
+
+            else
+            {
+                using (var stream = await response.Content.ReadAsStreamAsync())
+                {
+                    return ImageSource.FromStream(() => stream);
+                }
+            }
+
         }
     }
 }

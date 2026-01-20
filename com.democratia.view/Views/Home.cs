@@ -10,6 +10,11 @@ namespace com.democratia.view.Views
         {
             
             BindingContext = viewModel;
+            if (Application.Current!.Resources.TryGetValue("Light-background", out var light) && Application.Current!.Resources.TryGetValue("Dark-background", out var dark))
+            {
+                Color lightCouleur = (Color)light, darkCouleur = (Color)dark;
+                this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
+            }
 
             Content = new VerticalStackLayout
             {
@@ -34,7 +39,9 @@ namespace com.democratia.view.Views
                                 HeightRequest = 50,
                                 WidthRequest = 50,
                             }
-                        }
+                        },
+                        HeightRequest = 80,
+                        WidthRequest = 200,
                     },
                     new BoxView { HeightRequest = 50 },
                     new Label
@@ -87,7 +94,7 @@ namespace com.democratia.view.Views
                 grille.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
                 grille.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
                 for (int i = 0; i < viewModel.groupes.Count; i++)
-                    grille.Add(new ButtonGroupe(viewModel.groupes[i].Image, viewModel.groupes[i].NomGroupe, viewModel.OpenGroupCommand, viewModel.groupes[i].IdGroupe));
+                    grille.Add(new ButtonGroupe(viewModel.groupes[i].Image, viewModel.groupes[i].NomGroupe, viewModel.OpenGroupCommand, viewModel.groupes[i].IdGroupe, (HomeViewModel)BindingContext));
                 return grille;
             }
             else return null;
@@ -101,7 +108,7 @@ namespace com.democratia.view.Views
             // 1. Récupérer le ViewModel depuis le BindingContext
             if (BindingContext is HomeViewModel vm)
             {
-                await vm.InitializeAsync();
+                vm.InitializeAsync();
             }
         }
     }

@@ -28,9 +28,7 @@ namespace com.democratia.ViewModels
             : base(clients?.OfType<InternauteClient>().FirstOrDefault())
         {
             this.navigationService = navigationService;
-            this.clients = clients;
-            if (client is null)
-                this.client = clients?.OfType<FakeClient>().FirstOrDefault();
+            client ??= clients?.OfType<FakeClient>().FirstOrDefault();
         }
 
         public MainPageViewModel() : base(null) { }

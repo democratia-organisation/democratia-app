@@ -55,6 +55,7 @@ public partial class EntryComponent : ContentView
             Style = (Style?)Application.Current?.Resources["EntryStyle"],
             MaximumWidthRequest = 300,
             AutomationId = "Entry",
+            Keyboard = Keyboard.Plain,
 
         };
         entryComponent.TextChanged += OnTitleChanged;

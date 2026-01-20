@@ -30,9 +30,7 @@ namespace com.democratia.ViewModels
             : base(clients?.OfType<InternauteClient>().FirstOrDefault())
         {
             this.navigationService = navigationService;
-            this.clients = clients;
-            if (client is null)
-                this.client = clients?.OfType<FakeClient>().FirstOrDefault();
+            client ??= clients?.OfType<FakeClient>().FirstOrDefault();
         }
 
         public CreationViewModel() : base(null) { }
@@ -47,7 +45,7 @@ namespace com.democratia.ViewModels
             {
                 await CreerInternaute();
                 RetourMessage = "Création réussie; Connectez-vous maintenant";
-                Task.Run(async () => { await Task.Delay(3000)!; });   
+                Task.Run(async () => { await Task.Delay(5000)!; });   
                 await navigationService?.GoToAsync("..")!;
                 
 
@@ -114,7 +112,7 @@ namespace com.democratia.ViewModels
 
         private record FormatRule(string pattern)
         {
-            private readonly System.Text.RegularExpressions.Regex _regex = new(pattern, System.Text.RegularExpressions.RegexOptions.Compiled | System.Text.RegularExpressions.RegexOptions.CultureInvariant);
+            private readonly Regex _regex = new(pattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
             public bool Check(string value) =>
                 value is string str && _regex.IsMatch(str);

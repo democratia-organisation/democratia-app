@@ -11,6 +11,7 @@ namespace com.democratia
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(Home), typeof(Home));
             Routing.RegisterRoute(nameof(Creation), typeof(Creation));
+            Routing.RegisterRoute(nameof(Groupe), typeof(Groupe));
         }
     }
 }
