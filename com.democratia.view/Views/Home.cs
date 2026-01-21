@@ -61,13 +61,21 @@ namespace com.democratia.view.Views
                         },
                         ItemTemplate = new DataTemplate(() =>
                         {
-                            Grid grille = NewGrid()!;
 
-                            return new Border()
+                            var container =  new Border()
                             {
                                 Style = (Style?)Application.Current?.Resources["BorderStyle"],
-                                Content = grille
                             };
+                            container.BindingContextChanged += (s, e) =>
+                            {
+                                var border = (Border)s;
+                                if (border?.BindingContext is Models.Groupe groupe && BindingContext is HomeViewModel viewModel)
+                                {
+                                    var buttonGroupe = new ButtonGroupe(groupe.Image, groupe.NomGroupe, viewModel.OpenGroupCommand, groupe.IdGroupe, viewModel);
+                                    border.Content = buttonGroupe;
+                                }
+                            };
+                            return container;
 
                         }),
                     },
