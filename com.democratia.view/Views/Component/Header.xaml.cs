@@ -21,7 +21,7 @@ public partial class Header : ContentView
             }
             else if (Application.Current?.RequestedTheme == AppTheme.Light)
             {
-                Application.Current.UserAppTheme = AppTheme.Unspecified;
+                Application.Current.UserAppTheme = AppTheme.Dark;
                 button.Source = "dark.png";
             }
         }
