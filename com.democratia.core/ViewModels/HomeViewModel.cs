@@ -4,8 +4,8 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Text.Json;
-using System.Drawing;
 using System.Collections.ObjectModel;
+using Microsoft.Maui.ApplicationModel;
 // sophie.lemoine@example.com
 
 namespace com.democratia.ViewModels
@@ -37,10 +37,10 @@ namespace com.democratia.ViewModels
             catch (Exception)
             { throw new Exception("Erreur de connexion inattendu"); }
             List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString);
-            listeInformation.ForEach((groupe) =>
+            foreach (var groupe in listeInformation)
             {
                 listeRecu.Add(new Groupe(
-                    ((JsonElement?)groupe["id_groupe"])?.GetInt32() ?? 0,
+                   ((JsonElement?)groupe["id_groupe"])?.GetInt32() ?? 0,
                     groupe["nom_groupe"]?.ToString() ?? string.Empty,
                     groupe["couleur_groupe"]?.ToString() ?? string.Empty,
                     groupe["image"]?.ToString() ?? string.Empty,
@@ -48,7 +48,17 @@ namespace com.democratia.ViewModels
                     ((JsonElement?)groupe["nbj_dft_vote"])?.GetInt32() ?? 0,
                     ((JsonElement?)groupe["nbj_dft_discuss"])?.GetInt32() ?? 0,
                     ((JsonElement?)groupe["nb_signalement"])?.GetInt32() ?? 0
-                    ));
+                ));
+            }
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                Groupes.Clear();
+                foreach (var groupe in listeRecu)
+                {
+                    Groupes.Add(groupe);
+                }
+
             });
         }
 

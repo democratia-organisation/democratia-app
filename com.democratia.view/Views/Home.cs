@@ -56,7 +56,6 @@ namespace com.democratia.view.Views
 
             this._collectionView = new CollectionView
             {
-                BackgroundColor = Colors.Blue,
                 ItemsSource = viewModel.listeRecu,
                 VerticalOptions = LayoutOptions.Fill,
                 HorizontalOptions = LayoutOptions.Fill,
