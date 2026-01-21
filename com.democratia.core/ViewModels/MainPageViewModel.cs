@@ -38,7 +38,7 @@ namespace com.democratia.ViewModels
         {
             try
             {
-                if (commande == "Home")
+                if (commande == "/Home")
                 {
                     modele = await ConnecterInternaute();
                     var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };

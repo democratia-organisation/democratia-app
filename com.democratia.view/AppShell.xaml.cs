@@ -8,10 +8,11 @@ namespace com.democratia
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(Home), typeof(Home));
-            Routing.RegisterRoute(nameof(Creation), typeof(Creation));
-            Routing.RegisterRoute(nameof(Groupe), typeof(Groupe));
+            Routing.RegisterRoute($"{nameof(MainPage)}/{nameof(Creation)}", typeof(Creation));
+            Routing.RegisterRoute($"{nameof(Home)}/{nameof(Groupe)}", typeof(Groupe));
+            Routing.RegisterRoute($"{nameof(Home)}/{nameof(GestionCompte)}", typeof(GestionCompte));
+            Routing.RegisterRoute($"{nameof(Home)}/{nameof(CreerGroupe)}", typeof(CreerGroupe));
         }
     }
 }

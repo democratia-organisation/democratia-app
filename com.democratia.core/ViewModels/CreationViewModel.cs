@@ -45,8 +45,6 @@ namespace com.democratia.ViewModels
             {
                 await CreerInternaute();
                 RetourMessage = "Création réussie; Connectez-vous maintenant";
-                Task.Run(async () => { await Task.Delay(5000)!; });   
-                await navigationService?.GoToAsync("..")!;
                 
 
             }

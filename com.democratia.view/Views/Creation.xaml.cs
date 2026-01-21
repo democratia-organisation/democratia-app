@@ -14,9 +14,9 @@ public partial class Creation : ContentPage
         {
             if (args.PropertyName == nameof(viewModel.RetourMessage) && !string.IsNullOrEmpty(viewModel.RetourMessage))
             {
-                if (viewModel.RetourMessage == "Votre compte a été créé")
+                if (viewModel.RetourMessage == "Création réussie; Connectez-vous maintenant")
                 {
-                    IView[] views = { nomDeFamilleComponent, prenomComponent, passwordComponent, mailComponent, addresseComponent, retourMessageLabel };
+                    IView[] views = { nomDeFamilleComponent, prenomComponent, passwordComponent, mailComponent, addresseComponent, retourMessageLabel, inscriptionButton };
                     for (int i = 0; i < views.Length; i++)
                     {
                         if (stackLayout.Children.Contains(views[i])) 
@@ -30,17 +30,10 @@ public partial class Creation : ContentPage
                         Style = (Style?)Application.Current?.Resources["ButtonStyle"],
 
                     };
-                    seConnecterButton.SetBinding(Button.CommandProperty, new Binding("NavigationTappedCommand"));
+                    seConnecterButton.Command = viewModel.NavigateTappedCommand;
+                    seConnecterButton.CommandParameter = "..";
 
                     stackLayout.Children.Add(new BoxView { HeightRequest = 120});
-
-                    stackLayout.Children.Add(new Label
-                    {
-                        Text = viewModel.RetourMessage,
-                        Style = (Style?)Application.Current?.Resources["LabelStyle"]
-                    });
-
-                    stackLayout.Children.Add(new BoxView {HeightRequest = 10});
 
                     stackLayout.Children.Add(new Label
                     {

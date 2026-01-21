@@ -18,6 +18,7 @@ namespace com.democratia.Utils
             services.AddTransient<MainPageViewModel>();
             services.AddTransient<CreationViewModel>();
             services.AddTransient<HomeViewModel>();
+            services.AddTransient<GestionCompteViewModel>();
             services.AddSingleton<INavigeablleViewModel, MainPageViewModel>();
             services.AddSingleton<INavigeablleViewModel, CreationViewModel>();
 

@@ -77,7 +77,7 @@
                         TextDecorations="Underline"
                         AutomationId="Créez en un !">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NavigateTappedCommand}" CommandParameter="Creation" />
+                            <TapGestureRecognizer Command="{Binding NavigateTappedCommand}" CommandParameter="///MainPage/Creation" />
                         </Label.GestureRecognizers>
                     </Label>
                 </HorizontalStackLayout>
@@ -88,10 +88,8 @@
                     x:Name="seConnecterButton"
                     Text="Se connecter"
                     Style="{DynamicResource ButtonStyle}"
-                    MaximumWidthRequest="200"
-                    MaximumHeightRequest="50"
                     Command="{Binding NavigateTappedCommand}"
-                    CommandParameter="Home"
+                    CommandParameter="/Home"
                     VerticalOptions="End"
                     AutomationId="Se connecter Button"
                 />

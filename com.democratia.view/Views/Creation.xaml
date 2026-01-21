@@ -31,7 +31,6 @@
                     Text="M'inscrire"
                     x:Name="inscriptionButton"
                     Style="{DynamicResource ButtonStyle}"
-                    MaximumWidthRequest="300"
                     Command="{Binding CreerInternauteTappedCommand}"
                     AutomationId="M'inscrire"
                 />

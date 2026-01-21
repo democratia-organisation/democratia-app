@@ -40,6 +40,8 @@ namespace com.democratia.view.Views
                                 CornerRadius = 50,
                                 HeightRequest = 50,
                                 WidthRequest = 50,
+                                Command = viewModel.NavigateTappedCommand,
+                                CommandParameter = "/Home/GestionCompte",
                             }
                         }
                     }
@@ -96,7 +98,7 @@ namespace com.democratia.view.Views
                 Text = "Créer un nouveau groupe",
                 Style = (Style?)Application.Current?.Resources["ButtonStyle"],
                 Command = viewModel.NavigateTappedCommand,
-                CommandParameter = "CreerGroupe",
+                CommandParameter = "/Home/CreerGroupe",
                 VerticalOptions = LayoutOptions.End,
                 Margin = new Thickness(20)
             };

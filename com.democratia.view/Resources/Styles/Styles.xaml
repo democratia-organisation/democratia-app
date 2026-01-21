@@ -30,6 +30,8 @@
         <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onPrimary}, Dark={DynamicResource Dark-onPrimary}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="MaximumWidthRequest" Value="300"/>
+        <Setter Property="MaximumHeightRequest" Value="300"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="CornerRadius" Value="17"/>

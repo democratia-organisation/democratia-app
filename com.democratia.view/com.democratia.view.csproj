@@ -75,4 +75,17 @@
   <ItemGroup>
     <ProjectReference Include="..\com.democratia.core\com.democratia.core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\GestionCompte.xaml.cs">
+      <DependentUpon>GestionCompte.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <MauiXaml Update="Views\CreerGroupe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\GestionCompte.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
 </Project>
