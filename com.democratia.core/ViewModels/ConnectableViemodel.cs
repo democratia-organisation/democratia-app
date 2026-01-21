@@ -15,7 +15,8 @@ namespace com.democratia.ViewModels
         protected static List<Dictionary<string, object>> RecuprerInformationConnexion(string stringJson)
         {
             Dictionary<string, object> dictionnary;
-            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(stringJson)!; }
+            var finalJson = stringJson.Trim();
+            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(finalJson)!; }
             catch (Exception) { throw new Exception("Erreur lors de la récupération des données"); }
             var rawElement = (JsonElement)dictionnary["data"];
             object message = rawElement.ValueKind switch
