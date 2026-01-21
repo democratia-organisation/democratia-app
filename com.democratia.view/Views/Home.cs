@@ -56,7 +56,7 @@ namespace com.democratia.view.Views
 
             this._collectionView = new CollectionView
             {
-                ItemsSource = viewModel.listeRecu,
+                ItemsSource = viewModel.Groupes,
                 VerticalOptions = LayoutOptions.Fill,
                 HorizontalOptions = LayoutOptions.Fill,
                 
