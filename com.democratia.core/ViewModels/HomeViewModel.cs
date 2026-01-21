@@ -37,9 +37,9 @@ namespace com.democratia.ViewModels
             catch (Exception)
             { throw new Exception("Erreur de connexion inattendu"); }
             List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString);
-            foreach (var groupe in listeInformation)
+            listeInformation.ForEach(groupe =>
             {
-                listeRecu.Add(new Groupe(
+                Groupes.Add(new Groupe(
                    ((JsonElement?)groupe["id_groupe"])?.GetInt32() ?? 0,
                     groupe["nom_groupe"]?.ToString() ?? string.Empty,
                     groupe["couleur_groupe"]?.ToString() ?? string.Empty,
@@ -49,17 +49,8 @@ namespace com.democratia.ViewModels
                     ((JsonElement?)groupe["nbj_dft_discuss"])?.GetInt32() ?? 0,
                     ((JsonElement?)groupe["nb_signalement"])?.GetInt32() ?? 0
                 ));
-            }
-
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                Groupes.Clear();
-                foreach (var groupe in listeRecu)
-                {
-                    Groupes.Add(groupe);
-                }
-
             });
+
         }
 
         public async Task<ImageSource> GetImageAsync(string url)
