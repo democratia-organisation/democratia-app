@@ -58,6 +58,8 @@ namespace com.democratia.view.Views
             {
                 ItemsSource = viewModel.groupes,
                 VerticalOptions = LayoutOptions.Fill,
+                HorizontalOptions = LayoutOptions.Fill,
+                
                 ItemsLayout = new GridItemsLayout(3, ItemsLayoutOrientation.Vertical)
                 {
                     HorizontalItemSpacing = 10,
@@ -87,6 +89,7 @@ namespace com.democratia.view.Views
                     return container;
                 }),
             };
+            this._collectionView.HeightRequest = 400;
 
             this._createGroupButton = new Button
             {
