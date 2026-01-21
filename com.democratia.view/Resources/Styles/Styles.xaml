@@ -212,7 +212,7 @@
     </Style>
 
     <Style x:Key="SubHeadlineStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onPrimary}, Dark={DynamicResource Dark-onPrimary}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onBackground}, Dark={DynamicResource Dark-onBackground}}" />
         <Setter Property="FontSize" Value="24" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
