@@ -5,6 +5,7 @@ using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Text.Json;
 using System.Drawing;
+using System.Collections.ObjectModel;
 // sophie.lemoine@example.com
 
 namespace com.democratia.ViewModels
@@ -13,8 +14,8 @@ namespace com.democratia.ViewModels
     {
         private Internaute? internaute;
         private readonly INavigationService? navigationService;
-        public List<Groupe> groupes { get; private set; } = new();
-
+        public ObservableCollection<Groupe> Groupes { get; private set; } = new();
+        public readonly List<Groupe> listeRecu = new();
         public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
             : base(clients?.OfType<GroupClient>().FirstOrDefault())
         {
@@ -38,7 +39,7 @@ namespace com.democratia.ViewModels
             List<Dictionary<string, object>> listeInformation = RecuprerInformationConnexion(jsonString);
             listeInformation.ForEach((groupe) =>
             {
-                groupes.Add(new Groupe(
+                listeRecu.Add(new Groupe(
                     ((JsonElement?)groupe["id_groupe"])?.GetInt32() ?? 0,
                     groupe["nom_groupe"]?.ToString() ?? string.Empty,
                     groupe["couleur_groupe"]?.ToString() ?? string.Empty,
