@@ -27,15 +27,20 @@
                     Text="Modifier Mon Compte"
                     x:Name="modificationnButton"
                     Style="{DynamicResource ButtonStyle}"
-                    Command="{Binding CreerInternauteTappedCommand}"
+                    BindingContext="viewModel:INavigeablleViewModel"
+                    Command="{Binding NavigateTappedCommand}"
+                    CommandParameter="Modifier"
                     AutomationId="Modifier"
                     AutomationProperties.Name="Modifier"
                 />
+                <BoxView HeightRequest="300"/>
                 <Button
                     Text="Supprimer Mon Compte"
                     x:Name="suppresionButton"
                     Style="{DynamicResource ButtonStyle}"
-                    Command="{Binding CreerInternauteTappedCommand}"
+                    BindingContext="viewModel:INavigeablleViewModel"
+                    Command="{Binding NavigateTappedCommand}"
+                    CommandParameter="Supprimer"
                     AutomationId="Supprimer"
                     AutomationProperties.Name="Supprimer"
                 />

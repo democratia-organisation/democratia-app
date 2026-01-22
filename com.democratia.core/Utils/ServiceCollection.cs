@@ -21,6 +21,7 @@ namespace com.democratia.Utils
             services.AddTransient<GestionCompteViewModel>();
             services.AddSingleton<INavigeablleViewModel, MainPageViewModel>();
             services.AddSingleton<INavigeablleViewModel, CreationViewModel>();
+            services.AddSingleton<INavigeablleViewModel, GestionCompteViewModel>();
 
             return services;
         }
