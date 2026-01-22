@@ -1,6 +1,7 @@
 ﻿using com.democratia.view.Views.Component;
 using com.democratia.ViewModels;
 using com.democratia.Views.Component;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace com.democratia.Views
 {
@@ -21,15 +22,26 @@ namespace com.democratia.Views
                 Color darkCouleur = (Color)dark;
                 this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
             }
-            var profileIcone = new ImageButton
-            {
-                Source = "profile_icon.jpeg",
-                CornerRadius = 50,
+            var profileIcone = new Border 
+            { 
                 HeightRequest = 50,
                 WidthRequest = 50,
-                Command = viewModel.NavigateTappedCommand,
-                CommandParameter = "/Home/GestionCompte",
-                AutomationId = "ProfileButton",
+                HorizontalOptions = LayoutOptions.Center,
+                Stroke = Colors.White,
+                StrokeThickness = 2,
+                Padding = 0,
+                StrokeShape = new RoundRectangle { CornerRadius = 50 },
+                Content = new ImageButton
+                {
+                    Source = "profile_icon.jpeg",
+                    Aspect = Aspect.AspectFill,
+                    CornerRadius = 50,
+                    HeightRequest = 50,
+                    WidthRequest = 50,
+                    Command = viewModel.NavigateTappedCommand,
+                    CommandParameter = "/Home/GestionCompte",
+                    AutomationId = "ProfileButton",
+                }
             };
             AutomationProperties.SetName(profileIcone, "ProfileButton");
 

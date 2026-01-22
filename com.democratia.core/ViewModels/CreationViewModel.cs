@@ -44,7 +44,6 @@ namespace com.democratia.ViewModels
             {
                 await CreerInternaute();
                 RetourMessage = "Création réussie; Connectez-vous maintenant";
-                
 
             }
             catch (Exception ex)
@@ -62,16 +61,14 @@ namespace com.democratia.ViewModels
                 {
 
                     string reponse = await client?.CreateModelAsync(NomDeFamille, Prenom, AdresseMail, AdressePostal, Crypt.HashPassword(MotDePasse))!;
-                    List<Dictionary<string,object>> values = RecuprerInformationConnexion(reponse);
+                    List<object> values = RecuprerInformationConnexion(reponse);
                     if (values.Count != 0) throw new Exception("Erreur lors de la création du compte");
                 }
-
             }
             catch (Exception)
             {
                 throw;
             }
-
         }
 
         private bool VerifierChampComplet()
@@ -92,11 +89,9 @@ namespace com.democratia.ViewModels
         private async Task<bool> VerifierMailDoublon()
         {
             string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(AdresseMail!)!;
-            List<Dictionary<string, object>>? listeInformation = RecuprerInformationConnexion(retourJson);
-            int? nombreMail = ((JsonElement?)listeInformation?[0]["COUNT(courriel)"])?.GetInt32();
-            return nombreMail == 0
-                ? true
-                : throw new Exception("L'adresse mail est déjà utilisée");
+            List<object>? listeInformation = RecuprerInformationConnexion(retourJson);
+            int? nombreMail = JsonSerializer.Deserialize<Dictionary<string, int>>(listeInformation[0].ToString()!)!.TryGetValue("COUNT(courriel)", out var value) ? value : null;
+            return nombreMail == 0 ? true : throw new Exception("L'adresse mail est déjà utilisée");
         }
         private bool VerifierFormatageMotDePasse()
         {
@@ -111,11 +106,7 @@ namespace com.democratia.ViewModels
         {
             private readonly Regex _regex = new(pattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-            public bool Check(string value) =>
-                value is string str && _regex.IsMatch(str);
+            public bool Check(string value) => value is string str && _regex.IsMatch(str);
         }
-
-
-
     }
 }
