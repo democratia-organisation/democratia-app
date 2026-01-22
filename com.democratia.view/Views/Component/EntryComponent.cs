@@ -58,17 +58,21 @@ public partial class EntryComponent : ContentView
             Keyboard = Keyboard.Plain,
 
         };
+        var label = new Label
+        {
+            HorizontalOptions = LayoutOptions.Center,
+            Text = _title,
+            Style = (Style?)Application.Current?.Resources["SubHeadlineStyle"],
+            AutomationId = "Label",
+        };
+        AutomationProperties.SetName(entryComponent, "Entry");
+        AutomationProperties.SetName(label, "Label");
         entryComponent.TextChanged += OnTitleChanged;
         Content = new VerticalStackLayout
         {
 
             Children = {
-                new Label {
-                  HorizontalOptions = LayoutOptions.Center,
-                  Text = _title,
-                  Style = (Style?)Application.Current?.Resources["SubHeadlineStyle"],
-                  AutomationId = "Label",
-                },
+                label,
 
                 new BoxView {
                   HeightRequest = 30

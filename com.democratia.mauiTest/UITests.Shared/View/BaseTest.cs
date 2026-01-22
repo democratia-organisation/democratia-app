@@ -1,7 +1,5 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
-using System;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using Xunit;
@@ -51,9 +49,10 @@ namespace UITests.View
         // This could also be an extension method to AppiumDriver if you prefer
         protected AppiumElement? FindUIElement(string id)
         {
+            
             try
             {
-                   return App.FindElement(MobileBy.AccessibilityId(id));
+                return App.FindElement(MobileBy.AccessibilityId(id));
             }
             catch (NoSuchElementException)
             {

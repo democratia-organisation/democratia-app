@@ -60,17 +60,6 @@ namespace com.democratia
             }
         }
 #endif
-        //private void UnhadledException(object? sender = null, EventArgs? e = null)
-        //        {
-        //            if (e is not null && e is UnhandledExceptionEventArgs unhandledExceptionEventArgs)
-        //                Current?.Windows[0]?.Page?.DisplayAlert("Erreur", "Une erreur inattendu est survenue. Voici le message : \n" + unhandledExceptionEventArgs.ExceptionObject.ToString(), "OK");
-
-        //            else 
-        //                Current?.Windows[0]?.Page?.DisplayAlert("Erreur", "Une erreur inattendu est survenue", "OK");
-
-        //            Current?.Quit();
-        //        }
-
         protected override Window CreateWindow(IActivationState? activationState) => new(new AppShell());
 
     }

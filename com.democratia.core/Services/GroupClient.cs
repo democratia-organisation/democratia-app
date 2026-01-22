@@ -1,16 +1,16 @@
 ﻿using com.democratia.Models;
 using Microsoft.Maui.Controls;
-using System;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Text;
-using Xunit.Abstractions;
 
 namespace com.democratia.Services
 {
     internal class GroupClient : Client, IClient
     {
         public async Task<string> CreateModelAsync(params object?[]? parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> DeleteModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();
         }
@@ -34,6 +34,11 @@ namespace com.democratia.Services
 
             return await FinRequete(response);
             
+        }
+
+        public Task<string> UpdateModelAsync(params object?[]? parameters)
+        {
+            throw new NotImplementedException();
         }
 
         internal async Task<ImageSource> GetImageAsync(string url)

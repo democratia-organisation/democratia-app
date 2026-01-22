@@ -22,7 +22,6 @@ namespace com.democratia.ViewModels
         private string? errorMessage;
 
         private readonly INavigationService? navigationService;
-        private readonly IEnumerable<IClient?>? clients;
 
         public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
             : base(clients?.OfType<InternauteClient>().FirstOrDefault())

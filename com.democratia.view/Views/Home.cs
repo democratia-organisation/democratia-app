@@ -2,7 +2,7 @@
 using com.democratia.ViewModels;
 using com.democratia.Views.Component;
 
-namespace com.democratia.view.Views
+namespace com.democratia.Views
 {
     public partial class Home : ContentPage
     {
@@ -21,6 +21,17 @@ namespace com.democratia.view.Views
                 Color darkCouleur = (Color)dark;
                 this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
             }
+            var profileIcone = new ImageButton
+            {
+                Source = "profile_icon.jpeg",
+                CornerRadius = 50,
+                HeightRequest = 50,
+                WidthRequest = 50,
+                Command = viewModel.NavigateTappedCommand,
+                CommandParameter = "/Home/GestionCompte",
+                AutomationId = "ProfileButton",
+            };
+            AutomationProperties.SetName(profileIcone, "ProfileButton");
 
             this._stackLayout = new VerticalStackLayout
             {
@@ -34,15 +45,7 @@ namespace com.democratia.view.Views
                         Children =
                         {
                             new BoxView { WidthRequest = 700 },
-                            new ImageButton
-                            {
-                                Source = "profile_icon.jpeg",
-                                CornerRadius = 50,
-                                HeightRequest = 50,
-                                WidthRequest = 50,
-                                Command = viewModel.NavigateTappedCommand,
-                                CommandParameter = "/Home/GestionCompte",
-                            }
+                            profileIcone
                         }
                     }
                 }
@@ -53,9 +56,10 @@ namespace com.democratia.view.Views
                 Text = "Mes Groupes",
                 Style = (Style?)Application.Current?.Resources["HeadlineStyle"],
                 HorizontalOptions = LayoutOptions.Center,
-                Margin = new Thickness(0, 20)
+                Margin = new Thickness(0, 20),
+                AutomationId = "MyGroupsLabel",
             };
-
+            AutomationProperties.SetName(this._ownGroupeLabel, "MyGroupsLabel");
             this._collectionView = new CollectionView
             {
                 ItemsSource = viewModel.Groupes,
@@ -100,8 +104,10 @@ namespace com.democratia.view.Views
                 Command = viewModel.NavigateTappedCommand,
                 CommandParameter = "/Home/CreerGroupe",
                 VerticalOptions = LayoutOptions.End,
-                Margin = new Thickness(20)
+                Margin = new Thickness(20),
+                AutomationId = "CreateGroupButton",
             };
+            AutomationProperties.SetName(this._createGroupButton, "CreateGroupButton");
 
             var grillePrincipale = new Grid
             {

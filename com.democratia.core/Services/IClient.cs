@@ -16,6 +16,8 @@ namespace com.democratia.Services
         /// <param name="port">le numéro de port</param>
         public void SetPort(int port);
         public Task<string> CreateModelAsync(params object?[]? parameters);
+        public Task<string> UpdateModelAsync(params object?[]? parameters);
+        public Task<string> DeleteModelAsync(params object?[]? parameters);
 
     }
 }

@@ -25,4 +25,13 @@ internal class FakeClient : Client, IClient
         return await Task.FromResult(fakeResponse!);
     }
 
+    public Task<string> UpdateModelAsync(params object?[]? parameters)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<string> DeleteModelAsync(params object?[]? parameters)
+    {
+        throw new NotImplementedException();
+    }
 }

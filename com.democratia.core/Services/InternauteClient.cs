@@ -64,5 +64,15 @@ namespace com.democratia.Services
 
             return await FinRequete(response);
         }
+
+        public Task<string> UpdateModelAsync(params object?[]? parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> DeleteModelAsync(params object?[]? parameters)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

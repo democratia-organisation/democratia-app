@@ -35,11 +35,14 @@ public partial class Creation : ContentPage
 
                     stackLayout.Children.Add(new BoxView { HeightRequest = 120});
 
-                    stackLayout.Children.Add(new Label
+                    var label = new Label
                     {
                         Text = "Quelle bonne idée de vous joindre à nous",
-                        Style = (Style?)Application.Current?.Resources["HeadlineStyle"]
-                    });
+                        Style = (Style?)Application.Current?.Resources["HeadlineStyle"],
+                        AutomationId = "BienvenueLabel"
+                    };
+                    AutomationProperties.SetName(label, "BienvenueLabel");
+                    stackLayout.Children.Add(label);
 
                     stackLayout.Children.Add(new BoxView { HeightRequest = 40 });
 

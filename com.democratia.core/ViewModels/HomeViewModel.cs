@@ -5,7 +5,6 @@ using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Text.Json;
 using System.Collections.ObjectModel;
-using Microsoft.Maui.ApplicationModel;
 // sophie.lemoine@example.com
 
 namespace com.democratia.ViewModels

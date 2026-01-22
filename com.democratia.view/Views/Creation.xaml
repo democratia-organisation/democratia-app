@@ -25,7 +25,7 @@
             <component:EntryComponent Title="Adresse Postale" x:Name="addresseComponent" ValeurDonne="{Binding AdressePostal}"/>
             <component:EntryComponent Title="Adresse mail" x:Name="mailComponent" ValeurDonne="{Binding AdresseMail}"/>
             <component:EntryComponent Title="Mot de passe" PassWord="True" x:Name="passwordComponent" ValeurDonne="{Binding MotDePasse}"/>
-            <Label Text="{Binding RetourMessage}" Style="{DynamicResource ErrorLabelStyle}" HorizontalOptions="Center" x:Name="retourMessageLabel"/>
+            <Label Text="{Binding RetourMessage}" Style="{DynamicResource ErrorLabelStyle}" HorizontalOptions="Center" x:Name="retourMessageLabel" AutomationId="RetourMessage"/>
                 <BoxView HeightRequest="100"/>
                 <Button
                     Text="M'inscrire"
@@ -33,6 +33,7 @@
                     Style="{DynamicResource ButtonStyle}"
                     Command="{Binding CreerInternauteTappedCommand}"
                     AutomationId="M'inscrire"
+                    AutomationProperties.Name="M'inscrire"
                 />
             </StackLayout>
         </Grid>

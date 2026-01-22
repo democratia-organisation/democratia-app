@@ -31,7 +31,6 @@
             
             <StackLayout Padding="10" Grid.Row="1">
 
-                <Label AutomationId="ConnexionPage"/>
 
                 <BoxView HeightRequest="15"/>
 
@@ -41,6 +40,7 @@
                     Text="Se connecter"
                     HorizontalOptions="Center"
                     AutomationId="Se connecter Label"
+                    AutomationProperties.Name="Se connecter Label"
                 />
 
                 <BoxView HeightRequest="30"/>
@@ -54,6 +54,7 @@
                     x:Name="errorMessageLabel"
                     HorizontalOptions="Center"
                     AutomationId="Error message"
+                    AutomationProperties.Name="Error Message"
                 />
 
                 <BoxView HeightRequest="15"/>
@@ -68,6 +69,7 @@
                         Style="{DynamicResource LabelStyle}"
                         HorizontalOptions="Center"
                         AutomationId="Pas de compte ?"
+                        AutomationProperties.Name="Pas de compte ?"
                     />
 
                     <Label Text="Créez en un"
@@ -75,7 +77,8 @@
                         x:Name="pageSuivanteLabel"
                         HorizontalOptions="Center"
                         TextDecorations="Underline"
-                        AutomationId="Créez en un !">
+                        AutomationId="Creer"
+                        AutomationProperties.Name="Creer" >
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateTappedCommand}" CommandParameter="///MainPage/Creation" />
                         </Label.GestureRecognizers>
@@ -92,6 +95,7 @@
                     CommandParameter="/Home"
                     VerticalOptions="End"
                     AutomationId="Se connecter Button"
+                    AutomationProperties.Name="Se connecter Button"
                 />
             </StackLayout>
         </Grid>

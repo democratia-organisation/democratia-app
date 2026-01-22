@@ -23,8 +23,10 @@ public class ButtonGroupe : ContentView
             WidthRequest = 50,
             HorizontalOptions = LayoutOptions.Center,
             Command = command,
-            CommandParameter = groupeParameter.ToString()
+            CommandParameter = groupeParameter.ToString(),
         };
+        button.AutomationId = "ButtonGroupe_" + title;
+        AutomationProperties.SetName(button, "ButtonGroupe_" + title);
         var label = new Label
         {
             HorizontalOptions = LayoutOptions.Center,
@@ -43,7 +45,8 @@ public class ButtonGroupe : ContentView
             Children = {
                 button,
                 label
-            }
+            },
+            
         };
         CreateImageSourceAsync();
     }

@@ -24,7 +24,6 @@ namespace com.democratia.ViewModels
 
 
         private readonly INavigationService? navigationService;
-        private readonly IEnumerable<IClient?>? clients;
 
         public CreationViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
             : base(clients?.OfType<InternauteClient>().FirstOrDefault())

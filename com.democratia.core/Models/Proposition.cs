@@ -1,7 +1,7 @@
 ﻿
 namespace com.democratia.Models
 {
-    public class Proposition(int? idProposition, string? titre, string? description, string? publication, float? budget, int? nombreSignalement, string? thematique, int? idGroupe)
+    public class Proposition(int? idProposition, string? titre, string? description, string? publication, float? budget, int? nombreSignalement, string? thematique, int? idGroupe) : IModel
     {
         public int? IdProposition { get; private set; } = idProposition;
         public string? Titre { get; private set; } = titre;

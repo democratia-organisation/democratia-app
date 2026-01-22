@@ -1,5 +1,4 @@
 ﻿using com.democratia.Utils;
-using com.democratia.view.Views;
 using com.democratia.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;

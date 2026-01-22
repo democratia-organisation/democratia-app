@@ -3,6 +3,7 @@ using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using System.Diagnostics;
 using UITests.View;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UITests
 {

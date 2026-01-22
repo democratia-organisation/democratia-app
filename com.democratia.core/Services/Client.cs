@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using Xunit.Abstractions;
 using Microsoft.Maui.Devices;
 

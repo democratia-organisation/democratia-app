@@ -29,6 +29,7 @@
                     Style="{DynamicResource ButtonStyle}"
                     Command="{Binding CreerInternauteTappedCommand}"
                     AutomationId="Modifier"
+                    AutomationProperties.Name="Modifier"
                 />
                 <Button
                     Text="Supprimer Mon Compte"
@@ -36,6 +37,7 @@
                     Style="{DynamicResource ButtonStyle}"
                     Command="{Binding CreerInternauteTappedCommand}"
                     AutomationId="Supprimer"
+                    AutomationProperties.Name="Supprimer"
                 />
             </StackLayout>
         </Grid>
