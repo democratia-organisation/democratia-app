@@ -91,7 +91,7 @@ namespace UITests.View
         {
             if (SystemInfo.SSHHost()) return;
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
-            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Labels");
+            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
             var nombreElements = 5;
             var (nomElement, prenomElement, adressePostaleElement, adresseMailElement, motDePasseElement) =

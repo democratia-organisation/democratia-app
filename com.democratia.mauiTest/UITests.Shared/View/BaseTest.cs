@@ -53,12 +53,7 @@ namespace UITests.View
         {
             try
             {
-                if (App is WindowsDriver)
-                {
-                    return App.FindElement(MobileBy.AccessibilityId(id));
-                }
-
-                return App.FindElement(MobileBy.Id(id));
+                   return App.FindElement(MobileBy.AccessibilityId(id));
             }
             catch (NoSuchElementException)
             {
@@ -68,12 +63,7 @@ namespace UITests.View
 
         protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
         {
-            if (App is WindowsDriver)
-            {
-                return App.FindElements(MobileBy.AccessibilityId(id)).Count > 0 ? App.FindElements(MobileBy.AccessibilityId(id)) : null;
-            }
-
-            return App.FindElements(MobileBy.Id(id)).Count > 0 ? App.FindElements(MobileBy.Id(id)) : null;
+            return App.FindElements(MobileBy.AccessibilityId(id)).Count > 0 ? App.FindElements(MobileBy.AccessibilityId(id)) : null;
         }
 
 
