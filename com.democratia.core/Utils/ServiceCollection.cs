@@ -1,5 +1,4 @@
-﻿using Castle.Core.Configuration;
-using com.democratia.Services;
+﻿using com.democratia.Services;
 using com.democratia.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,6 +56,7 @@ namespace com.democratia.Utils
                 builder.AddJSonSettings("appsettings.developpement");
 #elif !DEBUG
             builder.AddJSonSettings("appsettings.productiont");
+            // ajouter la configuration pour du https
 #endif
                 builder.AddJSonSettings("appsettings");
             }
