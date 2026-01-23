@@ -1,6 +1,6 @@
-﻿using System.Net.Http.Headers;
+﻿using com.democratia.Utils;
+using System.Net.Http.Headers;
 using Xunit.Abstractions;
-using Microsoft.Maui.Devices;
 
 namespace com.democratia.Services
 {
@@ -16,14 +16,9 @@ namespace com.democratia.Services
         protected Client()
         {
             // TODO : peut-être mettre un timeout si le temps d'attente est vraiment invivable côté client
-            BASE_URL = "http://localhost:80/rest.php"; // TODO : trouver un autre hébergeur pour l'api et utiliser les variables d'environnement pour y mettre le lien
             statutsMessage = string.Empty;
             statuts = 0;
-            if (DeviceInfo.Current.DeviceType == DeviceType.Virtual && DeviceInfo.Current.Platform == DevicePlatform.Android) 
-                BASE_URL = "http://10.0.2.2:80/rest.php";
-            else if (DeviceInfo.Current.Platform == DevicePlatform.Android && DeviceInfo.Current.DeviceType == DeviceType.Physical) 
-                BASE_URL = "http://192.168.1.79/rest.php";
-            client = new() { BaseAddress = new(BASE_URL) };
+            client = new() { BaseAddress = this.AffecterURL() };
         }
 
         protected async Task<string> GetMethode()
@@ -42,7 +37,6 @@ namespace com.democratia.Services
         {
             client!.BaseAddress = new Uri($"http://localhost:81/rest.php"); 
         }
-
 
         protected void MettreAJourStatuts(HttpResponseMessage? response)
         {

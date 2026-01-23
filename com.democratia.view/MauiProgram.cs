@@ -24,6 +24,7 @@ namespace com.democratia
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<Home>();
             builder.Services.AddTransient<GestionCompte>();
+            builder.SetUrl();
 
 #if DEBUG
             builder.Logging.AddDebug();
