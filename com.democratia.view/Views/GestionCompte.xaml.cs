@@ -7,7 +7,6 @@ public partial class GestionCompte : ContentPage
 {
 	public GestionCompte(GestionCompteViewModel viewModel)
 	{
-        // TODO : implémentez les actions en fonction de si on modifie ou supprime le compte
 		InitializeComponent();
         BindingContext = viewModel;     
         viewModel.PropertyChanged += (sender, args) =>
@@ -31,9 +30,10 @@ public partial class GestionCompte : ContentPage
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         Style = (Style?)Application.Current?.Resources["ButtonStyle"],
-                        AutomationId = "btnEnregistrerModifications"
+                        AutomationId = "enregistrerBoutton",
+                        Command = viewModel.ModifierInternauteCommand,
                     };
-                    AutomationProperties.SetName(button, "btnEnregistrerModifications");
+                    AutomationProperties.SetName(button, "enregistrerBoutton");
                     stackLayout.Children.Add(button);
                 }
                 if (viewModel.RetourMessage == "Supp")
@@ -44,23 +44,27 @@ public partial class GestionCompte : ContentPage
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         Style = (Style?)Application.Current?.Resources["SubHeadlineStyle"],
-                        AutomationId = "lblConfirmationSuppression"
+                        AutomationId = "supprimerLabel"
                     };
-                    AutomationProperties.SetName(label, "lblConfirmationSuppression");
+                    AutomationProperties.SetName(label, "supprimerLabel");
                     var buttonYes = new Button
                     {
                         Text = "Oui, supprimer mon compte",
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         Style = (Style?)Application.Current?.Resources["ButtonStyle"],
-                        AutomationId = "btnConfirmerSuppression"
-                    };
-                    AutomationProperties.SetName(buttonYes, "btnConfirmerSuppression");
+                        AutomationId = "suppressionBoutton",
+                        Command = viewModel.SupprimerCompteCommand
 
+                    };
+                    AutomationProperties.SetName(buttonYes, "suppressionBoutton");
+
+                    stackLayout.Children.Add(new BoxView { HeightRequest = 150 });
                     stackLayout.Children.Add(label);
                     stackLayout.Children.Add(new BoxView { HeightRequest = 50 });
                     stackLayout.Children.Add(buttonYes);
                 }
+                // TODO : ajuouter les condition après modification(revenir en arrière) et après suppresion (afficher l'écran de déception, proposer d'aller se créer un compte)
             }
 
         };

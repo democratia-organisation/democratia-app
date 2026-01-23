@@ -24,21 +24,27 @@ namespace com.democratia.ViewModels
             return JsonSerializer.Deserialize<List<object>>(rawElement!)!;
 
         }
-        protected async void EnregistrerInternaute(Internaute internaute)
+        protected async void EnregistrerModele(IModel model)
         {
-            string jsonInternaute = JsonSerializer.Serialize(internaute);
+            string jsonInternaute = JsonSerializer.Serialize(model);
             string cacheDir = FileSystem.Current.CacheDirectory;
-            string filePath = Path.Combine(cacheDir, "internaute_cache.json");
+            string filePath = Path.Combine(cacheDir, $"{model.GetType()}_cache.json");
             if (!File.Exists(filePath)) await File.WriteAllTextAsync(filePath, jsonInternaute);
+            else
+            {
+                File.Delete(filePath);
+                await File.WriteAllTextAsync(filePath, jsonInternaute);
+            }
         }
-        protected async Task<Internaute?> RetrouverInternaute()
+
+        protected async Task<T?> RetrouverModele<T>() where T : class, IModel
         {
             string cacheDir = FileSystem.Current.CacheDirectory;
-            string filePath = Path.Combine(cacheDir, "internaute_cache.json");
+            string filePath = Path.Combine(cacheDir, $"{typeof(T)}_cache.json");
             if (File.Exists(filePath))
             {
                 string jsonInternaute = await File.ReadAllTextAsync(filePath);
-                return JsonSerializer.Deserialize<Internaute>(jsonInternaute)!;
+                return JsonSerializer.Deserialize<T>(jsonInternaute)!;
             }
             else return null;
         }

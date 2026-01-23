@@ -24,7 +24,7 @@ namespace com.democratia.ViewModels
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             if(query.TryGetValue("modele", out var valeur)) internaute = (Internaute)valeur ;
-            else internaute = await RetrouverInternaute();
+            else internaute = await RetrouverModele<Internaute>();
         }
 
         public async void InitializeAsync()

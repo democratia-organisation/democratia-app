@@ -11,6 +11,7 @@ namespace com.democratia.Services
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
+        public bool succes {  get; private set; }
         
         protected Client()
         {
@@ -39,7 +40,7 @@ namespace com.democratia.Services
         /// <param name="port">le numéro de port</param>
         public void SetPort(int port)
         {
-            client!.BaseAddress = new Uri($""); // TODO : héberger tout seul et surtout caché les liens
+            client!.BaseAddress = new Uri($"http://localhost:81/rest.php"); 
         }
 
 
@@ -47,6 +48,7 @@ namespace com.democratia.Services
         {
             statuts = (int)response!.StatusCode;
             statutsMessage = response.ReasonPhrase;
+            succes = response.IsSuccessStatusCode;
         }
 
         public void Deserialize(IXunitSerializationInfo info)

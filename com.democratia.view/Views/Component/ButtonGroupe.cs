@@ -57,7 +57,7 @@ public class ButtonGroupe : ContentView
             MainThread.BeginInvokeOnMainThread(() => {
                 button!.Source = this.imageSource;
             });
-        } catch (Exception e) { Debug.WriteLine("bug"); }
+        } catch (Exception) { Debug.WriteLine("bug"); }
     }
     
 }

@@ -70,7 +70,7 @@ namespace com.democratia.ViewModels
             if(listeInformation.Count == 0) throw new Exception("Pas d'utilisateur trouvé");
             var internaute = JsonSerializer.Deserialize<Internaute>(listeInformation![0].ToString()!);
             string motDePasseHash = internaute?.hashageMDP!;
-            EnregistrerInternaute(internaute!);
+            EnregistrerModele(internaute!);
             if (motDePasseHash != MotDePasse && ! await VerifierMotDePasseUtilisateur(motDePasseHash)) 
                 throw new Exception("Mot de passe incorrecte");// verification brut car user ont des mot de passe non hashé dans la BDD 
             return internaute;

@@ -20,32 +20,29 @@
 
             <StackLayout Padding="10" Grid.Row="1" x:Name="stackLayout">
                 <BoxView HeightRequest="50"/>
-                
+
                 <Label Text="{Binding RetourMessage}" Style="{DynamicResource ErrorLabelStyle}" HorizontalOptions="Center" x:Name="retourMessageLabel"/>
                 <BoxView HeightRequest="100"/>
                 <Button
                     Text="Modifier Mon Compte"
                     x:Name="modificationnButton"
                     Style="{DynamicResource ButtonStyle}"
-                    BindingContext="viewModel:INavigeablleViewModel"
-                    Command="{Binding NavigateTappedCommand}"
-                    CommandParameter="Modifier"
-                    AutomationId="Modifier"
-                    AutomationProperties.Name="Modifier"
+                    Command="{Binding ActionInternauteCommand}"
+                    CommandParameter="Modif"
+                    AutomationId="modificationnButton"
+                    AutomationProperties.Name="modificationnButton"
                 />
-                <BoxView HeightRequest="300"/>
+                <BoxView HeightRequest="100"/>
                 <Button
                     Text="Supprimer Mon Compte"
                     x:Name="suppresionButton"
                     Style="{DynamicResource ButtonStyle}"
-                    BindingContext="viewModel:INavigeablleViewModel"
-                    Command="{Binding NavigateTappedCommand}"
-                    CommandParameter="Supprimer"
-                    AutomationId="Supprimer"
-                    AutomationProperties.Name="Supprimer"
+                    Command="{Binding ActionInternauteCommand}"
+                    CommandParameter="Supp"
+                    AutomationId="suppresionButton"
+                    AutomationProperties.Name="suppresionButton"
                 />
             </StackLayout>
         </Grid>
     </ScrollView>
 </ContentPage>
- 

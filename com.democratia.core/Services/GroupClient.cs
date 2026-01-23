@@ -41,7 +41,7 @@ namespace com.democratia.Services
             throw new NotImplementedException();
         }
 
-        internal async Task<ImageSource> GetImageAsync(string url)
+        internal async Task<ImageSource?> GetImageAsync(string url)
         {
             var requete = $"""?request=obtenirImage&parameters=["{url}"]""";
             DebutRequete();

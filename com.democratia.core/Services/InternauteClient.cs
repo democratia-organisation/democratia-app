@@ -1,5 +1,7 @@
 ﻿
 
+using com.democratia.Models;
+
 namespace com.democratia.Services
 {
     public class InternauteClient : Client, IClient
@@ -70,9 +72,19 @@ namespace com.democratia.Services
             throw new NotImplementedException();
         }
 
-        public Task<string> DeleteModelAsync(params object?[]? parameters)
+        public async Task<string> DeleteModelAsync(params object?[]? parameters)
         {
-            throw new NotImplementedException();
+            DebutRequete();
+            HttpResponseMessage? response;
+            try
+            {
+                response = await client?.DeleteAsync($"?SupprimerInternaute&parameters=[{((Internaute)parameters![0]!).id_internaute}]")!;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+            return await FinRequete(response);
         }
     }
 }
