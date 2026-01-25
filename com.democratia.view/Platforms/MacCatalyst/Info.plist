@@ -34,11 +34,11 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
-		<key>CFBundleDisplayName</key>
-	<array>
-		<string>fr</string>
-		<string>en</string>
-	</array>
+		<key>CFBundleLocalizations</key>
+    <array>
+        <string>fr</string>
+        <string>en</string>
+    </array>
 
 </dict>
 </plist>

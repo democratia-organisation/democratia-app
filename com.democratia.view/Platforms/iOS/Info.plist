@@ -29,10 +29,12 @@
 	<key>CFBundleDisplayName</key>
 	<string>democratia</string>
 	<key>CFBundleDisplayName</key>
-	<array>
-		<string>fr</string>
-		<string>en</string>
-	</array>
-
+    <string>democratia</string>
+    
+    <key>CFBundleLocalizations</key>
+    <array>
+        <string>fr</string>
+        <string>en</string>
+    </array>
 </dict>
 </plist>
