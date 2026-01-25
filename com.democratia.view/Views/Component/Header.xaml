@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:com.democratia.Views.Component"
              x:Class="com.democratia.Views.Component.Header"
+             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
              BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-tertiary}, Light={DynamicResource Light-tertiary}}"
              
              >
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
@@ -29,13 +30,34 @@
         <ImageButton
             Source="logo.png"
             x:Name="logoImage"
-            MaximumWidthRequest="50"
-            MaximumHeightRequest="50"
-            VerticalOptions="Center"
+            MaximumWidthRequest="60"
+            MaximumHeightRequest="60"
+            HorizontalOptions="Center"
             Grid.Column="1"
             Clicked="OnClicked"
-            AutomationId="LogoImage"
-        />
+            AutomationId="LogoImage"/>
+        <!--<HorizontalStackLayout Grid.Column="1">
+            <ImageButton
+                Source="logo.png"
+                x:Name="logoImage"
+                MaximumWidthRequest="60"
+                MaximumHeightRequest="60"
+                HorizontalOptions="Center"
+                Grid.Column="1"
+                Clicked="OnClicked"
+                AutomationId="LogoImage"/>
+            <Picker x:Name="languagePicker"
+                    SelectedIndexChanged="OnClicked"
+                    Title="{x:Static lang:AppResources.Langage}"
+                    Style="{DynamicResource PickerStyle}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>FR</x:String>
+                        <x:String>EN</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        </HorizontalStackLayout> -->
         <!-- En haut à droite -->
         <ImageButton
             Source="light.png"

@@ -47,6 +47,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<ApplicationIdGuid>7b28a8d1-xxxx-xxxx-xxxx-xxxxxxxxxxxx</ApplicationIdGuid>
+		<NeutralLanguage>fr</NeutralLanguage>
 	</PropertyGroup>
   <ItemGroup>
     <!-- App Icon -->
@@ -76,9 +77,20 @@
     <ProjectReference Include="..\com.democratia.core\com.democratia.core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Resources\Localization\AppResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Views\GestionCompte.xaml.cs">
       <DependentUpon>GestionCompte.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Localization\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <MauiXaml Update="Views\CreerGroupe.xaml">

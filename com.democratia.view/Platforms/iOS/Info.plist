@@ -28,5 +28,11 @@
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>CFBundleDisplayName</key>
 	<string>democratia</string>
+	<key>CFBundleDisplayName</key>
+	<array>
+		<string>fr</string>
+		<string>en</string>
+	</array>
+
 </dict>
 </plist>

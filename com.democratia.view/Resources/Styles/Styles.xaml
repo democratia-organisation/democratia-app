@@ -225,11 +225,11 @@
     </Style>
 
     <Style x:Key="PickerStyle" TargetType="Picker">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray900}, Dark={DynamicResource White}}" />
-        <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Gray900}, Dark={DynamicResource Gray200}}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onTertiary}, Dark={DynamicResource Dark-onTertiary}}" />
+        <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-onTertiaryContainer}, Dark={DynamicResource Dark-onTertiary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontSize" Value="18"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
