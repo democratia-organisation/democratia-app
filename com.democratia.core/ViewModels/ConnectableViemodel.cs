@@ -1,7 +1,10 @@
-﻿using com.democratia.Models;
+﻿using com.democratia.core.Utils;
+using com.democratia.Models;
 using com.democratia.Services;
+using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Maui.Storage;
+using System.ComponentModel;
 using System.Text.Json;
 
 namespace com.democratia.ViewModels
@@ -9,18 +12,22 @@ namespace com.democratia.ViewModels
     /// <summary>
     /// Classe abstraite qui représente tout viewModel qui peut se connecter à l'API
     /// </summary>
-    public abstract class ConnectableViewModel(IClient? client) : ObservableObject
+    public abstract class ConnectableViewModel(IClient? client, ILocalizationService? localizationService) : ObservableObject, INotifyPropertyChanged
     {
         protected IClient? client = client;
         public IClient? Client => client;
+        private ILocalizationService? localizationService = localizationService;
 
-        protected static List<object> RecuprerInformationConnexion(string stringJson)
+        protected readonly ILocalizationService? LocalizationService = localizationService;
+
+
+        protected List<object> RecuprerInformationConnexion(string stringJson)
         {
             Dictionary<string, object> dictionnary;
             var finalJson = stringJson.Trim();
             try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(finalJson)!; }
-            catch (Exception) { throw new Exception("Erreur lors de la récupération des données"); }
-            var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new Exception("Erreur lors de la récupération des données");
+            catch (Exception) { throw new Exception($"{localizationService?.GetString("erreurDonne")}"); }
+            var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new Exception($"{localizationService?.GetString("erreurDonne")}");
             return JsonSerializer.Deserialize<List<object>>(rawElement!)!;
 
         }

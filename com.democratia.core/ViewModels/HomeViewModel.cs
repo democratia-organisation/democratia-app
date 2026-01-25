@@ -5,6 +5,7 @@ using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Text.Json;
 using System.Collections.ObjectModel;
+using com.democratia.core.Utils;
 
 namespace com.democratia.ViewModels
 {
@@ -12,13 +13,15 @@ namespace com.democratia.ViewModels
     {
         private Internaute? internaute;
         private readonly INavigationService? navigationService;
+        private readonly ILocalizationService? localizationService;
         public ObservableCollection<Groupe> Groupes { get; private set; } = [];
         public readonly List<Groupe> listeRecu = [];
-        public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
-            : base(clients?.OfType<GroupClient>().FirstOrDefault())
+        public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService)
+            : base(clients?.OfType<GroupClient>().FirstOrDefault(), localizationService)
         {
             this.navigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
+            this.localizationService = localizationService;
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -34,7 +37,7 @@ namespace com.democratia.ViewModels
             try
             { jsonString = await client?.GetModelAsync(internaute!)!; }
             catch (Exception)
-            { throw new Exception("Erreur de connexion inattendu"); }
+            { throw new Exception($"{localizationService?.GetString("connexionErreur")}"); }
             List<object> listeInformation = RecuprerInformationConnexion(jsonString);
             Groupes.Clear();
             listeInformation.ForEach(groupe => Groupes.Add(JsonSerializer.Deserialize<Groupe>(groupe.ToString()!)!));
@@ -43,7 +46,7 @@ namespace com.democratia.ViewModels
 
         public async Task<ImageSource> GetImageAsync(string url)
         {
-            return await ((GroupClient)client!).GetImageAsync(url)!;
+            return await ((GroupClient)client)!.GetImageAsync(url)!;
         }
 
         [RelayCommand]

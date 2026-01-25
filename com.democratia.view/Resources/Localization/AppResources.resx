@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Sel" xml:space="preserve">
-    <value>adresse</value>
+  <data name="adress" xml:space="preserve">
+    <value>Adresse postle</value>
   </data>
   <data name="BonneNouvelle" xml:space="preserve">
     <value>Quelle bonne idée de nous rejoindre</value>
@@ -158,5 +158,59 @@
   </data>
   <data name="SuppCompte" xml:space="preserve">
     <value>Supprimer mon compte</value>
+  </data>
+  <data name="errorMailMessage" xml:space="preserve">
+    <value>Veuillez saisir votre adresse mail</value>
+  </data>
+  <data name="errorPasswordMessage" xml:space="preserve">
+    <value>Veuillez saisir votre mot de passe</value>
+  </data>
+  <data name="enregistrer" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="mauvaiseNouvelle" xml:space="preserve">
+    <value>Êtes-vous sûr(e) de vouloir supprimer le compte ?</value>
+  </data>
+  <data name="confirmeSupp" xml:space="preserve">
+    <value>Oui, supprimez mon compte</value>
+  </data>
+  <data name="groupe" xml:space="preserve">
+    <value>Mes groupes</value>
+  </data>
+  <data name="connexionErreur" xml:space="preserve">
+    <value>Erreur de connexion inattendu</value>
+  </data>
+  <data name="noUser" xml:space="preserve">
+    <value>Pas d'utilisateur trouvé</value>
+  </data>
+  <data name="mauvaisMdp" xml:space="preserve">
+    <value>Mot de passe incorrecte</value>
+  </data>
+  <data name="inscription" xml:space="preserve">
+    <value>M'inscrire</value>
+  </data>
+  <data name="compteCree" xml:space="preserve">
+    <value>Création de compte réussi, Connectez-vous maintenant</value>
+  </data>
+  <data name="erreurInattendu" xml:space="preserve">
+    <value>Erreur inattendu, veuillez revenir ultérieurement</value>
+  </data>
+  <data name="erreurCreation" xml:space="preserve">
+    <value>Erreur lors de la création du compte</value>
+  </data>
+  <data name="champComplet" xml:space="preserve">
+    <value>Vérifier que tous les champs soient complets</value>
+  </data>
+  <data name="formatEmail" xml:space="preserve">
+    <value>Le format de l'adresse mail est incorrecte</value>
+  </data>
+  <data name="compteExistantErreur" xml:space="preserve">
+    <value>L'adresse mail es déjà créé</value>
+  </data>
+  <data name="formatMotDePasse" xml:space="preserve">
+    <value>Le format du mot de passe est incorrecte</value>
+  </data>
+  <data name="erreurDonne" xml:space="preserve">
+    <value>Erreur lors de la récupération des données</value>
   </data>
 </root>

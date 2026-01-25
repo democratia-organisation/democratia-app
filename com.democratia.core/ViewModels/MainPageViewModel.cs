@@ -1,4 +1,5 @@
-﻿using com.democratia.Models;
+﻿using com.democratia.core.Utils;
+using com.democratia.Models;
 using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -22,15 +23,17 @@ namespace com.democratia.ViewModels
         private string? errorMessage;
 
         private readonly INavigationService? navigationService;
+        private readonly ILocalizationService? localizationService;
 
-        public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
-            : base(clients?.OfType<InternauteClient>().FirstOrDefault())
+        public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization)
+            : base(clients?.OfType<InternauteClient>().FirstOrDefault(), localization)
         {
             this.navigationService = navigationService;
+            this.localizationService = localization;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
         }
 
-        public MainPageViewModel() : base(null) { }
+        public MainPageViewModel() : base(null, null) { }
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
@@ -49,7 +52,12 @@ namespace com.democratia.ViewModels
             }
             catch (Exception ex)
             {
+#if DEBUG
                 ErrorMessage = ex.Message;
+#elif !DEBUG
+                ErrorMessage = localizationService?.GetString("erreurInattendu");    
+#endif
+
             }
         }
 
@@ -58,21 +66,26 @@ namespace com.democratia.ViewModels
 
             if (string.IsNullOrEmpty(AdresseMail) || string.IsNullOrEmpty(MotDePasse))
             {
-                if (string.IsNullOrEmpty(AdresseMail)) throw new ArgumentException("Veuillez saisir votre adresse mail");
-                else throw new ArgumentException("Veuillez saisir votre mot de passe");
+                if (string.IsNullOrEmpty(AdresseMail)) throw new ArgumentException($"{localizationService?.GetString("errorMailMessage")}");
+                else throw new ArgumentException($"{localizationService?.GetString("errorMailMessage")}");
             }
             string jsonString;
             try
             { jsonString = await client?.GetModelAsync(AdresseMail)!; }
             catch (Exception)
-            { throw new Exception("Erreur de connexion inattendu"); }
+            { throw new Exception($"{localizationService?.GetString("connexionErreur")}"); }
             List<object> listeInformation = RecuprerInformationConnexion(jsonString);
-            if(listeInformation.Count == 0) throw new Exception("Pas d'utilisateur trouvé");
+            if(listeInformation.Count == 0) throw new Exception($"{localizationService?.GetString("noUser")}");
             var internaute = JsonSerializer.Deserialize<Internaute>(listeInformation![0].ToString()!);
             string motDePasseHash = internaute?.hashageMDP!;
             EnregistrerModele(internaute!);
+#if DEBUG  
             if (motDePasseHash != MotDePasse && ! await VerifierMotDePasseUtilisateur(motDePasseHash)) 
-                throw new Exception("Mot de passe incorrecte");// verification brut car user ont des mot de passe non hashé dans la BDD 
+                throw new Exception($"{localizationService?.GetString("mauvaisMdp")}");
+#elif !DEBUG
+            if(! await VerifierMotDePasseUtilisateur(motDePasseHash)) 
+                throw new Exception($"{localizationService?.GetString("mauvaisMdp")}");
+# endif
             return internaute;
         }
         // Tâche rendu asynchrone à cause du temps d'execution de la fonction Verify
@@ -80,4 +93,3 @@ namespace com.democratia.ViewModels
 
     }
 }
-

@@ -46,9 +46,9 @@
 
                 <BoxView HeightRequest="30"/>
 
-                <component:EntryComponent Title="Adresse mail" x:Name="mailComponant" ValeurDonne="{Binding AdresseMail}"/>
+                <component:EntryComponent Title="{x:Static lang:AppResources.mail}" x:Name="mailComponant" ValeurDonne="{Binding AdresseMail}"/>
 
-                <component:EntryComponent Title="Mot de passe" x:Name="passwordComponant" PassWord="True" ValeurDonne="{Binding MotDePasse}"/>
+                <component:EntryComponent Title="{x:Static lang:AppResources.Mdp}" x:Name="passwordComponant" PassWord="True" ValeurDonne="{Binding MotDePasse}"/>
 
                 <Label Text="{Binding ErrorMessage}"
                     Style="{DynamicResource ErrorLabelStyle}"
@@ -66,14 +66,14 @@
                     VerticalOptions="End">
                     <Label
                         x:Name="pasDeCompteLabel"
-                        Text="Pas de compte ?"
+                        Text="{x:Static lang:AppResources.pasCompte}"
                         Style="{DynamicResource LabelStyle}"
                         HorizontalOptions="Center"
                         AutomationId="Pas de compte ?"
                         AutomationProperties.Name="Pas de compte ?"
                     />
 
-                    <Label Text="Créez en un"
+                    <Label Text="{x:Static lang:AppResources.NewCompte}"
                         TextColor="Blue"
                         x:Name="pageSuivanteLabel"
                         HorizontalOptions="Center"
@@ -90,7 +90,7 @@
 
                 <Button
                     x:Name="seConnecterButton"
-                    Text="Se connecter"
+                    Text="{x:Static lang:AppResources.connecter}"
                     Style="{DynamicResource ButtonStyle}"
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="/Home"

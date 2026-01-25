@@ -1,8 +1,10 @@
-﻿using com.democratia.Services;
+﻿using com.democratia.core.Utils;
+using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Xunit.Abstractions;
 using Crypt = BCrypt.Net.BCrypt;
 
 namespace com.democratia.ViewModels
@@ -24,15 +26,17 @@ namespace com.democratia.ViewModels
 
 
         private readonly INavigationService? navigationService;
+        private readonly ILocalizationService? localizationService;
 
-        public CreationViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients)
-            : base(clients?.OfType<InternauteClient>().FirstOrDefault())
+        public CreationViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService service, ILocalizationService localizationService)
+            : base(clients?.OfType<InternauteClient>().FirstOrDefault(), localizationService)
         {
             this.navigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
+            this.localizationService = service;
         }
 
-        public CreationViewModel() : base(null) { }
+        public CreationViewModel() : base(null, null) { }
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) => await navigationService?.GoToAsync(commande)!;
@@ -43,12 +47,17 @@ namespace com.democratia.ViewModels
             try
             {
                 await CreerInternaute();
-                RetourMessage = "Création réussie; Connectez-vous maintenant";
+                RetourMessage = $"{localizationService?.GetString("BonneNouvelle")}";
 
             }
             catch (Exception ex)
             {
-                RetourMessage = ex.Message; // TODO : à changer en phase de prod
+#if DEBUG
+                RetourMessage = ex.Message;
+#elif !DEBUG
+                RetourMessage = localizationService?.GetString("erreurInattendu");    
+#endif
+
             }
         }
 
@@ -62,7 +71,7 @@ namespace com.democratia.ViewModels
 
                     string reponse = await client?.CreateModelAsync(NomDeFamille, Prenom, AdresseMail, AdressePostal, Crypt.HashPassword(MotDePasse))!;
                     List<object> values = RecuprerInformationConnexion(reponse);
-                    if (values.Count != 0) throw new Exception("Erreur lors de la création du compte");
+                    if (values.Count != 0) throw new Exception($"{localizationService?.GetString("erreurCreation")}");
                 }
             }
             catch (Exception)
@@ -78,25 +87,25 @@ namespace com.democratia.ViewModels
               !string.IsNullOrEmpty(Prenom) &&
               !string.IsNullOrEmpty(MotDePasse) &&
               !string.IsNullOrEmpty(AdresseMail)))
-                throw new Exception("Vérifier que tous les champs soient complets");
+                throw new Exception($"{localizationService?.GetString("champComplet")}");
             else return true;
         }
         private bool VerifierFormatageMail()
         {
             FormatRule emailRule = new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$");
-            return emailRule.Check(AdresseMail!) ? true : throw new Exception("Le format de l'adresse mail est incorrecte");
+            return emailRule.Check(AdresseMail!) ? true : throw new Exception($"{localizationService?.GetString("formatEmail")}");
         }
         private async Task<bool> VerifierMailDoublon()
         {
             string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(AdresseMail!)!;
             List<object>? listeInformation = RecuprerInformationConnexion(retourJson);
             int? nombreMail = JsonSerializer.Deserialize<Dictionary<string, int>>(listeInformation[0].ToString()!)!.TryGetValue("COUNT(courriel)", out var value) ? value : null;
-            return nombreMail == 0 ? true : throw new Exception("L'adresse mail est déjà utilisée");
+            return nombreMail == 0 ? true : throw new Exception($"{localizationService?.GetString("compteExistantErreur")}");
         }
         private bool VerifierFormatageMotDePasse()
         {
             FormatRule passwordRule = new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$");
-            return passwordRule.Check(MotDePasse!) ? true : throw new Exception("Le format du mot de passe est incorrecte");
+            return passwordRule.Check(MotDePasse!) ? true : throw new Exception($"{localizationService?.GetString("formatMotDePasse")}");
         }
 
         private async Task<bool> VerifierToutesLesConditions() => VerifierChampComplet() && VerifierFormatageMail() && await VerifierMailDoublon() && VerifierFormatageMotDePasse();

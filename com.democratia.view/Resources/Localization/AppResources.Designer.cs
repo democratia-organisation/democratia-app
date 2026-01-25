@@ -61,11 +61,56 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Adresse postle.
+        /// </summary>
+        public static string adress {
+            get {
+                return ResourceManager.GetString("adress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Quelle bonne idée de nous rejoindre.
         /// </summary>
         public static string BonneNouvelle {
             get {
                 return ResourceManager.GetString("BonneNouvelle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vérifier que tous les champs soient complets.
+        /// </summary>
+        public static string champComplet {
+            get {
+                return ResourceManager.GetString("champComplet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Création de compte réussi, Connectez-vous maintenant.
+        /// </summary>
+        public static string compteCree {
+            get {
+                return ResourceManager.GetString("compteCree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à L&apos;adresse mail es déjà créé.
+        /// </summary>
+        public static string compteExistantErreur {
+            get {
+                return ResourceManager.GetString("compteExistantErreur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Oui, supprimez mon compte.
+        /// </summary>
+        public static string confirmeSupp {
+            get {
+                return ResourceManager.GetString("confirmeSupp", resourceCulture);
             }
         }
         
@@ -79,11 +124,110 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur de connexion inattendu.
+        /// </summary>
+        public static string connexionErreur {
+            get {
+                return ResourceManager.GetString("connexionErreur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enregistrer.
+        /// </summary>
+        public static string enregistrer {
+            get {
+                return ResourceManager.GetString("enregistrer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur lors de la création du compte.
+        /// </summary>
+        public static string erreurCreation {
+            get {
+                return ResourceManager.GetString("erreurCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur lors de la récupération des données.
+        /// </summary>
+        public static string erreurDonne {
+            get {
+                return ResourceManager.GetString("erreurDonne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur inattendu, veuillez revenir ultérieurement.
+        /// </summary>
+        public static string erreurInattendu {
+            get {
+                return ResourceManager.GetString("erreurInattendu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez saisir votre adresse mail.
+        /// </summary>
+        public static string errorMailMessage {
+            get {
+                return ResourceManager.GetString("errorMailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez saisir votre mot de passe.
+        /// </summary>
+        public static string errorPasswordMessage {
+            get {
+                return ResourceManager.GetString("errorPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le format de l&apos;adresse mail est incorrecte.
+        /// </summary>
+        public static string formatEmail {
+            get {
+                return ResourceManager.GetString("formatEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le format du mot de passe est incorrecte.
+        /// </summary>
+        public static string formatMotDePasse {
+            get {
+                return ResourceManager.GetString("formatMotDePasse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mes groupes.
+        /// </summary>
+        public static string groupe {
+            get {
+                return ResourceManager.GetString("groupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Adresse mail.
         /// </summary>
         public static string Identifiant {
             get {
                 return ResourceManager.GetString("Identifiant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à M&apos;inscrire.
+        /// </summary>
+        public static string inscription {
+            get {
+                return ResourceManager.GetString("inscription", resourceCulture);
             }
         }
         
@@ -102,6 +246,24 @@ namespace com.democratia.view.Resources.Localization {
         public static string mail {
             get {
                 return ResourceManager.GetString("mail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Êtes-vous sûr(e) de vouloir supprimer le compte ?.
+        /// </summary>
+        public static string mauvaiseNouvelle {
+            get {
+                return ResourceManager.GetString("mauvaiseNouvelle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mot de passe incorrecte.
+        /// </summary>
+        public static string mauvaisMdp {
+            get {
+                return ResourceManager.GetString("mauvaisMdp", resourceCulture);
             }
         }
         
@@ -151,6 +313,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pas d&apos;utilisateur trouvé.
+        /// </summary>
+        public static string noUser {
+            get {
+                return ResourceManager.GetString("noUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pas de compte ?.
         /// </summary>
         public static string pasCompte {
@@ -165,15 +336,6 @@ namespace com.democratia.view.Resources.Localization {
         public static string prenom {
             get {
                 return ResourceManager.GetString("prenom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à adresse.
-        /// </summary>
-        public static string Sel {
-            get {
-                return ResourceManager.GetString("Sel", resourceCulture);
             }
         }
         

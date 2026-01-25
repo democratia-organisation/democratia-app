@@ -22,7 +22,7 @@
   </Dependencies>
 
   <Resources>
-    <Resource Language="fr-Fr" />
+      <Resource Language="fr-Fr" />
 	  <Resource Language="en-Us" />
   </Resources>
 

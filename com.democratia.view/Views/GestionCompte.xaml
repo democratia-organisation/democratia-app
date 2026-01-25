@@ -6,6 +6,7 @@
              xmlns:viewModel="clr-namespace:com.democratia.ViewModels;assembly=com.democratia.core"
              x:Class="com.democratia.Views.GestionCompte"
              x:DataType="viewModel:GestionCompteViewModel"
+             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
              Style="{DynamicResource fondEcran}"
              >
 
@@ -21,10 +22,9 @@
             <StackLayout Padding="10" Grid.Row="1" x:Name="stackLayout">
                 <BoxView HeightRequest="50"/>
 
-                <Label Text="{Binding RetourMessage}" Style="{DynamicResource ErrorLabelStyle}" HorizontalOptions="Center" x:Name="retourMessageLabel"/>
                 <BoxView HeightRequest="100"/>
                 <Button
-                    Text="Modifier Mon Compte"
+                    Text="{x:Static lang:AppResources.ModifCompte}"
                     x:Name="modificationnButton"
                     Style="{DynamicResource ButtonStyle}"
                     Command="{Binding ActionInternauteCommand}"
@@ -34,7 +34,7 @@
                 />
                 <BoxView HeightRequest="100"/>
                 <Button
-                    Text="Supprimer Mon Compte"
+                    Text="{x:Static lang:AppResources.SuppCompte}"
                     x:Name="suppresionButton"
                     Style="{DynamicResource ButtonStyle}"
                     Command="{Binding ActionInternauteCommand}"
@@ -42,6 +42,7 @@
                     AutomationId="suppresionButton"
                     AutomationProperties.Name="suppresionButton"
                 />
+                <!--TODO : créer un gestionnaire de préférence-->
             </StackLayout>
         </Grid>
     </ScrollView>

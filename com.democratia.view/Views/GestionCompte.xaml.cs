@@ -1,3 +1,4 @@
+using com.democratia.core.Utils;
 using com.democratia.ViewModels;
 using com.democratia.Views.Component;
 
@@ -5,7 +6,7 @@ namespace com.democratia.Views;
 
 public partial class GestionCompte : ContentPage
 {
-	public GestionCompte(GestionCompteViewModel viewModel)
+	public GestionCompte(GestionCompteViewModel viewModel, ILocalizationService service)
 	{
 		InitializeComponent();
         BindingContext = viewModel;     
@@ -16,17 +17,17 @@ public partial class GestionCompte : ContentPage
                 stackLayout.Children.Clear();
                 if (viewModel.RetourMessage == "Modif")
                 {
-                    string[] nombreElements = ["Nom","Prénom","Adresse Postale", "Adresse Mail", "Mot de Passe"];
+                    string[] nombreElements = [$"{service.GetString("Nom")}",$"{service.GetString("prenom")}",$"{service.GetString("adress")}", $"{service.GetString("mail")}", $"{service.GetString("Mdp")}"];
                     foreach (var item in nombreElements)
                     {
                         var entry = new EntryComponent { Title = item };
-                        if (item == "Mot de Passe") entry.PassWord = true;
+                        if (item == $"{service.GetString("Mdp")}") entry.PassWord = true;
                         stackLayout.Children.Add(entry);
                         stackLayout.Children.Add(new BoxView { HeightRequest = 50 });
                     }
                     var button = new Button
                     {
-                        Text = "Enregitrer",
+                        Text = $"{service.GetString("enregistrer")}",
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         Style = (Style?)Application.Current?.Resources["ButtonStyle"],
@@ -40,7 +41,7 @@ public partial class GestionCompte : ContentPage
                 {
                     var label = new Label
                     {
-                        Text = "Êtes-vous sûr de vouloir supprimer le compte ?",
+                        Text = $"{service.GetString("mauvaiseNouvelle")}",
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         Style = (Style?)Application.Current?.Resources["SubHeadlineStyle"],
@@ -49,7 +50,7 @@ public partial class GestionCompte : ContentPage
                     AutomationProperties.SetName(label, "supprimerLabel");
                     var buttonYes = new Button
                     {
-                        Text = "Oui, supprimer mon compte",
+                        Text = $"{service.GetString("confirmeSupp")}",
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         Style = (Style?)Application.Current?.Resources["ButtonStyle"],

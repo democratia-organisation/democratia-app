@@ -1,4 +1,5 @@
-﻿using com.democratia.Services;
+﻿using com.democratia.core.Utils;
+using com.democratia.Services;
 using com.democratia.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,10 @@ using System.Reflection;
 
 namespace com.democratia.Utils
 {
+    /// <summary>
+    /// Méthode pour ajouter les services nécessaires à l'application.
+    /// </summary>
+    /// <param name="services">La collection de services.</param>
     public static class ServiceCollection
     {
         private static MauiAppBuilder? maui;
@@ -15,10 +20,6 @@ namespace com.democratia.Utils
 
         extension(IServiceCollection services)
         {
-            /// <summary>
-            /// Méthode pour ajouter les services nécessaires à l'application.
-            /// </summary>
-            /// <param name="services">La collection de services.</param>
             public IServiceCollection AddServices()
             {
                 services.AddSingleton<INavigationService, ShellNavigationService>();
@@ -74,9 +75,7 @@ namespace com.democratia.Utils
                 Uri url;
 #if DEBUG
                 if (DeviceInfo.Current.DeviceType == DeviceType.Virtual && DeviceInfo.Current.Platform == DevicePlatform.Android)
-                    url = new(maui!.GetAppSetting("ANDROID_URL_VIRTUAL"));
-                else if (DeviceInfo.Current.Platform == DevicePlatform.Android && DeviceInfo.Current.DeviceType == DeviceType.Physical)
-                    url = new(maui!.GetAppSetting("ANDROID_URL_PHYSICAL"));
+                    url = new(maui!.GetAppSetting("VIRTUAL_URL"));
                 else
                     url = new(maui!.GetAppSetting("API_URL"));
 #elif !DEBUG

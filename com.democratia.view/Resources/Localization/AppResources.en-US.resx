@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Sel" xml:space="preserve">
-    <value>adress</value>
+  <data name="adress" xml:space="preserve">
+    <value>Adress</value>
   </data>
   <data name="BonneNouvelle" xml:space="preserve">
     <value>What a great idea to join us</value>
@@ -158,5 +158,59 @@
   </data>
   <data name="SuppCompte" xml:space="preserve">
     <value>Delete my account</value>
+  </data>
+  <data name="errorMailMessage" xml:space="preserve">
+    <value>Please enter your email adress</value>
+  </data>
+  <data name="errorPasswordMessage" xml:space="preserve">
+    <value>Please enter your password</value>
+  </data>
+  <data name="enregistrer" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="mauvaiseNouvelle" xml:space="preserve">
+    <value>Are you sure you want to delete your account ?</value>
+  </data>
+  <data name="confirmeSupp" xml:space="preserve">
+    <value>Yes, delete my account</value>
+  </data>
+  <data name="groupe" xml:space="preserve">
+    <value>My groups</value>
+  </data>
+  <data name="connexionErreur" xml:space="preserve">
+    <value>Unexcepted Error Connexion</value>
+  </data>
+  <data name="noUser" xml:space="preserve">
+    <value>No user found</value>
+  </data>
+  <data name="mauvaisMdp" xml:space="preserve">
+    <value>Incorrect password</value>
+  </data>
+  <data name="inscription" xml:space="preserve">
+    <value>Register in</value>
+  </data>
+  <data name="compteCree" xml:space="preserve">
+    <value>Account created, log in now</value>
+  </data>
+  <data name="erreurInattendu" xml:space="preserve">
+    <value>Unexcepted error, please come back later</value>
+  </data>
+  <data name="erreurCreation" xml:space="preserve">
+    <value>Error while account creation</value>
+  </data>
+  <data name="champComplet" xml:space="preserve">
+    <value>Verify that all field are entered</value>
+  </data>
+  <data name="formatEmail" xml:space="preserve">
+    <value>The format email adress is incorrect</value>
+  </data>
+  <data name="compteExistantErreur" xml:space="preserve">
+    <value>Email adress is already used</value>
+  </data>
+  <data name="formatMotDePasse" xml:space="preserve">
+    <value>The password format is incorrect</value>
+  </data>
+  <data name="erreurDonne" xml:space="preserve">
+    <value>Error while fetching the data</value>
   </data>
 </root>

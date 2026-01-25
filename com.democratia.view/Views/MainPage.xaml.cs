@@ -9,6 +9,6 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         MainPageViewModel? viewModel = navigeablleViewModels!.OfType<MainPageViewModel>().FirstOrDefault();
-        BindingContext = viewModel ?? throw new ArgumentNullException(nameof(viewModel), "ViewModel cannot be null.");
+        BindingContext = viewModel !;
     }
 }

@@ -1,4 +1,6 @@
-﻿using com.democratia.Utils;
+﻿using com.democratia.core.Utils;
+using com.democratia.Utils;
+using com.democratia.view.Resources.Localization;
 using com.democratia.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
@@ -24,6 +26,7 @@ namespace com.democratia
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<Home>();
             builder.Services.AddTransient<GestionCompte>();
+            builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
             builder.SetUrl();
 
 #if DEBUG

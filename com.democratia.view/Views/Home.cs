@@ -1,4 +1,5 @@
-﻿using com.democratia.view.Views.Component;
+﻿using com.democratia.view.Resources.Localization;
+using com.democratia.view.Views.Component;
 using com.democratia.ViewModels;
 using com.democratia.Views.Component;
 using Microsoft.Maui.Controls.Shapes;
@@ -65,7 +66,7 @@ namespace com.democratia.Views
 
             this._ownGroupeLabel = new Label
             {
-                Text = "Mes Groupes",
+                Text = $"{AppResources.groupe}",
                 Style = (Style?)Application.Current?.Resources["HeadlineStyle"],
                 HorizontalOptions = LayoutOptions.Center,
                 Margin = new Thickness(0, 20),
@@ -111,7 +112,7 @@ namespace com.democratia.Views
 
             this._createGroupButton = new Button
             {
-                Text = "Créer un nouveau groupe",
+                Text = $"{AppResources.NewGroupe}",
                 Style = (Style?)Application.Current?.Resources["ButtonStyle"],
                 Command = viewModel.NavigateTappedCommand,
                 CommandParameter = "/Home/CreerGroupe",

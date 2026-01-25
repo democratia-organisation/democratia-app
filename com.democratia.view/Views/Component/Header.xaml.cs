@@ -1,9 +1,3 @@
-using com.democratia.view.Resources.Localization;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using System.Globalization;
-using com.democratia.ViewModels;
-
 namespace com.democratia.Views.Component;
 
 public partial class Header : ContentView

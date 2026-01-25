@@ -1,4 +1,5 @@
-﻿using com.democratia.Models;
+﻿using com.democratia.core.Utils;
+using com.democratia.Models;
 using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,8 +13,9 @@ namespace com.democratia.ViewModels
     {
         [ObservableProperty] private string? retourMessage;
         private Internaute? internaute;
-        public GestionCompteViewModel(IEnumerable<IClient> clients) 
-            : base(clients.OfType<InternauteClient>().FirstOrDefault())
+        private readonly ILocalizationService? localizationService;
+        public GestionCompteViewModel(IEnumerable<IClient> clients, ILocalizationService? localizationService) 
+            : base(clients.OfType<InternauteClient>().FirstOrDefault(), localizationService)
         {
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
         }
