@@ -47,9 +47,10 @@ namespace com.democratia.ViewModels
             else RetourMessage = $"Erreur {action}";
         }
 
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             internaute = (Internaute)query["modele"];
+            internaute.hashageMDP = await Task.Run(() => BCrypt.Net.BCrypt.HashPassword(internaute.hashageMDP!)) ;
         }
     }
 }

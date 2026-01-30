@@ -70,6 +70,24 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Votre compte a bien été modifié.
+        /// </summary>
+        public static string bienModifier {
+            get {
+                return ResourceManager.GetString("bienModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nous espérons vous revoir bientôt.
+        /// </summary>
+        public static string bienSupp {
+            get {
+                return ResourceManager.GetString("bienSupp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Quelle bonne idée de nous rejoindre.
         /// </summary>
         public static string BonneNouvelle {
@@ -250,6 +268,24 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Une erreur est survenu.
+        /// </summary>
+        public static string malModif {
+            get {
+                return ResourceManager.GetString("malModif", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Une erreur de suppresssion est survenu.
+        /// </summary>
+        public static string malSupp {
+            get {
+                return ResourceManager.GetString("malSupp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Êtes-vous sûr(e) de vouloir supprimer le compte ?.
         /// </summary>
         public static string mauvaiseNouvelle {
@@ -336,6 +372,24 @@ namespace com.democratia.view.Resources.Localization {
         public static string prenom {
             get {
                 return ResourceManager.GetString("prenom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à MainPage.
+        /// </summary>
+        public static string retourConnexion {
+            get {
+                return ResourceManager.GetString("retourConnexion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Home.
+        /// </summary>
+        public static string retourHome {
+            get {
+                return ResourceManager.GetString("retourHome", resourceCulture);
             }
         }
         

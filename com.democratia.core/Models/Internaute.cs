@@ -25,6 +25,6 @@ namespace com.democratia.Models
         public string? prenom_internaute { get; private set; }
         public string? adresse_postal { get; private set; }
         public string? courriel { get; private set; }
-        public string? hashageMDP { get; private set; }
+        public string? hashageMDP { get; set; }
     }
 }

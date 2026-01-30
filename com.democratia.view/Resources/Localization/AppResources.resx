@@ -213,4 +213,22 @@
   <data name="erreurDonne" xml:space="preserve">
     <value>Erreur lors de la récupération des données</value>
   </data>
+  <data name="bienModifier" xml:space="preserve">
+    <value>Votre compte a bien été modifié</value>
+  </data>
+  <data name="bienSupp" xml:space="preserve">
+    <value>Nous espérons vous revoir bientôt</value>
+  </data>
+  <data name="retourConnexion" xml:space="preserve">
+    <value>MainPage</value>
+  </data>
+  <data name="retourHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="malModif" xml:space="preserve">
+    <value>Une erreur est survenu</value>
+  </data>
+  <data name="malSupp" xml:space="preserve">
+    <value>Une erreur de suppresssion est survenu</value>
+  </data>
 </root>

@@ -67,9 +67,19 @@ namespace com.democratia.Services
             return await FinRequete(response);
         }
 
-        public Task<string> UpdateModelAsync(params object?[]? parameters)
+        public async Task<string> UpdateModelAsync(params object?[]? parameters)
         {
-            throw new NotImplementedException();
+            DebutRequete();
+            HttpResponseMessage? response;
+            var internaute = (Internaute)parameters![0]!;
+            try
+            {
+                response = await client!.PatchAsync($"""?request=ModifInfoInternaute&parameters=["{internaute.id_internaute}","{internaute.nom_internaute}","{internaute.prenom_internaute}","{internaute.adresse_postal}","{internaute.courriel}","{internaute.hashageMDP}"]""", null);
+            }
+            catch (HttpRequestException ex) {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+            return await FinRequete(response);
         }
 
         public async Task<string> DeleteModelAsync(params object?[]? parameters)
