@@ -29,8 +29,7 @@ namespace com.democratia.ViewModels
         [RelayCommand]
         public async Task ModifierInternaute()
         {
-            // TODO : binder les labels avec des proopréié de cette classe
-            // TODO :  implémenter la requete pour modification 
+            
             await client?.UpdateModelAsync(internaute)!;
             RetourEcran("Modification");
         }
