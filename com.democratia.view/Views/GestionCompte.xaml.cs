@@ -25,9 +25,11 @@ public partial class GestionCompte : ContentPage
             if (viewModel.RetourMessage == "Modif")
             {
                 string[] nombreElements = [$"{service.GetString("Nom")}", $"{service.GetString("prenom")}", $"{service.GetString("adress")}", $"{service.GetString("mail")}", $"{service.GetString("Mdp")}"];
+                string[] binables = [viewModel.Nom_internaute!, viewModel.Prenom_internaute!, viewModel.Adresse_postal!, viewModel.Courriel!, viewModel.HashageMdp!];
                 foreach (var item in nombreElements)
                 {
                     var entry = new EntryComponent { Title = item };
+                    entry.SetBinding(EntryComponent.ValeurDonneProperty, new Binding(binables[nombreElements.ToList().IndexOf(item)])); // FIX : s'execute avant le remplissage des champs donc les champs sont null
                     if (item == $"{service.GetString("Mdp")}") entry.PassWord = true;
                     stackLayout.Children.Add(entry);
                     stackLayout.Children.Add(new BoxView { HeightRequest = 50 });
@@ -79,8 +81,8 @@ public partial class GestionCompte : ContentPage
                 var textButton = uneActionDeModif ? service.GetString("retourConnexion") : service.GetString("retourHome");
                 foreach (var child in stackLayout.Children.ToList()) stackLayout.Children.Remove(child);
                 var action = uneActionDeModif
-                    ? new Func<Task>(() => Shell.Current.GoToAsync("//Home"))
-                    : new Func<Task>(() => Shell.Current.GoToAsync("//MainPage"));
+                    ? new Func<Task>(() => Shell.Current.GoToAsync("/Home"))
+                    : new Func<Task>(() => Shell.Current.GoToAsync("/MainPage"));
 
                 var button = new Button
                 {

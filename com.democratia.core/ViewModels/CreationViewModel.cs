@@ -3,8 +3,6 @@ using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.Json;
-using System.Text.RegularExpressions;
-using Xunit.Abstractions;
 using Crypt = BCrypt.Net.BCrypt;
 
 namespace com.democratia.ViewModels
@@ -90,11 +88,9 @@ namespace com.democratia.ViewModels
                 throw new Exception($"{localizationService?.GetString("champComplet")}");
             else return true;
         }
-        private bool VerifierFormatageMail()
-        {
-            FormatRule emailRule = new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$");
-            return emailRule.Check(AdresseMail!) ? true : throw new Exception($"{localizationService?.GetString("formatEmail")}");
-        }
+        private bool VerifierFormatageMail() => 
+            Verification.VerifierFormatage(AdresseMail!, new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$")) ? true : throw new Exception($"{localizationService?.GetString("formatEmail")}");
+        
         private async Task<bool> VerifierMailDoublon()
         {
             string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(AdresseMail!)!;
@@ -102,20 +98,10 @@ namespace com.democratia.ViewModels
             int? nombreMail = JsonSerializer.Deserialize<Dictionary<string, int>>(listeInformation[0].ToString()!)!.TryGetValue("COUNT(courriel)", out var value) ? value : null;
             return nombreMail == 0 ? true : throw new Exception($"{localizationService?.GetString("compteExistantErreur")}");
         }
-        private bool VerifierFormatageMotDePasse()
-        {
-            FormatRule passwordRule = new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$");
-            return passwordRule.Check(MotDePasse!) ? true : throw new Exception($"{localizationService?.GetString("formatMotDePasse")}");
-        }
+        private bool VerifierFormatageMotDePasse() => 
+            Verification.VerifierFormatage(MotDePasse!, new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$")) ? true : throw new Exception($"{localizationService?.GetString("formatMotDePasse")}");
+        
 
         private async Task<bool> VerifierToutesLesConditions() => VerifierChampComplet() && VerifierFormatageMail() && await VerifierMailDoublon() && VerifierFormatageMotDePasse();
-
-
-        private record FormatRule(string pattern)
-        {
-            private readonly Regex _regex = new(pattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-            public bool Check(string value) => value is string str && _regex.IsMatch(str);
-        }
     }
 }

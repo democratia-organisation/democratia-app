@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
+using Crypt = BCrypt.Net.BCrypt;
 
 namespace com.democratia.ViewModels
 {
@@ -12,6 +13,13 @@ namespace com.democratia.ViewModels
     public partial class GestionCompteViewModel : ConnectableViewModel, IQueryAttributable, INotifyPropertyChanged
     {
         [ObservableProperty] private string? retourMessage;
+        [ObservableProperty] public string? prenom_internaute;
+        [ObservableProperty] public string? nom_internaute;
+        [ObservableProperty] public string? adresse_postal;
+        [ObservableProperty] public string? courriel;
+        [ObservableProperty] public string? hashageMdp;
+
+
         private Internaute? internaute;
         private readonly ILocalizationService? localizationService;
         public GestionCompteViewModel(IEnumerable<IClient> clients, ILocalizationService? localizationService) 
@@ -29,8 +37,12 @@ namespace com.democratia.ViewModels
         [RelayCommand]
         public async Task ModifierInternaute()
         {
-            
+            RecupererInformations();
+            Verification.VerifierFormatage(internaute!.courriel!, new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$"));
+            Verification.VerifierFormatage(internaute!.hashageMDP!, new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$"));
+            await HasherMotDePasse();
             await client?.UpdateModelAsync(internaute)!;
+            EnregistrerModele(internaute!);
             RetourEcran("Modification");
         }
 
@@ -50,7 +62,21 @@ namespace com.democratia.ViewModels
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             internaute = (Internaute)query["modele"];
-            internaute.hashageMDP = await Task.Run(() => BCrypt.Net.BCrypt.HashPassword(internaute.hashageMDP!)) ;
         }
+
+        private async Task HasherMotDePasse() => await Task.Run(() => internaute!.hashageMDP = Crypt.HashPassword(internaute!.hashageMDP!));
+
+
+        private void RecupererInformations()
+        {
+            string?[] attributsInterne = { Prenom_internaute, Nom_internaute, Adresse_postal, Courriel, HashageMdp };
+            string?[] attributsDeBase = { internaute?.prenom_internaute, internaute?.nom_internaute, internaute?.adresse_postal, internaute?.courriel, internaute?.hashageMDP };
+            for (int i = 0; i < attributsInterne.Length; i++)
+                ModifierAttribut(ref attributsDeBase[i], attributsInterne[i]);
+        }
+
+        private void ModifierAttribut(ref string? attributDeBase, string? attributInterne) =>
+            attributDeBase = string.IsNullOrEmpty(attributInterne) ? attributDeBase : attributInterne;
+
     }
 }
