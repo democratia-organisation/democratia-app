@@ -44,10 +44,8 @@ namespace com.democratia.ViewModels
 
         }
 
-        public async Task<ImageSource> GetImageAsync(string url)
-        {
-            return await ((GroupClient)client)!.GetImageAsync(url)!;
-        }
+        public async Task<ImageSource?> GetImageAsync(string url) => await ((GroupClient?)client)!.GetImageAsync(url);
+        
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)

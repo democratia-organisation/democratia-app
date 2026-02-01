@@ -25,12 +25,12 @@ public partial class GestionCompte : ContentPage
             if (viewModel.RetourMessage == "Modif")
             {
                 string[] nombreElements = [$"{service.GetString("Nom")}", $"{service.GetString("prenom")}", $"{service.GetString("adress")}", $"{service.GetString("mail")}", $"{service.GetString("Mdp")}"];
-                string[] binables = [viewModel.Nom_internaute!, viewModel.Prenom_internaute!, viewModel.Adresse_postal!, viewModel.Courriel!, viewModel.HashageMdp!];
-                foreach (var item in nombreElements)
+                string[] binables = [nameof(viewModel.Nom_internaute), nameof(viewModel.Prenom_internaute), nameof(viewModel.Adresse_postal), nameof(viewModel.Courriel), nameof(viewModel.HashageMdp)];
+                for (int i= 0; i < nombreElements.Length; i++)
                 {
-                    var entry = new EntryComponent { Title = item };
-                    entry.SetBinding(EntryComponent.ValeurDonneProperty, new Binding(binables[nombreElements.ToList().IndexOf(item)])); // FIX : s'execute avant le remplissage des champs donc les champs sont null
-                    if (item == $"{service.GetString("Mdp")}") entry.PassWord = true;
+                    var entry = new EntryComponent { Title = nombreElements[i] };
+                    entry.SetBinding(EntryComponent.ValeurDonneProperty, new Binding(binables[i])); 
+                    if (nombreElements[i] == $"{service.GetString("Mdp")}") entry.PassWord = true;
                     stackLayout.Children.Add(entry);
                     stackLayout.Children.Add(new BoxView { HeightRequest = 50 });
                 }
@@ -82,7 +82,7 @@ public partial class GestionCompte : ContentPage
                 foreach (var child in stackLayout.Children.ToList()) stackLayout.Children.Remove(child);
                 var action = uneActionDeModif
                     ? new Func<Task>(() => Shell.Current.GoToAsync("/Home"))
-                    : new Func<Task>(() => Shell.Current.GoToAsync("/MainPage"));
+                    : new Func<Task>(() => Shell.Current.GoToAsync("/MainPage", new ShellNavigationQueryParameters { { "modele", viewModel.internaute !} }));
 
                 var button = new Button
                 {

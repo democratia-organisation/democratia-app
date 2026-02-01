@@ -20,7 +20,7 @@ namespace com.democratia.ViewModels
         [ObservableProperty] public string? hashageMdp;
 
 
-        private Internaute? internaute;
+        public Internaute? internaute;
         private readonly ILocalizationService? localizationService;
         public GestionCompteViewModel(IEnumerable<IClient> clients, ILocalizationService? localizationService) 
             : base(clients.OfType<InternauteClient>().FirstOrDefault(), localizationService)
@@ -61,22 +61,25 @@ namespace com.democratia.ViewModels
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            internaute = (Internaute)query["modele"];
+            if (query.TryGetValue("modele", out var valeur)) internaute = (Internaute)valeur;
+            else internaute = await RetrouverModele<Internaute>();
         }
+
 
         private async Task HasherMotDePasse() => await Task.Run(() => internaute!.hashageMDP = Crypt.HashPassword(internaute!.hashageMDP!));
 
 
         private void RecupererInformations()
         {
-            string?[] attributsInterne = { Prenom_internaute, Nom_internaute, Adresse_postal, Courriel, HashageMdp };
-            string?[] attributsDeBase = { internaute?.prenom_internaute, internaute?.nom_internaute, internaute?.adresse_postal, internaute?.courriel, internaute?.hashageMDP };
-            for (int i = 0; i < attributsInterne.Length; i++)
-                ModifierAttribut(ref attributsDeBase[i], attributsInterne[i]);
+            internaute!.prenom_internaute = Merge(internaute.prenom_internaute, Prenom_internaute);
+            internaute!.nom_internaute = Merge(internaute.nom_internaute, Nom_internaute);
+            internaute!.adresse_postal = Merge(internaute.adresse_postal, Adresse_postal);
+            internaute!.courriel = Merge(internaute.courriel, Courriel);
+            internaute!.hashageMDP = Merge(internaute.hashageMDP, HashageMdp);
         }
 
-        private void ModifierAttribut(ref string? attributDeBase, string? attributInterne) =>
-            attributDeBase = string.IsNullOrEmpty(attributInterne) ? attributDeBase : attributInterne;
+        private static string? Merge(string? baseValue, string? newValue) =>
+            string.IsNullOrEmpty(newValue) ? baseValue : newValue;
 
     }
 }

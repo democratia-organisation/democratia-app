@@ -20,11 +20,11 @@ namespace com.democratia.Models
             this.hashageMDP = hashageMDP;
         }
 
-        public int? id_internaute { get; private set; }
-        public string? nom_internaute { get; private set; }
-        public string? prenom_internaute { get; private set; }
-        public string? adresse_postal { get; private set; }
-        public string? courriel { get; private set; }
+        public int? id_internaute { get;  set; }
+        public string? nom_internaute { get;  set; }
+        public string? prenom_internaute { get; set; }
+        public string? adresse_postal { get; set; }
+        public string? courriel { get; set; }
         public string? hashageMDP { get; set; }
     }
 }
