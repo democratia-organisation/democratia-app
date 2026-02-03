@@ -31,9 +31,9 @@ namespace com.democratia.ViewModels
             return JsonSerializer.Deserialize<List<object>>(rawElement!)!;
 
         }
-        protected async void EnregistrerModele(IModel model)
+        protected async void EnregistrerModele<T>(T model) where T : class, IModel
         {
-            string jsonInternaute = JsonSerializer.Serialize(model);
+            string jsonInternaute = JsonSerializer.Serialize<T>(model);
             string cacheDir = FileSystem.Current.CacheDirectory;
             string filePath = Path.Combine(cacheDir, $"{model.GetType()}_cache.json");
             if (!File.Exists(filePath)) await File.WriteAllTextAsync(filePath, jsonInternaute);

@@ -38,9 +38,24 @@ namespace com.democratia.ViewModels
         public async Task ModifierInternaute()
         {
             RecupererInformations();
-            Verification.VerifierFormatage(internaute!.courriel!, new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$"));
-            Verification.VerifierFormatage(internaute!.hashageMDP!, new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$"));
-            await HasherMotDePasse();
+            bool estUnBonEmail = Verification.VerifierFormatage(internaute!.courriel!, new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$"));
+            if (!estUnBonEmail)
+            {
+                RetourMessage = localizationService?.GetString("InvalidEmailFormat");
+                return;
+            }
+            bool estUnBonMotDePasse = true;
+            if (!string.IsNullOrEmpty(HashageMdp) && internaute.hashageMDP != HashageMdp)
+            {
+                estUnBonMotDePasse = Verification.VerifierFormatage(HashageMdp!, new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$"));
+                if (!estUnBonMotDePasse)
+                {
+                    RetourMessage = localizationService?.GetString("InvalidPasswordFormat");
+                    return;
+                }
+                internaute!.hashageMDP = Merge(internaute.hashageMDP, HashageMdp);
+                await HasherMotDePasse();
+            }
             await client?.UpdateModelAsync(internaute)!;
             EnregistrerModele(internaute!);
             RetourEcran("Modification");
@@ -73,9 +88,8 @@ namespace com.democratia.ViewModels
         {
             internaute!.prenom_internaute = Merge(internaute.prenom_internaute, Prenom_internaute);
             internaute!.nom_internaute = Merge(internaute.nom_internaute, Nom_internaute);
-            internaute!.adresse_postal = Merge(internaute.adresse_postal, Adresse_postal);
+            internaute!.adresse_postale = Merge(internaute.adresse_postale, Adresse_postal);
             internaute!.courriel = Merge(internaute.courriel, Courriel);
-            internaute!.hashageMDP = Merge(internaute.hashageMDP, HashageMdp);
         }
 
         private static string? Merge(string? baseValue, string? newValue) =>

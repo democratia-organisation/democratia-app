@@ -74,7 +74,7 @@ namespace com.democratia.Services
             var internaute = (Internaute)parameters![0]!;
             try
             {
-                response = await client!.PatchAsync($"""?request=ModifInfoInternaute&parameters=["{internaute.id_internaute}","{internaute.nom_internaute}","{internaute.prenom_internaute}","{internaute.adresse_postal}","{internaute.courriel}","{internaute.hashageMDP}"]""", null);
+                response = await client!.PatchAsync($"""?request=ModifInfoInternaute&parameters=["{internaute.id_internaute}","{internaute.nom_internaute}","{internaute.prenom_internaute}","{internaute.adresse_postale}","{internaute.courriel}","{internaute.hashageMDP}"]""", null);
             }
             catch (HttpRequestException ex) {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
@@ -88,7 +88,7 @@ namespace com.democratia.Services
             HttpResponseMessage? response;
             try
             {
-                response = await client?.DeleteAsync($"?SupprimerInternaute&parameters=[{((Internaute)parameters![0]!).id_internaute}]")!;
+                response = await client?.DeleteAsync($"?request=SupprimerInternaute&parameters=[{((Internaute)parameters![0]!).id_internaute}]")!;
             }
             catch (HttpRequestException ex)
             {

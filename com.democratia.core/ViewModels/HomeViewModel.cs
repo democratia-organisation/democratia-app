@@ -14,6 +14,7 @@ namespace com.democratia.ViewModels
         private Internaute? internaute;
         private readonly INavigationService? navigationService;
         private readonly ILocalizationService? localizationService;
+        private readonly TaskCompletionSource<bool> _internautePret = new(false);
         public ObservableCollection<Groupe> Groupes { get; private set; } = [];
         public readonly List<Groupe> listeRecu = [];
         public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService)
@@ -28,11 +29,13 @@ namespace com.democratia.ViewModels
         {
             if(query.TryGetValue("modele", out var valeur)) internaute = (Internaute)valeur ;
             else internaute = await RetrouverModele<Internaute>();
+            _internautePret.TrySetResult(true);
         }
 
         public async void InitializeAsync()
         {
-
+            
+            await _internautePret.Task; // code pour résoudre un race condition error
             var jsonString = string.Empty;
             try
             { jsonString = await client?.GetModelAsync(internaute!)!; }

@@ -81,8 +81,8 @@ public partial class GestionCompte : ContentPage
                 var textButton = uneActionDeModif ? service.GetString("retourConnexion") : service.GetString("retourHome");
                 foreach (var child in stackLayout.Children.ToList()) stackLayout.Children.Remove(child);
                 var action = uneActionDeModif
-                    ? new Func<Task>(() => Shell.Current.GoToAsync("/Home"))
-                    : new Func<Task>(() => Shell.Current.GoToAsync("/MainPage", new ShellNavigationQueryParameters { { "modele", viewModel.internaute !} }));
+                    ? new Func<Task>(() => Shell.Current.GoToAsync("Home", new ShellNavigationQueryParameters { { "modele", viewModel.internaute! } }))
+                    : new Func<Task>(() => Shell.Current.GoToAsync("///MainPage"));
 
                 var button = new Button
                 {
@@ -114,7 +114,23 @@ public partial class GestionCompte : ContentPage
                 var label = new Label
                 {
                     Text = $"{textLabel}",
-                    Style = (Style?)Application.Current?.Resources["SubHeadlineStyle"],
+                    Style = (Style?)Application.Current?.Resources["ErrorLabelStyle"],
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center,
+                    AutomationId = "actionLabelNon",
+                };
+
+                AutomationProperties.SetName(label, "actionLabelNon");
+                stackLayout.Children.Add(new BoxView { HeightRequest = 150 });
+                stackLayout.Children.Add(label);
+            }
+            else 
+            {
+                var textLabel = viewModel.RetourMessage;
+                var label = new Label
+                {
+                    Text = $"{textLabel}",
+                    Style = (Style?)Application.Current?.Resources["ErrorLabelStyle"],
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center,
                     AutomationId = "actionLabelNon",
