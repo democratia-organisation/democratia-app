@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:com.democratia.Views.Component"
              x:Class="com.democratia.Views.Component.Header"
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
-             BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-tertiary}, Light={DynamicResource Light-tertiary}}"
+             BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainer}, Light={DynamicResource Light-surfaceContainer}}"
              
              >
     <Grid >

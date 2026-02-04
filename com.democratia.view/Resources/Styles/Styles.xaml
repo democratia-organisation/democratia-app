@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Style x:Key="ActivityIndicatorStyle" TargetType="ActivityIndicator">
-        <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}"/>
+        <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-surface}, Dark={DynamicResource Dark-surface}}"/>
     </Style>
     <Style x:Key="fondEcran" TargetType="ContentPage">
         <Setter Property="Background" Value="{AppThemeBinding Light={DynamicResource Light-background}, Dark={DynamicResource Dark-background}}"/>
@@ -20,6 +20,12 @@
         <Setter Property="StrokeShape" Value="RoundRectangle 200,200,200,200"/>
         <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="Padding" Value="0,0,0,0"/>
+    </Style>
+    <Style x:Key="BorderStyleButton" TargetType="Border">
+        <Setter Property="StrokeShape" Value="RoundRectangle 600,600,600,600"/>
+        <Setter Property="StrokeThickness" Value="5"/>
+        <Setter Property="Padding" Value="0,0,0,0"/>
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-outline}, Dark={DynamicResource Dark-outline}}"/>
     </Style>
 
     <Style x:Key="BoxViewStyle" TargetType="BoxView">
@@ -116,8 +122,8 @@
     </Style>
 
     <Style x:Key="EntryStyle" TargetType="Entry">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onTertiary}, Dark={DynamicResource Dark-onTertiary}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-tertiary}, Dark={DynamicResource Dark-tertiary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -137,7 +143,7 @@
     </Style>
 
     <Style x:Key="FrameStyle" TargetType="Border">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource White}, Dark={DynamicResource Black}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-outline}, Dark={DynamicResource Dark-outline}}" />
     </Style>
 
     <Style x:Key="ImageButtonStyle" TargetType="ImageButton">

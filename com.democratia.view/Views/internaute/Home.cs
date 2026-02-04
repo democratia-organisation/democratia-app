@@ -22,13 +22,12 @@ namespace com.democratia.Views.internaute
                 Color darkCouleur = (Color)dark;
                 this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
             }
-            var profileIcone = new Border 
+            var profileIcone = new Border  // bordure car sur iOS, les images sont davantages cropés, donc la bordure empeche le cropage de l'image
             { 
-                HeightRequest = 50,
-                WidthRequest = 50,
+                MaximumWidthRequest = 60,
+                MaximumHeightRequest = 60,
                 HorizontalOptions = LayoutOptions.Center,
-                Stroke = Colors.White,
-                StrokeThickness = 2,
+                StrokeThickness = 1,
                 Padding = 0,
                 StrokeShape = new RoundRectangle { CornerRadius = 50 },
                 Content = new ImageButton
@@ -36,14 +35,19 @@ namespace com.democratia.Views.internaute
                     Source = "profile_icon.jpeg",
                     Aspect = Aspect.AspectFill,
                     CornerRadius = 50,
-                    HeightRequest = 50,
-                    WidthRequest = 50,
+                    MaximumHeightRequest = 60,
+                    MaximumWidthRequest = 60,
                     Command = viewModel.NavigateTappedCommand,
                     CommandParameter = "/Home/GestionCompte",
                     AutomationId = "ProfileButton",
                 }
             };
             AutomationProperties.SetName(profileIcone, "ProfileButton");
+            if (Application.Current!.Resources.TryGetValue("Light-onSurface", out var lightP) && Application.Current!.Resources.TryGetValue("Dark-onSurface", out var darkP))
+            {
+                Color lightCouleur = (Color)lightP, darkCouleur = (Color)darkP;
+                profileIcone.SetAppThemeColor(Border.StrokeProperty, lightCouleur, darkCouleur);
+            }
 
             this._stackLayout = new VerticalStackLayout
             {
@@ -87,7 +91,7 @@ namespace com.democratia.Views.internaute
                 {
                     var container = new Border
                     {
-                        Style = (Style?)Application.Current?.Resources["BorderStyle"],
+                        Style = (Style?)Application.Current?.Resources["BorderStyleButton"],
                     };
 
                     container.BindingContextChanged += (s, e) =>

@@ -19,8 +19,8 @@ public class ButtonGroupe : ContentView
         this.viewModel = viewModel;
         button = new ImageButton
         {
-            HeightRequest = 50,
-            WidthRequest = 50,
+            HeightRequest = 100,
+            WidthRequest = 100,
             HorizontalOptions = LayoutOptions.Center,
             Command = command,
             CommandParameter = groupeParameter.ToString(),
@@ -32,21 +32,29 @@ public class ButtonGroupe : ContentView
             HorizontalOptions = LayoutOptions.Center,
             Text = this.title,
             Style = (Style?)Application.Current?.Resources["SubHeadlineStyle"],
+            LineBreakMode = LineBreakMode.WordWrap
 
         };
-        if (Application.Current!.Resources.TryGetValue("Light-primary", out var light) && Application.Current!.Resources.TryGetValue("Dark-primary", out var dark))
+        if (Application.Current!.Resources.TryGetValue("Light-onPrimaryContainer", out var lightP) && Application.Current!.Resources.TryGetValue("Dark-onPrimaryContainer", out var darkP))
+        {
+            Color lightCouleur = (Color)lightP, darkCouleur = (Color)darkP;
+            label.SetAppThemeColor(Label.TextColorProperty, lightCouleur, darkCouleur);
+        }
+        if (Application.Current!.Resources.TryGetValue("Light-primaryContainer", out var light) && Application.Current!.Resources.TryGetValue("Dark-primaryContainer", out var dark))
         {
             Color lightCouleur = (Color)light, darkCouleur = (Color)dark;
-            label.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
+            this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
         }
-        
+
         Content = new VerticalStackLayout
         {
             Children = {
                 button,
                 label
             },
-            
+            MaximumHeightRequest = 300,
+            MaximumWidthRequest = 300
+
         };
         CreateImageSourceAsync();
     }
