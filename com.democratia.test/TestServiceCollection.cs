@@ -1,5 +1,6 @@
 using com.democratia.Services;
 using com.democratia.test.Services;
+using com.democratia.ViewModels.internaute;
 using com.democratia.ViewModels;
 
 namespace com.democratia.test;
