@@ -5,9 +5,9 @@ using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Text.Json;
 using System.Collections.ObjectModel;
-using com.democratia.core.Utils;
+using com.democratia.Utils;
 
-namespace com.democratia.ViewModels
+namespace com.democratia.ViewModels.internaute
 {
     public partial class HomeViewModel : ConnectableViewModel , IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel
     {

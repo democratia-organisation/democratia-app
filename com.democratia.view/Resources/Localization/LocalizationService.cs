@@ -1,6 +1,7 @@
-﻿using com.democratia.core.Utils;
+﻿using com.democratia.Utils;
+using com.democratia.view.Resources.Localization;
 
-namespace com.democratia.view.Resources.Localization
+namespace com.democratia.Resources.Localization
 {
     public class LocalizationService : ILocalizationService
     {

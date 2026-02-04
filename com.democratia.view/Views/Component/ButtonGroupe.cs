@@ -1,8 +1,8 @@
-using com.democratia.ViewModels;
+using com.democratia.ViewModels.internaute;
 using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
 
-namespace com.democratia.view.Views.Component;
+namespace com.democratia.Views.Component;
 
 public class ButtonGroupe : ContentView
 {

@@ -1,10 +1,9 @@
 ﻿using com.democratia.view.Resources.Localization;
-using com.democratia.view.Views.Component;
-using com.democratia.ViewModels;
 using com.democratia.Views.Component;
+using com.democratia.ViewModels.internaute;
 using Microsoft.Maui.Controls.Shapes;
 
-namespace com.democratia.Views
+namespace com.democratia.Views.internaute
 {
     public partial class Home : ContentPage
     {

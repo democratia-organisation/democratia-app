@@ -1,6 +1,6 @@
-﻿using com.democratia.core.Utils;
-using com.democratia.Utils;
-using com.democratia.view.Resources.Localization;
+﻿using com.democratia.Utils;
+using com.democratia.Resources.Localization;
+using com.democratia.Views.internaute;
 using com.democratia.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;

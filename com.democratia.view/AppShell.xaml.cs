@@ -1,4 +1,5 @@
-﻿using com.democratia.Views;
+﻿using com.democratia.Views.internaute;
+using com.democratia.Views;
 
 namespace com.democratia
 {

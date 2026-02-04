@@ -82,7 +82,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\GestionCompte.xaml.cs">
+    <Compile Update="Views\internaute\GestionCompte.xaml.cs">
       <DependentUpon>GestionCompte.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -93,10 +93,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <MauiXaml Update="Views\CreerGroupe.xaml">
+    <MauiXaml Update="Views\internaute\CreerGroupe.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\GestionCompte.xaml">
+    <MauiXaml Update="Views\internaute\GestionCompte.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
   </ItemGroup>

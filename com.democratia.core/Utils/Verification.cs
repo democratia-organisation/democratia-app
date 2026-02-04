@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace com.democratia.core.Utils
+namespace com.democratia.Utils
 {
     public static class Verification
     {

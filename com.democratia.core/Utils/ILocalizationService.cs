@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace com.democratia.core.Utils
+namespace com.democratia.Utils
 {
     public interface ILocalizationService
     {

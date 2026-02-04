@@ -1,7 +1,8 @@
 using com.democratia.view.Resources.Localization;
+using com.democratia.ViewModels.internaute;
 using com.democratia.ViewModels;
 
-namespace com.democratia.Views;
+namespace com.democratia.Views.internaute;
 
 
 public partial class Creation : ContentPage

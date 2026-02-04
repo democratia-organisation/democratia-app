@@ -1,9 +1,9 @@
-using com.democratia.core.Utils;
-using com.democratia.ViewModels;
+using com.democratia.Utils;
+using com.democratia.ViewModels.internaute;
 using com.democratia.Views.Component;
 using System.ComponentModel;
 
-namespace com.democratia.Views;
+namespace com.democratia.Views.internaute;
 
 public partial class GestionCompte : ContentPage
 {

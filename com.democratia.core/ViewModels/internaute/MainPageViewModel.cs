@@ -1,4 +1,4 @@
-﻿using com.democratia.core.Utils;
+﻿using com.democratia.Utils;
 using com.democratia.Models;
 using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -7,7 +7,7 @@ using Microsoft.Maui.Controls;
 using System.Text.Json;
 using Crypt = BCrypt.Net.BCrypt;
 
-namespace com.democratia.ViewModels
+namespace com.democratia.ViewModels.internaute
 {
     public partial class MainPageViewModel : ConnectableViewModel, INavigeablleViewModel
     {

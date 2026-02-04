@@ -1,5 +1,5 @@
-﻿using com.democratia.core.Utils;
-using com.democratia.Services;
+﻿using com.democratia.Services;
+using com.democratia.ViewModels.internaute;
 using com.democratia.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
