@@ -1,5 +1,4 @@
 ﻿using com.democratia.Views.internaute;
-using com.democratia.Views;
 
 namespace com.democratia
 {
@@ -9,10 +8,10 @@ namespace com.democratia
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(Home), typeof(Home));
-            Routing.RegisterRoute($"{nameof(MainPage)}/{nameof(Creation)}", typeof(Creation));
-            Routing.RegisterRoute($"{nameof(Home)}/{nameof(Groupe)}", typeof(Groupe));
-            Routing.RegisterRoute($"{nameof(Home)}/{nameof(GestionCompte)}", typeof(GestionCompte));
-            Routing.RegisterRoute($"{nameof(Home)}/{nameof(CreerGroupe)}", typeof(CreerGroupe));
+            Routing.RegisterRoute(nameof(Creation), typeof(Creation));
+            Routing.RegisterRoute(nameof(Groupe), typeof(Groupe));
+            Routing.RegisterRoute(nameof(GestionCompte), typeof(GestionCompte));
+            Routing.RegisterRoute(nameof(PremierePage), typeof(PremierePage));
         }
     }
 }

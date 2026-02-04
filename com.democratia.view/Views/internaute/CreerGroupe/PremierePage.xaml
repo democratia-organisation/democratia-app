@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="com.democratia.Views.internaute.CreerGroupe"
+             x:Class="com.democratia.Views.internaute.PremierePage"
              xmlns:Component="clr-namespace:com.democratia.Views.Component"
              xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
@@ -16,8 +16,8 @@
             <Label
                 Style="{DynamicResource HeadlineStyle}"
                 Text="{x:Static lang:AppResources.creaGroupe}"
-                AutomationId="CreaGroupe"
-                x:Name="labelTheme"
+                AutomationId="labelCreaGroupe"
+                x:Name="labelCreaGroupe"
                 AutomationProperties.Name="labelCreaGroupe"
             />
             <BoxView HeightRequest="50"/>

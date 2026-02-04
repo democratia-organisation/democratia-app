@@ -38,7 +38,7 @@ namespace com.democratia.Views.internaute
                     MaximumHeightRequest = 60,
                     MaximumWidthRequest = 60,
                     Command = viewModel.NavigateTappedCommand,
-                    CommandParameter = "/Home/GestionCompte",
+                    CommandParameter = $"{nameof(GestionCompte)}",
                     AutomationId = "ProfileButton",
                 }
             };
@@ -118,7 +118,7 @@ namespace com.democratia.Views.internaute
                 Text = $"{AppResources.NewGroupe}",
                 Style = (Style?)Application.Current?.Resources["ButtonStyle"],
                 Command = viewModel.NavigateTappedCommand,
-                CommandParameter = "/Home/CreerGroupe",
+                CommandParameter = $"{nameof(PremierePage)}",
                 VerticalOptions = LayoutOptions.End,
                 Margin = new Thickness(20),
                 AutomationId = "CreateGroupButton",

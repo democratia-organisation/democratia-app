@@ -1,8 +1,8 @@
 namespace com.democratia.Views.internaute;
 
-public partial class CreerGroupe : ContentPage
+public partial class PremierePage : ContentPage
 {
-	public CreerGroupe()
+	public PremierePage()
 	{
 		InitializeComponent();
 	}
