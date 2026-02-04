@@ -26,8 +26,8 @@ namespace com.democratia.ViewModels.internaute
         private readonly INavigationService? navigationService;
         private readonly ILocalizationService? localizationService;
 
-        public CreationViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService service, ILocalizationService localizationService)
-            : base(clients?.OfType<InternauteClient>().FirstOrDefault(), localizationService)
+        public CreationViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService service)
+            : base(clients?.OfType<InternauteClient>().FirstOrDefault(), service)
         {
             this.navigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();

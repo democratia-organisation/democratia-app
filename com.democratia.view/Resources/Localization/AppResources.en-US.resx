@@ -231,4 +231,31 @@
   <data name="malSupp" xml:space="preserve">
     <value>An delete error has occured</value>
   </data>
+  <data name="entrezNomGroupe" xml:space="preserve">
+    <value>Write the name of the group</value>
+  </data>
+  <data name="thematique" xml:space="preserve">
+    <value>Themes</value>
+  </data>
+  <data name="creaGroupe" xml:space="preserve">
+    <value>Group Creation</value>
+  </data>
+  <data name="suivant" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="CouleurRepre" xml:space="preserve">
+    <value>Representative Color</value>
+  </data>
+  <data name="choixImage" xml:space="preserve">
+    <value>Choose an image on your device</value>
+  </data>
+  <data name="selectImage" xml:space="preserve">
+    <value>Select an image</value>
+  </data>
+  <data name="selectAutreImage" xml:space="preserve">
+    <value>Select another image</value>
+  </data>
+  <data name="terminer" xml:space="preserve">
+    <value>End</value>
+  </data>
 </root>

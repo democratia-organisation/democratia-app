@@ -231,4 +231,31 @@
   <data name="malSupp" xml:space="preserve">
     <value>Une erreur de suppresssion est survenu</value>
   </data>
+  <data name="entrezNomGroupe" xml:space="preserve">
+    <value>Entrez le nom de votre groupe</value>
+  </data>
+  <data name="thematique" xml:space="preserve">
+    <value>Thématiques</value>
+  </data>
+  <data name="creaGroupe" xml:space="preserve">
+    <value>Création d'un groupe</value>
+  </data>
+  <data name="suivant" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="CouleurRepre" xml:space="preserve">
+    <value>Couleur représentative</value>
+  </data>
+  <data name="choixImage" xml:space="preserve">
+    <value>Choisir une image sur votre appareil</value>
+  </data>
+  <data name="selectImage" xml:space="preserve">
+    <value>Sélectionner une image</value>
+  </data>
+  <data name="selectAutreImage" xml:space="preserve">
+    <value>Sélectionner une autre image</value>
+  </data>
+  <data name="terminer" xml:space="preserve">
+    <value>Terminer</value>
+  </data>
 </root>

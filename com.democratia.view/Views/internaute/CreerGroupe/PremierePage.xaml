@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="com.democratia.Views.internaute.CreerGroupe"
+             xmlns:Component="clr-namespace:com.democratia.Views.Component"
+             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
+             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+             x:DataType="viewModel:PremierePageViewModel"
+             Title="PremierePage"
+             Style="{DynamicResource fondEcran}">
+    <VerticalStackLayout>
+        
+        <VerticalStackLayout>
+            <Component:Header/>
+            <BoxView HeightRequest="30"/>
+            <Label
+                Style="{DynamicResource HeadlineStyle}"
+                Text="{x:Static lang:AppResources.creaGroupe}"
+                AutomationId="CreaGroupe"
+                x:Name="labelTheme"
+                AutomationProperties.Name="labelCreaGroupe"
+            />
+            <BoxView HeightRequest="50"/>
+            <Component:EntryComponent Title="{x:Static lang:AppResources.entrezNomGroupe}" ValeurDonne="{Binding NomGroupe}" x:Name="nomGroupeEntry" />
+            
+            <VerticalStackLayout>
+                <Label
+                    Text="{x:Static lang:AppResources.thematique}"
+                    Style="{DynamicResource SubHeadlineStyle}"
+                    AutomationId="labelThmes"
+                    x:Name="labelTheme"
+                    AutomationProperties.Name="labelThem"
+                    />
+                <BoxView HeightRequest="30"/>
+                <!--theme refait à la main pour avoir une boite plus grosse-->
+                <Border Style="{DynamicResource BorderStyle}"
+                        StrokeShape="RoundRectangle 600,600,600,600">
+                    <Entry
+                        Style="{DynamicResource EntryStyle}"
+                        HeightRequest="200"
+                        WidthRequest="1250"
+                        AutomationId="entryTheme"
+                        Keyboard="Plain"
+                        AutomationProperties.Name="entryTheme"
+                        x:Name="entryTheme"
+                    />  
+                </Border>
+                <BoxView HeightRequest="30"/>
+                <Button
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="{x:Static lang:AppResources.suivant}"
+                    Command="{Binding NavigateTappedCommand}"
+                />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

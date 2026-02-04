@@ -106,6 +106,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Choisir une image sur votre appareil.
+        /// </summary>
+        public static string choixImage {
+            get {
+                return ResourceManager.GetString("choixImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Création de compte réussi, Connectez-vous maintenant.
         /// </summary>
         public static string compteCree {
@@ -151,11 +160,38 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Couleur représentative.
+        /// </summary>
+        public static string CouleurRepre {
+            get {
+                return ResourceManager.GetString("CouleurRepre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Création d&apos;un groupe.
+        /// </summary>
+        public static string creaGroupe {
+            get {
+                return ResourceManager.GetString("creaGroupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Enregistrer.
         /// </summary>
         public static string enregistrer {
             get {
                 return ResourceManager.GetString("enregistrer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Entrez le nom de votre groupe.
+        /// </summary>
+        public static string entrezNomGroupe {
+            get {
+                return ResourceManager.GetString("entrezNomGroupe", resourceCulture);
             }
         }
         
@@ -394,11 +430,56 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sélectionner une autre image.
+        /// </summary>
+        public static string selectAutreImage {
+            get {
+                return ResourceManager.GetString("selectAutreImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sélectionner une image.
+        /// </summary>
+        public static string selectImage {
+            get {
+                return ResourceManager.GetString("selectImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Suivant.
+        /// </summary>
+        public static string suivant {
+            get {
+                return ResourceManager.GetString("suivant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Supprimer mon compte.
         /// </summary>
         public static string SuppCompte {
             get {
                 return ResourceManager.GetString("SuppCompte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Terminer.
+        /// </summary>
+        public static string terminer {
+            get {
+                return ResourceManager.GetString("terminer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Thématiques.
+        /// </summary>
+        public static string thematique {
+            get {
+                return ResourceManager.GetString("thematique", resourceCulture);
             }
         }
     }
