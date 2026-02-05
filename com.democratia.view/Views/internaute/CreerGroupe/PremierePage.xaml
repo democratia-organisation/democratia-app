@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="com.democratia.Views.internaute.PremierePage"
+             x:Class="com.democratia.Views.internaute.CreerGroupe.PremierePage"
              xmlns:Component="clr-namespace:com.democratia.Views.Component"
              xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
@@ -42,7 +42,7 @@
                         AutomationId="entryTheme"
                         Keyboard="Plain"
                         AutomationProperties.Name="entryTheme"
-                        x:Name="entryTheme"
+                        x:Name="entryTheme" 
                         Text="{Binding Thematique}"
                         ReturnCommand="{Binding PrendreThematiqueCommand}"
                     />  
@@ -52,6 +52,9 @@
                     Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.suivant}"
                     Command="{Binding NavigateTappedCommand}"
+                    CommandParameter="DeuxiemePage"
+                    x:Name="nextFirstPageButton"
+                    
                 />
             </VerticalStackLayout>
         </VerticalStackLayout>

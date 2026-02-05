@@ -2,6 +2,7 @@
 using com.democratia.Views.Component;
 using com.democratia.ViewModels.internaute;
 using Microsoft.Maui.Controls.Shapes;
+using com.democratia.Views.internaute.CreerGroupe;
 
 namespace com.democratia.Views.internaute
 {

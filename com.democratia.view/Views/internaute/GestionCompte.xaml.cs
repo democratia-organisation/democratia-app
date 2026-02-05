@@ -22,7 +22,7 @@ public partial class GestionCompte : ContentPage
         if (args.PropertyName == nameof(viewModel.RetourMessage) && !string.IsNullOrEmpty(viewModel?.RetourMessage))
         {
             stackLayout.Children.Clear();
-            if (viewModel.RetourMessage == "Modif")
+            if (viewModel.RetourMessage == "Modif") // TODO : faire une deuxième page pour la modification avec le viewModel associé
             {
                 string[] nombreElements = [$"{service.GetString("Nom")}", $"{service.GetString("prenom")}", $"{service.GetString("adress")}", $"{service.GetString("mail")}", $"{service.GetString("Mdp")}"];
                 string[] binables = [nameof(viewModel.Nom_internaute), nameof(viewModel.Prenom_internaute), nameof(viewModel.Adresse_postal), nameof(viewModel.Courriel), nameof(viewModel.HashageMdp)];

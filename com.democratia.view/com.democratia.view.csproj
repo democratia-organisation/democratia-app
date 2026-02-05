@@ -82,6 +82,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\internaute\CreerGroupe\DeuxiemePage.xaml.cs">
+      <DependentUpon>DeuxiemePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\internaute\CreerGroupe\PremierePage.xaml.cs">
       <DependentUpon>PremierePage.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <MauiXaml Update="Views\internaute\CreerGroupe\DeuxiemePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\internaute\CreerGroupe\PremierePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

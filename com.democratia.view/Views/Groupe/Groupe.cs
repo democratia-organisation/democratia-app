@@ -1,4 +1,4 @@
-namespace com.democratia.Views.internaute;
+namespace com.democratia.Views.Groupe;
 
 public class Groupe : ContentPage
 {

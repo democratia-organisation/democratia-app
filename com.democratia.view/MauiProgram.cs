@@ -4,6 +4,7 @@ using com.democratia.Views.internaute;
 using com.democratia.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using com.democratia.Views.internaute.CreerGroupe;
 
 namespace com.democratia
 {
@@ -22,10 +23,7 @@ namespace com.democratia
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
             builder.Services.AddServices();
-            builder.Services.AddTransient<Creation>();
-            builder.Services.AddTransient<MainPage>();
-            builder.Services.AddTransient<Home>();
-            builder.Services.AddTransient<GestionCompte>();
+            builder.Services.AddPages();
             builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
             builder.SetUrl();
 
@@ -36,6 +34,20 @@ namespace com.democratia
 
             return builder.Build();
 
+        }
+        extension(IServiceCollection builder)
+        {
+            public IServiceCollection AddPages()
+            {
+                builder.AddTransient<Creation>();
+                builder.AddTransient<MainPage>();
+                builder.AddTransient<Home>();
+                builder.AddTransient<GestionCompte>();
+                builder.AddTransient<PremierePage>();
+                builder.AddTransient<DeuxiemePage>();
+
+                return builder;
+            }
         }
     }
 }

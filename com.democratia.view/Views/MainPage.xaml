@@ -11,8 +11,7 @@
              x:DataType="viewModels:MainPageViewModel"
              AutomationId="ConnexionPage"
              Style="{DynamicResource fondEcran}">
-    <!--TODO : 
-    refléchir à comment faire pour afficher un texte après une création avec succès d'un compte depuis l'écran viewModel-->
+    <!--TODO :  refléchir à comment faire pour afficher un texte après une création avec succès d'un compte depuis l'écran viewModel-->
 
     <ContentPage.Resources>
         <ResourceDictionary>

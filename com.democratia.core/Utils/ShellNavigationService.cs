@@ -1,6 +1,6 @@
 using Microsoft.Maui.Controls;
 
-namespace com.democratia.ViewModels;
+namespace com.democratia.Utils;
 
 public class ShellNavigationService : INavigationService
 {

@@ -1,15 +1,15 @@
 using com.democratia.Services;
 using com.democratia.test.Services;
 using com.democratia.ViewModels.internaute;
-using com.democratia.ViewModels;
+using com.democratia.Utils;
 
 namespace com.democratia.test;
 
-public static class TestServiceCollection
+public static class TestServiceCollection // TODO : améliorer les tests afin de prendre en compte le changement de langue possibe
 {
     public static IServiceProvider CreateTestServiceProviderForMainViewModel()
     {
-        var services = new ServiceCollection();
+        var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
 
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IClient, InternauteClient>();
@@ -20,7 +20,7 @@ public static class TestServiceCollection
 
     public static IServiceProvider CreateTestServiceProviderForCreationViewModel()
     {
-        var services = new ServiceCollection();
+        var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
 
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IClient, InternauteClient>();
@@ -31,7 +31,7 @@ public static class TestServiceCollection
 
     public static IServiceProvider CreateFakeServiceProviderForMainViewModel(string? fakeResponse)
     {
-        var services = new ServiceCollection();
+        var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
 
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IClient>(sp => new FakeClient(fakeResponse));
@@ -42,7 +42,7 @@ public static class TestServiceCollection
 
     public static IServiceProvider CreateTestServiceProviderForClients()
     {
-        var services = new ServiceCollection();
+        var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
 
         // TODO : ajouter d'autres clients si nécessaire
         services.AddSingleton<IClient, InternauteClient>();

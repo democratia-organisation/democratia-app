@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Text.Json;
 using Crypt = BCrypt.Net.BCrypt;
+using com.democratia.core.Utils;
 
 namespace com.democratia.ViewModels.internaute
 {
@@ -57,7 +58,6 @@ namespace com.democratia.ViewModels.internaute
 #elif !DEBUG
                 ErrorMessage = localizationService?.GetString("erreurInattendu");    
 #endif
-
             }
         }
 

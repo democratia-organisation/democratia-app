@@ -122,8 +122,8 @@
     </Style>
 
     <Style x:Key="EntryStyle" TargetType="Entry">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onTertiary}, Dark={DynamicResource Dark-onTertiary}}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-tertiary}, Dark={DynamicResource Dark-tertiary}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onTertiaryContainer}, Dark={DynamicResource Dark-onTertiaryContainer}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-tertiaryContainer}, Dark={DynamicResource Dark-tertiaryContainer}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
