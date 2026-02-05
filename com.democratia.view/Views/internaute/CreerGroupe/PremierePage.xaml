@@ -43,6 +43,8 @@
                         Keyboard="Plain"
                         AutomationProperties.Name="entryTheme"
                         x:Name="entryTheme"
+                        Text="{Binding Thematique}"
+                        ReturnCommand="{Binding PrendreThematiqueCommand}"
                     />  
                 </Border>
                 <BoxView HeightRequest="30"/>

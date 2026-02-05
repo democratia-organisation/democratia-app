@@ -6,21 +6,21 @@ namespace com.democratia.Models
     public class Groupe : IModel
     {
         [JsonPropertyName("id_groupe")]
-        public int? IdGroupe { get; private set; }
+        public int? IdGroupe { get; set; }
         [JsonPropertyName("nom_groupe")]
-        public string? NomGroupe { get; private set; }
+        public string? NomGroupe { get; set; }
         [JsonPropertyName("couleur_groupe")]
-        public string? CouleurGroupe { get; private set; }
+        public string? CouleurGroupe { get; set; }
         [JsonPropertyName("image")]
-        public string? Image { get; private set; }
+        public string? Image { get; set; }
         [JsonPropertyName("budget")]
-        public float? Budget { get; private set; }
+        public float? Budget { get; set; }
         [JsonPropertyName("nbj_dft_vote")]
-        public int? NombreDeJourVote { get; private set; }
+        public int? NombreDeJourVote { get; set; }
         [JsonPropertyName("nbj_dft_discuss")]
-        public int? NombreDeJourDiscuss { get; private set; }
+        public int? NombreDeJourDiscuss { get; set; }
         [JsonPropertyName("nb_signalement")]
-        public int? NombreSignalement { get; private set; }
+        public int? NombreSignalement { get; set; }
         [JsonConstructor]
         public Groupe(int? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement)
         {
@@ -33,5 +33,6 @@ namespace com.democratia.Models
             this.NombreDeJourDiscuss = nombreDeJourDiscuss;
             this.NombreSignalement = nombreSignalement;
         }
+        public Groupe() : this(null,null,null,null,null,null,null,null) { }
     }
 }
