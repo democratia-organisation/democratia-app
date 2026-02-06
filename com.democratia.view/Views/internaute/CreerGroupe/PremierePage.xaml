@@ -23,6 +23,7 @@
             <BoxView HeightRequest="50"/>
             <Component:EntryComponent Title="{x:Static lang:AppResources.entrezNomGroupe}" ValeurDonne="{Binding NomGroupe}" x:Name="nomGroupeEntry" />
 
+            <!--theme refait à la main pour avoir metttre un relai comande lors de la touche entrée-->
             <Label
                 Text="{x:Static lang:AppResources.thematique}"
                 Style="{DynamicResource SubHeadlineStyle}"
@@ -31,11 +32,9 @@
                 AutomationProperties.Name="labelThem"
                 />
             <BoxView HeightRequest="30"/>
-            <!--theme refait à la main pour avoir metttre un relai comande lors de la touche entrée-->
-
             <Border Style="{DynamicResource BorderStyle}"
                     StrokeShape="RoundRectangle 600,600,600,600">
-                 <Entry
+                 <Entry 
                     Style="{DynamicResource EntryStyle}"
                     HeightRequest="40"
                     WidthRequest="300"
@@ -46,6 +45,7 @@
                     Text="{Binding Thematique}"
                     ReturnCommand="{Binding PrendreThematiqueCommand}"
                 />
+                <!--TODO : remplacer entry par un searchBar afin d'inclure la liste de thématiqu déjà existant dans la base de donnée-->
             </Border>
             <BoxView HeightRequest="30"/>
             <Button

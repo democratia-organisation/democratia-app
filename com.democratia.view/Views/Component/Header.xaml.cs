@@ -11,36 +11,24 @@ public partial class Header : ContentView
 
     private async void OnClicked(object sender, EventArgs e)
     {
-        if (sender is ImageButton button)
+        var button = (ImageButton)sender;
+        if (button == switchImageButton)
         {
-            if (button == switchImageButton)
+            if (Application.Current?.RequestedTheme == AppTheme.Dark)
             {
-                if (Application.Current?.RequestedTheme == AppTheme.Dark)
-                {
-                    Application.Current.UserAppTheme = AppTheme.Light;
-                    button.Source = "light.png";
-                }
-                else if (Application.Current?.RequestedTheme == AppTheme.Light)
-                {
-                    Application.Current.UserAppTheme = AppTheme.Dark;
-                    button.Source = "dark.png";
-                }
+                Application.Current.UserAppTheme = AppTheme.Light;
+                button.Source = "light.png";
             }
-            else if (button == backButton)
+            else if (Application.Current?.RequestedTheme == AppTheme.Light)
             {
-                await AppShell.Current.GoToAsync("..");
+                Application.Current.UserAppTheme = AppTheme.Dark;
+                button.Source = "dark.png";
             }
-            else
-            {
-                await AppShell.Current.GoToAsync("//Home"); // TODO l'autoriser à y aller que s'il est connecté
-            }
-
         }
-        else if (sender is Picker picker)
-        {
-            // changer la langue
-
-        }
+        else if (button == backButton) await AppShell.Current.GoToAsync("..");
+        
+        else await AppShell.Current.GoToAsync("Home"); // TODO l'autoriser à y aller que s'il est connecté
+        
     }
 
     private void SetTheme() =>

@@ -1,20 +1,23 @@
 ﻿using com.democratia.Models;
-using com.democratia.Services;
 using com.democratia.Utils;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 using System.ComponentModel;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
-    public partial class DeuxiemPageViewModel : ConnectableViewModel, INavigeablleViewModel, IQueryAttributable, INotifyPropertyChanged
+    public partial class DeuxiemPageViewModel : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel, IQueryAttributable
     {
         private INavigationService service;
         private Groupe? groupe;
+        [ObservableProperty] public Color? color;
         private List<string>? thematiques { get; set; }
-        public DeuxiemPageViewModel(IEnumerable<IClient?>? clients, ILocalizationService? localizationService, INavigationService service) : base(clients?.FirstOrDefault(), localizationService)
+        public DeuxiemPageViewModel(INavigationService service)
         {
             this.service = service;
-            client ??= clients?.OfType<FakeClient>().FirstOrDefault();
+            color = Colors.Transparent;
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -23,9 +26,15 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             thematiques = (List<string>)query["thematique"];
         }
 
-        public Task NavigateTapped(string commande)
+        [RelayCommand]
+        public async Task NavigateTapped(string commande)
         {
-            throw new NotImplementedException();
+            groupe?.CouleurGroupe = Color?.ToHex();
+            await service.GoToAsync(commande, new ()
+                {
+                    { "groupe", groupe! },
+                    { "thematique", thematiques! }
+                });
         }
     }
 }

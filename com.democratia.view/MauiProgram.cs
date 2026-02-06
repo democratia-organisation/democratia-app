@@ -1,10 +1,11 @@
-﻿using com.democratia.Utils;
-using com.democratia.Resources.Localization;
-using com.democratia.Views.internaute;
+﻿using com.democratia.Resources.Localization;
+using com.democratia.Utils;
 using com.democratia.Views;
+using com.democratia.Views.internaute;
+using com.democratia.Views.internaute.CreerGroupe;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using com.democratia.Views.internaute.CreerGroupe;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace com.democratia
 {
@@ -16,6 +17,7 @@ namespace com.democratia
 
             builder
                 .UseMauiApp<App>()
+                .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
@@ -45,6 +47,7 @@ namespace com.democratia
                 builder.AddTransient<GestionCompte>();
                 builder.AddTransient<PremierePage>();
                 builder.AddTransient<DeuxiemePage>();
+                builder.AddTransient<TroisiemePage>();
 
                 return builder;
             }

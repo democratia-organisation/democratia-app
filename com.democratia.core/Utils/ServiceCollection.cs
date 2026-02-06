@@ -10,10 +10,6 @@ using com.democratia.ViewModels.internaute.CreerGroupe;
 
 namespace com.democratia.Utils
 {
-    /// <summary>
-    /// Méthode pour ajouter les services nécessaires à l'application.
-    /// </summary>
-    /// <param name="services">La collection de services.</param>
     public static class ServiceCollection
     {
         private static MauiAppBuilder? maui;
@@ -21,6 +17,10 @@ namespace com.democratia.Utils
 
         extension(IServiceCollection services)
         {
+            /// <summary>
+            /// Méthode pour ajouter les services nécessaires à l'application.
+            /// </summary>
+            /// <returns>Retourne la collection de services après l'ajout des services.</returns>
             public IServiceCollection AddServices()
             {
                 services.AddViewModels();
@@ -48,6 +48,7 @@ namespace com.democratia.Utils
                 services.AddTransient<GestionCompteViewModel>();
                 services.AddTransient<PremierePageViewModel>();
                 services.AddTransient<DeuxiemPageViewModel>();
+                services.AddTransient<TroisiemePageViewModel>();
 
                 return services;
             }
@@ -107,7 +108,7 @@ namespace com.democratia.Utils
                 else
                     url = new(maui!.GetAppSetting("API_URL"));
 #elif !DEBUG
-                    url = new(maui!.GetAppSetting("API_URL"));
+                url = new(maui!.GetAppSetting("API_URL"));
 #endif
                 return url;
             }

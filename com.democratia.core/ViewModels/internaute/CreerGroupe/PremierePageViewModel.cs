@@ -3,6 +3,7 @@ using com.democratia.Services;
 using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Graphics;
 using System.Text.Json;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
