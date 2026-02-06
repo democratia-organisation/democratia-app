@@ -36,7 +36,7 @@
 
                 <Label
                     x:Name="seConnecterLabel"
-                    Style="{DynamicResource LabelStyle}"
+                    Style="{DynamicResource HeadlineStyle}"
                     Text="{x:Static lang:AppResources.Identifiant}"
                     HorizontalOptions="Center"
                     AutomationId="Se connecter Label"
@@ -73,7 +73,8 @@
                     />
 
                     <Label Text="{x:Static lang:AppResources.NewCompte}"
-                        TextColor="Blue"
+                        TextColor="{AppThemeBinding Light={DynamicResource Light-tertiary}, Dark={DynamicResource Dark-tertiary}}"
+                        Style="{DynamicResource LabelStyle}"
                         x:Name="pageSuivanteLabel"
                         HorizontalOptions="Center"
                         TextDecorations="Underline"

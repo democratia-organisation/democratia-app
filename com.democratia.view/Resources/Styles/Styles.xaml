@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Style x:Key="ActivityIndicatorStyle" TargetType="ActivityIndicator">
-        <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-surface}, Dark={DynamicResource Dark-surface}}"/>
+        <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-surface}}"/>
+        <Setter Property="Background" Value="{AppThemeBinding Light={DynamicResource Light-primaryContainer}, Dark={DynamicResource Dark-primaryContainer}}"/>
     </Style>
     <Style x:Key="fondEcran" TargetType="ContentPage">
         <Setter Property="Background" Value="{AppThemeBinding Light={DynamicResource Light-background}, Dark={DynamicResource Dark-background}}"/>
@@ -61,7 +62,7 @@
     </Style>
 
     <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
-        <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" />
+        <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -70,7 +71,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Gray300}, Dark={DynamicResource Gray600}}" />
+                            <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-primaryContainer}, Dark={DynamicResource Dark-primaryContainer}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -79,7 +80,7 @@
     </Style>
 
     <Style x:Key="DatePickerStyle" TargetType="DatePicker">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray900}, Dark={DynamicResource White}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-primaryContainer}, Dark={DynamicResource Dark-primaryContainer}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
@@ -100,7 +101,7 @@
     </Style>
 
     <Style x:Key="EditorStyle" TargetType="Editor">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Black}, Dark={DynamicResource White}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-surfaceVariant}, Dark={DynamicResource Dark-surfaceVariant}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
@@ -122,8 +123,8 @@
     </Style>
 
     <Style x:Key="EntryStyle" TargetType="Entry">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onTertiaryContainer}, Dark={DynamicResource Dark-onTertiaryContainer}}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-tertiaryContainer}, Dark={DynamicResource Dark-tertiaryContainer}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onSurfaceVariant}, Dark={DynamicResource Dark-onSurfaceVariant}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-surfaceVariant}, Dark={DynamicResource Dark-surfaceVariant}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -231,9 +232,9 @@
     </Style>
 
     <Style x:Key="PickerStyle" TargetType="Picker">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onTertiary}, Dark={DynamicResource Dark-onTertiary}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
         <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-onTertiaryContainer}, Dark={DynamicResource Dark-onTertiary}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -255,6 +256,7 @@
 
     <Style x:Key="ProgressBarStyle" TargetType="ProgressBar">
         <Setter Property="ProgressColor" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-primaryContainer}, Dark={DynamicResource Dark-primaryContainer}}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -270,8 +272,8 @@
     </Style>
 
     <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}"/>
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}"/>
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onPrimary}, Dark={DynamicResource Dark-onPrimary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -291,14 +293,14 @@
     </Style>
 
     <Style x:Key="RefreshViewStyle" TargetType="RefreshView">
-        <Setter Property="RefreshColor" Value="{AppThemeBinding Light={DynamicResource Gray900}, Dark={DynamicResource Gray200}}" />
+        <Setter Property="RefreshColor" Value="{AppThemeBinding Light={DynamicResource Light-surfaceBright}, Dark={DynamicResource Dark-surfaceBright}}" />
     </Style>
 
     <Style x:Key="SearchBarStyle" TargetType="SearchBar">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray900}, Dark={DynamicResource White}}" />
-        <Setter Property="PlaceholderColor" Value="{DynamicResource Gray500}" />
-        <Setter Property="CancelButtonColor" Value="{DynamicResource Gray500}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onSurfaceVariant}, Dark={DynamicResource Dark-onSurfaceVariant}}" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}" />
+        <Setter Property="CancelButtonColor" Value="{AppThemeBinding Light={DynamicResource Light-tertiary}, Dark={DynamicResource Dark-tertiary}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={DynamicResource Dark-surfaceVariant}, Light={DynamicResource Light-surfaceVariant}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -367,7 +369,7 @@
     </Style>
 
     <Style x:Key="SwipeItemStyle" TargetType="SwipeItem">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource White}, Dark={DynamicResource Black}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}" />
     </Style>
 
     <Style x:Key="SwitchStyle" TargetType="Switch">

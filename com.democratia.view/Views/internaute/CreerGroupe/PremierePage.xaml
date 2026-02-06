@@ -22,41 +22,41 @@
             />
             <BoxView HeightRequest="50"/>
             <Component:EntryComponent Title="{x:Static lang:AppResources.entrezNomGroupe}" ValeurDonne="{Binding NomGroupe}" x:Name="nomGroupeEntry" />
-            
-            <VerticalStackLayout>
-                <Label
-                    Text="{x:Static lang:AppResources.thematique}"
-                    Style="{DynamicResource SubHeadlineStyle}"
-                    AutomationId="labelThmes"
-                    x:Name="labelTheme"
-                    AutomationProperties.Name="labelThem"
-                    />
-                <BoxView HeightRequest="30"/>
-                <!--theme refait à la main pour avoir une boite plus grosse-->
-                <Border Style="{DynamicResource BorderStyle}"
-                        StrokeShape="RoundRectangle 600,600,600,600">
-                    <Entry
-                        Style="{DynamicResource EntryStyle}"
-                        HeightRequest="200"
-                        WidthRequest="1250"
-                        AutomationId="entryTheme"
-                        Keyboard="Plain"
-                        AutomationProperties.Name="entryTheme"
-                        x:Name="entryTheme" 
-                        Text="{Binding Thematique}"
-                        ReturnCommand="{Binding PrendreThematiqueCommand}"
-                    />  
-                </Border>
-                <BoxView HeightRequest="30"/>
-                <Button
-                    Style="{DynamicResource ButtonStyle}"
-                    Text="{x:Static lang:AppResources.suivant}"
-                    Command="{Binding NavigateTappedCommand}"
-                    CommandParameter="DeuxiemePage"
-                    x:Name="nextFirstPageButton"
-                    
+
+            <Label
+                Text="{x:Static lang:AppResources.thematique}"
+                Style="{DynamicResource SubHeadlineStyle}"
+                AutomationId="labelThmes"
+                x:Name="labelTheme"
+                AutomationProperties.Name="labelThem"
                 />
-            </VerticalStackLayout>
+            <BoxView HeightRequest="30"/>
+            <!--theme refait à la main pour avoir metttre un relai comande lors de la touche entrée-->
+
+            <Border Style="{DynamicResource BorderStyle}"
+                    StrokeShape="RoundRectangle 600,600,600,600">
+                 <Entry
+                    Style="{DynamicResource EntryStyle}"
+                    HeightRequest="40"
+                    WidthRequest="300"
+                    AutomationId="entryTheme"
+                    Keyboard="Plain"
+                    AutomationProperties.Name="entryTheme"
+                    x:Name="entryTheme" 
+                    Text="{Binding Thematique}"
+                    ReturnCommand="{Binding PrendreThematiqueCommand}"
+                />
+            </Border>
+            <BoxView HeightRequest="30"/>
+            <Button
+                Style="{DynamicResource ButtonStyle}"
+                Text="{x:Static lang:AppResources.suivant}"
+                Command="{Binding NavigateTappedCommand}"
+                CommandParameter="DeuxiemePage"
+                x:Name="nextFirstPageButton"
+            />
+            <!--TODO : mettre un BinableLayout afin d'ajouter des labels pour chaque nouveau thème entré-->
+            
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
