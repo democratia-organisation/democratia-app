@@ -6,6 +6,7 @@ using com.democratia.Views.internaute.CreerGroupe;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using System.Diagnostics;
 
 namespace com.democratia
 {
@@ -34,7 +35,28 @@ namespace com.democratia
             builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
 
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+            {
+                LogErreur(e.ExceptionObject as Exception, "AppDomain.UnhandledException");
+            };
+            
+
+            
+            TaskScheduler.UnobservedTaskException += (sender, e) 
+                => LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");;
+
             return builder.Build();
+
+        }
+        private static async void LogErreur(Exception ex, string source)
+        {
+            var message = $"Source: {source} | Erreur: {ex?.Message}";
+
+            Debug.WriteLine($"[GLOBAL ERROR] {message}");
+            if (ex?.StackTrace != null)
+                Debug.WriteLine(ex.StackTrace);
+
+            // TODO : loger l'erreur puis l'envoyer au serveur pour analyse
 
         }
         extension(IServiceCollection builder)
