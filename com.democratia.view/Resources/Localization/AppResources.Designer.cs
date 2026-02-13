@@ -430,6 +430,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Selectionner.
+        /// </summary>
+        public static string select {
+            get {
+                return ResourceManager.GetString("select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Sélectionner une autre image.
         /// </summary>
         public static string selectAutreImage {

@@ -258,4 +258,7 @@
   <data name="terminer" xml:space="preserve">
     <value>End</value>
   </data>
+  <data name="select" xml:space="preserve">
+    <value>Select</value>
+  </data>
 </root>

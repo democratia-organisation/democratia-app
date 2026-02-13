@@ -8,6 +8,7 @@ namespace com.democratia.Services
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();
+            // TODO : fonction ayant parametre un stream et un groupe, faire la requete pour la bd, et la requete pour l'image
         }
 
         public Task<string> DeleteModelAsync(params object?[]? parameters)
