@@ -12,15 +12,17 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
     {
         [ObservableProperty] public string? nomGroupe;
         [ObservableProperty] public string? thematique;
+        [ObservableProperty] public string? erreurMessage;
         private Groupe groupe { get; set; } = new();
         private List<string> thematiquesExistante { get; set; } = new(); // permet l'auto-complétion des thématiques déjà existantes
         private List<string> thematiquesRetenues {  get; set; } = new();
-        // TODO : ajouter un attribut pour un retour message d'erreur si le nom du groupe est vide ou si aucune thématique n'est donnée
         private INavigationService navigationService;
+        private ILocalizationService? localizationService;
         public PremierePageViewModel(INavigationService navigation, IEnumerable<IClient?>? clients, ILocalizationService? localizationService)
             : base(clients!.OfType<ThematiqueClient>().FirstOrDefault(), localizationService)
         {
             navigationService = navigation;
+            this.localizationService = localizationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
             RemplirThematique();
         }
@@ -29,8 +31,21 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            groupe.NomGroupe = NomGroupe; // TODO : vérifier si le champ n'est pas vide
-            await navigationService.GoToAsync(commande, new(){ {"groupe", groupe }, { "thematique", thematiquesRetenues } });
+            if (string.IsNullOrEmpty(NomGroupe))
+            {
+                ErreurMessage = localizationService?.GetString("nomGroupeRequis");
+                return;
+            }
+            else if (thematiquesRetenues.Count == 0)
+            {
+                ErreurMessage = localizationService?.GetString("thematiqueRequise");
+                return;
+            }
+            else
+            {
+                groupe.NomGroupe = NomGroupe;
+                await navigationService.GoToAsync(commande, new() { { "groupe", groupe }, { "thematique", thematiquesRetenues } });
+            }
         }
 
         [RelayCommand]
@@ -38,9 +53,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         {
             thematiquesRetenues.Add(Thematique!);
             Thematique= string.Empty;
-
         }
-        
 
         private async void RemplirThematique()
         {

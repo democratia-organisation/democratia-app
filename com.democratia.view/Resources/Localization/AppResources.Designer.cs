@@ -223,6 +223,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur lors de la capture de la photo.
+        /// </summary>
+        public static string erreurPhoto {
+            get {
+                return ResourceManager.GetString("erreurPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Veuillez saisir votre adresse mail.
         /// </summary>
         public static string errorMailMessage {
@@ -394,6 +403,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le nom du groupe est requis.
+        /// </summary>
+        public static string nomGroupeRequis {
+            get {
+                return ResourceManager.GetString("nomGroupeRequis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pas d&apos;utilisateur trouvé.
         /// </summary>
         public static string noUser {
@@ -507,6 +525,24 @@ namespace com.democratia.view.Resources.Localization {
         public static string thematique {
             get {
                 return ResourceManager.GetString("thematique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Appuyer sur entrée pour ajouter la thématique.
+        /// </summary>
+        public static string thematiqueInfo {
+            get {
+                return ResourceManager.GetString("thematiqueInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Au moins une thématique est requise.
+        /// </summary>
+        public static string thematiqueRequise {
+            get {
+                return ResourceManager.GetString("thematiqueRequise", resourceCulture);
             }
         }
     }

@@ -267,4 +267,16 @@
   <data name="photo" xml:space="preserve">
     <value>photo</value>
   </data>
+  <data name="erreurPhoto" xml:space="preserve">
+    <value>Erreur lors de la capture de la photo</value>
+  </data>
+  <data name="nomGroupeRequis" xml:space="preserve">
+    <value>Le nom du groupe est requis</value>
+  </data>
+  <data name="thematiqueRequise" xml:space="preserve">
+    <value>Au moins une thématique est requise</value>
+  </data>
+  <data name="thematiqueInfo" xml:space="preserve">
+    <value>Appuyer sur entrée pour ajouter la thématique</value>
+  </data>
 </root>

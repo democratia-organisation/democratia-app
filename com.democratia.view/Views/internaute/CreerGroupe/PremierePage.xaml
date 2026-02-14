@@ -21,6 +21,13 @@
                 AutomationProperties.Name="labelCreaGroupe"
             />
             <BoxView HeightRequest="50"/>
+            <Label
+                Text="{Binding ErreurMessage}"
+                Style="{DynamicResource ErrorLabelStyle}"
+                AutomationId="labelErreur"
+                x:Name="labelErreur"
+                AutomationProperties.Name="labelErreur"/>
+            <BoxView HeightRequest="50"/>
             <Component:EntryComponent Title="{x:Static lang:AppResources.entrezNomGroupe}" ValeurDonne="{Binding NomGroupe}" x:Name="nomGroupeEntry" />
 
             <!--theme refait à la main pour avoir metttre un relai comande lors de la touche entrée-->
@@ -30,6 +37,14 @@
                 AutomationId="labelThmes"
                 x:Name="labelTheme"
                 AutomationProperties.Name="labelThem"
+                />
+            <BoxView HeightRequest="15"/>
+            <Label
+                Text="{x:Static lang:AppResources.thematiqueInfo}"
+                Style="{DynamicResource LabelStyle}"
+                AutomationId="labelThematiqueInfo"
+                x:Name="labelThematiqueInfo"
+                AutomationProperties.Name="labelThematiqueInfo"
                 />
             <BoxView HeightRequest="30"/>
             <Border Style="{DynamicResource BorderStyle}"

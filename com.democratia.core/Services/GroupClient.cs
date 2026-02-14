@@ -8,7 +8,6 @@ namespace com.democratia.Services
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();
-            // TODO : fonction ayant parametre un stream et un groupe, faire la requete pour la bd, et la requete pour l'image
         }
 
         public Task<string> DeleteModelAsync(params object?[]? parameters)
@@ -64,17 +63,16 @@ namespace com.democratia.Services
 
             else
             {
-                // 1. On lit tout sous forme de tableau d'octets (byte[])
                 byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
-
-                if (imageBytes == null || imageBytes.Length == 0)
-                    return null;
-
-                // 2. On retourne l'ImageSource
-                // Chaque fois que MAUI en a besoin, il recrée un stream à partir du tableau en mémoire
+                if (imageBytes.Length == 0) return null;
                 return ImageSource.FromStream(() => new MemoryStream(imageBytes));
             }
 
+        }
+
+        internal async Task UploadImage(int? id, ImageSource imageSource)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -28,11 +28,13 @@
                 Command="{Binding ChoisirImageCommand}"
             />
             <BoxView HeightRequest="30"/>
-            <Image
-                Source="{Binding Image}"
-                MaximumHeightRequest="400"
-                MaximumWidthRequest="400"
-                />
+            <Label
+                Text="{Binding ErrorMessage}"
+                Style="{DynamicResource ErrorLabelStyle}"
+                x:Name="labelErreur"
+                AutomationId="labelErreur"
+                AutomationProperties.Name="labelErreur"/>
+            <BoxView HeightRequest="30"/>
             <HorizontalStackLayout
                 IsVisible="{Binding IsObservable}"
                 BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainerLowest}, Light={DynamicResource Light-surfaceContainerLowest}}"
@@ -59,6 +61,8 @@
                     <ImageButton
                         Source="photo.png"
                         Style="{DynamicResource ImageButtonStyle}"
+                        HeightRequest="50"
+                        WidthRequest="50"
                         AutomationId="buttonSelectImageFromPhoto"
                         x:Name="buttonSelectImageFromPhoto"
                         AutomationProperties.Name="buttonSelectImageFromPhoto"
@@ -71,8 +75,18 @@
                         AutomationId="labelphoto"
                         AutomationProperties.Name="labelphoto"/>
                 </VerticalStackLayout>
-
             </HorizontalStackLayout>
+            <Image
+                Source="{Binding Image}"
+            />
+            <Button
+                Text="{x:Static lang:AppResources.terminer}"
+                Style="{DynamicResource ButtonStyle}"
+                AutomationId="buttonNext"
+                x:Name="buttonNext"
+                AutomationProperties.Name="buttonNext"
+                Command="{Binding NavigateTappedCommand}"
+                IsVisible="{Binding IsFinish}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

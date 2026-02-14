@@ -15,13 +15,17 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
 
         private INavigationService service;
         private Groupe? groupe;
+        private ILocalizationService? localizationService;
         [ObservableProperty] private ImageSource? _image;
         [ObservableProperty] private bool? _isObservable = false;
+        [ObservableProperty] private string? _errorMessage;
+        [ObservableProperty] private bool _isFinish = false;
         private List<string>? thematiques { get; set; }
         public TroisiemePageViewModel(IEnumerable<IClient?>? clients, ILocalizationService? localizationService, INavigationService service) 
             : base(clients?.FirstOrDefault(), localizationService)
         {
             this.service = service;
+            this.localizationService = localizationService;
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -31,10 +35,10 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         }
 
         [RelayCommand]
-        public Task NavigateTapped(string commande)
+        public async Task NavigateTapped(string commande)
         {
-            throw new NotImplementedException();
-            // TODO : faire la requete Create avec comme paramètre le groupe ainsi que l'image récupéré via stream
+            await client!.CreateModelAsync(groupe!, thematiques!, Image);
+            await ((GroupClient)client).UploadImage(groupe!.IdGroupe, Image!);
         }
 
         [RelayCommand]
@@ -46,40 +50,39 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 FileResult? photo = await MediaPicker.Default.CapturePhotoAsync();
-
-                if (photo != null)
-                {
-                    using (Stream sourceStream = await photo.OpenReadAsync())
-                    {
-                        var memoryStream = new MemoryStream();
-                        await sourceStream.CopyToAsync(memoryStream);
-                        memoryStream.Position = 0;
-                        Image = ImageSource.FromStream(() => memoryStream);
-                    }
-                }
+                AfiichageImage(photo!);
             }
             IsObservable = false;
+            IsFinish = true;
         }
 
         [RelayCommand]
         private async Task ChoisirGalerie()
         {
-            var result = await MediaPicker.Default.PickPhotosAsync(new MediaPickerOptions
+            var result = await MediaPicker.Default.PickPhotosAsync();
+            AfiichageImage(result.FirstOrDefault()!);
+            IsObservable = false;
+            IsFinish = true;
+        }
+
+        private async void AfiichageImage(FileResult photo)
+        {
+            try // bloque try catch au cas où l'utilisateur annule la sélection de la photo
             {
-                MaximumHeight = 500,
-                MaximumWidth = 500,
-                CompressionQuality = 85
-            });
-            using(Stream sourceStream = await result[0].OpenReadAsync())
-            {
+                using Stream sourceStream = await photo.OpenReadAsync();
                 var memoryStream = new MemoryStream();
                 await sourceStream.CopyToAsync(memoryStream);
                 memoryStream.Position = 0;
                 Image = ImageSource.FromStream(() => memoryStream);
-
             }
-            
-            IsObservable = false;
+            catch (Exception ex)
+            {
+#if DEBUG
+                ErrorMessage = ex.Message;
+#elif !DEBUG
+                ErrorMessage = localizationService?.GetString("erreurPhoto");
+#endif
+            }
         }
     }
 }

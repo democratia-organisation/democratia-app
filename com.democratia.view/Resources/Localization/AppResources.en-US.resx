@@ -267,4 +267,16 @@
   <data name="photo" xml:space="preserve">
     <value>photo</value>
   </data>
+  <data name="erreurPhoto" xml:space="preserve">
+    <value>Error while taking the photo</value>
+  </data>
+  <data name="nomGroupeRequis" xml:space="preserve">
+    <value>Name Group is requiered</value>
+  </data>
+  <data name="thematiqueRequise" xml:space="preserve">
+    <value>SS</value>
+  </data>
+  <data name="thematiqueInfo" xml:space="preserve">
+    <value>Press enter to add the theme</value>
+  </data>
 </root>
