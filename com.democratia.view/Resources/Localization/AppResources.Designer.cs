@@ -259,6 +259,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Galerie.
+        /// </summary>
+        public static string galerie {
+            get {
+                return ResourceManager.GetString("galerie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Mes groupes.
         /// </summary>
         public static string groupe {
@@ -399,6 +408,15 @@ namespace com.democratia.view.Resources.Localization {
         public static string pasCompte {
             get {
                 return ResourceManager.GetString("pasCompte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à photo.
+        /// </summary>
+        public static string photo {
+            get {
+                return ResourceManager.GetString("photo", resourceCulture);
             }
         }
         

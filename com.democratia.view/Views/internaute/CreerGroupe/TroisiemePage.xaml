@@ -25,12 +25,54 @@
                 AutomationId="buttonSelectImage"
                 x:Name="buttonSelectImage"
                 AutomationProperties.Name="buttonSelectImage"
-                Command="{Binding PrendreImageCommand}"
+                Command="{Binding ChoisirImageCommand}"
             />
             <BoxView HeightRequest="30"/>
             <Image
                 Source="{Binding Image}"
+                MaximumHeightRequest="400"
+                MaximumWidthRequest="400"
                 />
+            <HorizontalStackLayout
+                IsVisible="{Binding IsObservable}"
+                BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainerLowest}, Light={DynamicResource Light-surfaceContainerLowest}}"
+                VerticalOptions="End">
+                <VerticalStackLayout>
+                    <ImageButton
+                        Source="galerie.png"
+                        Style="{DynamicResource ImageButtonStyle}"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        AutomationId="buttonSelectImageFromGallery"
+                        x:Name="buttonSelectImageFromGallery"
+                        AutomationProperties.Name="buttonSelectImageFromGallery"
+                        Command="{Binding ChoisirGalerieCommand}"
+                    />
+                    <Label
+                        Text="{x:Static lang:AppResources.galerie}"
+                        Style="{DynamicResource BodyStyle}"
+                        x:Name="labelgalerie"
+                        AutomationId="labelgalerie"
+                        AutomationProperties.Name="labelgalerie"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <ImageButton
+                        Source="photo.png"
+                        Style="{DynamicResource ImageButtonStyle}"
+                        AutomationId="buttonSelectImageFromPhoto"
+                        x:Name="buttonSelectImageFromPhoto"
+                        AutomationProperties.Name="buttonSelectImageFromPhoto"
+                        Command="{Binding PrendrePhotoCommand}"
+                    />
+                    <Label
+                        Text="{x:Static lang:AppResources.photo}"
+                        Style="{DynamicResource BodyStyle}"
+                        x:Name="labelphoto"
+                        AutomationId="labelphoto"
+                        AutomationProperties.Name="labelphoto"/>
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
