@@ -1,12 +1,29 @@
 ﻿
 
+using com.democratia.Models;
+
 namespace com.democratia.Services
 {
     internal class ThematiqueClient : Client, IClient
     {
-        public Task<string> CreateModelAsync(params object?[]? parameters)
+        public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
-            throw new NotImplementedException();
+            var thematique = (Thematique)parameters![0]!;
+            var requete = $"""
+                ?request=INSERT INTO thematique (nom_thematique)
+                VALUES (?);
+                &parameters=["{thematique.nom_thematique}"]
+                """;
+            HttpResponseMessage response;
+            try
+            {
+                response = await client?.PostAsync(requete, null)!;
+            }
+            catch (Exception ex) { 
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+            return await FinRequete(response);
+
         }
 
         public Task<string> DeleteModelAsync(params object?[]? parameters)
@@ -19,7 +36,7 @@ namespace com.democratia.Services
             HttpResponseMessage response;
             try
             {
-                var content = "?request=SELECT * FROM thematique&parameters=[]";
+                var content = "?request=SELECT * FROM thematique ORDER BY id_thematique&parameters=[]";
                 DebutRequete();
                 response = await client?.GetAsync(content)!;
                 return await FinRequete(response);

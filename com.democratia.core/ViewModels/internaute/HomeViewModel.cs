@@ -6,12 +6,14 @@ using System.ComponentModel;
 using System.Text.Json;
 using System.Collections.ObjectModel;
 using com.democratia.Utils;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace com.democratia.ViewModels.internaute
 {
     public partial class HomeViewModel : ConnectableViewModel , IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel
     {
         private Internaute? internaute;
+        [ObservableProperty] private ImageSource? _image;
         private readonly INavigationService? navigationService;
         private readonly ILocalizationService? localizationService;
         private readonly TaskCompletionSource<bool> _internautePret = new(false);
@@ -47,25 +49,15 @@ namespace com.democratia.ViewModels.internaute
 
         }
 
-        public async Task<ImageSource?> GetImageAsync(string url) => await ((GroupClient?)client)!.GetImageAsync(url);
-        
-
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            ShellNavigationQueryParameters? parameters = commande == "/Home/GestionCompte" ? new ShellNavigationQueryParameters
+            ShellNavigationQueryParameters? parameters = commande == "/Home/GestionCompte" || commande == $"PremierePage" ? new ShellNavigationQueryParameters
             {
                 { "modele", internaute! }
             } : null;
             await navigationService?.GoToAsync(commande,parameters)!;
 
-        }
-        
-        [RelayCommand]
-        public async Task OpenGroup(string nomGroupe) 
-        { 
-            var parameters = new ShellNavigationQueryParameters { { "nomGroupe", nomGroupe } };
-            await navigationService?.GoToAsync("Groupe", parameters)!;
         }
     }
 }

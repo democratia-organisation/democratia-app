@@ -16,29 +16,38 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         private INavigationService service;
         private Groupe? groupe;
         private ILocalizationService? localizationService;
+        private string imagePath;
+        private Internaute? internaute;
         [ObservableProperty] private ImageSource? _image;
         [ObservableProperty] private bool? _isObservable = false;
         [ObservableProperty] private string? _errorMessage;
         [ObservableProperty] private bool _isFinish = false;
-        private List<string>? thematiques { get; set; }
+        private List<Thematique>? thematiques { get; set; }
         public TroisiemePageViewModel(IEnumerable<IClient?>? clients, ILocalizationService? localizationService, INavigationService service) 
-            : base(clients?.FirstOrDefault(), localizationService)
+            : base(clients?.OfType<GroupClient>().FirstOrDefault(), localizationService)
         {
             this.service = service;
             this.localizationService = localizationService;
+            imagePath = string.Empty;
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"];
-            thematiques = (List<string>)query["thematique"];
+            thematiques = (List<Thematique>)query["thematique"];
+            internaute = (Internaute)query["internaute"];
         }
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            await client!.CreateModelAsync(groupe!, thematiques!, Image);
-            await ((GroupClient)client).UploadImage(groupe!.IdGroupe, Image!);
+            groupe!.IdGroupe = Guid.NewGuid();
+            await client!.CreateModelAsync(groupe!);
+            foreach (Thematique item in thematiques!)
+                await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.IdGroupe, item.id_thematique);
+            await client.UploadImage(groupe!.IdGroupe, imagePath);
+            await ((GroupClient)client).AjouterCreateur(internaute!.id_internaute, groupe.IdGroupe);
+            await service.GoToAsync(commande);
         }
 
         [RelayCommand]
@@ -59,7 +68,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [RelayCommand]
         private async Task ChoisirGalerie()
         {
-            var result = await MediaPicker.Default.PickPhotosAsync();
+            List<FileResult> result = await MediaPicker.Default.PickPhotosAsync();
             AfiichageImage(result.FirstOrDefault()!);
             IsObservable = false;
             IsFinish = true;
@@ -70,6 +79,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             try // bloque try catch au cas où l'utilisateur annule la sélection de la photo
             {
                 using Stream sourceStream = await photo.OpenReadAsync();
+                imagePath = photo.FullPath;
                 var memoryStream = new MemoryStream();
                 await sourceStream.CopyToAsync(memoryStream);
                 memoryStream.Position = 0;

@@ -5,8 +5,8 @@ namespace com.democratia.Models
 {
     public class Groupe : IModel
     {
-        [JsonPropertyName("id_groupe")]
-        public int? IdGroupe { get; set; }
+        [JsonPropertyName("id")]
+        public Guid? IdGroupe { get; set; }
         [JsonPropertyName("nom_groupe")]
         public string? NomGroupe { get; set; }
         [JsonPropertyName("couleur_groupe")]
@@ -22,7 +22,7 @@ namespace com.democratia.Models
         [JsonPropertyName("nb_signalement")]
         public int? NombreSignalement { get; set; }
         [JsonConstructor]
-        public Groupe(int? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement)
+        public Groupe(Guid? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement)
         {
             this.IdGroupe = idGroupe;
             this.NomGroupe = nomGroupe;

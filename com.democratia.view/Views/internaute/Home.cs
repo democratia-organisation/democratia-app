@@ -3,6 +3,7 @@ using com.democratia.Views.Component;
 using com.democratia.ViewModels.internaute;
 using Microsoft.Maui.Controls.Shapes;
 using com.democratia.Views.internaute.CreerGroupe;
+using com.democratia.ViewModels.groupe;
 
 namespace com.democratia.Views.internaute
 {
@@ -98,14 +99,15 @@ namespace com.democratia.Views.internaute
                     container.BindingContextChanged += (s, e) =>
                     {
                         var border = (Border?)s;
-                        if (border?.BindingContext is Models.Groupe groupe && this.BindingContext is HomeViewModel vm)
+                        var groupeViewModel = ServiceHelper.GetService<GroupeViewModel>();
+                        if (border?.BindingContext is Models.Groupe groupe)
                         {
                             border.Content = new ButtonGroupe(
                                 groupe.Image,
                                 groupe.NomGroupe,
-                                vm.OpenGroupCommand,
+                                groupeViewModel!.OpenGroupCommand,
                                 groupe.IdGroupe,
-                                vm
+                                groupeViewModel
                             );
                         }
                     };

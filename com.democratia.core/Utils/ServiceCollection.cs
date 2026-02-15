@@ -7,6 +7,7 @@ using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
 using System.Reflection;
 using com.democratia.ViewModels.internaute.CreerGroupe;
+using com.democratia.ViewModels.groupe;
 
 namespace com.democratia.Utils
 {
@@ -49,6 +50,7 @@ namespace com.democratia.Utils
                 services.AddTransient<PremierePageViewModel>();
                 services.AddTransient<DeuxiemPageViewModel>();
                 services.AddTransient<TroisiemePageViewModel>();
+                services.AddTransient<GroupeViewModel>();
 
                 return services;
             }
@@ -60,6 +62,7 @@ namespace com.democratia.Utils
                 services.AddSingleton<INavigeablleViewModel, HomeViewModel>();
                 services.AddSingleton<INavigeablleViewModel, PremierePageViewModel>();
                 services.AddSingleton<INavigeablleViewModel, DeuxiemPageViewModel>();
+                services.AddSingleton<INavigeablleViewModel, GroupeViewModel>();
 
                 return services;
             }

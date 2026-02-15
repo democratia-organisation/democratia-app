@@ -279,4 +279,13 @@
   <data name="thematiqueInfo" xml:space="preserve">
     <value>Press enter to add the theme</value>
   </data>
+  <data name="nombreJourVote" xml:space="preserve">
+    <value>Time for a vote (in days)</value>
+  </data>
+  <data name="nombreJourDiscus" xml:space="preserve">
+    <value>Time for a discussion (in days)</value>
+  </data>
+  <data name="budget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
 </root>

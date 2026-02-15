@@ -8,8 +8,7 @@
              x:DataType="viewModel:PremierePageViewModel"
              Title="PremierePage"
              Style="{DynamicResource fondEcran}">
-    <VerticalStackLayout>
-        
+    <ScrollView>
         <VerticalStackLayout>
             <Component:Header/>
             <BoxView HeightRequest="30"/>
@@ -24,6 +23,7 @@
             <Label
                 Text="{Binding ErreurMessage}"
                 Style="{DynamicResource ErrorLabelStyle}"
+                HorizontalOptions="Center"
                 AutomationId="labelErreur"
                 x:Name="labelErreur"
                 AutomationProperties.Name="labelErreur"/>
@@ -42,6 +42,7 @@
             <Label
                 Text="{x:Static lang:AppResources.thematiqueInfo}"
                 Style="{DynamicResource LabelStyle}"
+                HorizontalOptions="Center"
                 AutomationId="labelThematiqueInfo"
                 x:Name="labelThematiqueInfo"
                 AutomationProperties.Name="labelThematiqueInfo"
@@ -63,6 +64,9 @@
                 <!--TODO : remplacer entry par un searchBar afin d'inclure la liste de thématiqu déjà existant dans la base de donnée-->
             </Border>
             <BoxView HeightRequest="30"/>
+            <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourVote}" ValeurDonne="{Binding NombreJourVote}" x:Name="nbJVoteEntry" />
+            <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourDiscus}" ValeurDonne="{Binding NombreJourDiscussion}" x:Name="nbJDiscussionEntry"/>
+            <Component:EntryComponent Title="{x:Static lang:AppResources.budget}" ValeurDonne="{Binding Budget}" x:Name="budgetEntry"/>
             <Button
                 Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.suivant}"
@@ -71,7 +75,6 @@
                 x:Name="nextFirstPageButton"
             />
             <!--TODO : mettre un BinableLayout afin d'ajouter des labels pour chaque nouveau thème entré-->
-            
         </VerticalStackLayout>
-    </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -97,6 +97,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Budget.
+        /// </summary>
+        public static string budget {
+            get {
+                return ResourceManager.GetString("budget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Vérifier que tous les champs soient complets.
         /// </summary>
         public static string champComplet {
@@ -399,6 +408,24 @@ namespace com.democratia.view.Resources.Localization {
         public static string Nom {
             get {
                 return ResourceManager.GetString("Nom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Durée de la discussion (en jour).
+        /// </summary>
+        public static string nombreJourDiscus {
+            get {
+                return ResourceManager.GetString("nombreJourDiscus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Durée d&apos;un vote (en jour).
+        /// </summary>
+        public static string nombreJourVote {
+            get {
+                return ResourceManager.GetString("nombreJourVote", resourceCulture);
             }
         }
         

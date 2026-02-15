@@ -1,4 +1,5 @@
-﻿using Xunit.Abstractions;
+﻿using Microsoft.Maui.Controls;
+using Xunit.Abstractions;
 
 namespace com.democratia.Services
 {
@@ -18,6 +19,8 @@ namespace com.democratia.Services
         public Task<string> CreateModelAsync(params object?[]? parameters);
         public Task<string> UpdateModelAsync(params object?[]? parameters);
         public Task<string> DeleteModelAsync(params object?[]? parameters);
+        public Task<ImageSource?> GetImageAsync(string? url);
+        public Task<string> UploadImage(Guid? id, string filePath);
     }
 }
 

@@ -1,6 +1,5 @@
-using com.democratia.ViewModels.internaute;
+using com.democratia.ViewModels.groupe;
 using CommunityToolkit.Mvvm.Input;
-using System.Diagnostics;
 
 namespace com.democratia.Views.Component;
 
@@ -8,15 +7,15 @@ public class ButtonGroupe : ContentView
 {
     private string? imageUrl;
     private string? title;
-    private HomeViewModel? viewModel;
-    private ImageSource? imageSource;
+    private GroupeViewModel? viewModel;
     private ImageButton? button;
 
-    public ButtonGroupe(string? imageUrl, string? title, IAsyncRelayCommand command, int? groupeParameter, HomeViewModel viewModel)
+    public ButtonGroupe(string? imageUrl, string? title, IAsyncRelayCommand command, Guid? groupeParameter, GroupeViewModel? viewModel)
     {
         this.imageUrl = imageUrl;
         this.title = title;
         this.viewModel = viewModel;
+        BindingContext = this.viewModel;
         button = new ImageButton
         {
             HeightRequest = 100,
@@ -24,9 +23,10 @@ public class ButtonGroupe : ContentView
             HorizontalOptions = LayoutOptions.Center,
             Command = command,
             CommandParameter = groupeParameter.ToString(),
+            AutomationId = "ButtonGroupe_" + title
         };
-        button.AutomationId = "ButtonGroupe_" + title;
         AutomationProperties.SetName(button, "ButtonGroupe_" + title);
+        button.SetBinding(ImageButton.SourceProperty, "Image");
         var label = new Label
         {
             HorizontalOptions = LayoutOptions.Center,
@@ -56,16 +56,6 @@ public class ButtonGroupe : ContentView
             MaximumWidthRequest = 300
 
         };
-        CreateImageSourceAsync();
-    }
-    public async void CreateImageSourceAsync() {
-
-        try {
-            this.imageSource = await viewModel!.GetImageAsync(this.imageUrl!);
-            MainThread.BeginInvokeOnMainThread(() => {
-                button!.Source = this.imageSource;
-            });
-        } catch (Exception) { Debug.WriteLine("bug"); }
-    }
-    
+        this.viewModel!.GetImageAsync(imageUrl!);
+    }   
 }

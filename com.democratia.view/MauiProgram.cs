@@ -43,9 +43,12 @@ namespace com.democratia
 
             
             TaskScheduler.UnobservedTaskException += (sender, e) 
-                => LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");;
+                => LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
 
-            return builder.Build();
+            var app = builder.Build();
+            ServiceHelper.Initialize(app.Services);
+
+            return app;
 
         }
         private static async void LogErreur(Exception ex, string source)

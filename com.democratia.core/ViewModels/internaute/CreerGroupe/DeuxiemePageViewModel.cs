@@ -13,7 +13,8 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         private INavigationService service;
         private Groupe? groupe;
         [ObservableProperty] public Color? color;
-        private List<string>? thematiques { get; set; }
+        private Internaute? internaute;
+        private List<Thematique>? thematiques { get; set; }
         public DeuxiemPageViewModel(INavigationService service)
         {
             this.service = service;
@@ -23,7 +24,8 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"];
-            thematiques = (List<string>)query["thematique"];
+            thematiques = (List<Thematique>)query["thematique"];
+            internaute = (Internaute)query["internaute"];
         }
 
         [RelayCommand]
@@ -33,7 +35,8 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             await service.GoToAsync(commande, new ()
                 {
                     { "groupe", groupe! },
-                    { "thematique", thematiques! }
+                    { "thematique", thematiques! },
+                    {  "internaute", internaute!   }
                 });
         }
     }
