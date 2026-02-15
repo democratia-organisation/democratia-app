@@ -1,4 +1,4 @@
-﻿using com.democratia.Views.Groupe;
+﻿using com.democratia.Views.groupe;
 using com.democratia.Views.internaute;
 using com.democratia.Views.internaute.CreerGroupe;
 

@@ -1,10 +1,13 @@
-namespace com.democratia.Views.Groupe;
+using com.democratia.ViewModels.groupe;
 
-public class Groupe : ContentPage
+namespace com.democratia.Views.groupe;
+
+public partial class Groupe : ContentPage
 {
-	public Groupe()
+	public Groupe(GroupeViewModel viewModel)
 	{
-		Content = new VerticalStackLayout
+		BindingContext = viewModel;
+        Content = new VerticalStackLayout
 		{
 			Children = {
 				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = "Welcome to .NET MAUI!"

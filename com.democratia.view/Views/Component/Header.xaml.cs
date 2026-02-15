@@ -25,8 +25,8 @@ public partial class Header : ContentView
                 button.Source = "dark.png";
             }
         }
-        else if (button == backButton) await AppShell.Current.GoToAsync("..");
-        
+        else if (button == backButton) await AppShell.Current.GoToAsync(".."); // TODO : si on est dans Home, confirmez que l'utilisateur veut vraiment quitter l'application, supprimez sa session
+
         else await AppShell.Current.GoToAsync("Home"); // TODO l'autoriser à y aller que s'il est connecté
         
     }
