@@ -10,7 +10,7 @@ namespace com.democratia.Services
             Groupe groupe = (Groupe)parameters![0]!;
             
             var requete = $"""
-                ?request=INSERT INTO groupe (id_groupe,nom_groupe,couleur_groupe,budget,nbj_dft_vote,nbj_dft_discuss) VALUES (UUID_TO_BIN(?,1),?,?,?,?,?)&parameters=["{groupe.IdGroupe}","{groupe.NomGroupe}", "{Uri.EscapeDataString(groupe.CouleurGroupe!)}", "{groupe.Budget}", "{groupe.NombreDeJourVote}", "{groupe.NombreDeJourDiscuss}"]
+                ?request=INSERT INTO groupe (id_groupe,nom_groupe,couleur_groupe,budget,nbj_dft_vote,nbj_dft_discuss) VALUES (UUID_TO_BIN(?,0),?,?,?,?,?)&parameters=["{groupe.IdGroupe}","{groupe.NomGroupe}", "{Uri.EscapeDataString(groupe.CouleurGroupe!)}", "{groupe.Budget}", "{groupe.NombreDeJourVote}", "{groupe.NombreDeJourDiscuss}"]
                 """;
             DebutRequete();
             HttpResponseMessage? response;
@@ -30,7 +30,7 @@ namespace com.democratia.Services
         {
             var requete = $"""
                 ?request=INSERT INTO theme_groupe (id_groupe, id_thematique, budget_thematique)
-                VALUES (UUID_TO_BIN(?,1),?,?);
+                VALUES (UUID_TO_BIN(?,0),?,?);
                 &parameters=["{idGroupe}", "{idThematique}", "{0}"]
                 """;
             DebutRequete();
@@ -89,7 +89,7 @@ namespace com.democratia.Services
                     id_notification
                   )
                 VALUES (
-                    UUID_TO_BIN(?,1),
+                    UUID_TO_BIN(?,0),
                     ?,
                     ?,
                     ?

@@ -41,7 +41,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            groupe!.IdGroupe = Guid.NewGuid();
+            groupe!.IdGroupe = Guid.CreateVersion7();
             await client!.CreateModelAsync(groupe!);
             foreach (Thematique item in thematiques!)
                 await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.IdGroupe, item.id_thematique);
