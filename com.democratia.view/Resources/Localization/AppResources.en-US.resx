@@ -300,4 +300,10 @@
   <data name="non" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="budgetInsuffisant" xml:space="preserve">
+    <value>The amount of budget for each theme is lower than the total budget</value>
+  </data>
+  <data name="tapezBugetTheme" xml:space="preserve">
+    <value>Give the theme's budget at the bottm of the page</value>
+  </data>
 </root>

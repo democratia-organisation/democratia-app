@@ -30,7 +30,7 @@ public partial class Header : ContentView
         {
             Shell shell = AppShell.Current!;
             IReadOnlyList<Page> pile = shell.Navigation?.NavigationStack!;
-            if (pile.Count == 2 && pile[0].GetType() == typeof(MainPage))
+            if (pile.Count == 2 && pile[0] is null)
             {
                 bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.quitterApp, AppResources.confirmQuitt, AppResources.oui, AppResources.non);
                 if (souhaiteQuitter)

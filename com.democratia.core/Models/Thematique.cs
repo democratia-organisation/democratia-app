@@ -7,18 +7,20 @@ namespace com.democratia.Models
     {
         public int? id_thematique { get; set; }
         public string? nom_thematique { get; set; }
+        public float? budget { get; set; }
 
 
         [JsonConstructor]
-        public Thematique(int? id_thematique, string? nom_thematique)
+        public Thematique(int? id_thematique, string? nom_thematique, float? budget)
         {
             this.id_thematique = id_thematique;
             this.nom_thematique = nom_thematique;
+            this.budget = budget;
         }
 
-        public Thematique(string? nom_thematique) : this(null, nom_thematique) { }
+        public Thematique(string? nom_thematique) : this(null, nom_thematique, null) { }
 
-        public Thematique() : this(null, null) { }
+        public Thematique() : this(null, null, null) { }
 
         public override string ToString() => nom_thematique ?? string.Empty;
         

@@ -5,7 +5,9 @@
              xmlns:Component="clr-namespace:com.democratia.Views.Component"
              xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+             xmlns:modele="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
              x:DataType="viewModel:PremierePageViewModel"
+             xmlns:communityToolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="PremierePage"
              Style="{DynamicResource fondEcran}">
     <ScrollView>
@@ -47,6 +49,15 @@
                 x:Name="labelThematiqueInfo"
                 AutomationProperties.Name="labelThematiqueInfo"
                 />
+            <BoxView HeightRequest="10"/>
+            <Label
+                Text="{x:Static lang:AppResources.tapezBugetTheme}"
+                Style="{DynamicResource LabelStyle}"
+                HorizontalOptions="Center"
+                AutomationId="labelThematiqueBudget"
+                x:Name="labelThematiqueBudget"
+                AutomationProperties.Name="labelThematiqueBudget"
+                />
             <BoxView HeightRequest="30"/>
             <Border Style="{DynamicResource BorderStyle}"
                     StrokeShape="RoundRectangle 600,600,600,600">
@@ -61,13 +72,21 @@
                     x:Name="searchTheme"
                     Text="{Binding Thematique}"
                     SearchCommand="{Binding PrendreThematiqueCommand}"
-                />
+                >
+                    <SearchBar.Behaviors>
+                        <communityToolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            x:Name="behavior"
+                            Command="{Binding AfficherThematiquesMatchCommand}"/>
+                    </SearchBar.Behaviors>
+                </SearchBar>
             </Border>
             <CollectionView
-                ItemsSource="{Binding ThematiquesExistantes}"
+                ItemsSource="{Binding ThematiquesAffiches}"
                 SelectionMode="Single"
                 RemainingItemsThreshold="3"
                 Style="{DynamicResource ListViewStyle}"
+                WidthRequest="300"
                 SelectedItem="{Binding ThematiqueSelectionnee}"
                 SelectionChangedCommand="{Binding PrendreThematiqueSelectionneeCommand}"
                 AutomationId="collectionThematiqueSuggestion"
@@ -77,6 +96,18 @@
             <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourVote}" ValeurDonne="{Binding NombreJourVote}" x:Name="nbJVoteEntry" />
             <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourDiscus}" ValeurDonne="{Binding NombreJourDiscussion}" x:Name="nbJDiscussionEntry"/>
             <Component:EntryComponent Title="{x:Static lang:AppResources.budget}" ValeurDonne="{Binding Budget}" x:Name="budgetEntry"/>
+            <FlexLayout
+                Wrap="Wrap"
+                Direction="Row"
+                AlignItems="Center"
+                JustifyContent="Start"
+                BindableLayout.ItemsSource="{Binding ThematiquesRetenues}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="modele:Thematique">
+                        <Component:LabelBudgetaire Title="{Binding nom_thematique}" Texte="{Binding budget}"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
             <Button
                 Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.suivant}"
@@ -84,7 +115,6 @@
                 CommandParameter="DeuxiemePage"
                 x:Name="nextFirstPageButton"
             />
-            <!--TODO : mettre un BinableLayout afin d'ajouter des labels pour chaque nouveau thème entré-->
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

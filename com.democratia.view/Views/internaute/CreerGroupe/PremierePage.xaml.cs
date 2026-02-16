@@ -8,5 +8,6 @@ public partial class PremierePage : ContentPage
 	{
 		BindingContext = viewModel;
         InitializeComponent();
-	}
+        behavior.BindingContext = BindingContext;
+    }
 }

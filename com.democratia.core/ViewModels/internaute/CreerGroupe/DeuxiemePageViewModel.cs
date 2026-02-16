@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
@@ -24,7 +25,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"];
-            thematiques = (List<Thematique>)query["thematique"];
+            thematiques = (query["thematique"]! as ObservableCollection<Thematique>).ToList();
             internaute = (Internaute)query["internaute"];
         }
 
