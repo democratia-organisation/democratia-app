@@ -17,10 +17,17 @@ namespace com.democratia.Services
         
         protected Client()
         {
-            // TODO : peut-être mettre un timeout si le temps d'attente est vraiment invivable côté client
             statutsMessage = string.Empty;
             statuts = 0;
-            client = new() { BaseAddress = this.AffecterURL() };
+            client = new()
+            {
+                BaseAddress = this.AffecterURL(),
+#if DEBUG
+                Timeout = TimeSpan.FromSeconds(60)
+#elif !DEBUG
+                Timeout = TimeSpan.FromSeconds(10)
+#endif
+            };
         }
 
         protected async Task<string> GetMethode()

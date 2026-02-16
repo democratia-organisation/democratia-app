@@ -50,19 +50,29 @@
             <BoxView HeightRequest="30"/>
             <Border Style="{DynamicResource BorderStyle}"
                     StrokeShape="RoundRectangle 600,600,600,600">
-                 <Entry 
-                    Style="{DynamicResource EntryStyle}"
+                <SearchBar
+                    Style="{DynamicResource SearchBarStyle}"
                     HeightRequest="40"
                     WidthRequest="300"
-                    AutomationId="entryTheme"
+                    HorizontalOptions="Center"
+                    AutomationId="searchTheme"
                     Keyboard="Plain"
-                    AutomationProperties.Name="entryTheme"
-                    x:Name="entryTheme" 
+                    AutomationProperties.Name="searchTheme"
+                    x:Name="searchTheme"
                     Text="{Binding Thematique}"
-                    ReturnCommand="{Binding PrendreThematiqueCommand}"
+                    SearchCommand="{Binding PrendreThematiqueCommand}"
                 />
-                <!--TODO : remplacer entry par un searchBar afin d'inclure la liste de thématiqu déjà existant dans la base de donnée-->
             </Border>
+            <CollectionView
+                ItemsSource="{Binding ThematiquesExistantes}"
+                SelectionMode="Single"
+                RemainingItemsThreshold="3"
+                Style="{DynamicResource ListViewStyle}"
+                SelectedItem="{Binding ThematiqueSelectionnee}"
+                SelectionChangedCommand="{Binding PrendreThematiqueSelectionneeCommand}"
+                AutomationId="collectionThematiqueSuggestion"
+                x:Name="collectionThematiqueSuggestion"
+                AutomationProperties.Name="collectionThematiqueSuggestion"/>
             <BoxView HeightRequest="30"/>
             <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourVote}" ValeurDonne="{Binding NombreJourVote}" x:Name="nbJVoteEntry" />
             <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourDiscus}" ValeurDonne="{Binding NombreJourDiscussion}" x:Name="nbJDiscussionEntry"/>

@@ -7,6 +7,9 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using System.ComponentModel;
 using System.Text.Json;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
@@ -18,10 +21,12 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [ObservableProperty] private string? thematique;
         [ObservableProperty] private float? budget;
         [ObservableProperty] private string? erreurMessage;
+        [ObservableProperty] private ObservableCollection<Thematique> thematiquesExistantes;
+        [ObservableProperty] private Thematique? thematiqueSelectionnee;
+        private List<Thematique> thematiquesRetenues;
         private Internaute? internaute;
+
         private Groupe groupe { get; set; } = new();
-        private List<Thematique> thematiquesExistante { get; set; } = new(); // permet l'auto-complétion des thématiques déjà existantes
-        private List<Thematique> thematiquesRetenues {  get; set; } = new();
         private List<Thematique> thematiquesNouvelles { get; set; } = new(); 
         private INavigationService navigationService;
         private ILocalizationService? localizationService;
@@ -31,7 +36,13 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             navigationService = navigation;
             this.localizationService = localizationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
-            RemplirThematique();
+            if(thematiquesExistantes is null && thematiquesRetenues is null) // verification car le viewModel est instancié à chaque fois que la page est affiché
+            {
+                thematiquesExistantes = new ObservableCollection<Thematique>();
+                thematiquesRetenues = new List<Thematique>();
+                RemplirThematique();
+            }
+                
         }
 
 
@@ -54,7 +65,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                 groupe.NombreDeJourDiscuss = NombreJourDiscussion ?? 0;
                 groupe.NombreDeJourVote = NombreJourVote ?? 0;
                 groupe.Budget = Budget ?? 0;
-                thematiquesNouvelles = [.. thematiquesRetenues.Except(thematiquesExistante,new ThematiqueEqualityComparer())];
+                thematiquesNouvelles = thematiquesRetenues.Except(ThematiquesExistantes, new ThematiqueEqualityComparer()).ToList();
                 foreach (Thematique item in thematiquesNouvelles)
                 {
                     await client!.CreateModelAsync(item);
@@ -66,13 +77,25 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         }
 
         [RelayCommand]
-        public void PrendreThematique()
-        {
-            Predicate<Thematique> predicate = t => t.nom_thematique == Thematique;
-            if (thematiquesExistante.Contains(new Thematique(Thematique),new ThematiqueEqualityComparer()))
-                thematiquesRetenues.Add(thematiquesExistante[thematiquesExistante.FindIndex(predicate)]);
+        public void PrendreThematique() => AjoutThematique(new Thematique(Thematique));
 
-            else thematiquesRetenues.Add(new Thematique(Thematique));
+        [RelayCommand]
+        public void PrendreThematiqueSelectionnee()
+        {
+            if(ThematiqueSelectionnee  is not null ) // quand ThematiquesExistantes est modifié, CollectionView.SelectedItem est mis à null, donc ThematiqueSelectionnee est null
+            {
+                AjoutThematique(ThematiqueSelectionnee);
+                ThematiquesExistantes.Remove(ThematiqueSelectionnee);
+            }
+        }
+
+
+
+        private void AjoutThematique(Thematique thematiqueItem)
+        {
+            if (!thematiquesRetenues.Contains(thematiqueItem, new ThematiqueEqualityComparer()))
+                thematiquesRetenues.Add(thematiqueItem);
+
             Thematique = string.Empty;
         }
 
@@ -83,13 +106,12 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             foreach (var item in thematiques)
             {
                 var thematique = JsonSerializer.Deserialize<Thematique>(item.ToString()!);
-                thematiquesExistante.Add(thematique!);
+                ThematiquesExistantes.Add(thematique!);
+
             }
         }
 
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            internaute = (Internaute)query["modele"];
-        }
+        public void ApplyQueryAttributes(IDictionary<string, object> query) => internaute = (Internaute)query["modele"];
+        
     }
 }

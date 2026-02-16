@@ -19,13 +19,16 @@ namespace com.democratia.Models
         public Thematique(string? nom_thematique) : this(null, nom_thematique) { }
 
         public Thematique() : this(null, null) { }
+
+        public override string ToString() => nom_thematique ?? string.Empty;
+        
     }
     public class ThematiqueEqualityComparer : IEqualityComparer<Thematique>
     {
         public bool Equals(Thematique? x, Thematique? y)
         {
             if (x is null || y is null) return false;
-            return x.nom_thematique == y.nom_thematique;
+            return x.nom_thematique?.ToLower() == y.nom_thematique?.ToLower();
         }
         public int GetHashCode(Thematique obj)
         {

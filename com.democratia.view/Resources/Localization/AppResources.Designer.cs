@@ -151,6 +151,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Voulez-vous vraiment quitter l&apos;application ?.
+        /// </summary>
+        public static string confirmQuitt {
+            get {
+                return ResourceManager.GetString("confirmQuitt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Se connecter.
         /// </summary>
         public static string connecter {
@@ -439,11 +448,29 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Non.
+        /// </summary>
+        public static string non {
+            get {
+                return ResourceManager.GetString("non", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pas d&apos;utilisateur trouvé.
         /// </summary>
         public static string noUser {
             get {
                 return ResourceManager.GetString("noUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Oui.
+        /// </summary>
+        public static string oui {
+            get {
+                return ResourceManager.GetString("oui", resourceCulture);
             }
         }
         
@@ -471,6 +498,15 @@ namespace com.democratia.view.Resources.Localization {
         public static string prenom {
             get {
                 return ResourceManager.GetString("prenom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Quitter l&apos;application.
+        /// </summary>
+        public static string quitterApp {
+            get {
+                return ResourceManager.GetString("quitterApp", resourceCulture);
             }
         }
         

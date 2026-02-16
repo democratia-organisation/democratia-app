@@ -288,4 +288,16 @@
   <data name="budget" xml:space="preserve">
     <value>Budget</value>
   </data>
+  <data name="quitterApp" xml:space="preserve">
+    <value>Quitter l'application</value>
+  </data>
+  <data name="confirmQuitt" xml:space="preserve">
+    <value>Voulez-vous vraiment quitter l'application ?</value>
+  </data>
+  <data name="oui" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="non" xml:space="preserve">
+    <value>Non</value>
+  </data>
 </root>

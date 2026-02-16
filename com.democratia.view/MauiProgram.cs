@@ -8,6 +8,7 @@ using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Diagnostics;
+using System.Text;
 
 namespace com.democratia
 {
@@ -36,23 +37,22 @@ namespace com.democratia
             builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
 
-            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
-            {
-                LogErreur(e.ExceptionObject as Exception, "AppDomain.UnhandledException");
-            };
+            AppDomain.CurrentDomain.UnhandledException += async (sender, e) =>
+                await LogErreur(e.ExceptionObject as Exception, "AppDomain.UnhandledException");
             
 
             
-            TaskScheduler.UnobservedTaskException += (sender, e) 
-                => LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
+            TaskScheduler.UnobservedTaskException += async  (sender, e) 
+                => await LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
 
             var app = builder.Build();
+            Directory.CreateDirectory(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
             ServiceHelper.Initialize(app.Services);
 
             return app;
 
         }
-        private static async void LogErreur(Exception ex, string source)
+        private static async Task LogErreur(Exception ex, string source)
         {
             var message = $"Source: {source} | Erreur: {ex?.Message}";
 
@@ -60,8 +60,10 @@ namespace com.democratia
             if (ex?.StackTrace != null)
                 Debug.WriteLine(ex.StackTrace);
 
-            // TODO : loger l'erreur puis l'envoyer au serveur pour analyse
-
+            using FileStream file = File.Create($"{Path.Combine(FileSystem.Current.AppDataDirectory,$"error_{DateTime.Now:HH-mm-ss_dddd-dd_MM_yyyy}.log")}");
+            file.Write(Encoding.UTF8.GetBytes(message));
+            file.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
+            file.Write(Encoding.UTF8.GetBytes(ex?.StackTrace ?? string.Empty));
         }
         extension(IServiceCollection builder)
         {

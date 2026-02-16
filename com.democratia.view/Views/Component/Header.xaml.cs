@@ -1,3 +1,4 @@
+using com.democratia.view.Resources.Localization;
 namespace com.democratia.Views.Component;
 
 public partial class Header : ContentView
@@ -25,9 +26,40 @@ public partial class Header : ContentView
                 button.Source = "dark.png";
             }
         }
-        else if (button == backButton) await AppShell.Current.GoToAsync(".."); // TODO : si on est dans Home, confirmez que l'utilisateur veut vraiment quitter l'application, supprimez sa session
+        else if (button == backButton)
+        {
+            Shell shell = AppShell.Current!;
+            IReadOnlyList<Page> pile = shell.Navigation?.NavigationStack!;
+            if (pile.Count == 2 && pile[0].GetType() == typeof(MainPage))
+            {
+                bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.quitterApp, AppResources.confirmQuitt, AppResources.oui, AppResources.non);
+                if (souhaiteQuitter)
+                {
+                    string [] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
+                    foreach (string file in files)
+                    {
+                        try
+                        {
+                            File.Delete(file);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception($"Erreur lors de la suppression du fichier {file} : {ex.Message}",ex);
+                        }
+                    }
+                    Environment.Exit(0);
+                }
+            }
+                
+            if(pile.Count>1) await shell.GoToAsync("..");
 
-        else await AppShell.Current.GoToAsync("Home"); // TODO l'autoriser à y aller que s'il est connecté
+        }
+
+        else
+        {
+            string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
+            if (files.Length > 0) await AppShell.Current.GoToAsync("Home"); // naviguer que si des données ont été mis en cache
+        }
         
     }
 
