@@ -26,12 +26,12 @@ namespace com.democratia.Services
             return await FinRequete(response);
         }
 
-        public async Task<string> CreateJointureThemeEtGroupeAsync(Guid? idGroupe, int? idThematique)
+        public async Task<string> CreateJointureThemeEtGroupeAsync(Guid? idGroupe, int? idThematique, float? budgetThematique)
         {
             var requete = $"""
                 ?request=INSERT INTO theme_groupe (id_groupe, id_thematique, budget_thematique)
                 VALUES (UUID_TO_BIN(?,0),?,?);
-                &parameters=["{idGroupe}", "{idThematique}", "{0}"]
+                &parameters=["{idGroupe}", "{idThematique}", "{budgetThematique}"]
                 """;
             DebutRequete();
             HttpResponseMessage? response;
