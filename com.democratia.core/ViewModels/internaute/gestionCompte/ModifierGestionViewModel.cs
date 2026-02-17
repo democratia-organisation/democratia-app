@@ -11,7 +11,7 @@ using Crypt = BCrypt.Net.BCrypt;
 
 namespace com.democratia.ViewModels.internaute.gestionCompte
 {
-    public partial class ModifierGestionPageViewModel : ConnectableViewModel, INavigeablleViewModel, INotifyPropertyChanged, IQueryAttributable
+    public partial class ModifierGestionViewModel : ConnectableViewModel, INavigeablleViewModel, INotifyPropertyChanged, IQueryAttributable
     {
         private INavigationService NavigationService { get; set; }
         private ILocalizationService localizationService { get; set; }
@@ -19,7 +19,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         private Internaute? internaute;
         [ObservableProperty] private Internaute? tempInternaute = new();
 
-        public ModifierGestionPageViewModel(INavigationService navigationService, ILocalizationService localizationService, IEnumerable<IClient> clients) 
+        public ModifierGestionViewModel(INavigationService navigationService, ILocalizationService localizationService, IEnumerable<IClient> clients) 
             : base(clients.OfType<InternauteClient>().FirstOrDefault(),localizationService)
         {
             this.NavigationService = navigationService;
