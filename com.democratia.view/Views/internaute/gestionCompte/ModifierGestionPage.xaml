@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="com.democratia.Views.internaute.gestionCompte.ModifierGestionPage"
+             xmlns:component="clr-namespace:com.democratia.Views.Component"
+             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
+             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+             x:DataType="viewModel:ModifierGestionPageViewModel"
+             Style="{DynamicResource fondEcran}"
+             Title="ModifierGestionPage">
+    <!--REFACTO : centralisez ce formulaire avec celui de l'inscription-->
+    <ScrollView>
+        <VerticalStackLayout x:Name="layout">
+            <component:Header/>
+            <component:EntryComponent Title="{x:Static lang:AppResources.Nom}" ValeurDonne="{Binding TempInternaute.nom_internaute}"/>
+            <component:EntryComponent Title="{x:Static lang:AppResources.prenom}" ValeurDonne="{Binding TempInternaute.prenom_internaute}"/>
+            <component:EntryComponent Title="{x:Static lang:AppResources.adress}" ValeurDonne="{Binding TempInternaute.adresse_postale}"/>
+            <component:EntryComponent Title="{x:Static lang:AppResources.mail}" ValeurDonne="{Binding TempInternaute.courriel}"/>
+            <component:EntryComponent Title="{x:Static lang:AppResources.Mdp}" ValeurDonne="{Binding TempInternaute.hashageMDP}" PassWord="True"/>
+            <Button
+                Text="{x:Static lang:AppResources.enregistrer}"
+                Style="{DynamicResource ButtonStyle}"
+                AutomationId="enregistrerButton"
+                Command="{Binding ModifierInternauteCommand}"
+            />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

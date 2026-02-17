@@ -130,7 +130,7 @@
     <value>Adresse mail</value>
   </data>
   <data name="Langage" xml:space="preserve">
-    <value>Choisissez une langue</value>
+    <value>Langue</value>
   </data>
   <data name="mail" xml:space="preserve">
     <value>courriel</value>
@@ -289,7 +289,7 @@
     <value>Budget</value>
   </data>
   <data name="quitterApp" xml:space="preserve">
-    <value>Quitter l'application</value>
+    <value>Quitter l'application maintenant</value>
   </data>
   <data name="confirmQuitt" xml:space="preserve">
     <value>Voulez-vous vraiment quitter l'application ?</value>
@@ -305,5 +305,32 @@
   </data>
   <data name="tapezBugetTheme" xml:space="preserve">
     <value>Donnez le budget du thème en bas de la page</value>
+  </data>
+  <data name="preference" xml:space="preserve">
+    <value>Préférences</value>
+  </data>
+  <data name="selectionLangue" xml:space="preserve">
+    <value>Sélectionner une langue de préférence</value>
+  </data>
+  <data name="selectionTheme" xml:space="preserve">
+    <value>Sélectionner un thème par défault</value>
+  </data>
+  <data name="theme" xml:space="preserve">
+    <value>Thème</value>
+  </data>
+  <data name="claire" xml:space="preserve">
+    <value>Claire</value>
+  </data>
+  <data name="sombre" xml:space="preserve">
+    <value>Sombre</value>
+  </data>
+  <data name="ChangementOk" xml:space="preserve">
+    <value>Vos changements ont été pris en compte et seront appliqués au prochain démarrage de l'application</value>
+  </data>
+  <data name="changementReussi" xml:space="preserve">
+    <value>Changement Réussi</value>
+  </data>
+  <data name="continuer" xml:space="preserve">
+    <value>Continuer</value>
   </data>
 </root>

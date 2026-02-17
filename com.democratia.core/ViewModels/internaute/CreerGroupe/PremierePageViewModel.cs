@@ -14,6 +14,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
     public partial class PremierePageViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable, INotifyPropertyChanged
     {
+         // REFACTO : agréer tous les binables en un tempInternaute
         [ObservableProperty] private string? nomGroupe;
         [ObservableProperty] private int? nombreJourVote;
         [ObservableProperty] private int? nombreJourDiscussion;

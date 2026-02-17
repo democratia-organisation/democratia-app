@@ -11,6 +11,7 @@ namespace com.democratia.ViewModels.internaute
 {
     public partial class MainPageViewModel : ConnectableViewModel, INavigeablleViewModel
     {
+        // REFACTO : faire une authentification JWT
         [ObservableProperty]
         private string? adresseMail;
 

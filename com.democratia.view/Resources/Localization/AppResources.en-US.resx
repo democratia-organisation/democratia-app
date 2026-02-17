@@ -274,7 +274,7 @@
     <value>Name Group is requiered</value>
   </data>
   <data name="thematiqueRequise" xml:space="preserve">
-    <value>SS</value>
+    <value>At least one theme is required</value>
   </data>
   <data name="thematiqueInfo" xml:space="preserve">
     <value>Press enter to add the theme</value>
@@ -289,7 +289,7 @@
     <value>Budget</value>
   </data>
   <data name="quitterApp" xml:space="preserve">
-    <value>Leave the app</value>
+    <value>Leave the app now</value>
   </data>
   <data name="confirmQuitt" xml:space="preserve">
     <value>Do you really want leaving the application ?</value>
@@ -305,5 +305,32 @@
   </data>
   <data name="tapezBugetTheme" xml:space="preserve">
     <value>Give the theme's budget at the bottm of the page</value>
+  </data>
+  <data name="preference" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="selectionLangue" xml:space="preserve">
+    <value>Select a prefered language</value>
+  </data>
+  <data name="selectionTheme" xml:space="preserve">
+    <value>Select a default theme</value>
+  </data>
+  <data name="theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="claire" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="sombre" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ChangementOk" xml:space="preserve">
+    <value>Your changes has been tooken and it will be display on the next  opening of the application</value>
+  </data>
+  <data name="changementReussi" xml:space="preserve">
+    <value>Sucefful changes</value>
+  </data>
+  <data name="continuer" xml:space="preserve">
+    <value>Continue</value>
   </data>
 </root>

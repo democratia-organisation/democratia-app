@@ -4,17 +4,18 @@ using com.democratia.ViewModels.internaute;
 using Microsoft.Maui.Controls.Shapes;
 using com.democratia.Views.internaute.CreerGroupe;
 using com.democratia.ViewModels.groupe;
+using com.democratia.Views.internaute.gestionCompte;
 
 namespace com.democratia.Views.internaute
 {
-    public partial class Home : ContentPage
+    public partial class HomePage : ContentPage
     {
         private readonly VerticalStackLayout _stackLayout;
         private readonly CollectionView _collectionView;
         private readonly Button _createGroupButton;
         private readonly Label _ownGroupeLabel;
 
-        public Home(HomeViewModel viewModel)
+        public HomePage(HomeViewModel viewModel)
         {
             BindingContext = viewModel;
 
@@ -40,7 +41,7 @@ namespace com.democratia.Views.internaute
                     MaximumHeightRequest = 60,
                     MaximumWidthRequest = 60,
                     Command = viewModel.NavigateTappedCommand,
-                    CommandParameter = $"{nameof(GestionCompte)}",
+                    CommandParameter = $"{nameof(HomeGestionPage)}",
                     AutomationId = "ProfileButton",
                 }
             };

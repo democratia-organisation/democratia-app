@@ -1,5 +1,6 @@
 ﻿using com.democratia.Services;
 using com.democratia.ViewModels.internaute;
+using com.democratia.ViewModels.internaute.gestionCompte;
 using com.democratia.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,11 +47,13 @@ namespace com.democratia.Utils
                 services.AddTransient<MainPageViewModel>();
                 services.AddTransient<CreationViewModel>();
                 services.AddTransient<HomeViewModel>();
-                services.AddTransient<GestionCompteViewModel>();
+                services.AddTransient<HomeGestionViewModel>();
                 services.AddTransient<PremierePageViewModel>();
                 services.AddTransient<DeuxiemPageViewModel>();
                 services.AddTransient<TroisiemePageViewModel>();
                 services.AddTransient<GroupeViewModel>();
+                services.AddTransient<ModifierGestionPageViewModel>();
+                services.AddTransient<PreferenceViewModel>();
 
                 return services;
             }
@@ -63,6 +66,7 @@ namespace com.democratia.Utils
                 services.AddSingleton<INavigeablleViewModel, PremierePageViewModel>();
                 services.AddSingleton<INavigeablleViewModel, DeuxiemPageViewModel>();
                 services.AddSingleton<INavigeablleViewModel, GroupeViewModel>();
+                services.AddSingleton<INavigeablleViewModel, ModifierGestionPageViewModel>();
 
                 return services;
             }

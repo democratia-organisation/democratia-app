@@ -124,11 +124,38 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vos changements ont été pris en compte et seront appliqués au prochain démarrage de l&apos;application.
+        /// </summary>
+        public static string ChangementOk {
+            get {
+                return ResourceManager.GetString("ChangementOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Changement Réussi.
+        /// </summary>
+        public static string changementReussi {
+            get {
+                return ResourceManager.GetString("changementReussi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Choisir une image sur votre appareil.
         /// </summary>
         public static string choixImage {
             get {
                 return ResourceManager.GetString("choixImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Claire.
+        /// </summary>
+        public static string claire {
+            get {
+                return ResourceManager.GetString("claire", resourceCulture);
             }
         }
         
@@ -183,6 +210,15 @@ namespace com.democratia.view.Resources.Localization {
         public static string connexionErreur {
             get {
                 return ResourceManager.GetString("connexionErreur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Continuer.
+        /// </summary>
+        public static string continuer {
+            get {
+                return ResourceManager.GetString("continuer", resourceCulture);
             }
         }
         
@@ -331,7 +367,7 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Choisissez une langue.
+        ///   Recherche une chaîne localisée semblable à Langue.
         /// </summary>
         public static string Langage {
             get {
@@ -502,6 +538,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Préférences.
+        /// </summary>
+        public static string preference {
+            get {
+                return ResourceManager.GetString("preference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à prénom.
         /// </summary>
         public static string prenom {
@@ -511,7 +556,7 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Quitter l&apos;application.
+        ///   Recherche une chaîne localisée semblable à Quitter l&apos;application maintenant.
         /// </summary>
         public static string quitterApp {
             get {
@@ -561,6 +606,33 @@ namespace com.democratia.view.Resources.Localization {
         public static string selectImage {
             get {
                 return ResourceManager.GetString("selectImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sélectionner une langue de préférence.
+        /// </summary>
+        public static string selectionLangue {
+            get {
+                return ResourceManager.GetString("selectionLangue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sélectionner un thème par défault.
+        /// </summary>
+        public static string selectionTheme {
+            get {
+                return ResourceManager.GetString("selectionTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sombre.
+        /// </summary>
+        public static string sombre {
+            get {
+                return ResourceManager.GetString("sombre", resourceCulture);
             }
         }
         
@@ -624,6 +696,15 @@ namespace com.democratia.view.Resources.Localization {
         public static string thematiqueRequise {
             get {
                 return ResourceManager.GetString("thematiqueRequise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Thème.
+        /// </summary>
+        public static string theme {
+            get {
+                return ResourceManager.GetString("theme", resourceCulture);
             }
         }
     }

@@ -11,7 +11,7 @@
              x:DataType="viewModels:MainPageViewModel"
              AutomationId="ConnexionPage"
              Style="{DynamicResource fondEcran}">
-
+<!--REFACTO : mettre cette page dans le dossier internaute et bouger toutes les références à cette page en fonction-->
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
@@ -92,7 +92,7 @@
                     Text="{x:Static lang:AppResources.connecter}"
                     Style="{DynamicResource ButtonStyle}"
                     Command="{Binding NavigateTappedCommand}"
-                    CommandParameter="/Home"
+                    CommandParameter="/HomePage"
                     VerticalOptions="End"
                     AutomationId="Se connecter Button"
                     AutomationProperties.Name="Se connecter Button"

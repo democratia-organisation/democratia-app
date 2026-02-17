@@ -1,11 +1,8 @@
-﻿// conditionner l'import afin d'éviter les erreurs d'imports
-#if ANDROID
+﻿#if ANDROID
 using com.democratia.Platforms.Android;
 using AndroidX.Core.View;
-using Android.Views;
-#endif
 using Microsoft.Maui.Handlers;
-using System.Diagnostics;
+#endif
 
 namespace com.democratia
 {
@@ -15,6 +12,8 @@ namespace com.democratia
         public App()
         {
             InitializeComponent();
+            Current?.UserAppTheme =
+                (AppTheme)Preferences.Default.Get("Theme", (int)Current?.UserAppTheme!)!;
 
 #if ANDROID
             // Permet de gérer l'AutomationId pour les tests UI sur Android
@@ -33,7 +32,14 @@ namespace com.democratia
             {
                 AndroidHandler(handler, view, previousAction);
             });
+            MainApplication.SetLocal((string)Preferences.Default.Get("Language", MainApplication.cultureInfo.Name));
+#elif WINDOWS
+            WinUI.App.SetLocal((string)Preferences.Default.Get("Language", WinUI.App.cultureInfo.Name));
+#elif IOS || MACCATALYST
+            AppDelegate.SetLocal((string)Preferences.Default.Get("Language", AppDelegate.cultureInfo.Name));
 #endif
+
+
 
         }
 
@@ -57,10 +63,7 @@ namespace com.democratia
             }
         }
 #endif
-        protected override Microsoft.Maui.Controls.Window CreateWindow(IActivationState? activationState) => new(new AppShell());
+        protected override Window CreateWindow(IActivationState? activationState) => new(new AppShell());
 
     }
-
-
-
 }

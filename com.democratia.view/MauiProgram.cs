@@ -4,6 +4,7 @@ using com.democratia.Views;
 using com.democratia.Views.groupe;
 using com.democratia.Views.internaute;
 using com.democratia.Views.internaute.CreerGroupe;
+using com.democratia.Views.internaute.gestionCompte;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -21,7 +22,10 @@ namespace com.democratia
             builder
                 .UseMauiApp<App>()
                 .UseSkiaSharp()
-                .UseMauiCommunityToolkit()
+                .UseMauiCommunityToolkit(options =>
+                {
+                    options.SetShouldEnableSnackbarOnWindows(true);
+                })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -71,12 +75,13 @@ namespace com.democratia
             {
                 builder.AddTransient<Creation>();
                 builder.AddTransient<MainPage>();
-                builder.AddTransient<Home>();
-                builder.AddTransient<GestionCompte>();
+                builder.AddTransient<HomePage>();
+                builder.AddTransient<HomeGestionPage>();
                 builder.AddTransient<PremierePage>();
                 builder.AddTransient<DeuxiemePage>();
                 builder.AddTransient<TroisiemePage>();
                 builder.AddTransient<Groupe>();
+                builder.AddTransient<PreferencePage>();
 
                 return builder;
             }
