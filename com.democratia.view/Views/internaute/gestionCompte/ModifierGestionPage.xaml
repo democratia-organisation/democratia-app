@@ -5,7 +5,7 @@
              xmlns:component="clr-namespace:com.democratia.Views.Component"
              xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
-             x:DataType="viewModel:ModifierGestionPageViewModel"
+             x:DataType="viewModel:ModifierGestionViewModel"
              Style="{DynamicResource fondEcran}"
              Title="ModifierGestionPage">
     <!--REFACTO : centralisez ce formulaire avec celui de l'inscription-->

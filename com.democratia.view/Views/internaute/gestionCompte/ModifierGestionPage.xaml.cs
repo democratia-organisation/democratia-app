@@ -8,13 +8,13 @@ namespace com.democratia.Views.internaute.gestionCompte;
 
 public partial class ModifierGestionPage : ContentPage
 {
-	public ModifierGestionPage(ModifierGestionPageViewModel viewModel)
+	public ModifierGestionPage(ModifierGestionViewModel viewModel)
 	{
 		InitializeComponent();
         BindingContext = viewModel;
 
         // redessiner
-        WeakReferenceMessenger.Default.Register<ModifierGestionPageViewModel.EventModificationSuccessSender>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<ModifierGestionViewModel.EventModificationSuccessSender>(this, (r, m) =>
             Content = new VerticalStackLayout
             {
                 Children =
