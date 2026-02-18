@@ -83,7 +83,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\internaute\CreationPage.xaml.cs">
+    <Compile Update="Views\internaute\gestionCompte\CreationPage.xaml.cs">
       <DependentUpon>CreationPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\internaute\CreerGroupe\DeuxiemePage.xaml.cs">

@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:com.democratia.Views"
              xmlns:component="clr-namespace:com.democratia.Views.Component"
-             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute;assembly=com.democratia.core"
+             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
-             x:Class="com.democratia.Views.internaute.Creation"
+             x:Class="com.democratia.Views.internaute.gestionCompte.Creation"
              x:DataType="viewModel:CreationViewModel"
              Style="{DynamicResource fondEcran}"
              >

@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Text.Json;
 using Crypt = BCrypt.Net.BCrypt;
 
-namespace com.democratia.ViewModels.internaute
+namespace com.democratia.ViewModels.internaute.gestionCompte
 {
     public partial class CreationViewModel : ConnectableViewModel, INavigeablleViewModel
     {

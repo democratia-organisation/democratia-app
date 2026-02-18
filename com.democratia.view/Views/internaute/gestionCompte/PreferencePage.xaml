@@ -4,6 +4,7 @@
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
              xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
              x:DataType="viewModel:PreferenceViewModel"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="com.democratia.Views.internaute.gestionCompte.PreferencePage"
              Style="{DynamicResource fondEcran}"
              Title="PreferencePage">
@@ -16,6 +17,7 @@
                 HorizontalOptions="Center" />
             <BoxView WidthRequest="20" />
             <Picker x:Name="pickerLangage"
+                    ios:Picker.UpdateMode="WhenFinished"
                     Title="{x:Static lang:AppResources.Langage}"
                     Style="{DynamicResource PickerStyle}"
                     SelectedItem="{Binding Language}"
@@ -30,6 +32,7 @@
                 HorizontalOptions="Center" />
             <BoxView WidthRequest="20" />
             <Picker x:Name="pickerTheme"
+                ios:Picker.UpdateMode="Immediately"
                 Title="{x:Static lang:AppResources.theme}"
                 Style="{DynamicResource PickerStyle}"
                 SelectedItem="{Binding Theme}"

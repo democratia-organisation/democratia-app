@@ -1,8 +1,8 @@
 using com.democratia.view.Resources.Localization;
-using com.democratia.ViewModels.internaute;
+using com.democratia.ViewModels.internaute.gestionCompte;
 using com.democratia.ViewModels;
 
-namespace com.democratia.Views.internaute
+namespace com.democratia.Views.internaute.gestionCompte
 {
     public partial class Creation : ContentPage
     {
@@ -15,6 +15,7 @@ namespace com.democratia.Views.internaute
             {
                 if (args.PropertyName == nameof(viewModel.RetourMessage) && !string.IsNullOrEmpty(viewModel.RetourMessage))
                 {
+                    // REFACTO : utiliser WeakReferencesMessenger à la place
                     if (viewModel.RetourMessage == $"{AppResources.compteCree}")
                     {
                         IView[] views = { nomDeFamilleComponent, prenomComponent, passwordComponent, mailComponent, addresseComponent, retourMessageLabel, inscriptionButton };

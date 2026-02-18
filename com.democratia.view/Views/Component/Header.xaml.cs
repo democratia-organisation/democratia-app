@@ -1,4 +1,5 @@
 using com.democratia.view.Resources.Localization;
+using com.democratia.Views.internaute;
 
 namespace com.democratia.Views.Component
 {
@@ -33,22 +34,27 @@ namespace com.democratia.Views.Component
                 IReadOnlyList<Page> pile = shell.Navigation?.NavigationStack!;
                 if (pile.Count == 2 && pile[0] is null)
                 {
-                    bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.quitterApp, AppResources.confirmQuitt, AppResources.oui, AppResources.non);
-                    if (souhaiteQuitter)
+                    bool estDanLaPageDeConnexionOuPageHome = shell.CurrentPage is MainPage || shell.CurrentPage is HomePage;
+                    if (estDanLaPageDeConnexionOuPageHome)
                     {
-                        string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
-                        foreach (string file in files)
+                        bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.quitterApp, AppResources.confirmQuitt, AppResources.oui, AppResources.non);
+                        if (souhaiteQuitter)
                         {
-                            try
+                            string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
+                            foreach (string file in files)
                             {
-                                File.Delete(file);
+                                try
+                                {
+                                    File.Delete(file);
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw new Exception($"Erreur lors de la suppression du fichier {file} : {ex.Message}", ex);
+                                }
                             }
-                            catch (Exception ex)
-                            {
-                                throw new Exception($"Erreur lors de la suppression du fichier {file} : {ex.Message}", ex);
-                            }
+                            Environment.Exit(0);
+
                         }
-                        Environment.Exit(0);
                     }
                 }
 

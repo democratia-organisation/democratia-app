@@ -15,8 +15,9 @@ namespace com.democratia.Views.internaute.gestionCompte
             InitializeComponent();
             WeakReferenceMessenger.Default.Register<PreferenceViewModel.EventPreferecesSucess>
             (this, async (r, m) => {
-                string choix = await Application.Current!.Windows[0].Page!.DisplayActionSheetAsync($"{AppResources.ChangementOk}", $"{AppResources.continuer}", $"{AppResources.quitterApp}")!;
-                if (choix == $"{AppResources.quitterApp}") Environment.Exit(0);
+                
+                bool veutChangerPreferencesMaintenant = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.quitterApp, AppResources.ChangementOk, AppResources.quitterApp, AppResources.continuer)!;
+                if (veutChangerPreferencesMaintenant) Environment.Exit(0);
             });
         }
     }
