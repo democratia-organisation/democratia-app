@@ -4,21 +4,21 @@ using com.democratia.ViewModels.internaute.gestionCompte;
 using com.democratia.Views.Component;
 using CommunityToolkit.Mvvm.Messaging;
 
-namespace com.democratia.Views.internaute.gestionCompte;
-
-public partial class ModifierGestionPage : ContentPage
+namespace com.democratia.Views.internaute.gestionCompte
 {
-	public ModifierGestionPage(ModifierGestionViewModel viewModel)
-	{
-		InitializeComponent();
-        BindingContext = viewModel;
+    public partial class ModifierGestionPage : ContentPage
+    {
+        public ModifierGestionPage(ModifierGestionViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
 
-        // redessiner
-        WeakReferenceMessenger.Default.Register<ModifierGestionViewModel.EventModificationSuccessSender>(this, (r, m) =>
-            Content = new VerticalStackLayout
-            {
-                Children =
+            // redessiner
+            WeakReferenceMessenger.Default.Register<ModifierGestionViewModel.EventModificationSuccessSender>(this, (r, m) =>
+                Content = new VerticalStackLayout
                 {
+                    Children =
+                    {
                     new Header(),
                     new FinGestionCompte
                     {
@@ -27,8 +27,9 @@ public partial class ModifierGestionPage : ContentPage
                         Command = viewModel.NavigateTappedCommand,
                         CommandParameter = "/HomePage"
                     }
+                    }
                 }
-            }
-        );
+            );
+        }
     }
 }

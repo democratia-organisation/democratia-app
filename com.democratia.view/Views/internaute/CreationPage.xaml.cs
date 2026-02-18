@@ -2,56 +2,56 @@ using com.democratia.view.Resources.Localization;
 using com.democratia.ViewModels.internaute;
 using com.democratia.ViewModels;
 
-namespace com.democratia.Views.internaute;
-
-
-public partial class Creation : ContentPage
+namespace com.democratia.Views.internaute
 {
-    public Creation(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
+    public partial class Creation : ContentPage
     {
-        InitializeComponent();
-        var viewModel = navigeablleViewModels!.OfType<CreationViewModel>().FirstOrDefault();
-        BindingContext = viewModel!;
-        viewModel?.PropertyChanged += (sender, args) =>
+        public Creation(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
         {
-            if (args.PropertyName == nameof(viewModel.RetourMessage) && !string.IsNullOrEmpty(viewModel.RetourMessage))
+            InitializeComponent();
+            var viewModel = navigeablleViewModels!.OfType<CreationViewModel>().FirstOrDefault();
+            BindingContext = viewModel!;
+            viewModel?.PropertyChanged += (sender, args) =>
             {
-                if (viewModel.RetourMessage == $"{AppResources.compteCree}")
+                if (args.PropertyName == nameof(viewModel.RetourMessage) && !string.IsNullOrEmpty(viewModel.RetourMessage))
                 {
-                    IView[] views = { nomDeFamilleComponent, prenomComponent, passwordComponent, mailComponent, addresseComponent, retourMessageLabel, inscriptionButton };
-                    for (int i = 0; i < views.Length; i++)
+                    if (viewModel.RetourMessage == $"{AppResources.compteCree}")
                     {
-                        if (stackLayout.Children.Contains(views[i])) 
-                            stackLayout.Children.Remove(views[i]);
+                        IView[] views = { nomDeFamilleComponent, prenomComponent, passwordComponent, mailComponent, addresseComponent, retourMessageLabel, inscriptionButton };
+                        for (int i = 0; i < views.Length; i++)
+                        {
+                            if (stackLayout.Children.Contains(views[i]))
+                                stackLayout.Children.Remove(views[i]);
+                        }
+
+                        var seConnecterButton = new Button
+                        {
+                            Text = $"{AppResources.connecter}",
+                            Style = (Style?)Application.Current?.Resources["ButtonStyle"],
+
+                        };
+                        seConnecterButton.Command = viewModel.NavigateTappedCommand;
+                        seConnecterButton.CommandParameter = "..";
+
+                        stackLayout.Children.Add(new BoxView { HeightRequest = 120 });
+
+                        var label = new Label
+                        {
+                            Text = $"{AppResources.BonneNouvelle}",
+                            Style = (Style?)Application.Current?.Resources["HeadlineStyle"],
+                            AutomationId = "BienvenueLabel"
+                        };
+                        AutomationProperties.SetName(label, "BienvenueLabel");
+                        stackLayout.Children.Add(label);
+
+                        stackLayout.Children.Add(new BoxView { HeightRequest = 40 });
+
+                        stackLayout.Children.Add(seConnecterButton);
                     }
-
-                    var seConnecterButton = new Button
-                    {
-                        Text = $"{AppResources.connecter}",
-                        Style = (Style?)Application.Current?.Resources["ButtonStyle"],
-
-                    };
-                    seConnecterButton.Command = viewModel.NavigateTappedCommand;
-                    seConnecterButton.CommandParameter = "..";
-
-                    stackLayout.Children.Add(new BoxView { HeightRequest = 120});
-
-                    var label = new Label
-                    {
-                        Text = $"{AppResources.BonneNouvelle}",
-                        Style = (Style?)Application.Current?.Resources["HeadlineStyle"],
-                        AutomationId = "BienvenueLabel"
-                    };
-                    AutomationProperties.SetName(label, "BienvenueLabel");
-                    stackLayout.Children.Add(label);
-
-                    stackLayout.Children.Add(new BoxView { HeightRequest = 40 });
-
-                    stackLayout.Children.Add(seConnecterButton);
+                    else retourMessageLabel.Text = viewModel.RetourMessage;
                 }
-                else retourMessageLabel.Text = viewModel.RetourMessage;
-            }
 
-        };
+            };
+        }
     }
 }

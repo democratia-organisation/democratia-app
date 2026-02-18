@@ -80,7 +80,7 @@ namespace com.democratia
                 builder.AddTransient<PremierePage>();
                 builder.AddTransient<DeuxiemePage>();
                 builder.AddTransient<TroisiemePage>();
-                builder.AddTransient<Groupe>();
+                builder.AddTransient<GroupePage>();
                 builder.AddTransient<PreferencePage>();
 
                 return builder;

@@ -1,15 +1,17 @@
 ﻿using com.democratia.ViewModels.internaute;
 using com.democratia.ViewModels;
 
-namespace com.democratia.Views;
-
-public partial class MainPage : ContentPage
+namespace com.democratia.Views
 {
-
-    public MainPage(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
+    public partial class MainPage : ContentPage
     {
-        InitializeComponent();
-        MainPageViewModel? viewModel = navigeablleViewModels!.OfType<MainPageViewModel>().FirstOrDefault();
-        BindingContext = viewModel !;
+
+        public MainPage(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
+        {
+            InitializeComponent();
+            MainPageViewModel? viewModel = navigeablleViewModels!.OfType<MainPageViewModel>().FirstOrDefault();
+            BindingContext = viewModel!;
+        }
     }
+
 }

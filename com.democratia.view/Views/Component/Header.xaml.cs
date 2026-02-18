@@ -1,68 +1,70 @@
 using com.democratia.view.Resources.Localization;
-namespace com.democratia.Views.Component;
 
-public partial class Header : ContentView
+namespace com.democratia.Views.Component
 {
-    public Header()
+    public partial class Header : ContentView
     {
-        InitializeComponent();
-        SetTheme();
-    }
-
-
-    private async void OnClicked(object sender, EventArgs e)
-    {
-        var button = (ImageButton)sender;
-        if (button == switchImageButton)
+        public Header()
         {
-            if (Application.Current?.RequestedTheme == AppTheme.Dark)
-            {
-                Application.Current.UserAppTheme = AppTheme.Light;
-                button.Source = "light.png";
-            }
-            else if (Application.Current?.RequestedTheme == AppTheme.Light)
-            {
-                Application.Current.UserAppTheme = AppTheme.Dark;
-                button.Source = "dark.png";
-            }
+            InitializeComponent();
+            SetTheme();
         }
-        else if (button == backButton)
+
+
+        private async void OnClicked(object sender, EventArgs e)
         {
-            Shell shell = AppShell.Current!;
-            IReadOnlyList<Page> pile = shell.Navigation?.NavigationStack!;
-            if (pile.Count == 2 && pile[0] is null)
+            var button = (ImageButton)sender;
+            if (button == switchImageButton)
             {
-                bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.quitterApp, AppResources.confirmQuitt, AppResources.oui, AppResources.non);
-                if (souhaiteQuitter)
+                if (Application.Current?.RequestedTheme == AppTheme.Dark)
                 {
-                    string [] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
-                    foreach (string file in files)
-                    {
-                        try
-                        {
-                            File.Delete(file);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new Exception($"Erreur lors de la suppression du fichier {file} : {ex.Message}",ex);
-                        }
-                    }
-                    Environment.Exit(0);
+                    Application.Current.UserAppTheme = AppTheme.Light;
+                    button.Source = "light.png";
+                }
+                else if (Application.Current?.RequestedTheme == AppTheme.Light)
+                {
+                    Application.Current.UserAppTheme = AppTheme.Dark;
+                    button.Source = "dark.png";
                 }
             }
-                
-            if(pile.Count>1) await shell.GoToAsync("..");
+            else if (button == backButton)
+            {
+                Shell shell = AppShell.Current!;
+                IReadOnlyList<Page> pile = shell.Navigation?.NavigationStack!;
+                if (pile.Count == 2 && pile[0] is null)
+                {
+                    bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.quitterApp, AppResources.confirmQuitt, AppResources.oui, AppResources.non);
+                    if (souhaiteQuitter)
+                    {
+                        string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
+                        foreach (string file in files)
+                        {
+                            try
+                            {
+                                File.Delete(file);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new Exception($"Erreur lors de la suppression du fichier {file} : {ex.Message}", ex);
+                            }
+                        }
+                        Environment.Exit(0);
+                    }
+                }
+
+                if (pile.Count > 1) await shell.GoToAsync("..");
+
+            }
+
+            else
+            {
+                string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
+                if (files.Length > 0) await AppShell.Current.GoToAsync("Home"); // naviguer que si des données ont été mis en cache
+            }
 
         }
 
-        else
-        {
-            string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
-            if (files.Length > 0) await AppShell.Current.GoToAsync("Home"); // naviguer que si des données ont été mis en cache
-        }
-        
+        private void SetTheme() =>
+            switchImageButton.Source = Application.Current?.RequestedTheme == AppTheme.Dark ? "dark.png" : "light.png";
     }
-
-    private void SetTheme() =>
-        switchImageButton.Source = Application.Current?.RequestedTheme == AppTheme.Dark ? "dark.png" : "light.png";
 }

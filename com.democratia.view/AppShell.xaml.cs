@@ -12,7 +12,7 @@ namespace com.democratia
             InitializeComponent();
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             Routing.RegisterRoute(nameof(Creation), typeof(Creation));
-            Routing.RegisterRoute(nameof(Groupe), typeof(Groupe));
+            Routing.RegisterRoute(nameof(GroupePage), typeof(GroupePage));
             Routing.RegisterRoute(nameof(HomeGestionPage), typeof(HomeGestionPage));
             Routing.RegisterRoute(nameof(PremierePage), typeof(PremierePage));
             Routing.RegisterRoute(nameof(DeuxiemePage), typeof(DeuxiemePage));
