@@ -27,12 +27,19 @@ namespace com.democratia.Views.internaute.gestionCompte
         private void AjoutGrille(string labelText, string buttonText, ICommand command, object? parameter = null)
         {
             grille.Remove(stackLayout);
-            var layout = new FinGestionCompte
+            var layout = new StackLayout
             {
-                LabelText = labelText,
-                ButtonText = buttonText,
-                Command = command,
-                CommandParameter = parameter
+                Children =
+                {
+                    new Header(),
+                    new FinGestionCompte
+                    {
+                        LabelText = labelText,
+                        ButtonText = buttonText,
+                        Command = command,
+                        CommandParameter = parameter
+                    }
+                }
             };
             grille.Add(layout);
             grille.SetRow(layout, 2);

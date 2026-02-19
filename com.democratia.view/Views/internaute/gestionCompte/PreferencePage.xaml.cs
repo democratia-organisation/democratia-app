@@ -1,9 +1,7 @@
-using com.democratia.Utils;
 using com.democratia.view.Resources.Localization;
 using com.democratia.ViewModels.internaute.gestionCompte;
-using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Diagnostics;
+
 
 namespace com.democratia.Views.internaute.gestionCompte
 {

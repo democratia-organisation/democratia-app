@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using StackLayout = Microsoft.Maui.Controls.StackLayout;
 
 namespace com.democratia.Views.Component

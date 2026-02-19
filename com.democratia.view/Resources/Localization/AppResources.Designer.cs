@@ -349,7 +349,7 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Adresse mail.
+        ///   Recherche une chaîne localisée semblable à S&apos;indentifier.
         /// </summary>
         public static string Identifiant {
             get {

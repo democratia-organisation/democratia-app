@@ -127,7 +127,7 @@
     <value>log in</value>
   </data>
   <data name="Identifiant" xml:space="preserve">
-    <value>Email Adress</value>
+    <value>Log in</value>
   </data>
   <data name="Langage" xml:space="preserve">
     <value>Select a langage</value>
@@ -187,7 +187,7 @@
     <value>Incorrect password</value>
   </data>
   <data name="inscription" xml:space="preserve">
-    <value>Register in</value>
+    <value>SIgn in</value>
   </data>
   <data name="compteCree" xml:space="preserve">
     <value>Account created, log in now</value>

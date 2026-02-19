@@ -1,6 +1,8 @@
 using com.democratia.view.Resources.Localization;
 using com.democratia.ViewModels.internaute.gestionCompte;
 using com.democratia.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
+using com.democratia.Views.Component;
 
 namespace com.democratia.Views.internaute.gestionCompte
 {
@@ -11,48 +13,24 @@ namespace com.democratia.Views.internaute.gestionCompte
             InitializeComponent();
             var viewModel = navigeablleViewModels!.OfType<CreationViewModel>().FirstOrDefault();
             BindingContext = viewModel!;
-            viewModel?.PropertyChanged += (sender, args) =>
+
+            WeakReferenceMessenger.Default.Register<CreationViewModel.EventCreationSucess>(this, (r, s) =>
             {
-                if (args.PropertyName == nameof(viewModel.RetourMessage) && !string.IsNullOrEmpty(viewModel.RetourMessage))
+                Content = new StackLayout
                 {
-                    // REFACTO : utiliser WeakReferencesMessenger à la place
-                    if (viewModel.RetourMessage == $"{AppResources.compteCree}")
+                    Children =
                     {
-                        IView[] views = { nomDeFamilleComponent, prenomComponent, passwordComponent, mailComponent, addresseComponent, retourMessageLabel, inscriptionButton };
-                        for (int i = 0; i < views.Length; i++)
+                        new Header(),
+                        new FinGestionCompte
                         {
-                            if (stackLayout.Children.Contains(views[i]))
-                                stackLayout.Children.Remove(views[i]);
+                            LabelText = AppResources.BonneNouvelle,
+                            ButtonText = AppResources.connecter,
+                            Command = viewModel!.NavigateTappedCommand,
+                            CommandParameter = $"{nameof(MainPage)}"
                         }
-
-                        var seConnecterButton = new Button
-                        {
-                            Text = $"{AppResources.connecter}",
-                            Style = (Style?)Application.Current?.Resources["ButtonStyle"],
-
-                        };
-                        seConnecterButton.Command = viewModel.NavigateTappedCommand;
-                        seConnecterButton.CommandParameter = "..";
-
-                        stackLayout.Children.Add(new BoxView { HeightRequest = 120 });
-
-                        var label = new Label
-                        {
-                            Text = $"{AppResources.BonneNouvelle}",
-                            Style = (Style?)Application.Current?.Resources["HeadlineStyle"],
-                            AutomationId = "BienvenueLabel"
-                        };
-                        AutomationProperties.SetName(label, "BienvenueLabel");
-                        stackLayout.Children.Add(label);
-
-                        stackLayout.Children.Add(new BoxView { HeightRequest = 40 });
-
-                        stackLayout.Children.Add(seConnecterButton);
                     }
-                    else retourMessageLabel.Text = viewModel.RetourMessage;
-                }
-
-            };
+                };
+            });
         }
     }
 }

@@ -8,21 +8,34 @@
              x:DataType="viewModel:ModifierGestionViewModel"
              Style="{DynamicResource fondEcran}"
              Title="ModifierGestionPage">
-    <!--REFACTO : centralisez ce formulaire avec celui de l'inscription-->
+
     <ScrollView>
-        <VerticalStackLayout x:Name="layout">
-            <component:Header/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.Nom}" ValeurDonne="{Binding TempInternaute.nom_internaute}"/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.prenom}" ValeurDonne="{Binding TempInternaute.prenom_internaute}"/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.adress}" ValeurDonne="{Binding TempInternaute.adresse_postale}"/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.mail}" ValeurDonne="{Binding TempInternaute.courriel}"/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.Mdp}" ValeurDonne="{Binding TempInternaute.hashageMDP}" PassWord="True"/>
-            <Button
-                Text="{x:Static lang:AppResources.enregistrer}"
-                Style="{DynamicResource ButtonStyle}"
-                AutomationId="enregistrerButton"
-                Command="{Binding ModifierInternauteCommand}"
-            />
-        </VerticalStackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <component:Header Grid.Row="0"/>
+
+            <StackLayout Padding="10" Grid.Row="1" x:Name="stackLayout">
+                <BoxView HeightRequest="50"/>
+                <component:EntryComponent Title="{x:Static lang:AppResources.Nom}" x:Name="nomDeFamilleComponent" ValeurDonne="{Binding TempInternaute.nom_internaute}"/>
+                <component:EntryComponent Title="{x:Static lang:AppResources.prenom}" x:Name="prenomComponent" ValeurDonne="{Binding TempInternaute.prenom_internaute}"/>
+                <component:EntryComponent Title="{x:Static lang:AppResources.adress}" x:Name="addresseComponent" ValeurDonne="{Binding TempInternaute.adresse_postale}"/>
+                <component:EntryComponent Title="{x:Static lang:AppResources.mail}" x:Name="mailComponent" ValeurDonne="{Binding TempInternaute.courriel}"/>
+                <component:EntryComponent Title="{x:Static lang:AppResources.Mdp}" PassWord="True" x:Name="passwordComponent" ValeurDonne="{Binding TempInternaute.hashageMDP}"/>
+                <Label Text="{Binding RetourMessage}" Style="{DynamicResource ErrorLabelStyle}" HorizontalOptions="Center" x:Name="retourMessageLabel" AutomationId="RetourMessage"/>
+                <BoxView HeightRequest="100"/>
+                <Button
+                    Text="{x:Static lang:AppResources.enregistrer}"
+                    x:Name="inscriptionButton"
+                    Style="{DynamicResource ButtonStyle}"
+                    Command="{Binding ModifierInternauteCommand}"
+                    AutomationId="M'inscrire"
+                    AutomationProperties.Name="M'inscrire"
+                />
+            </StackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>
