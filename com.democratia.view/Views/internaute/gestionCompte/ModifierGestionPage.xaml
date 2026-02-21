@@ -17,7 +17,7 @@
             </Grid.RowDefinitions>
 
             <component:Header Grid.Row="0"/>
-
+<!--REFACTO : créer un content view qui aura comme contexte une Iterface comme context et chaque ViewModel qui l'utilise devra implémenter ce viewModel-->
             <StackLayout Padding="10" Grid.Row="1" x:Name="stackLayout">
                 <BoxView HeightRequest="50"/>
                 <component:EntryComponent Title="{x:Static lang:AppResources.Nom}" x:Name="nomDeFamilleComponent" ValeurDonne="{Binding TempInternaute.nom_internaute}"/>

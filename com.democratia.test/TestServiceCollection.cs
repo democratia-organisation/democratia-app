@@ -2,10 +2,11 @@ using com.democratia.Services;
 using com.democratia.test.Services;
 using com.democratia.ViewModels.internaute;
 using com.democratia.Utils;
+using com.democratia.ViewModels.internaute.gestionCompte;
 
 namespace com.democratia.test;
 
-public static class TestServiceCollection // TODO : améliorer les tests afin de prendre en compte le changement de langue possibe
+public static class TestServiceCollection // TODO : ajouter l'assembly com.democratia.view pour utiliser la classe AppResources
 {
     public static IServiceProvider CreateTestServiceProviderForMainViewModel()
     {
