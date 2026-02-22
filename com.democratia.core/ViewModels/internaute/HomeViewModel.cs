@@ -13,7 +13,6 @@ namespace com.democratia.ViewModels.internaute
     public partial class HomeViewModel : ConnectableViewModel , IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel
     {
         private Internaute? internaute;
-        [ObservableProperty] private ImageSource? _image;
         private readonly INavigationService? navigationService;
         private readonly ILocalizationService? localizationService;
         private readonly TaskCompletionSource<bool> _internautePret = new(false);
