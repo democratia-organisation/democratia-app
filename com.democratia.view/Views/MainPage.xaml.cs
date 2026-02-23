@@ -9,7 +9,7 @@ namespace com.democratia.Views
         public MainPage(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
         {
             InitializeComponent();
-            MainPageViewModel? viewModel = navigeablleViewModels!.OfType<MainPageViewModel>().FirstOrDefault();
+            MainViewModel? viewModel = navigeablleViewModels!.OfType<MainViewModel>().FirstOrDefault();
             BindingContext = viewModel!;
         }
     }

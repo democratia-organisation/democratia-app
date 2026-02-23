@@ -14,7 +14,7 @@ public static class TestServiceCollection // TODO : ajouter l'assembly com.democ
 
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IClient, InternauteClient>();
-        services.AddTransient<MainPageViewModel>();
+        services.AddTransient<MainViewModel>();
 
         return services.BuildServiceProvider();
     }
@@ -36,7 +36,7 @@ public static class TestServiceCollection // TODO : ajouter l'assembly com.democ
 
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IClient>(sp => new FakeClient(fakeResponse));
-        services.AddTransient<MainPageViewModel>();
+        services.AddTransient<MainViewModel>();
 
         return services.BuildServiceProvider();
     }

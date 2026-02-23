@@ -2,12 +2,13 @@ using com.democratia.ViewModels.internaute.CreerGroupe;
 
 namespace com.democratia.Views.internaute.CreerGroupe
 {
-    public partial class DeuxiemePage : ContentPage
+    public partial class PremiereCreationPage : ContentPage
     {
-        public DeuxiemePage(DeuxiemPageViewModel viewModel)
+        public PremiereCreationPage(PremiereCreationViewModel viewModel)
         {
             BindingContext = viewModel;
             InitializeComponent();
+            behavior.BindingContext = BindingContext;
         }
     }
 }

@@ -8,7 +8,7 @@
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
              x:Class="com.democratia.Views.MainPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:DataType="viewModels:MainPageViewModel"
+             x:DataType="viewModels:MainViewModel"
              AutomationId="ConnexionPage"
              Style="{DynamicResource fondEcran}">
     <ContentPage.Resources>

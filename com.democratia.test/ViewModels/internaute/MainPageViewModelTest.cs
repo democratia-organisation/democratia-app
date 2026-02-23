@@ -10,13 +10,13 @@ namespace com.democratia.test.ViewModels.internaute
     public class MainPageViewModelTest
     {
         private IServiceProvider _serviceProvider;
-        private MainPageViewModel? mainPageViewModel;
+        private MainViewModel? mainPageViewModel;
         private ILocalizationService localizationService;
 
         public MainPageViewModelTest()
         {
             _serviceProvider = TestServiceCollection.CreateTestServiceProviderForMainViewModel();
-            mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
+            mainPageViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
             mainPageViewModel.AdresseMail = "modadary56@gmail.com";
             mainPageViewModel.MotDePasse = "Djonodo20050207/";
             mainPageViewModel.ErrorMessage = null;
@@ -44,7 +44,7 @@ namespace com.democratia.test.ViewModels.internaute
         public async Task NotTextExceptedError(string? fakeResponse, string? messageAttendu)
         {
             _serviceProvider = TestServiceCollection.CreateFakeServiceProviderForMainViewModel(fakeResponse);
-            mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
+            mainPageViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
             mainPageViewModel.AdresseMail = "modadary56@gmail.com";
             mainPageViewModel.MotDePasse = "Djonodo20050207/";
 

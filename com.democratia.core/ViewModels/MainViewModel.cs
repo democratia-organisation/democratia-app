@@ -9,7 +9,7 @@ using Crypt = BCrypt.Net.BCrypt;
 
 namespace com.democratia.ViewModels.internaute
 {
-    public partial class MainPageViewModel : ConnectableViewModel, INavigeablleViewModel
+    public partial class MainViewModel : ConnectableViewModel, INavigeablleViewModel
     {
         // REFACTO : faire une authentification JWT
         [ObservableProperty]
@@ -26,7 +26,7 @@ namespace com.democratia.ViewModels.internaute
         private readonly INavigationService? navigationService;
         private readonly ILocalizationService? localizationService;
 
-        public MainPageViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization)
+        public MainViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization)
             : base(clients?.OfType<InternauteClient>().FirstOrDefault(), localization)
         {
             this.navigationService = navigationService;
@@ -34,7 +34,7 @@ namespace com.democratia.ViewModels.internaute
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
         }
 
-        public MainPageViewModel() : base(null, null) { }
+        public MainViewModel() : base(null, null) { }
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)

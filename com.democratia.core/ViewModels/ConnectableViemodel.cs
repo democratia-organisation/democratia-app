@@ -15,8 +15,7 @@ namespace com.democratia.ViewModels
     {
         protected IClient? client = client;
         public IClient? Client => client;
-        private ILocalizationService? localizationService = localizationService;
-
+        
         protected readonly ILocalizationService? LocalizationService = localizationService;
 
 
@@ -25,7 +24,7 @@ namespace com.democratia.ViewModels
             Dictionary<string, object> dictionnary;
             var finalJson = stringJson.Trim();
             try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(finalJson)!; }
-            catch (Exception) { throw new Exception($"{localizationService?.GetString("erreurDonne")}"); }
+            catch (Exception) { throw new Exception($"{LocalizationService?.GetString("erreurDonne")}"); }
             var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new Exception($"{localizationService?.GetString("erreurDonne")}");
             return JsonSerializer.Deserialize<List<object>>(rawElement!)!;
 

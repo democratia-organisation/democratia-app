@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="com.democratia.Views.internaute.CreerGroupe.DeuxiemePage"
+             x:Class="com.democratia.Views.internaute.CreerGroupe.DeuxiemeCreationPage"
              xmlns:Component="clr-namespace:com.democratia.Views.Component"
              xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
              xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:DataType="viewModel:DeuxiemPageViewModel"
+             x:DataType="viewModel:DeuxiemePageViewModel"
              Title="DeuxiemePage"
              Style="{DynamicResource fondEcran}">
     <ScrollView>

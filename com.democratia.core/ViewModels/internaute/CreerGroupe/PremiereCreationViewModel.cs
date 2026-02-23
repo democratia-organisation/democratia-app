@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
-    public partial class PremierePageViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable, INotifyPropertyChanged
+    public partial class PremiereCreationViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable, INotifyPropertyChanged
     {
          // REFACTO : agréer tous les binables en un tempInternaute
         [ObservableProperty] private string? nomGroupe;
@@ -31,7 +31,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         private List<Thematique> thematiquesNouvelles { get; set; } = new(); 
         private INavigationService navigationService;
         private ILocalizationService? localizationService;
-        public PremierePageViewModel(INavigationService navigation, IEnumerable<IClient?>? clients, ILocalizationService? localizationService)
+        public PremiereCreationViewModel(INavigationService navigation, IEnumerable<IClient?>? clients, ILocalizationService? localizationService)
             : base(clients!.OfType<ThematiqueClient>().FirstOrDefault(), localizationService)
         {
             navigationService = navigation;

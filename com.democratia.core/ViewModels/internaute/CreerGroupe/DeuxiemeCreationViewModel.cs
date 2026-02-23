@@ -9,14 +9,14 @@ using System.ComponentModel;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
-    public partial class DeuxiemPageViewModel : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel, IQueryAttributable
+    public partial class DeuxiemePageViewModel : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel, IQueryAttributable
     {
         private INavigationService service;
         private Groupe? groupe;
         [ObservableProperty] public Color? color;
         private Internaute? internaute;
         private List<Thematique>? thematiques { get; set; }
-        public DeuxiemPageViewModel(INavigationService service)
+        public DeuxiemePageViewModel(INavigationService service)
         {
             this.service = service;
             color = Colors.Transparent;

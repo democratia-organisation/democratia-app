@@ -83,14 +83,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\internaute\CreerGroupe\TroisiemeCreationPage.xaml.cs">
+      <DependentUpon>TroisiemeCreationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\internaute\gestionCompte\CreationPage.xaml.cs">
       <DependentUpon>CreationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\internaute\CreerGroupe\DeuxiemePage.xaml.cs">
-      <DependentUpon>DeuxiemePage.xaml</DependentUpon>
+    <Compile Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml.cs">
+      <DependentUpon>DeuxiemeCreationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\internaute\CreerGroupe\PremierePage.xaml.cs">
-      <DependentUpon>PremierePage.xaml</DependentUpon>
+    <Compile Update="Views\internaute\CreerGroupe\PremiereCreationPage.xaml.cs">
+      <DependentUpon>PremiereCreationPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\internaute\gestionCompte\HomeGestionPage.xaml.cs">
       <DependentUpon>HomeGestionPage.xaml</DependentUpon>
@@ -109,13 +112,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <MauiXaml Update="Views\internaute\CreerGroupe\DeuxiemePage.xaml">
+    <MauiXaml Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\internaute\CreerGroupe\PremierePage.xaml">
+    <MauiXaml Update="Views\internaute\CreerGroupe\PremiereCreationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\internaute\CreerGroupe\TroisiemePage.xaml">
+    <MauiXaml Update="Views\internaute\CreerGroupe\TroisiemeCreationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\internaute\gestionCompte\HomeGestionPage.xaml">

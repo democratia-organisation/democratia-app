@@ -1,6 +1,6 @@
 ﻿using com.democratia.ViewModels.internaute;
 
-namespace com.democratia.test.ViewModels.internaute
+namespace com.democratia.test.ViewModels.internaute.gestionCompte
 {
     public class CreationViewModelTest
     {

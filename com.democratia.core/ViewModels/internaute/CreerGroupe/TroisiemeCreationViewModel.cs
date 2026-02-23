@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
-    public partial class TroisiemePageViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable, INotifyPropertyChanged
+    public partial class TroisiemeCreationViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable, INotifyPropertyChanged
     {
 
         private INavigationService service;
@@ -23,7 +23,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [ObservableProperty] private string? _errorMessage;
         [ObservableProperty] private bool _isFinish = false;
         private List<Thematique>? thematiques { get; set; }
-        public TroisiemePageViewModel(IEnumerable<IClient?>? clients, ILocalizationService? localizationService, INavigationService service) 
+        public TroisiemeCreationViewModel(IEnumerable<IClient?>? clients, ILocalizationService? localizationService, INavigationService service) 
             : base(clients?.OfType<GroupClient>().FirstOrDefault(), localizationService)
         {
             this.service = service;
