@@ -42,7 +42,7 @@ namespace com.democratia
 #endif
 
             AppDomain.CurrentDomain.UnhandledException += async (sender, e) =>
-                await LogErreur(e.ExceptionObject as Exception, "AppDomain.UnhandledException");
+                await LogErreur((e.ExceptionObject as Exception)!, "AppDomain.UnhandledException");
             
 
             
@@ -77,9 +77,9 @@ namespace com.democratia
                 builder.AddTransient<MainPage>();
                 builder.AddTransient<HomePage>();
                 builder.AddTransient<HomeGestionPage>();
-                builder.AddTransient<PremierePage>();
-                builder.AddTransient<DeuxiemePage>();
-                builder.AddTransient<TroisiemePage>();
+                builder.AddTransient<PremiereCreationPage>();
+                builder.AddTransient<DeuxiemeCreationPage>();
+                builder.AddTransient<TroisiemeCreationPage>();
                 builder.AddTransient<GroupePage>();
                 builder.AddTransient<PreferencePage>();
 

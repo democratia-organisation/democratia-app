@@ -49,7 +49,7 @@ namespace com.democratia.Utils
                 services.AddTransient<HomeViewModel>();
                 services.AddTransient<HomeGestionViewModel>();
                 services.AddTransient<PremiereCreationViewModel>();
-                services.AddTransient<DeuxiemPageViewModel>();
+                services.AddTransient<DeuxiemePageViewModel>();
                 services.AddTransient<TroisiemeCreationViewModel>();
                 services.AddTransient<GroupeViewModel>();
                 services.AddTransient<ModifierGestionViewModel>();
@@ -64,7 +64,7 @@ namespace com.democratia.Utils
                 services.AddSingleton<INavigeablleViewModel, CreationViewModel>();
                 services.AddSingleton<INavigeablleViewModel, HomeViewModel>();
                 services.AddSingleton<INavigeablleViewModel, PremiereCreationViewModel>();
-                services.AddSingleton<INavigeablleViewModel, DeuxiemPageViewModel>();
+                services.AddSingleton<INavigeablleViewModel, DeuxiemePageViewModel>();
                 services.AddSingleton<INavigeablleViewModel, GroupeViewModel>();
                 services.AddSingleton<INavigeablleViewModel, ModifierGestionViewModel>();
 

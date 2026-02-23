@@ -44,7 +44,7 @@ namespace com.democratia.Views.Component
             set
             {
                 _passWord = value;
-                entryComponent.IsPassword = (bool)_passWord;
+                entryComponent.IsPassword = (bool)_passWord!;
             }
         }
 

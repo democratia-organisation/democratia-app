@@ -12,8 +12,10 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
     public partial class CreationViewModel : ConnectableViewModel, INavigeablleViewModel
     {
 
-        [ObservableProperty] private readonly Internaute? _internaute;
-        [ObservableProperty] private readonly string? retourMessage;
+        [ObservableProperty] private Internaute? _internaute = new();
+        [ObservableProperty] private string? retourMessage;
+        [ObservableProperty] private string? password; // passowrd tempon afin d'éviter le set à chaque écriture dans la varible
+        [ObservableProperty] private string? email;
         private readonly INavigationService? navigationService;
         private readonly ILocalizationService? localizationService;
         
@@ -55,10 +57,12 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         {
             try
             {
+                Internaute!.tempMDP = Password;
+                Internaute.courriel = Email;
                 if (await VerifierToutesLesConditions())
                 {
-
-                    string reponse = await client?.CreateModelAsync(Internaute!.nom_internaute, Internaute!.prenom_internaute, Internaute!.courriel, Internaute!.adresse_postale, Crypt.HashPassword(Internaute!.hashageMDP))!;
+                    Internaute!.hashageMDP = Crypt.HashPassword(Internaute!.tempMDP);
+                    string reponse = await client?.CreateModelAsync(Internaute!.nom_internaute, Internaute!.prenom_internaute, Internaute!.courriel, Internaute!.adresse_postale, Internaute.hashageMDP )!;
                     List<object> values = RecuprerInformationConnexion(reponse);
                     if (values.Count != 0) throw new Exception($"{localizationService?.GetString("erreurCreation")}");
                 }
@@ -79,8 +83,6 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
                 throw new Exception($"{localizationService?.GetString("champComplet")}");
             else return true;
         }
-        private bool VerifierFormatageMail() => 
-            Verification.VerifierFormatage(Internaute!.courriel!, new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$")) ? true : throw new Exception($"{localizationService?.GetString("formatEmail")}");
         
         private async Task<bool> VerifierMailDoublon()
         {
@@ -89,11 +91,9 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             int? nombreMail = JsonSerializer.Deserialize<Dictionary<string, int>>(listeInformation[0].ToString()!)!.TryGetValue("COUNT(courriel)", out var value) ? value : null;
             return nombreMail == 0 ? true : throw new Exception($"{localizationService?.GetString("compteExistantErreur")}");
         }
-        private bool VerifierFormatageMotDePasse() => 
-            Verification.VerifierFormatage(Internaute!.hashageMDP!, new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$")) ? true : throw new Exception($"{localizationService?.GetString("formatMotDePasse")}");
         
 
-        private async Task<bool> VerifierToutesLesConditions() => VerifierChampComplet() && VerifierFormatageMail() && await VerifierMailDoublon() && VerifierFormatageMotDePasse();
+        private async Task<bool> VerifierToutesLesConditions() => VerifierChampComplet() && await VerifierMailDoublon();
 
         public record EventCreationSucess() { }
     }

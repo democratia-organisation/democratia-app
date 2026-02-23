@@ -6,9 +6,9 @@ using com.democratia.Views.Component;
 
 namespace com.democratia.Views.internaute.gestionCompte
 {
-    public partial class Creation : ContentPage
+    public partial class CreationPage : ContentPage
     {
-        public Creation(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
+        public CreationPage(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
         {
             InitializeComponent();
             var viewModel = navigeablleViewModels!.OfType<CreationViewModel>().FirstOrDefault();

@@ -23,8 +23,8 @@
                 <component:EntryComponent Title="{x:Static lang:AppResources.Nom}" x:Name="nomDeFamilleComponent" ValeurDonne="{Binding TempInternaute.nom_internaute}"/>
                 <component:EntryComponent Title="{x:Static lang:AppResources.prenom}" x:Name="prenomComponent" ValeurDonne="{Binding TempInternaute.prenom_internaute}"/>
                 <component:EntryComponent Title="{x:Static lang:AppResources.adress}" x:Name="addresseComponent" ValeurDonne="{Binding TempInternaute.adresse_postale}"/>
-                <component:EntryComponent Title="{x:Static lang:AppResources.mail}" x:Name="mailComponent" ValeurDonne="{Binding TempInternaute.courriel}"/>
-                <component:EntryComponent Title="{x:Static lang:AppResources.Mdp}" PassWord="True" x:Name="passwordComponent" ValeurDonne="{Binding TempInternaute.hashageMDP}"/>
+                <component:EntryComponent Title="{x:Static lang:AppResources.mail}" x:Name="mailComponent" ValeurDonne="{Binding Email}"/>
+                <component:EntryComponent Title="{x:Static lang:AppResources.Mdp}" PassWord="True" x:Name="passwordComponent" ValeurDonne="{Binding Password}"/>
                 <Label Text="{Binding RetourMessage}" Style="{DynamicResource ErrorLabelStyle}" HorizontalOptions="Center" x:Name="retourMessageLabel" AutomationId="RetourMessage"/>
                 <BoxView HeightRequest="100"/>
                 <Button

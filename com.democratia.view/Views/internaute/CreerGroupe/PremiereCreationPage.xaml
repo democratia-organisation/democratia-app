@@ -93,9 +93,9 @@
                 x:Name="collectionThematiqueSuggestion"
                 AutomationProperties.Name="collectionThematiqueSuggestion"/>
             <BoxView HeightRequest="30"/>
-            <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourVote}" ValeurDonne="{Binding NombreJourVote}" x:Name="nbJVoteEntry" />
-            <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourDiscus}" ValeurDonne="{Binding NombreJourDiscussion}" x:Name="nbJDiscussionEntry"/>
-            <Component:EntryComponent Title="{x:Static lang:AppResources.budget}" ValeurDonne="{Binding Budget}" x:Name="budgetEntry"/>
+            <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourVote}" ValeurDonne="{Binding Groupe.NombreDeJourVote}" x:Name="nbJVoteEntry" />
+            <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourDiscus}" ValeurDonne="{Binding Groupe.NombreDeJourDiscuss}" x:Name="nbJDiscussionEntry"/>
+            <Component:EntryComponent Title="{x:Static lang:AppResources.budget}" ValeurDonne="{Binding Groupe.Budget}" x:Name="budgetEntry"/>
             <FlexLayout
                 Wrap="Wrap"
                 Direction="Row"

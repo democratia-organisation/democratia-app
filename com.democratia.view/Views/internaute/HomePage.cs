@@ -122,7 +122,7 @@ namespace com.democratia.Views.internaute
                 Text = $"{AppResources.NewGroupe}",
                 Style = (Style?)Application.Current?.Resources["ButtonStyle"],
                 Command = viewModel.NavigateTappedCommand,
-                CommandParameter = $"{nameof(PremierePage)}",
+                CommandParameter = $"{nameof(PremiereCreationPage)}",
                 VerticalOptions = LayoutOptions.End,
                 Margin = new Thickness(20),
                 AutomationId = "CreateGroupButton",
