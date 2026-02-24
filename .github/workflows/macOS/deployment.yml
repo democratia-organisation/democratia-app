@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-    DOTNETVERSION: 10.0.0
+    DOTNETVERSION: 10.0.x
 
 jobs:
   buildmacCatalyst:
