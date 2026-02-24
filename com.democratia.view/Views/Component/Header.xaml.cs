@@ -49,7 +49,7 @@ namespace com.democratia.Views.Component
                                 }
                                 catch (Exception ex)
                                 {
-                                    throw new Exception($"Erreur lors de la suppression du fichier {file} : {ex.Message}", ex);
+                                    throw ex;
                                 }
                             }
                             Environment.Exit(0);

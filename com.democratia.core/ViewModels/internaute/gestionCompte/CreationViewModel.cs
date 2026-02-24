@@ -6,6 +6,7 @@ using System.Text.Json;
 using Crypt = BCrypt.Net.BCrypt;
 using com.democratia.Models;
 using CommunityToolkit.Mvvm.Messaging;
+using com.democratia.CustomException;
 
 namespace com.democratia.ViewModels.internaute.gestionCompte
 {
@@ -64,7 +65,6 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
                     Internaute!.hashageMDP = Crypt.HashPassword(Internaute!.tempMDP);
                     string reponse = await client?.CreateModelAsync(Internaute!.nom_internaute, Internaute!.prenom_internaute, Internaute!.courriel, Internaute!.adresse_postale, Internaute.hashageMDP )!;
                     List<object> values = RecuprerInformationConnexion(reponse);
-                    if (values.Count != 0) throw new Exception($"{localizationService?.GetString("erreurCreation")}");
                 }
             }
             catch (Exception)
@@ -80,7 +80,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
               !string.IsNullOrEmpty(Internaute!.prenom_internaute) &&
               !string.IsNullOrEmpty(Internaute!.hashageMDP) &&
               !string.IsNullOrEmpty(Internaute!.courriel)))
-                throw new Exception($"{localizationService?.GetString("champComplet")}");
+                throw new EmptyRequiredFieldException();
             else return true;
         }
         
@@ -89,7 +89,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(Internaute!.courriel!)!;
             List<object>? listeInformation = RecuprerInformationConnexion(retourJson);
             int? nombreMail = JsonSerializer.Deserialize<Dictionary<string, int>>(listeInformation[0].ToString()!)!.TryGetValue("COUNT(courriel)", out var value) ? value : null;
-            return nombreMail == 0 ? true : throw new Exception($"{localizationService?.GetString("compteExistantErreur")}");
+            return nombreMail == 0 ? true : throw new CompteExistantException();
         }
         
 

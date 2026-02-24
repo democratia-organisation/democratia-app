@@ -1,4 +1,5 @@
-﻿using com.democratia.Models;
+﻿using com.democratia.CustomException;
+using com.democratia.Models;
 using com.democratia.Services;
 using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -88,7 +89,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             catch (Exception ex)
             {
 #if DEBUG
-                ErrorMessage = ex.Message;
+                ErrorMessage = MapExceptionMessage.MappingException(ex,localizationService!);
 #elif !DEBUG
                 ErrorMessage = localizationService?.GetString("erreurPhoto");
 #endif

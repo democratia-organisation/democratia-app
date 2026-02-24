@@ -1,4 +1,5 @@
-﻿using com.democratia.Utils;
+﻿using com.democratia.CustomException;
+using com.democratia.Utils;
 using Microsoft.Maui.Controls;
 using System.IO.Pipelines;
 using System.Net.Http.Headers;
@@ -75,7 +76,7 @@ namespace com.democratia.Services
             MettreAJourStatuts(response);
             if (!response.IsSuccessStatusCode) {
                 string content = await response.Content.ReadAsStringAsync();
-                throw new Exception("Requete râté");
+                throw new ConnexionErrorException();
             } 
 
             else
@@ -105,7 +106,7 @@ namespace com.democratia.Services
             if (!response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                throw new Exception("Requete râté");
+                throw new ConnexionErrorException();
             }
 
             else

@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Collections.ObjectModel;
 using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
+using com.democratia.CustomException;
 
 namespace com.democratia.ViewModels.internaute
 {
@@ -41,7 +42,7 @@ namespace com.democratia.ViewModels.internaute
             try
             { jsonString = await client?.GetModelAsync(internaute!)!; }
             catch (Exception)
-            { throw new Exception($"{localizationService?.GetString("connexionErreur")}"); }
+            { throw new ConnexionErrorException(); }
             List<object> listeInformation = RecuprerInformationConnexion(jsonString);
             Groupes.Clear();
             listeInformation.ForEach(groupe => Groupes.Add(JsonSerializer.Deserialize<Groupe>(groupe.ToString()!)!));

@@ -60,13 +60,9 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
                 internaute!.courriel = Merge(internaute.courriel, Email);
                 internaute!.tempMDP = Merge(internaute.tempMDP, Password);
             }
-            catch (MailException)
-            {
-                RetourMessage = localizationService?.GetString("formatEmail");
-            }
-            catch (PassWordException)
-            {
-                RetourMessage = localizationService?.GetString("formatMotDePasse");
+            catch (Exception ex) {
+
+                RetourMessage = MapExceptionMessage.MappingException(ex, localizationService!);
             }
         }
 

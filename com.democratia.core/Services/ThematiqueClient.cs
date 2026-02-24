@@ -1,5 +1,6 @@
 ﻿
 
+using com.democratia.CustomException;
 using com.democratia.Models;
 
 namespace com.democratia.Services
@@ -19,8 +20,8 @@ namespace com.democratia.Services
             {
                 response = await client?.PostAsync(requete, null)!;
             }
-            catch (Exception ex) { 
-                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            catch (Exception) { 
+                throw new ConnexionErrorException();
             }
             return await FinRequete(response);
 

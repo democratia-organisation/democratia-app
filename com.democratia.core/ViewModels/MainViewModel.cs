@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Text.Json;
 using Crypt = BCrypt.Net.BCrypt;
+using com.democratia.CustomException;
 
 namespace com.democratia.ViewModels.internaute
 {
@@ -53,7 +54,7 @@ namespace com.democratia.ViewModels.internaute
             catch (Exception ex)
             {
 #if DEBUG
-                ErrorMessage = ex.Message;
+                ErrorMessage = MapExceptionMessage.MappingException(ex,localizationService!); 
 #elif !DEBUG
                 ErrorMessage = localizationService?.GetString("erreurInattendu");    
 #endif
@@ -65,25 +66,25 @@ namespace com.democratia.ViewModels.internaute
 
             if (string.IsNullOrEmpty(AdresseMail) || string.IsNullOrEmpty(MotDePasse))
             {
-                if (string.IsNullOrEmpty(AdresseMail)) throw new ArgumentException($"{localizationService?.GetString("errorMailMessage")}");
-                else throw new ArgumentException($"{localizationService?.GetString("errorMailMessage")}");
+                if (string.IsNullOrEmpty(AdresseMail)) throw new EmptyEmailFieldException();
+                else throw new EmptyPassWordFieldException();
             }
             string jsonString;
             try
             { jsonString = await client?.GetModelAsync(AdresseMail)!; }
             catch (Exception)
-            { throw new Exception($"{localizationService?.GetString("connexionErreur")}"); }
+            { throw new ConnexionErrorException(); }
             List<object> listeInformation = RecuprerInformationConnexion(jsonString);
-            if(listeInformation.Count == 0) throw new Exception($"{localizationService?.GetString("noUser")}");
+            if(listeInformation.Count == 0) throw new NoUserException();
             var internaute = JsonSerializer.Deserialize<Internaute>(listeInformation![0].ToString()!);
             string motDePasseHash = internaute?.hashageMDP!;
             EnregistrerModele(internaute!);
 #if DEBUG  
             if (motDePasseHash != MotDePasse && ! await VerifierMotDePasseUtilisateur(motDePasseHash)) 
-                throw new Exception($"{localizationService?.GetString("mauvaisMdp")}");
+                throw new BadPasswordException();
 #elif !DEBUG
             if(! await VerifierMotDePasseUtilisateur(motDePasseHash)) 
-                throw new Exception($"{localizationService?.GetString("mauvaisMdp")}");
+                throw new BadPasswordException();
 # endif
             return internaute;
         }

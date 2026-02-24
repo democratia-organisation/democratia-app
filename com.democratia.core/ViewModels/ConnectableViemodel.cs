@@ -1,4 +1,5 @@
-﻿using com.democratia.Models;
+﻿using com.democratia.CustomException;
+using com.democratia.Models;
 using com.democratia.Services;
 using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -24,8 +25,8 @@ namespace com.democratia.ViewModels
             Dictionary<string, object> dictionnary;
             var finalJson = stringJson.Trim();
             try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(finalJson)!; }
-            catch (Exception) { throw new Exception($"{LocalizationService?.GetString("erreurDonne")}"); }
-            var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new Exception($"{localizationService?.GetString("erreurDonne")}");
+            catch (Exception) { throw new FetchDataException(); }
+            var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new FetchDataException();
             return JsonSerializer.Deserialize<List<object>>(rawElement!)!;
 
         }
