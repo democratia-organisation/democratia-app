@@ -22,18 +22,37 @@ jobs:
           - platform: Android
             os: windows-latest
             project: "UITests.Android/UITests.Android.csproj"
+            test-driver: uiautomator2
           - platform: Windows
             os: windows-latest
             project: "UITests.Windows/UITests.Windows.csproj"
+            test-driver: windows
           - platform: macOS
             os: macos-latest
             project: "UITests.macOS/UITests.macOS.csproj"
+            test-driver: macOS
           - platform: iOS
             os: macos-latest
             project: "UITests.iOS/UITests.iOS.csproj"
+            test-driver: xcuitest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Appium & Drivers
+        run: |
+          npm install -g appium
+          appium driver install ${{matrix.test-driver}}
+        shell: bash
+      - name: Extra setpUp for windows
+        if: matrix.platform == 'Windows'
+        run: Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe" -ArgumentList "4723" -WindowStyle Hidden
+      - name: Start Appium Sever
+        run: appium --log appium.log &
+      - name: Récupérer dépot
+        uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -56,6 +75,19 @@ jobs:
           dotnet build com.democratia.mauiTest/${{ matrix.project }} -c Release
           dotnet test com.democratia.mauiTest/${{ matrix.project }} -c Release --no-build --logger "trx;LogFileName=${{ matrix.platform }}_results.trx" --verbosity normal
 
+      - name: Run Android Emulator
+        if: matrix.platform == 'Android'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          script: dotnet test com.democratia.mauiTest/UITests.Android/UITests.Android.csproj -c Release
+      - name: Start iOS Simulator
+        if: matrix.platform == 'iOS'
+        run: |
+          ID=$(xcrun simctl list devices available | grep "iPhone 15" | head -1 | awk -F '[()]' '{print $2}')
+          xcrun simctl boot $ID
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v4
