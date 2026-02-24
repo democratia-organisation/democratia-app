@@ -1,6 +1,4 @@
-﻿
-using com.democratia.CustomException;
-using com.democratia.Utils;
+﻿using com.democratia.Utils;
 using System.Text.Json.Serialization;
 
 namespace com.democratia.Models
