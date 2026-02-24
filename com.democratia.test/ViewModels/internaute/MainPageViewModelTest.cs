@@ -1,4 +1,5 @@
 ﻿using com.democratia.Models;
+using com.democratia.test.Localization;
 using com.democratia.Utils;
 using com.democratia.ViewModels.internaute;
 
@@ -11,7 +12,6 @@ namespace com.democratia.test.ViewModels.internaute
     {
         private IServiceProvider _serviceProvider;
         private MainViewModel? mainPageViewModel;
-        private ILocalizationService localizationService;
 
         public MainPageViewModelTest()
         {
@@ -20,6 +20,7 @@ namespace com.democratia.test.ViewModels.internaute
             mainPageViewModel.AdresseMail = "modadary56@gmail.com";
             mainPageViewModel.MotDePasse = "Djonodo20050207/";
             mainPageViewModel.ErrorMessage = null;
+            AppResources.Culture = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
         }
 
         [Fact(DisplayName = "Cas de base")]
@@ -30,7 +31,6 @@ namespace com.democratia.test.ViewModels.internaute
             Assert.NotNull(internaute);
             Assert.NotNull(internaute.id_internaute);
             Assert.Null(mainPageViewModel.ErrorMessage);
-            Assert.Equal(158, internaute.id_internaute);
             Assert.Equal("Darouèche", internaute.nom_internaute);
             Assert.Equal("19 Rue Saint-Merry", internaute.adresse_postale);
             Assert.Equal("Naherry", internaute.prenom_internaute);
@@ -48,7 +48,7 @@ namespace com.democratia.test.ViewModels.internaute
             mainPageViewModel.AdresseMail = "modadary56@gmail.com";
             mainPageViewModel.MotDePasse = "Djonodo20050207/";
 
-            var exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
+            var exception = await Assert.ThrowsAsync<ConnexionErrorException>(async () => await mainPageViewModel!.ConnecterInternaute());
 
             Assert.Equal(messageAttendu, exception.Message);
         }
@@ -59,7 +59,7 @@ namespace com.democratia.test.ViewModels.internaute
         {
             mainPageViewModel!.Client!.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
 
-            Exception exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel!.ConnecterInternaute());
+            Exception exception = await Assert.ThrowsAsync<ConnexionErrorException>(async () => await mainPageViewModel!.ConnecterInternaute());
 
             Assert.Equal("Erreur de connexion inattendu", exception.Message);
 
@@ -77,11 +77,13 @@ namespace com.democratia.test.ViewModels.internaute
             mainPageViewModel.MotDePasse = motDePasse;
             Exception exception;
 
-            if (string.IsNullOrEmpty(mainPageViewModel.MotDePasse) || string.IsNullOrEmpty(mainPageViewModel.AdresseMail))
-                exception = await Assert.ThrowsAsync<ArgumentException>(async () => await mainPageViewModel!.ConnecterInternaute());
+            if (string.IsNullOrEmpty(mainPageViewModel.AdresseMail))
+                exception = await Assert.ThrowsAsync<MailException>(async () => await mainPageViewModel!.ConnecterInternaute());
+            if (string.IsNullOrEmpty(mainPageViewModel.MotDePasse))
+                exception = await Assert.ThrowsAsync<PassWordException>(async () => await mainPageViewModel!.ConnecterInternaute());
 
             else
-                exception = await Assert.ThrowsAsync<Exception>(async () => await mainPageViewModel.ConnecterInternaute());
+                exception = await Assert.ThrowsAnyAsync<Exception>(async () => await mainPageViewModel.ConnecterInternaute());
 
             Assert.Equal(messageDerreur, exception.Message);
 

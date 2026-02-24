@@ -14,29 +14,30 @@ namespace UITests
         private const string MacIp = "51.159.121.26";
         private const string MacUser = "m1";
         // Le chemin vers votre app macOS (.app Catalyst ou native)
-        private const string MacAppPath = "/Users/m1/Documents/democratia-mobile/com.democratia.view/bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app";
-        private const string MacProjectDir = "/Users/m1/Documents/democratia-mobile/com.democratia.mauiTest/UITests.macOS/";
+        private const string MacAppPath = "./bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app";
+        private const string MacProjectDir = "./com.democratia.mauiTest/UITests.macOS/";
 
         public AppiumSetup()
         {
             if (OperatingSystem.IsWindows())
             {
-                // On délègue au Mac
                 RunTestsRemotelyOnMac();
                 return;
             }
-            else
+            else 
             {
-                // On exécute localement sur l'interface macOS
+                AppiumServerHelper.StartAppiumLocalServer();
                 InitLocalMacDriver();
-            }
+            } 
+            
+            
         }
         private void InitLocalMacDriver()
         {
             var options = new AppiumOptions
             {
                 AutomationName = "mac2",
-                PlatformName = "macOS", // "macOS" est la valeur standard attendue par Mac2Driver
+                PlatformName = "macOS",
                 App = MacAppPath
             };
 
@@ -50,8 +51,10 @@ namespace UITests
 
             
 
-            driver = new MacDriver(new Uri("http://127.0.0.1:4723/"), options, TimeSpan.FromSeconds(120));
+            driver = new MacDriver(new Uri("http://127.0.0.1:4724/"), options, TimeSpan.FromSeconds(120));
         }
+
+
         private void RunTestsRemotelyOnMac()
         {
             string remoteResultsPath = $"/Users/m1/Documents/democratia-mobile/com.democratia.mauiTest/UITests.macOS/TestResults/results.trx";
@@ -62,7 +65,7 @@ namespace UITests
                             "killall -9 node dotnet 2>/dev/null; sleep 2; " +
                             "/usr/bin/nohup /opt/homebrew/bin/appium --address 0.0.0.0 --use-drivers mac2 > /tmp/appium.log 2>&1 & " +
                             "echo 'Attente du serveur Appium...'; " +
-                            "/bin/sleep 5 && /bin/bash -c 'until printf \"\" 2>>/dev/null >/dev/tcp/127.0.0.1/4723; do sleep 1; done'; " +
+                            "/bin/sleep 5 && /bin/bash -c 'until printf \"\" 2>>/dev/null >/dev/tcp/127.0.0.1/4724; do sleep 1; done'; " +
                             $"cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test UITests.macos.csproj --logger 'trx;LogFileName=results.trx'\"";
             // 2. Commande pour rapatrier le fichier de résultat
             var copyCommand = $"scp {MacUser}@{MacIp}:{remoteResultsPath} \"{localResultsPath}\"";

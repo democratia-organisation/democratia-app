@@ -1,4 +1,4 @@
-﻿using com.democratia.ViewModels.internaute;
+﻿using com.democratia.ViewModels.internaute.gestionCompte;
 
 namespace com.democratia.test.ViewModels.internaute.gestionCompte
 {
@@ -28,11 +28,11 @@ namespace com.democratia.test.ViewModels.internaute.gestionCompte
         [Fact(DisplayName = "Cas de base")]
         public async Task TestCreationViewModel()
         {
-            creationViewModel?.AdresseMail = "email@example.com";
-            creationViewModel?.NomDeFamille = "Doe";
-            creationViewModel?.Prenom = "John";
-            creationViewModel?.AdressePostal = "123 Rue de Stain";
-            creationViewModel?.MotDePasse = "ElouiComme/20";
+            creationViewModel?.Internaute!.courriel = "email@example.com";
+            creationViewModel?.Internaute!.nom_internaute = "Doe";
+            creationViewModel?.Internaute!.prenom_internaute = "John";
+            creationViewModel?.Internaute!.adresse_postale = "123 Rue de Stain";
+            creationViewModel?.Internaute!.tempMDP = "ElouiComme/20";
 
             await creationViewModel?.CreerInternaute()!;
 
@@ -48,11 +48,11 @@ namespace com.democratia.test.ViewModels.internaute.gestionCompte
         [InlineData("hello", "bonjour", "132 rue de Lyon", "modadary56@gmail.com", "Djonodo8/", "L'adresse mail est déjà utilisée par un autre compte")]
         public async Task TestCreationViewModelError(string? prenom, string? nomDeFamille, string? adresseMail, string? adressePostale, string? motDePasse, string? messageDeRetour)
         {
-            creationViewModel?.AdresseMail = adresseMail;
-            creationViewModel?.NomDeFamille = nomDeFamille;
-            creationViewModel?.Prenom = prenom;
-            creationViewModel?.AdressePostal = adressePostale;
-            creationViewModel?.MotDePasse = motDePasse;
+            creationViewModel?.Internaute!.courriel = adresseMail;
+            creationViewModel?.Internaute!.nom_internaute = nomDeFamille;
+            creationViewModel?.Internaute!.prenom_internaute = prenom;
+            creationViewModel?.Internaute!.adresse_postale = adressePostale;
+            creationViewModel?.Internaute!.tempMDP = motDePasse;
 
             await Assert.ThrowsAsync<Exception>(async () => await creationViewModel?.CreerInternaute()!);
 

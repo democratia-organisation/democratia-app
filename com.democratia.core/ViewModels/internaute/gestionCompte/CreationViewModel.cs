@@ -6,7 +6,6 @@ using System.Text.Json;
 using Crypt = BCrypt.Net.BCrypt;
 using com.democratia.Models;
 using CommunityToolkit.Mvvm.Messaging;
-using com.democratia.CustomException;
 
 namespace com.democratia.ViewModels.internaute.gestionCompte
 {

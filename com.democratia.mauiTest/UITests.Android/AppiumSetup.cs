@@ -3,7 +3,6 @@ using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using System.Diagnostics;
 using UITests.View;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UITests
 {
@@ -19,49 +18,23 @@ namespace UITests
 
         public AppiumSetup()
         {
-            // If you started an Appium server manually, make sure to comment out the next line
-            // This line starts a local Appium server for you as part of the test run
             if (SystemInfo.SSHHost()) return;
             AppiumServerHelper.StartAppiumLocalServer();
             var androidOptions = new AppiumOptions
             {
-                // Specify UIAutomator2 as the driver, typically don't need to change this
                 AutomationName = "UIAutomator2",
-                // Always Android for Android
                 PlatformName = "Android",
-
-                // RELEASE BUILD SETUP
-                // The full path to the .apk file
-                // This only works with release builds because debug builds have fast deployment enabled
-                // and Appium isn't compatible with fast deployment
+#if !DEBUG
                 // App = Path.Join(TestContext.CurrentContext.TestDirectory, "../../../../MauiApp/bin/Release/net9.0-android/com.companyname.applicationname-Signed.apk"),
-                // END RELEASE BUILD SETUP
+# endif
             };
-
-            // DEBUG BUILD SETUP
-            // If you're running your tests against debug builds you'll need to set NoReset to true
-            // otherwise appium will delete all the libraries used for Fast Deployment on Android
-            // Release builds have Fast Deployment disabled
-            // https://learn.microsoft.com/xamarin/android/deploy-test/building-apps/build-process#fast-deployment
+#if DEBUG
             androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.NoReset, "true");
             string activity = ResolveAppActivity("com.democratia");
             androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
             androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.democratia");
-            // If you are using a debug build, you can specify the path to the .apk file
-            //androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Release\net9.0-android\com.democratia-Signed.apk");
-
-
-
-            // END DEBUG BUILD SETUP
-
-
-            // Specifying the avd option will boot the emulator for you
-            // make sure there is an emulator with the name below
-            // If not specified, make sure you have an emulator booted
-            //androidOptions.AddAdditionalAppiumOption("avd", "pixel_5_-_api_33");
-
-            // Note there are many more options that you can use to influence the app under test according to your needs
-
+            androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, @".\com.democratia.view\bin\Release\net10.0-android\com.democratia-Signed.apk");
+# endif
             try
             {
                 driver = new AndroidDriver(androidOptions);
@@ -105,6 +78,5 @@ namespace UITests
             AppiumServerHelper.DisposeAppiumLocalServer();
             GC.SuppressFinalize(this);
         }
-        public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir) { return ""; }
     }
 }

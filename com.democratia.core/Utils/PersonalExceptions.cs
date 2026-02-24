@@ -1,7 +1,4 @@
-﻿
-using com.democratia.Utils;
-
-namespace com.democratia.CustomException
+﻿namespace com.democratia.Utils
 {
     internal class MailException : Exception { }
 

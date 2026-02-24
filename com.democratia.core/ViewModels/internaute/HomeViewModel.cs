@@ -6,8 +6,6 @@ using System.ComponentModel;
 using System.Text.Json;
 using System.Collections.ObjectModel;
 using com.democratia.Utils;
-using CommunityToolkit.Mvvm.ComponentModel;
-using com.democratia.CustomException;
 
 namespace com.democratia.ViewModels.internaute
 {

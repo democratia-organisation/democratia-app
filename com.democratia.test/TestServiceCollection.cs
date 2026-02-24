@@ -44,8 +44,6 @@ public static class TestServiceCollection // TODO : ajouter l'assembly com.democ
     public static IServiceProvider CreateTestServiceProviderForClients()
     {
         var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
-
-        // TODO : ajouter d'autres clients si nécessaire
         services.AddSingleton<IClient, InternauteClient>();
         services.AddTransient<Provider>();
 

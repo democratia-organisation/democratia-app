@@ -1,5 +1,4 @@
-﻿using com.democratia.CustomException;
-using com.democratia.Models;
+﻿using com.democratia.Models;
 using com.democratia.Services;
 using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;

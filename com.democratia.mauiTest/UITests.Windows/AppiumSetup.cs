@@ -16,8 +16,6 @@ namespace UITests
 
         public AppiumSetup()
         {
-            // If you started an Appium server manually, make sure to comment out the next line
-            // This line starts a local Appium server for you as part of the test run
             if (SystemInfo.SSHHost()) return;
             AppiumServerHelper.StartAppiumLocalServer();
             var windowsOptions = new AppiumOptions
@@ -28,7 +26,7 @@ namespace UITests
                 PlatformName = "Windows",
 
                 // The identifier of the deployed application to test
-                App = @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe",
+                App = @".\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe",
             };
             windowsOptions.AddAdditionalAppiumOption("unicodeKeyboard", true);
             windowsOptions.AddAdditionalAppiumOption("resetKeyboard", true);

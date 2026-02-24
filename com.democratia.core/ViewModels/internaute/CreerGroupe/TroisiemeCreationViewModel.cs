@@ -1,4 +1,4 @@
-﻿using com.democratia.CustomException;
+﻿using com.democratia.core.Utils;
 using com.democratia.Models;
 using com.democratia.Services;
 using com.democratia.Utils;
