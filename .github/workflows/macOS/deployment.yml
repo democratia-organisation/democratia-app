@@ -14,10 +14,10 @@ jobs:
     runs-on: macos-12
     
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup .NET SDK ${{env.DOTNETVERSION}}
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version:  '${{env.DOTNETVERSION}}'
           
@@ -42,7 +42,7 @@ jobs:
           dotnet build -f net10.0-maccatalyst -c Release -o ./artifacts
           dotnet publish -f net10.0-maccatalyst -c Release -p:BuildIpa=True -o ./artifacts
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: artifacts-mac
           path: |
@@ -52,7 +52,7 @@ jobs:
     runs-on: macos-12
     
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
       # github docs for installing cert and provisioning profile
@@ -87,7 +87,7 @@ jobs:
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           
       - name: Setup .NET SDK ${{env.DOTNETVERSION}}
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version:  '${{env.DOTNETVERSION}}'
 
@@ -108,9 +108,9 @@ jobs:
           cd com.democratia.view
           dotnet build -f net10.0-ios -c Release /p:packageApp=false /p:buildForSimulator=true /p:ArchiveOnBuild=false
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: artifacts-ios
           path: |
-            com.democratia.view/WeatherTwentyOne/bin/Release/net10.0-ios/iossimulator-x64/**/*.app
+            com.democratia.view/bin/Release/net10.0-ios/iossimulator-x64/**/*.app
       
