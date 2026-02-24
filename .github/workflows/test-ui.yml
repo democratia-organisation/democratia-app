@@ -48,7 +48,7 @@ jobs:
         shell: bash
       - name: Extra setpUp for windows
         if: matrix.platform == 'Windows'
-        run: Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe" -ArgumentList "4723" -WindowStyle Hidden
+        run: Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe" -ArgumentList "4724" -WindowStyle Hidden
       - name: Start Appium Sever
         run: appium --log appium.log &
       - name: Récupérer dépot
