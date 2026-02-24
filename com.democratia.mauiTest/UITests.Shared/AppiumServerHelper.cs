@@ -7,7 +7,7 @@ namespace UITests
         private static AppiumLocalService? _appiumLocalService;
 
         public const string DefaultHostAddress = "127.0.0.1";
-        public const int DefaultHostPort = 4723;
+        public const int DefaultHostPort = 4724;
 
         public static void StartAppiumLocalServer(string host = DefaultHostAddress,
             int port = DefaultHostPort)
