@@ -30,7 +30,7 @@ jobs:
           - platform: macOS
             os: macos-latest
             project: "UITests.macOS/UITests.macOS.csproj"
-            test-driver: macOS
+            test-driver: mac2
           - platform: iOS
             os: macos-latest
             project: "UITests.iOS/UITests.iOS.csproj"
