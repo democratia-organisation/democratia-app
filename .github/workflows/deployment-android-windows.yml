@@ -34,14 +34,7 @@ jobs:
       - name: Build Windows MSIX
         run: |
           cd .\6.0\Apps\WeatherTwentyOne\src\
-          dotnet publish -f net10.0-windows10.0.19041.0 -c Release 
-          
-#       - name: Build and Run UnitTests
-#         shell: bash
-#         run: |
-#           dotnet build <path to unit test csproj>
-#           dotnet test <path to unit test csproj> --no-build --verbosity normal
-
+          dotnet publish -f net10.0-windows10.0.19041.0 -c Release
       # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/certutil
       # commandline util to encode to base64 on windows
       - name: Create signing pfx file from secrets
@@ -120,12 +113,6 @@ jobs:
         # - name: Sign dev build
         #   shell: bash
         #   run: jarsigner -keystore android/release.decrypted.jks -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./android/app/build/outputs/bundle/release/app-release-signed.aab ./android/app/build/outputs/bundle/release/app-release.aab release
-
-  #       - name: Build and Run UnitTests
-  #         shell: bash
-  #         run: |
-  #           dotnet build <path to unit test csproj>
-  #           dotnet test <path to unit test csproj> --no-build --verbosity normal
 
         - uses: actions/upload-artifact@v2
           with:
