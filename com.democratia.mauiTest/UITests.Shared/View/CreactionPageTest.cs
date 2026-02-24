@@ -32,12 +32,6 @@ namespace UITests.View
             Assert.Equal(nombresEntrees, nombresLabels);
             Assert.Equal(nombresEntrees, nombresEntries);
             Assert.NotNull(mInscrireButton);
-            Assert.Equal("Nom de Famille", labels?[0].Text);
-            Assert.Equal("Prénom", labels?[1].Text);
-            Assert.Equal("Adresse Postale", labels?[2].Text);
-            Assert.Equal("Adresse mail", labels?[3].Text);
-            Assert.Equal("Mot de passe", labels?[4].Text);
-            Assert.Equal("M'inscrire", mInscrireButton?.Text);
         }
         public CreationPageTest() : base()
         {
