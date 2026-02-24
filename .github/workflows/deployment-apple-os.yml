@@ -1,8 +1,6 @@
 name: macOSCI
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -44,8 +42,8 @@ jobs:
         shell: bash
         run: |
           cd 6.0/Apps/WeatherTwentyOne/src
-          dotnet build -f net7.0-maccatalyst -c Release -o ./artifacts
-          dotnet publish -f net7.0-maccatalyst -c Release -p:BuildIpa=True -o ./artifacts
+          dotnet build -f net10.0-maccatalyst -c Release -o ./artifacts
+          dotnet publish -f net10.0-maccatalyst -c Release -p:BuildIpa=True -o ./artifacts
 
 #       - name: Build and Run UnitTests
 #         shell: bash
@@ -119,7 +117,7 @@ jobs:
         shell: bash
         run: |
           cd 6.0/Apps/WeatherTwentyOne/src
-          dotnet build -f net7.0-ios -c Debug /p:packageApp=false /p:buildForSimulator=true /p:ArchiveOnBuild=false
+          dotnet build -f net10.0-ios -c Debug /p:packageApp=false /p:buildForSimulator=true /p:ArchiveOnBuild=false
 
 #       - name: Build and Run UnitTests
 #         shell: bash
@@ -131,5 +129,5 @@ jobs:
         with:
           name: artifacts-ios
           path: |
-            6.0/Apps/WeatherTwentyOne/src/WeatherTwentyOne/bin/Debug/net7.0-ios/iossimulator-x64/**/*.app
+            6.0/Apps/WeatherTwentyOne/src/WeatherTwentyOne/bin/Debug/net10.0-ios/iossimulator-x64/**/*.app
       

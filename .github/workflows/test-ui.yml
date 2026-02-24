@@ -1,14 +1,53 @@
-name: UITest
+name: unitTest
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, "developpment" ]
+  push:
+    branches: ["developpment"]
+
 
 jobs:
-#       - name: Build and Run UnitTests
-#         shell: bash
-#         run: |
-#           dotnet build <path to unit test csproj>
-#           dotnet test <path to unit test csproj> --no-build --verbosity normal
+  test-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        uitest: 
+          - "UITests.Android/UITests.Android.csproj"
+          - "UITests.Windows/UITests.Windows.csproj"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Install MAUI Workload
+        run: dotnet workload install maui
+      - name: Build and Run UITests
+        run: |
+          dotnet build com.democratia.mauiTest/${{matrix.uitest}}
+          dotnet test  com.democratia.mauiTest/${{matrix.uitest}} --no-build --verbosity normal
+
+  test-macos:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        uitest: 
+          - "UITests.macOS/UITests.macOS.csproj"
+          - "UITests.iOS/UITests.iOS.csproj"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Install MAUI Workload
+        run: dotnet workload install maui
+      - name: Build and Run UnitTests
+        run: |
+          dotnet build com.democratia.test/com.democratia.test.csproj
+          dotnet test  com.democratia.test/com.democratia.test.csproj --no-build --verbosity normal
+      - name: Build and Run UITests
+        run: |
+          dotnet build com.democratia.mauiTest/${{matrix.uitest}}
+          dotnet test  com.democratia.mauiTest/${{matrix.uitest}} --no-build --verbosity normal

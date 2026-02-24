@@ -13,7 +13,7 @@ env:
     
 jobs:
   buildWindows:
-    runs-on: windows-2022
+    runs-on: windows-latest
     
     steps:
       - uses: actions/checkout@v2
@@ -34,7 +34,7 @@ jobs:
       - name: Build Windows MSIX
         run: |
           cd .\6.0\Apps\WeatherTwentyOne\src\
-          dotnet publish -f net7.0-windows10.0.19041.0 -c Release 
+          dotnet publish -f net10.0-windows10.0.19041.0 -c Release 
           
 #       - name: Build and Run UnitTests
 #         shell: bash
@@ -65,7 +65,7 @@ jobs:
         env:
           CERT_PASSWORD: ${{ secrets.WIN_CERT_PASSWORD }}
         run: |
-          '"C:\Program Files (x86)\Windows Kits\10\App Certification Kit\SignTool" sign /a /fd SHA256 /f WinSignCert.pfx /p ($env:CERT_PASSWORD) 6.0\Apps\WeatherTwentyOne\src\WeatherTwentyOne\bin\Release\net7.0-windows10.0.19041.0\win10-x64\AppPackages\WeatherTwentyOne_1.0.0.0_TestWeatherTwentyOne_1.0.0.0_x64.msix'
+          '"C:\Program Files (x86)\Windows Kits\10\App Certification Kit\SignTool" sign /a /fd SHA256 /f WinSignCert.pfx /p ($env:CERT_PASSWORD) 6.0\Apps\WeatherTwentyOne\src\WeatherTwentyOne\bin\Release\net10.0-windows10.0.19041.0\win10-x64\AppPackages\WeatherTwentyOne_1.0.0.0_TestWeatherTwentyOne_1.0.0.0_x64.msix'
 
       - uses: actions/upload-artifact@v2
         with:
@@ -105,7 +105,7 @@ jobs:
           shell: bash
           run: |
             cd 6.0/Apps/WeatherTwentyOne/src
-            dotnet publish -f:net7.0-android -c:Release
+            dotnet publish -f:net10.0-android -c:Release
             
         # # Store Android Signing Keystore and password in Secrets using base64 encoding
         # # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/certutil
@@ -131,4 +131,4 @@ jobs:
           with:
             name: artifacts-android
             path: |
-              6.0\Apps\WeatherTwentyOne\src\WeatherTwentyOne\bin\Release\net7.0-android\publish\*.apk
+              6.0\Apps\WeatherTwentyOne\src\WeatherTwentyOne\bin\Release\net10.0-android\publish\*.apk
