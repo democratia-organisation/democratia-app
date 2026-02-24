@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="com.democratia.Views.internaute.CreerGroupe.DeuxiemeCreationPage"
+             xmlns:Component="clr-namespace:com.democratia.Views.Component"
+             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
+             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+             xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewModel:DeuxiemePageViewModel"
+             Title="DeuxiemePage"
+             Style="{DynamicResource fondEcran}">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Component:Header/>
+            <Label
+                Style="{DynamicResource HeadlineStyle}"
+                Text="{x:Static lang:AppResources.creaGroupe}"
+                AutomationId="labelAjoutMembres"
+                x:Name="labelAjoutMembres"
+                AutomationProperties.Name="labelAjoutMembres"/>
+            <BoxView HeightRequest="50"/>
+            <Label
+                Text="{x:Static lang:AppResources.CouleurRepre}"
+                Style="{DynamicResource SubHeadlineStyle}"
+                AutomationId="labelCouleurRepresentative"
+                x:Name="labelCouleurRepresentative"
+                AutomationProperties.Name="labelCouleurRepresentative"/>
+            <BoxView HeightRequest="50"/>
+            <Grid MinimumHeightRequest="500" MaximumWidthRequest="500" BackgroundColor="Grey">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <controls:ColorPicker
+                    PickedColor="{Binding Color, Mode=OneWayToSource}"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    x:Name="ColorPicker"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Fill"
+                    ColorFlowDirection="Horizontal"
+                    ColorSpectrumStyle="ShadeToHueStyle">
+                </controls:ColorPicker>  
+            </Grid>
+            <BoxView HeightRequest="50"/>
+            <Rectangle
+                HeightRequest="50"
+                WidthRequest="50"
+                Fill="{Binding Color}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+            <BoxView HeightRequest="50"/>
+            <Button
+                Text="{x:Static lang:AppResources.suivant}"
+                Command="{Binding NavigateTappedCommand}"
+                CommandParameter="TroisiemePage"
+                Style="{DynamicResource ButtonStyle}"
+            />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

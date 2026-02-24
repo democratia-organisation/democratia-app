@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Enums;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -42,7 +43,7 @@ namespace UITests.View
         {
             if (SystemInfo.SSHHost()) return;
             var _ = new AppiumSetup();
-            AppiumElement? creationPage = FindUIElement("Créez en un !"); ;
+            AppiumElement? creationPage = FindUIElement("Creer"); ;
             creationPage?.Click();
         }
 
@@ -51,7 +52,7 @@ namespace UITests.View
         {
             if (SystemInfo.SSHHost()) return;
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
-            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Labels");
+            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
             var nombreElements = 5;
             foreach (var entry in entries!) entry.Clear();
@@ -64,15 +65,14 @@ namespace UITests.View
             prenom?.SendKeys("Jean");
             adressePostale?.SendKeys("123 Rue de Paris");
             adresseMail?.SendKeys("example@gmail.com");
-            motDePass?.SendKeys("MotDePasse123");
+            motDePass?.SendKeys("MotDePasse123/");
             mInscrireButton?.Click();
-            AppiumElement? bouttonRetourHome = FindUIElement("Bienvenue Bouton");
+            AppiumElement? bouttonRetourHome = FindUIElement("BienvenueLabel");
             Assert.NotNull(entries);
             Assert.NotNull(labels);
             Assert.NotNull(mInscrireButton);
             Assert.Equal(nombreElements, entries?.Count);
             Assert.Equal(nombreElements, entries?.Count);
-            Assert.NotNull(FindUIElement("Bienvenue Texte"));
             Assert.NotNull(bouttonRetourHome);
             Assert.Null(FindUIElements("Entry"));
             Assert.Null(FindUIElements("Labels"));
@@ -91,8 +91,10 @@ namespace UITests.View
         {
             if (SystemInfo.SSHHost()) return;
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
-            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Labels");
+            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
+            Assert.NotNull(entries);
+            Assert.NotNull(labels);
             var nombreElements = 5;
             var (nomElement, prenomElement, adressePostaleElement, adresseMailElement, motDePasseElement) =
                 (entries?[0], entries?[1], entries?[2], entries?[3], entries?[4]);
@@ -104,13 +106,10 @@ namespace UITests.View
             motDePasseElement?.SendKeys(motDePasse);
             mInscrireButton?.Click();
 
-            Assert.NotNull(entries);
-            Assert.NotNull(labels);
             Assert.NotNull(mInscrireButton);
             Assert.Equal(nombreElements, entries?.Count);
             Assert.Equal(nombreElements, entries?.Count);
-            Assert.Null(FindUIElement("Bienvenue Texte"));
-            Assert.NotNull(FindUIElement("Error message"));
+            Assert.NotNull(FindUIElement("RetourMessage"));
 
         }
     }

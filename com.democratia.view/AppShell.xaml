@@ -10,7 +10,7 @@
     Title="Democratia">
 
     <ShellContent
-        Title="Home"
+        Title="MainPage"
         Icon="{StaticResource Icon}"
         ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />

@@ -30,6 +30,8 @@ namespace UITests
                 // The identifier of the deployed application to test
                 App = @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe",
             };
+            windowsOptions.AddAdditionalAppiumOption("unicodeKeyboard", true);
+            windowsOptions.AddAdditionalAppiumOption("resetKeyboard", true);
 
 
             // Note there are many more options that you can use to influence the app under test according to your needs

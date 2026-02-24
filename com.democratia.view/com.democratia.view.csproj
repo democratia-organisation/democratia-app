@@ -47,6 +47,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<ApplicationIdGuid>7b28a8d1-xxxx-xxxx-xxxx-xxxxxxxxxxxx</ApplicationIdGuid>
+		<NeutralLanguage>fr</NeutralLanguage>
 	</PropertyGroup>
   <ItemGroup>
     <!-- App Icon -->
@@ -61,15 +62,73 @@
     <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Platforms\Android\Resources\xml\network_security_config.xml" />
+	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
+    <PackageReference Include="CommunityToolkit.Maui" Version="14.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.2" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.2" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.30" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.31" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.2" />
+    <PackageReference Include="nor0x.Maui.ColorPicker" Version="2.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\com.democratia.core\com.democratia.core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Localization\AppResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\CreerGroupe\TroisiemeCreationPage.xaml.cs">
+      <DependentUpon>TroisiemeCreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\gestionCompte\CreationPage.xaml.cs">
+      <DependentUpon>CreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml.cs">
+      <DependentUpon>DeuxiemeCreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\CreerGroupe\PremiereCreationPage.xaml.cs">
+      <DependentUpon>PremiereCreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\gestionCompte\HomeGestionPage.xaml.cs">
+      <DependentUpon>HomeGestionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\gestionCompte\ModifierGestionPage.xaml.cs">
+      <DependentUpon>ModifierGestionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\gestionCompte\PreferencePage.xaml.cs">
+      <DependentUpon>PreferencePage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Localization\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <MauiXaml Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\CreerGroupe\PremiereCreationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\CreerGroupe\TroisiemeCreationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\gestionCompte\HomeGestionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\gestionCompte\ModifierGestionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\gestionCompte\PreferencePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
   </ItemGroup>
 </Project>

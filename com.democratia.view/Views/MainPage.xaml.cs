@@ -1,14 +1,17 @@
-﻿using com.democratia.ViewModels;
+﻿using com.democratia.ViewModels.internaute;
+using com.democratia.ViewModels;
 
-namespace com.democratia.Views;
-
-public partial class MainPage : ContentPage
+namespace com.democratia.Views
 {
-
-    public MainPage(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
+    public partial class MainPage : ContentPage
     {
-        InitializeComponent();
-        MainPageViewModel? viewModel = navigeablleViewModels!.OfType<MainPageViewModel>().FirstOrDefault();
-        BindingContext = viewModel ?? throw new ArgumentNullException(nameof(viewModel), "ViewModel cannot be null.");
+
+        public MainPage(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
+        {
+            InitializeComponent();
+            MainViewModel? viewModel = navigeablleViewModels!.OfType<MainViewModel>().FirstOrDefault();
+            BindingContext = viewModel!;
+        }
     }
+
 }

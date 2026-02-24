@@ -1,5 +1,10 @@
-﻿using com.democratia.Services;
+﻿using com.democratia.CustomException;
+using com.democratia.Models;
+using com.democratia.Services;
+using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Maui.Storage;
+using System.ComponentModel;
 using System.Text.Json;
 
 namespace com.democratia.ViewModels
@@ -7,23 +12,47 @@ namespace com.democratia.ViewModels
     /// <summary>
     /// Classe abstraite qui représente tout viewModel qui peut se connecter à l'API
     /// </summary>
-    public abstract class ConnectableViewModel(IClient? client) : ObservableObject
+    public abstract class ConnectableViewModel(IClient? client, ILocalizationService? localizationService) : ObservableObject, INotifyPropertyChanged
     {
         protected IClient? client = client;
         public IClient? Client => client;
+        
+        protected readonly ILocalizationService? LocalizationService = localizationService;
 
-        protected static List<Dictionary<string, object>> RecuprerInformationConnexion(string stringJson)
+
+        protected List<object> RecuprerInformationConnexion(string stringJson)
         {
             Dictionary<string, object> dictionnary;
-            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(stringJson)!; }
-            catch (Exception) { throw new Exception("Erreur lors de la récupération des données"); }
-            var rawElement = (JsonElement)dictionnary["data"];
-            object message = rawElement.ValueKind switch
+            var finalJson = stringJson.Trim();
+            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(finalJson)!; }
+            catch (Exception) { throw new FetchDataException(); }
+            var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new FetchDataException();
+            return JsonSerializer.Deserialize<List<object>>(rawElement!)!;
+
+        }
+        protected async void EnregistrerModele<T>(T model) where T : class, IModel
+        {
+            string jsonInternaute = JsonSerializer.Serialize<T>(model);
+            string cacheDir = FileSystem.Current.CacheDirectory;
+            string filePath = Path.Combine(cacheDir,"cache", $"{model.GetType()}_cache.json");
+            if (!File.Exists(filePath)) await File.WriteAllTextAsync(filePath, jsonInternaute);
+            else
             {
-                JsonValueKind.Array => rawElement.GetRawText(),
-                _ => throw new Exception("Erreur lors de la connexion du compte"),
-            };
-            return JsonSerializer.Deserialize<List<Dictionary<string, object>>>(message.ToString()!)!;
+                File.Delete(filePath);
+                await File.WriteAllTextAsync(filePath, jsonInternaute);
+            }
+        }
+
+        protected async Task<T?> RetrouverModele<T>() where T : class, IModel
+        {
+            string cacheDir = FileSystem.Current.CacheDirectory;
+            string filePath = Path.Combine(cacheDir, "cache", $"{typeof(T)}_cache.json");
+            if (File.Exists(filePath))
+            {
+                string jsonInternaute = await File.ReadAllTextAsync(filePath);
+                return JsonSerializer.Deserialize<T>(jsonInternaute)!;
+            }
+            else return null;
         }
     }
 

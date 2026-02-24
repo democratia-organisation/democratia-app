@@ -18,7 +18,7 @@
 		 <Color x:Key="Light-onTertiary">#FFFFFF</Color> 
 		 <Color x:Key="Light-tertiaryContainer">#FEDEA6</Color> 
 		 <Color x:Key="Light-onTertiaryContainer">#584419</Color> 
-		 <Color x:Key="Light-error">#BA1A1A</Color> 
+		 <Color x:Key="Light-error">#BA1A1A</Color>
 		 <Color x:Key="Light-onError">#FFFFFF</Color> 
 		 <Color x:Key="Light-errorContainer">#FFDAD6</Color> 
 		 <Color x:Key="Light-onErrorContainer">#93000A</Color> 

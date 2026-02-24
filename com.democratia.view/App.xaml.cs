@@ -1,8 +1,8 @@
-﻿// conditionner l'import afin d'éviter les erreurs d'imports
-#if ANDROID
+﻿#if ANDROID
 using com.democratia.Platforms.Android;
-#endif
+using AndroidX.Core.View;
 using Microsoft.Maui.Handlers;
+#endif
 
 namespace com.democratia
 {
@@ -11,14 +11,10 @@ namespace com.democratia
     {
         public App()
         {
-
             InitializeComponent();
+            Current?.UserAppTheme =
+                (AppTheme)Preferences.Default.Get("Theme", (int)Current?.UserAppTheme!)!;
 
-            // Permet de gérer les exceptions non gérées dans l'application
-            //AppDomain.CurrentDomain.UnhandledException += UnhadledException;
-            //TaskScheduler.UnobservedTaskException += UnhadledException;
-            //Dispatcher.Dispatch(() => UnhadledException());
-            //Current?.Dispatcher.Dispatch(() => UnhadledException());
 #if ANDROID
             // Permet de gérer l'AutomationId pour les tests UI sur Android
 
@@ -36,7 +32,14 @@ namespace com.democratia
             {
                 AndroidHandler(handler, view, previousAction);
             });
+            MainApplication.SetLocal((string)Preferences.Default.Get("Language", MainApplication.cultureInfo.Name));
+#elif WINDOWS
+            WinUI.App.SetLocal((string)Preferences.Default.Get("Language", WinUI.App.cultureInfo.Name));
+#elif IOS || MACCATALYST
+            AppDelegate.SetLocal((string)Preferences.Default.Get("Language", AppDelegate.cultureInfo.Name));
 #endif
+
+
 
         }
 
@@ -47,34 +50,20 @@ namespace com.democratia
         {
             if (handler.PlatformView is Android.Views.View androidView)
             {
-                if (String.IsNullOrWhiteSpace(view.AutomationId))
+                if (string.IsNullOrWhiteSpace(view.AutomationId))
                     return;
 
-                if (AndroidX.Core.View.ViewCompat.GetAccessibilityDelegate(androidView) is not TestDelegate)
-                    AndroidX.Core.View.ViewCompat.SetAccessibilityDelegate(androidView, new TestDelegate());
+                if (ViewCompat.GetAccessibilityDelegate(androidView) is not TestDelegate)
+                    ViewCompat.SetAccessibilityDelegate(androidView, new TestDelegate());
 
-                if (AndroidX.Core.View.ViewCompat.GetAccessibilityDelegate(androidView) is TestDelegate td)
+                if (ViewCompat.GetAccessibilityDelegate(androidView) is TestDelegate td)
                     td.AutomationId = view.AutomationId;
 
                 androidView.ContentDescription = view.AutomationId;
             }
         }
 #endif
-        //private void UnhadledException(object? sender = null, EventArgs? e = null)
-        //        {
-        //            if (e is not null && e is UnhandledExceptionEventArgs unhandledExceptionEventArgs)
-        //                Current?.Windows[0]?.Page?.DisplayAlert("Erreur", "Une erreur inattendu est survenue. Voici le message : \n" + unhandledExceptionEventArgs.ExceptionObject.ToString(), "OK");
-
-        //            else 
-        //                Current?.Windows[0]?.Page?.DisplayAlert("Erreur", "Une erreur inattendu est survenue", "OK");
-
-        //            Current?.Quit();
-        //        }
-
         protected override Window CreateWindow(IActivationState? activationState) => new(new AppShell());
 
     }
-
-
-
 }

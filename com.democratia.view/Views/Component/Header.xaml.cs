@@ -1,43 +1,76 @@
-namespace com.democratia.Views.Component;
+using com.democratia.view.Resources.Localization;
+using com.democratia.Views.internaute;
 
-public partial class Header : ContentView
+namespace com.democratia.Views.Component
 {
-    public Header()
+    public partial class Header : ContentView
     {
-        InitializeComponent();
-        SetTheme();
-    }
-
-
-    private async void OnClicked(object sender, EventArgs e)
-    {
-        ImageButton button = (ImageButton)sender;
-        if (button == switchImageButton)
+        public Header()
         {
-            if (Application.Current?.RequestedTheme == AppTheme.Dark)
+            InitializeComponent();
+            SetTheme();
+        }
+
+
+        private async void OnClicked(object sender, EventArgs e)
+        {
+            var button = (ImageButton)sender;
+            if (button == switchImageButton)
             {
-                Application.Current.UserAppTheme = AppTheme.Light;
-                button.Source = "light.png";
+                if (Application.Current?.RequestedTheme == AppTheme.Dark)
+                {
+                    Application.Current.UserAppTheme = AppTheme.Light;
+                    button.Source = "light.png";
+                }
+                else if (Application.Current?.RequestedTheme == AppTheme.Light)
+                {
+                    Application.Current.UserAppTheme = AppTheme.Dark;
+                    button.Source = "dark.png";
+                }
             }
-            else if (Application.Current?.RequestedTheme == AppTheme.Light)
+            else if (button == backButton)
             {
-                Application.Current.UserAppTheme = AppTheme.Unspecified;
-                button.Source = "dark.png";
+                Shell shell = AppShell.Current!;
+                IReadOnlyList<Page> pile = shell.Navigation?.NavigationStack!;
+                if (pile.Count == 2 && pile[0] is null)
+                {
+                    bool estDanLaPageDeConnexionOuPageHome = shell.CurrentPage is MainPage || shell.CurrentPage is HomePage;
+                    if (estDanLaPageDeConnexionOuPageHome)
+                    {
+                        bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.quitterApp, AppResources.confirmQuitt, AppResources.oui, AppResources.non);
+                        if (souhaiteQuitter)
+                        {
+                            string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
+                            foreach (string file in files)
+                            {
+                                try
+                                {
+                                    File.Delete(file);
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw ex;
+                                }
+                            }
+                            Environment.Exit(0);
+
+                        }
+                    }
+                }
+
+                if (pile.Count > 1) await shell.GoToAsync("..");
+
             }
+
+            else
+            {
+                string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
+                if (files.Length > 0) await AppShell.Current.GoToAsync("Home"); // naviguer que si des données ont été mis en cache
+            }
+
         }
-        else if (button == backButton)
-        {
-            await AppShell.Current.GoToAsync("..");
-        }
-        else
-        {
-            await AppShell.Current.GoToAsync("//MainPage");
-        }
+
+        private void SetTheme() =>
+            switchImageButton.Source = Application.Current?.RequestedTheme == AppTheme.Dark ? "dark.png" : "light.png";
     }
-
-    private void SetTheme() =>
-        switchImageButton.Source = Application.Current?.RequestedTheme == AppTheme.Dark ? "dark.png" : "light.png";
-
-
-
 }

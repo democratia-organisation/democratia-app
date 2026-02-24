@@ -2,6 +2,7 @@ using OpenQA.Selenium.Appium;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using Xunit;
 
 // You will have to make sure that all the namespaces match
@@ -27,6 +28,7 @@ namespace UITests.View
         {
 
             if (SystemInfo.SSHHost()) return;
+            Debug.WriteLine(App.PageSource);
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             var nombresEntrees = 2;
@@ -46,6 +48,7 @@ namespace UITests.View
 
 
             if (SystemInfo.SSHHost()) return;
+            Debug.WriteLine(App.PageSource);
             AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             foreach (var entry in entries!) entry.Clear();
@@ -56,17 +59,17 @@ namespace UITests.View
             if (AppiumSetup.device != "android")
                 App.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
-            adresseMailEntry?.SendKeys("modadary56@gmail.com");
-            motDePasseEntry?.SendKeys("Djonodo20050207/");
+            adresseMailEntry?.SendKeys("example@gmail.com");
+            motDePasseEntry?.SendKeys("MotDePasse123/");
             seConecterButton?.Click();
 
-            Assert.NotNull(FindUIElement("HomePage"));
+            Assert.NotNull(FindUIElement("ProfileButton"));
         }
 
 
         [Theory(DisplayName = "Test de la page en cas d'entrée incorrecte")]
         [InlineData("fezfzfzefz", "Djonodo20050207/")]
-        [InlineData("modadary56@gmail.com", "Djonodo20050207/erreur")]
+        [InlineData("example@gmail.com", "Djonodo20050207/erreur")]
         [InlineData("", "")]
         [InlineData("dadadzadzada", "")]
         public void NavigationPageErrorTest(string adresseMail, string motDePasse)

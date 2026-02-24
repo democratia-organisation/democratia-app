@@ -1,19 +1,22 @@
 ﻿using com.democratia.Models;
-using com.democratia.ViewModels;
+using com.democratia.Utils;
+using com.democratia.ViewModels.internaute;
 
 
-namespace com.democratia.test.ViewModels
+
+namespace com.democratia.test.ViewModels.internaute
 {
 
     public class MainPageViewModelTest
     {
         private IServiceProvider _serviceProvider;
-        private MainPageViewModel? mainPageViewModel;
+        private MainViewModel? mainPageViewModel;
+        private ILocalizationService localizationService;
 
         public MainPageViewModelTest()
         {
             _serviceProvider = TestServiceCollection.CreateTestServiceProviderForMainViewModel();
-            mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
+            mainPageViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
             mainPageViewModel.AdresseMail = "modadary56@gmail.com";
             mainPageViewModel.MotDePasse = "Djonodo20050207/";
             mainPageViewModel.ErrorMessage = null;
@@ -29,7 +32,7 @@ namespace com.democratia.test.ViewModels
             Assert.Null(mainPageViewModel.ErrorMessage);
             Assert.Equal(158, internaute.id_internaute);
             Assert.Equal("Darouèche", internaute.nom_internaute);
-            Assert.Equal("19 Rue Saint-Merry", internaute.adresse_postal);
+            Assert.Equal("19 Rue Saint-Merry", internaute.adresse_postale);
             Assert.Equal("Naherry", internaute.prenom_internaute);
             Assert.Equal(mainPageViewModel.AdresseMail, internaute.courriel);
 
@@ -41,7 +44,7 @@ namespace com.democratia.test.ViewModels
         public async Task NotTextExceptedError(string? fakeResponse, string? messageAttendu)
         {
             _serviceProvider = TestServiceCollection.CreateFakeServiceProviderForMainViewModel(fakeResponse);
-            mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
+            mainPageViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
             mainPageViewModel.AdresseMail = "modadary56@gmail.com";
             mainPageViewModel.MotDePasse = "Djonodo20050207/";
 

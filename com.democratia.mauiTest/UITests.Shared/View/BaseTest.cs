@@ -1,7 +1,5 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
-using System;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using Xunit;
@@ -51,14 +49,10 @@ namespace UITests.View
         // This could also be an extension method to AppiumDriver if you prefer
         protected AppiumElement? FindUIElement(string id)
         {
+            
             try
             {
-                if (App is WindowsDriver)
-                {
-                    return App.FindElement(MobileBy.AccessibilityId(id));
-                }
-
-                return App.FindElement(MobileBy.Id(id));
+                return App.FindElement(MobileBy.AccessibilityId(id));
             }
             catch (NoSuchElementException)
             {
@@ -68,12 +62,7 @@ namespace UITests.View
 
         protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
         {
-            if (App is WindowsDriver)
-            {
-                return App.FindElements(MobileBy.AccessibilityId(id)).Count > 0 ? App.FindElements(MobileBy.AccessibilityId(id)) : null;
-            }
-
-            return App.FindElements(MobileBy.Id(id)).Count > 0 ? App.FindElements(MobileBy.Id(id)) : null;
+            return App.FindElements(MobileBy.AccessibilityId(id)).Count > 0 ? App.FindElements(MobileBy.AccessibilityId(id)) : null;
         }
 
 

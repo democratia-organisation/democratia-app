@@ -1,5 +1,8 @@
-﻿using com.democratia.Views;
-using com.democratia.view.Views;
+﻿using com.democratia.view.Views;
+using com.democratia.Views.groupe;
+using com.democratia.Views.internaute;
+using com.democratia.Views.internaute.CreerGroupe;
+using com.democratia.Views.internaute.gestionCompte;
 
 namespace com.democratia
 {
@@ -8,9 +11,9 @@ namespace com.democratia
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
-            Routing.RegisterRoute(nameof(Home), typeof(Home));
-            Routing.RegisterRoute(nameof(Creation), typeof(Creation));
+            BasePageRoute.BasePgeRoute();
+            CreerGroupeRoute.RouteCreationGroup();
+            CreerGroupeRoute.RouteCreationGroup();
         }
     }
 }

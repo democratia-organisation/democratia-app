@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
+             x:DataType="viewModel:PreferenceViewModel"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             x:Class="com.democratia.Views.internaute.gestionCompte.PreferencePage"
+             Style="{DynamicResource fondEcran}"
+             Title="PreferencePage">
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+            <Label 
+                Text="{x:Static lang:AppResources.selectionLangue}"
+                Style="{DynamicResource SubHeadlineStyle}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            <BoxView WidthRequest="20" />
+            <Picker x:Name="pickerLangage"
+                    ios:Picker.UpdateMode="WhenFinished"
+                    Title="{x:Static lang:AppResources.Langage}"
+                    Style="{DynamicResource PickerStyle}"
+                    SelectedItem="{Binding Language}"
+                    ItemsSource="{Binding Languages}"/>
+        </HorizontalStackLayout>
+        <BoxView HeightRequest="50" />
+        <HorizontalStackLayout>
+            <Label 
+                Text="{x:Static lang:AppResources.selectionTheme}"
+                Style="{DynamicResource SubHeadlineStyle}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            <BoxView WidthRequest="20" />
+            <Picker x:Name="pickerTheme"
+                ios:Picker.UpdateMode="Immediately"
+                Title="{x:Static lang:AppResources.theme}"
+                Style="{DynamicResource PickerStyle}"
+                SelectedItem="{Binding Theme}"
+                ItemsSource="{Binding Themes}"/>
+        </HorizontalStackLayout>
+        <BoxView HeightRequest="50" />
+        <Button
+            Text="{x:Static lang:AppResources.terminer}"
+            Style="{DynamicResource ButtonStyle}"
+            AutomationId="terminerButton"
+            x:Name="terminerButton"
+            AutomationProperties.Name="terminerButton"
+            Command="{Binding NavigateTappedCommand}"
+            CommandParameter="HomePage"/>
+    </VerticalStackLayout>
+</ContentPage>

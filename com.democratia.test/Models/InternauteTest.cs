@@ -5,13 +5,13 @@ namespace com.democratia.test.Models
 
     public class InternauteTest
     {
-        private readonly string? exceptPrenom = "Jean", exceptNom = "Louis", exceptAdress = "10 rue de champigny", exceptMail = "mono@g.com";
+        private readonly string? exceptPrenom = "Jean", exceptNom = "Louis", exceptAdress = "10 rue de champigny", exceptMail = "mono@g.com", expectedMdp = "MotDePasse127/";
         private readonly int? exceptId = 1;
         [Fact]
         public void ConstruteurTest()
         {
 
-            Internaute internaute = new(exceptId, exceptNom, exceptPrenom, exceptAdress, exceptMail);
+            Internaute internaute = new(exceptId, exceptNom, exceptPrenom, exceptAdress, exceptMail,expectedMdp);
             Assert.NotNull(internaute);
             VerificationChamp(internaute);
         }

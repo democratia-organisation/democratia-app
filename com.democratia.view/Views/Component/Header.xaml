@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:com.democratia.Views.Component"
              x:Class="com.democratia.Views.Component.Header"
-             BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-tertiary}, Light={DynamicResource Light-tertiary}}"
+             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+             BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainer}, Light={DynamicResource Light-surfaceContainer}}"
              
              >
     <Grid >
@@ -29,13 +30,12 @@
         <ImageButton
             Source="logo.png"
             x:Name="logoImage"
-            MaximumWidthRequest="50"
-            MaximumHeightRequest="50"
-            VerticalOptions="Center"
+            MaximumWidthRequest="60"
+            MaximumHeightRequest="60"
+            HorizontalOptions="Center"
             Grid.Column="1"
             Clicked="OnClicked"
-            AutomationId="LogoImage"
-        />
+            AutomationId="LogoImage"/>
         <!-- En haut à droite -->
         <ImageButton
             Source="light.png"

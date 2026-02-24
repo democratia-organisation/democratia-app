@@ -1,5 +1,7 @@
 ﻿
 
+using com.democratia.Models;
+
 namespace com.democratia.Services
 {
     public class InternauteClient : Client, IClient
@@ -62,6 +64,36 @@ namespace com.democratia.Services
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
 
+            return await FinRequete(response);
+        }
+
+        public async Task<string> UpdateModelAsync(params object?[]? parameters)
+        {
+            DebutRequete();
+            HttpResponseMessage? response;
+            var internaute = (Internaute)parameters![0]!;
+            try
+            {
+                response = await client!.PatchAsync($"""?request=ModifInfoInternaute&parameters=["{internaute.id_internaute}","{internaute.nom_internaute}","{internaute.prenom_internaute}","{internaute.adresse_postale}","{internaute.courriel}","{internaute.hashageMDP}"]""", null);
+            }
+            catch (HttpRequestException ex) {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+            return await FinRequete(response);
+        }
+
+        public async Task<string> DeleteModelAsync(params object?[]? parameters)
+        {
+            DebutRequete();
+            HttpResponseMessage? response;
+            try
+            {
+                response = await client?.DeleteAsync($"?request=SupprimerInternaute&parameters=[{((Internaute)parameters![0]!).id_internaute}]")!;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
             return await FinRequete(response);
         }
     }
