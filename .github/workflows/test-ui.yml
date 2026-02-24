@@ -26,7 +26,7 @@ jobs:
       - name: Build and Run UITests
         run: |
           dotnet build com.democratia.mauiTest/${{matrix.uitest}} -c Release
-          dotnet test  com.democratia.mauiTest/${{matrix.uitest}} --no-build --verbosity normal
+          dotnet test  com.democratia.mauiTest/${{matrix.uitest}} -c Release --no-build --report-trx --verbosity normal
 
   test-macos:
     runs-on: macos-latest
@@ -51,4 +51,4 @@ jobs:
       - name: Build and Run UITests
         run: |
           dotnet build com.democratia.mauiTest/${{matrix.uitest}} -c Release
-          dotnet test  com.democratia.mauiTest/${{matrix.uitest}} --no-build --verbosity normal
+          dotnet test  com.democratia.mauiTest/${{matrix.uitest}} -c Release --no-build --report-trx --verbosity normal

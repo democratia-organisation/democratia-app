@@ -26,4 +26,4 @@ jobs:
       - name: Build and Run UnitTests
         run: |
           dotnet build com.democratia.test/com.democratia.test.csproj -c Release
-          dotnet test  com.democratia.test/com.democratia.test.csproj --no-build --verbosity normal
+          dotnet test  com.democratia.test/com.democratia.test.csproj -c Release --no-build --report-trx --verbosity normal
