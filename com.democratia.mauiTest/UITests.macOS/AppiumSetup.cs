@@ -51,7 +51,7 @@ namespace UITests
 
             
 
-            driver = new MacDriver(new Uri("http://127.0.0.1:4724/"), options, TimeSpan.FromSeconds(120));
+            driver = new MacDriver(new Uri("http://127.0.0.1:4723/"), options, TimeSpan.FromSeconds(120));
         }
 
 
@@ -65,7 +65,7 @@ namespace UITests
                             "killall -9 node dotnet 2>/dev/null; sleep 2; " +
                             "/usr/bin/nohup /opt/homebrew/bin/appium --address 0.0.0.0 --use-drivers mac2 > /tmp/appium.log 2>&1 & " +
                             "echo 'Attente du serveur Appium...'; " +
-                            "/bin/sleep 5 && /bin/bash -c 'until printf \"\" 2>>/dev/null >/dev/tcp/127.0.0.1/4724; do sleep 1; done'; " +
+                            "/bin/sleep 5 && /bin/bash -c 'until printf \"\" 2>>/dev/null >/dev/tcp/127.0.0.1/4723; do sleep 1; done'; " +
                             $"cd {MacProjectDir} && /Users/m1/Library/Caches/maui/PairToMac/SDKs/dotnet/dotnet test UITests.macos.csproj --logger 'trx;LogFileName=results.trx'\"";
             // 2. Commande pour rapatrier le fichier de résultat
             var copyCommand = $"scp {MacUser}@{MacIp}:{remoteResultsPath} \"{localResultsPath}\"";

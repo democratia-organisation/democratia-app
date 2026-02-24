@@ -28,11 +28,11 @@ namespace UITests
 
             try
             {
-                driver = new IOSDriver(new Uri("http://127.0.0.1:4724/"), iOSOptions, TimeSpan.FromSeconds(120));
+                driver = new IOSDriver(new Uri("http://127.0.0.1:4723/"), iOSOptions, TimeSpan.FromSeconds(120));
             }
             catch (Exception ex)
             {
-                throw new Exception($"Impossible de se connecter au serveur Appium sur {"http://127.0.0.1:4724/"}. Erreur: {ex.Message}");
+                throw new Exception($"Impossible de se connecter au serveur Appium sur {"http://127.0.0.1:4723/"}. Erreur: {ex.Message}");
             }
         }
 

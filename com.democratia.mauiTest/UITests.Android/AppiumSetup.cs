@@ -25,7 +25,7 @@ namespace UITests
                 AutomationName = "UIAutomator2",
                 PlatformName = "Android",
 #if !DEBUG
-                // App = Path.Join(TestContext.CurrentContext.TestDirectory, "../../../../MauiApp/bin/Release/net9.0-android/com.companyname.applicationname-Signed.apk"),
+                // App = Path.Join(TestContext.CurrentContext.TestDirectory, "../../../../com.democratia.view/bin/Release/net10.0-android/com.democratia-Signed.apk"),
 # endif
             };
 #if DEBUG
@@ -33,7 +33,7 @@ namespace UITests
             string activity = ResolveAppActivity("com.democratia");
             androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
             androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.democratia");
-            androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, @".\com.democratia.view\bin\Release\net10.0-android\com.democratia-Signed.apk");
+            androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, @".\com.democratia.view\bin\Debug\net10.0-android\com.democratia-Signed.apk");
 # endif
             try
             {
