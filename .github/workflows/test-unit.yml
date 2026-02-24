@@ -16,9 +16,13 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
-          include-prerelease: true
       - name: Install MAUI Workload
         run: dotnet workload install maui
+      - name: Create appsettings.production.json
+        run: | 
+          echo '${{ secrets.APPSETTINGS_PRODUCTION_JSON }}' > ./com.democratia.core/appsettings.production.json
+          echo '${{ secrets.APPSETTINGS_JSON }}' > ./com.democratia.core/appsettings.json
+          echo '${{ secrets.APPSETTINGS_DEVELOPPEMENT_JSON }}' > ./com.democratia.core/appsettings.developpement.json
       - name: Build and Run UnitTests
         run: |
           dotnet build com.democratia.test/com.democratia.test.csproj
