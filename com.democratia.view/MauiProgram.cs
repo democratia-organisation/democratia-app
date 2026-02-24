@@ -73,7 +73,7 @@ namespace com.democratia
         {
             public IServiceCollection AddPages()
             {
-                builder.AddTransient<Creation>();
+                builder.AddTransient<CreationPage>();
                 builder.AddTransient<MainPage>();
                 builder.AddTransient<HomePage>();
                 builder.AddTransient<HomeGestionPage>();
