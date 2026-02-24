@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-    DOTNETVERSION: 6.0.300
+    DOTNETVERSION: 10.0.3
 
 jobs:
   buildmacCatalyst:
@@ -29,33 +29,24 @@ jobs:
         shell: bash
         run: |
           dotnet nuget locals all --clear 
-          dotnet workload install maui --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet7/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
-          dotnet workload install android ios maccatalyst tvos macos maui wasm-tools --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet7/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
+          dotnet workload install ios maccatalyst macos maui
     
       - name: Restore nuget packages
-        run: |
-          cd 6.0/Apps/WeatherTwentyOne/src/
-          dotnet restore WeatherTwentyOne.sln
+        run: dotnet restore com.democratia.sln
         
         # https://docs.microsoft.com/en-us/dotnet/maui/macos/deployment/overview
       - name : Build MacCatalyst App
         shell: bash
         run: |
-          cd 6.0/Apps/WeatherTwentyOne/src
+          cd com.democratia.view
           dotnet build -f net10.0-maccatalyst -c Release -o ./artifacts
           dotnet publish -f net10.0-maccatalyst -c Release -p:BuildIpa=True -o ./artifacts
-
-#       - name: Build and Run UnitTests
-#         shell: bash
-#         run: |
-#           dotnet build <path to unit test csproj>
-#           dotnet test <path to unit test csproj> --no-build --verbosity normal
 
       - uses: actions/upload-artifact@v2
         with:
           name: artifacts-mac
           path: |
-            6.0/Apps/WeatherTwentyOne/src/artifacts/**/*.pkg
+            com.democratia.view/artifacts/**/*.pkg
   
   buildiOS:
     runs-on: macos-12
@@ -104,30 +95,22 @@ jobs:
         shell: bash
         run: |
           dotnet nuget locals all --clear 
-          dotnet workload install maui --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet7/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
-          dotnet workload install android ios maccatalyst tvos macos maui wasm-tools --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet7/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
+          dotnet workload install & dotnet nuget locals all --clear
+          & dotnet workload install ios maccatalyst macos maui
     
       - name: Restore nuget packages
-        run: |
-          cd 6.0/Apps/WeatherTwentyOne/src/
-          dotnet restore WeatherTwentyOne.sln
+        run: dotnet restore com.democratia.sln
         
         # https://docs.microsoft.com/en-us/dotnet/maui/ios/deployment/overview
       - name : Build iOS App
         shell: bash
         run: |
-          cd 6.0/Apps/WeatherTwentyOne/src
-          dotnet build -f net10.0-ios -c Debug /p:packageApp=false /p:buildForSimulator=true /p:ArchiveOnBuild=false
-
-#       - name: Build and Run UnitTests
-#         shell: bash
-#         run: |
-#           dotnet build <path to unit test csproj>
-#           dotnet test <path to unit test csproj> --no-build --verbosity normal
+          cd com.democratia.view
+          dotnet build -f net10.0-ios -c Release /p:packageApp=false /p:buildForSimulator=true /p:ArchiveOnBuild=false
 
       - uses: actions/upload-artifact@v2
         with:
           name: artifacts-ios
           path: |
-            6.0/Apps/WeatherTwentyOne/src/WeatherTwentyOne/bin/Debug/net10.0-ios/iossimulator-x64/**/*.app
+            com.democratia.view/WeatherTwentyOne/bin/Release/net10.0-ios/iossimulator-x64/**/*.app
       
