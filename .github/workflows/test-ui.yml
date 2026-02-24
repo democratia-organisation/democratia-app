@@ -25,7 +25,7 @@ jobs:
         run: dotnet workload install maui
       - name: Build and Run UITests
         run: |
-          dotnet build com.democratia.mauiTest/${{matrix.uitest}}
+          dotnet build com.democratia.mauiTest/${{matrix.uitest}} -c Release
           dotnet test  com.democratia.mauiTest/${{matrix.uitest}} --no-build --verbosity normal
 
   test-macos:
