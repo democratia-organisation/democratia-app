@@ -7,7 +7,7 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="appsettings.productiont.json">
+    <EmbeddedResource Include="appsettings.production.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="appsettings.developpement.json">
