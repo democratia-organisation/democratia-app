@@ -1,0 +1,14 @@
+name: unitTest
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+#       - name: Build and Run UnitTests
+#         shell: bash
+#         run: |
+#           dotnet build <path to unit test csproj>
+#           dotnet test <path to unit test csproj> --no-build --verbosity normal
