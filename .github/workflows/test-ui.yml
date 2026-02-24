@@ -26,7 +26,7 @@ jobs:
       - name: Build and Run UITests
         run: |
           dotnet build com.democratia.mauiTest/${{matrix.uitest}} -c Release
-          dotnet test com.democratia.mauiTest/UITests.macOS/UITests.macOS.csproj -c Release --no-build --logger "trx;LogFileName=test_results.trx" --verbosity normal
+          dotnet test com.democratia.mauiTest/${{matrix.uitest}} -c Release --no-build --logger "trx;LogFileName=test_results.trx" --verbosity normal
 
   test-macos:
     runs-on: macos-latest
@@ -51,4 +51,4 @@ jobs:
       - name: Build and Run UITests
         run: |
           dotnet build com.democratia.mauiTest/${{matrix.uitest}} -c Release
-          dotnet test com.democratia.mauiTest/UITests.macOS/UITests.macOS.csproj -c Release --no-build --logger "trx;LogFileName=test_results.trx" --verbosity normal
+          dotnet test com.democratia.mauiTest/${{matrix.uitest}} -c Release --no-build --logger "trx;LogFileName=test_results.trx" --verbosity normal
