@@ -11,6 +11,28 @@ jobs:
   test:
     runs-on: windows-latest
     steps:
+      - name: Create docker-compose.yml
+        run: |
+          cat <<EOF > docker-compose.yml
+          version: '3.8'
+          services:
+            db:
+              image: zykodocker25/democratia-database:latest
+              environment:
+                MYSQL_ROOT_PASSWORD: "${{ secrets.DB_PASSWORD }}"
+                MYSQL_DATABASE: democratia
+              ports:
+                - "3306:3306"
+            web:
+              image: zykodocker25/democratia-server:latest
+              ports:
+                - "80:80"
+              environment:
+                DB_HOST: db
+                DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
+          EOF
+      - name: Start Docker Compose
+        run: docker-compose up -d
       - uses: actions/checkout@v4
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
