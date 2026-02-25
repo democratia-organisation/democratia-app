@@ -52,7 +52,7 @@ namespace UITests
 
             
 
-            driver = new MacDriver(new Uri("http://127.0.0.1:4723/"), options, TimeSpan.FromSeconds(120));
+            driver = new MacDriver(new Uri("http://127.0.0.1:4724/"), options, TimeSpan.FromSeconds(120));
         }
 
 

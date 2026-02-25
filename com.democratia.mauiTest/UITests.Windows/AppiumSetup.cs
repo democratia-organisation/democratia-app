@@ -35,7 +35,7 @@ namespace UITests
 
             // Note there are many more options that you can use to influence the app under test according to your needs
 
-            driver = new WindowsDriver(new Uri("http://127.0.0.1:4723"), windowsOptions);
+            driver = new WindowsDriver(new Uri("http://127.0.0.1:4724/"), windowsOptions);
         }
 
         public void Dispose()
