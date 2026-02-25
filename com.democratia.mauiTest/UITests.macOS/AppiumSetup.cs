@@ -34,11 +34,12 @@ namespace UITests
         }
         private void InitLocalMacDriver()
         {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var options = new AppiumOptions
             {
                 AutomationName = "mac2",
                 PlatformName = "macOS",
-                App = MacAppPath
+                App = Path.GetFullPath(Path.Combine(baseDir, @"../../../../../bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app"))
             };
 
             // Ajoutez ceci pour éviter les erreurs de "Path" sur le Mac
