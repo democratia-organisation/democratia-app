@@ -25,5 +25,5 @@ jobs:
           echo '${{ secrets.APPSETTINGS_DEVELOPPEMENT_JSON }}' > ./com.democratia.core/appsettings.developpement.json
       - name: Build and Run UnitTests
         run: |
-          dotnet build com.democratia.test/com.democratia.test.csproj -c Release
-          dotnet test com.democratia.test/com.democratia.test.csproj -c Release --no-build --logger "trx;LogFileName=test_results.trx" --verbosity normal
+          dotnet build com.democratia.test/com.democratia.test.csproj -c Debug
+          dotnet test com.democratia.test/com.democratia.test.csproj -c Debug --no-build --logger "trx;LogFileName=test_results.trx" --verbosity normal

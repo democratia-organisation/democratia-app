@@ -72,8 +72,8 @@ jobs:
 
       - name: Build and Run Tests
         run: |
-          dotnet build com.democratia.mauiTest/${{ matrix.project }} -c Release
-          dotnet test com.democratia.mauiTest/${{ matrix.project }} -c Release --no-build --logger "trx;LogFileName=${{ matrix.platform }}_results.trx" --verbosity normal
+          dotnet build com.democratia.mauiTest/${{ matrix.project }} -c Debug
+          dotnet test com.democratia.mauiTest/${{ matrix.project }} -c Debug --no-build --logger "trx;LogFileName=${{ matrix.platform }}_results.trx" --verbosity normal
 
       - name: Run Android Emulator
         if: matrix.platform == 'Android'
@@ -82,7 +82,7 @@ jobs:
           api-level: 34
           target: google_apis
           arch: x86_64
-          script: dotnet test com.democratia.mauiTest/UITests.Android/UITests.Android.csproj -c Release
+          script: dotnet test com.democratia.mauiTest/UITests.Android/UITests.Android.csproj -c Debug
       - name: Start iOS Simulator
         if: matrix.platform == 'iOS'
         run: |
