@@ -15,7 +15,6 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         [ObservableProperty] private string? retourMessage;
 
         public Internaute? internaute;
-        private readonly ILocalizationService? localizationService;
         private readonly INavigationService navigationService1;
         private readonly WeakReferenceMessenger weakReferenceMessenger;
         public HomeGestionViewModel(IEnumerable<IClient> clients, ILocalizationService? localizationService, INavigationService navigationService) 
@@ -38,7 +37,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             if (((InternauteClient)client!).succes)
                 weakReferenceMessenger.Send<EventSuppressionSuccess>();
             else
-                RetourMessage = localizationService?.GetString("connexionErreur");
+                RetourMessage = LocalizationService?.GetString("connexionErreur");
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)

@@ -88,7 +88,7 @@ namespace com.democratia.Services
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<ImageSource?> GetImageAsync(string url)
+        public async Task<ImageSource?> GetImageAsync(string? url)
         {
             var requete = $"""?request=obtenirImage&parameters=["{url}"]""";
             DebutRequete();

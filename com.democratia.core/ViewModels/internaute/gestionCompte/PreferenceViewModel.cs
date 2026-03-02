@@ -21,12 +21,10 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         private Dictionary<string,string> languagesDict;
         private Dictionary<string, AppTheme> themesDict;
         private INavigationService navigationService;
-        private ILocalizationService localizationService;
         
         public PreferenceViewModel(INavigationService navigationService, ILocalizationService localizationService) 
         { 
             this.navigationService = navigationService;
-            this.localizationService = localizationService;
             languages = ["Français","English (American)"];
             themes = [localizationService.GetString("claire"), localizationService.GetString("sombre")]; // light, dark
             languagesDict = new ();
@@ -41,7 +39,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         public async Task NavigateTapped(string commande)
         {
             var langueChoisi = Language ?? Preferences.Default.Get("Language", CultureInfo.CurrentCulture.Name);
-            var themeChoisi = Theme ?? themes!.First(value => themesDict[value] == Application.Current!.UserAppTheme);
+            var themeChoisi = Theme ?? Themes!.First(value => themesDict[value] == Application.Current!.UserAppTheme);
             var langage = languagesDict[langueChoisi];
             AppTheme theme = themesDict[themeChoisi];
             Preferences.Default.Set("Language",langage);
