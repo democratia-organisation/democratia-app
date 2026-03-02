@@ -2,7 +2,7 @@ name: UITest
 
 on:
   pull_request:
-    branches: [ main, "developpment" ]
+    branches: [ main]
 
 permissions:
   contents: read
