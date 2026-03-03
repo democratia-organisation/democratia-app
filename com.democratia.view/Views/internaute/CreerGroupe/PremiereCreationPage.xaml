@@ -13,6 +13,8 @@
     <ScrollView>
         <VerticalStackLayout>
             <Component:Header/>
+            <!--TODO : ne pas afficher collectionView tant quue rien n'est tapé-->
+            <!--TODO : comprendre comment les messages d'errerus sont propagés-->
             <BoxView HeightRequest="30"/>
             <Label
                 Style="{DynamicResource HeadlineStyle}"
