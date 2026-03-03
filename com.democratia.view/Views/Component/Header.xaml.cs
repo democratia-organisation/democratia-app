@@ -64,8 +64,8 @@ namespace com.democratia.Views.Component
 
             else
             {
-                string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
-                if (files.Length > 0) await AppShell.Current.GoToAsync("Home"); // naviguer que si des données ont été mis en cache
+                string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory));
+                if (files.Length > 0) await AppShell.Current.GoToAsync($"{nameof(HomePage)}"); // naviguer que si des données ont été mis en cache
             }
 
         }

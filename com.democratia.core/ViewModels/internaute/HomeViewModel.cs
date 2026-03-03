@@ -48,14 +48,9 @@ namespace com.democratia.ViewModels.internaute
         }
 
         [RelayCommand]
-        public async Task NavigateTapped(string commande)
-        {
-            ShellNavigationQueryParameters? parameters = commande == "/Home/GestionCompte" || commande == $"PremierePage" ? new ShellNavigationQueryParameters
-            {
-                { "modele", internaute! }
-            } : null;
-            await navigationService?.GoToAsync(commande,parameters)!;
+        public async Task NavigateTapped(string commande) => 
+            await navigationService?.GoToAsync(commande, new ShellNavigationQueryParameters {{ "modele", internaute! }})!;
 
-        }
+        
     }
 }

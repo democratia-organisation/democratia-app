@@ -42,7 +42,6 @@ namespace com.democratia.Views.internaute.gestionCompte
             };
             grille.Add(layout);
             grille.SetRow(layout, 2);
-
         }
     }
 }

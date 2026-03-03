@@ -20,6 +20,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [ObservableProperty] private Thematique? thematiqueSelectionnee;
         [ObservableProperty] private ObservableCollection<Thematique>? thematiquesRetenues;
         [ObservableProperty] private Groupe groupe = new();
+        [ObservableProperty] private bool afficheCollectionView = false;
         private List<Thematique>? thematiquesExistantes;
         private Internaute? internaute;
 
@@ -55,11 +56,22 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             }
             else
             {
-                var themeBudget = ThematiquesRetenues.Sum(t => t.budget ?? 0);
-                if (Groupe.Budget < themeBudget)
+                try
                 {
-                    ErreurMessage = localizationService?.GetString("budgetInsuffisant");
-                    return;
+                    var themeBudget = ThematiquesRetenues.Sum(t =>
+                    {
+                        if (!t.budget.HasValue) throw new EmptyRequiredFieldException();
+                        return t.budget;
+                    });
+                    if (Groupe.Budget < themeBudget)
+                    {
+                        ErreurMessage = localizationService?.GetString("budgetInsuffisant");
+                        return;
+                    }
+                }
+                catch (Exception ex) {
+                    ErreurMessage = MapExceptionMessage.MappingException(ex, localizationService!);
+                
                 }
                 thematiquesNouvelles = [.. ThematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];
                 foreach (Thematique item in thematiquesNouvelles)
@@ -96,8 +108,11 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [RelayCommand]
         private void AfficherThematiquesMatch() 
         {
+
+            if(!string.IsNullOrEmpty(Thematique) && !AfficheCollectionView) AfficheCollectionView = true;
+            else if (!string.IsNullOrEmpty(Thematique) && AfficheCollectionView) AfficheCollectionView = false;
             string texteRecherche = Thematique?.ToLower() ?? string.Empty;
-            var thematiquesFiltrees = thematiquesExistantes!.Where(t => t.nom_thematique?.ToLower().Contains(texteRecherche) == true).ToList();
+            var thematiquesFiltrees = thematiquesExistantes!.Where(t => (bool)t.nom_thematique?.ToLower()?.Contains(texteRecherche)!).ToList();
             ThematiquesAffiches!.Clear();
             thematiquesFiltrees.ForEach(t => ThematiquesAffiches.Add(t));
 
@@ -129,8 +144,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             internaute = query.TryGetValue("internaute", out var internauteObj) ? (Internaute)internauteObj : null;
-            if (internaute is null)
-                internaute = await RetrouverModele<Internaute>();
+            internaute ??= await RetrouverModele<Internaute>();
         }
         
     }

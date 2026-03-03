@@ -20,33 +20,32 @@
 
     internal static class MapExceptionMessage
     {
-        public static string? MappingException(Exception e, ILocalizationService localizationService)
+        public static string? MappingException(Exception e, ILocalizationService localizationService, string? personaliseMessage = null)
         {
             switch (e)
             {
                 case EmptyEmailFieldException _:
-                    return localizationService.GetString("errorPasswordMessage");
+                    return personaliseMessage ?? localizationService.GetString("errorPasswordMessage");
                 case EmptyPassWordFieldException _:
-                    return localizationService?.GetString("errorMailMessage");
+                    return personaliseMessage ?? localizationService?.GetString("errorMailMessage");
                 case EmptyRequiredFieldException _:
-                    return localizationService.GetString("");
+                    return personaliseMessage ?? localizationService.GetString("");
                 case MailException _:
-                    return localizationService.GetString("");
+                    return personaliseMessage ?? localizationService.GetString("");
                 case PassWordException _:
-                    return localizationService.GetString("");
+                    return personaliseMessage ?? localizationService.GetString("");
                 case ConnexionErrorException _:
-                    return localizationService?.GetString("connexionErreur");
+                    return personaliseMessage ?? localizationService?.GetString("connexionErreur");
                 case NoUserException _:
-                    return localizationService.GetString("noUser");
+                    return personaliseMessage ?? localizationService.GetString("noUser");
                 case BadPasswordException _:
-                    return localizationService.GetString("mauvaisMdp");
+                    return personaliseMessage ?? localizationService.GetString("mauvaisMdp");
                 case FetchDataException _:
-                    return localizationService.GetString("erreurDonne");
+                    return personaliseMessage ?? localizationService.GetString("erreurDonne");
                 case CompteExistantException _:
-                    return localizationService.GetString("");
-
+                    return personaliseMessage ?? localizationService.GetString("");
                 default:
-                    return localizationService?.GetString("erreurInattendu");
+                    return personaliseMessage ?? localizationService?.GetString("erreurInattendu");
             }
         }
     }

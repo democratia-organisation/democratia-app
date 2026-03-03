@@ -14,8 +14,6 @@
         <BoxView HeightRequest="20"/>
         <HorizontalStackLayout>
             <!--TODO : comprendre comment les couleurs sont placés pour chaque appareil-->
-            <!--TODO : comprendre pourquoi le bouttons sont désactivés quand on revient en arrière sur MacOS-->
-            <!--TODO : debugger le fait qu'il n'y ait pas l'instance de user trouvé dans la mémoire cache-->
             <Label 
                 Text="{x:Static lang:AppResources.selectionLangue}"
                 Style="{DynamicResource SubHeadlineStyle}"
