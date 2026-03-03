@@ -10,6 +10,8 @@
              Title="PreferencePage">
     <VerticalStackLayout>
         <HorizontalStackLayout>
+            <!--TODO : adapter le texte selon le type d'appareil-->
+            <!--TODO : mettre un header-->
             <Label 
                 Text="{x:Static lang:AppResources.selectionLangue}"
                 Style="{DynamicResource SubHeadlineStyle}"
