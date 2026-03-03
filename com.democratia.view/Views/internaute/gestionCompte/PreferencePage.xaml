@@ -13,7 +13,6 @@
         <component:Header/>
         <BoxView HeightRequest="20"/>
         <HorizontalStackLayout>
-            <!--TODO : comprendre comment les couleurs sont placés pour chaque appareil-->
             <Label 
                 Text="{x:Static lang:AppResources.selectionLangue}"
                 Style="{DynamicResource SubHeadlineStyle}"
