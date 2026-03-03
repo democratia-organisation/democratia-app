@@ -310,10 +310,10 @@
     <value>Preferences</value>
   </data>
   <data name="selectionLangue" xml:space="preserve">
-    <value>Select a prefered language</value>
+    <value>Select a language</value>
   </data>
   <data name="selectionTheme" xml:space="preserve">
-    <value>Select a default theme</value>
+    <value>Select a theme</value>
   </data>
   <data name="theme" xml:space="preserve">
     <value>Theme</value>

@@ -610,7 +610,7 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Sélectionner une langue de préférence.
+        ///   Recherche une chaîne localisée semblable à Sélectionner une langue.
         /// </summary>
         public static string selectionLangue {
             get {
@@ -619,7 +619,7 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Sélectionner un thème par défault.
+        ///   Recherche une chaîne localisée semblable à Sélectionner un thème.
         /// </summary>
         public static string selectionTheme {
             get {

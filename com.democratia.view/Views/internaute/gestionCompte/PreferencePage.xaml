@@ -6,12 +6,13 @@
              x:DataType="viewModel:PreferenceViewModel"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="com.democratia.Views.internaute.gestionCompte.PreferencePage"
+             xmlns:component="clr-namespace:com.democratia.Views.Component"
              Style="{DynamicResource fondEcran}"
              Title="PreferencePage">
     <VerticalStackLayout>
         <HorizontalStackLayout>
-            <!--TODO : adapter le texte selon le type d'appareil-->
-            <!--TODO : mettre un header-->
+            <component:Header/>
+            <!--TODO : comprendre comment les couleurs sont placés pour chaque appareil-->
             <Label 
                 Text="{x:Static lang:AppResources.selectionLangue}"
                 Style="{DynamicResource SubHeadlineStyle}"
