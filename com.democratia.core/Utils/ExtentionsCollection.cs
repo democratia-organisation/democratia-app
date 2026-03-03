@@ -67,6 +67,9 @@ namespace com.democratia.Utils
                 services.AddSingleton<INavigeablleViewModel, DeuxiemePageViewModel>();
                 services.AddSingleton<INavigeablleViewModel, GroupeViewModel>();
                 services.AddSingleton<INavigeablleViewModel, ModifierGestionViewModel>();
+                services.AddSingleton<INavigeablleViewModel, PreferenceViewModel>();
+                services.AddSingleton<INavigeablleViewModel, HomeGestionViewModel>();
+
 
                 return services;
             }
