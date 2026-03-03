@@ -255,7 +255,7 @@
 
     <Style x:Key="PickerStyle" TargetType="Picker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
-        <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
+        <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Light-onTertiary}, Dark={DynamicResource Dark-onTertiary}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="18"/>
