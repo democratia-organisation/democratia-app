@@ -10,9 +10,11 @@
              Style="{DynamicResource fondEcran}"
              Title="PreferencePage">
     <VerticalStackLayout>
+        <component:Header/>
+        <BoxView HeightRequest="20"/>
         <HorizontalStackLayout>
-            <component:Header/>
             <!--TODO : comprendre comment les couleurs sont placés pour chaque appareil-->
+            <!--TODO : comprendre pourquoi le bouttons sont désactivés quand on revient en arrière sur MacOS-->
             <Label 
                 Text="{x:Static lang:AppResources.selectionLangue}"
                 Style="{DynamicResource SubHeadlineStyle}"
