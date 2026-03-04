@@ -110,7 +110,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         {
 
             if(!string.IsNullOrEmpty(Thematique) && !AfficheCollectionView) AfficheCollectionView = true;
-            else if (!string.IsNullOrEmpty(Thematique) && AfficheCollectionView) AfficheCollectionView = false;
+            else if (string.IsNullOrEmpty(Thematique) && AfficheCollectionView) AfficheCollectionView = false;
             string texteRecherche = Thematique?.ToLower() ?? string.Empty;
             var thematiquesFiltrees = thematiquesExistantes!.Where(t => (bool)t.nom_thematique?.ToLower()?.Contains(texteRecherche)!).ToList();
             ThematiquesAffiches!.Clear();
