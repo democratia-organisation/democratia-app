@@ -4,7 +4,8 @@
       "commandName": "Project",
       "targetFramework": "net10.0-ios",
       "remoteDebugEnabled": false,
-      "authenticationMode": "None"
+      "authenticationMode": "None",
+      "nativeDebugging": true
     },
     "Windows Machine": {
       "commandName": "Project",
@@ -17,7 +18,8 @@
       "targetFramework": "net10.0-maccatalyst",
       "remoteDebugEnabled": true,
       "remoteDebugMachine": "51.159.121.26:4026",
-      "authenticationMode": "None"
+      "authenticationMode": "None",
+      "nativeDebugging": true
     }
   }
 }
