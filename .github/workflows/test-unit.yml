@@ -31,6 +31,8 @@ jobs:
                 DB_USER: root
                 DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
           EOF
+      - name: Install Colima and Docker
+        run: brew install colima docker
       - name: Start Docker daemon via Colima
         run: |
           colima start
