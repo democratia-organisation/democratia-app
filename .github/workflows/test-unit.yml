@@ -2,43 +2,13 @@ name: UnitTest
 
 on:
   pull_request:
-    branches: [ main, "developpment" ]
+    branches: [ main]
 
 
 jobs:
   test:
     runs-on: macos-latest
     steps:
-      - name: Create docker-compose.yml
-        run: |
-          cat <<EOF > docker-compose.yml
-          version: '3.8'
-          services:
-            db:
-              image: zykodocker25/democratia-database:latest
-              environment:
-                MYSQL_ROOT_PASSWORD: "${{ secrets.DB_PASSWORD }}"
-                MYSQL_DATABASE: democratia
-              ports:
-                - "3306:3306"
-            web:
-              image: zykodocker25/democratia-server:latest
-              ports:
-                - "80:80"
-              environment:
-                DB_HOST: db
-                DB_NAME: democratia
-                DB_USER: root
-                DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
-          EOF
-      - name: Install Colima and Docker
-        run: brew install colima docker qemu
-      - name: Start Docker daemon via Colima
-        run: |
-          colima start --vm-type=qemu --network-address
-          docker info
-      - name: Start Docker Compose
-        run: docker compose up -d
       - uses: actions/checkout@v4
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -53,5 +23,5 @@ jobs:
           echo '${{ secrets.APPSETTINGS_DEVELOPPEMENT_JSON }}' > ./com.democratia.core/appsettings.developpement.json
       - name: Build and Run UnitTests
         run: |
-          dotnet build com.democratia.test/com.democratia.test.csproj -c Debug
-          dotnet test com.democratia.test/com.democratia.test.csproj -c Debug --no-build --logger "trx;LogFileName=test_results.trx" --verbosity normal
+          dotnet build com.democratia.test/com.democratia.test.csproj -c Release
+          dotnet test com.democratia.test/com.democratia.test.csproj -c Release --no-build --logger "trx;LogFileName=test_results.trx" --verbosity normal
