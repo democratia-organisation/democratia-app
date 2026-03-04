@@ -25,10 +25,9 @@
                 AutomationId="actionLabelNon"
                 AutomationProperties.Name="actionLabelNon"
                 Grid.Row="1"
-                />  
+                />
 
             <StackLayout Padding="10" Grid.Row="2" x:Name="stackLayout">
-                <!--TODO : comprendre pourquoi les deux buttons aux extrémités se désactivent et pas celui du milieu et le reste quand on revient en arrière sur MacOS-->
                 <BoxView HeightRequest="50"/>
                 <Button
                     Text="{x:Static lang:AppResources.ModifCompte}"

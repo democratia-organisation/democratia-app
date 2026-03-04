@@ -8,7 +8,11 @@
 
     internal class EmptyPassWordFieldException : Exception { }
 
-    internal class EmptyRequiredFieldException : Exception { }
+    internal class EmptyRequiredFieldException(string message) : Exception(message) 
+    {
+        public EmptyRequiredFieldException() : this("") { }
+
+    }
     internal class ConnexionErrorException : Exception { }
     internal class BadPasswordException : Exception { }
 
@@ -16,36 +20,42 @@
     internal class FetchDataException : Exception { }
 
     internal class CompteExistantException : Exception { }
+    internal class NoImageGiven : Exception { }
 
 
     internal static class MapExceptionMessage
     {
-        public static string? MappingException(Exception e, ILocalizationService localizationService, string? personaliseMessage = null)
+        public static string? MappingException(Exception e, ILocalizationService localizationService, params object[] args)
         {
             switch (e)
             {
                 case EmptyEmailFieldException _:
-                    return personaliseMessage ?? localizationService.GetString("errorPasswordMessage");
+                    return localizationService.GetString("errorPasswordMessage");
                 case EmptyPassWordFieldException _:
-                    return personaliseMessage ?? localizationService?.GetString("errorMailMessage");
+                    return localizationService?.GetString("errorMailMessage");
                 case EmptyRequiredFieldException _:
-                    return personaliseMessage ?? localizationService.GetString("");
+                    if (args.Length>0)
+                        return localizationService.GetString("errorEmptyFieldMessage", args[0]);
+                    else 
+                        return localizationService.GetString("errorUnknowEmptyFieldMessage");
                 case MailException _:
-                    return personaliseMessage ?? localizationService.GetString("");
+                    return localizationService.GetString("errorMailMessage");
                 case PassWordException _:
-                    return personaliseMessage ?? localizationService.GetString("");
+                    return localizationService.GetString("errorPasswordMessage");
                 case ConnexionErrorException _:
-                    return personaliseMessage ?? localizationService?.GetString("connexionErreur");
+                    return localizationService?.GetString("connexionErreur");
                 case NoUserException _:
-                    return personaliseMessage ?? localizationService.GetString("noUser");
+                    return localizationService.GetString("noUser");
                 case BadPasswordException _:
-                    return personaliseMessage ?? localizationService.GetString("mauvaisMdp");
+                    return localizationService.GetString("mauvaisMdp");
                 case FetchDataException _:
-                    return personaliseMessage ?? localizationService.GetString("erreurDonne");
+                    return localizationService.GetString("erreurDonne");
                 case CompteExistantException _:
-                    return personaliseMessage ?? localizationService.GetString("");
+                    return localizationService.GetString("compteExistantErreur");
+                case NoImageGiven _:
+                    return localizationService.GetString("erreurPhoto");
                 default:
-                    return personaliseMessage ?? localizationService?.GetString("erreurInattendu");
+                    return localizationService?.GetString("erreurInattendu");
             }
         }
     }

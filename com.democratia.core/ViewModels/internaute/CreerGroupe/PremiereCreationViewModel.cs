@@ -60,7 +60,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                 {
                     var themeBudget = ThematiquesRetenues.Sum(t =>
                     {
-                        if (!t.budget.HasValue) throw new EmptyRequiredFieldException();
+                        if (!t.budget.HasValue) throw new EmptyRequiredFieldException(nameof(t));
                         return t.budget;
                     });
                     if (Groupe.Budget < themeBudget)
@@ -68,6 +68,11 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                         ErreurMessage = localizationService?.GetString("budgetInsuffisant");
                         return;
                     }
+                }
+                catch (EmptyRequiredFieldException ex)
+                {
+                    ErreurMessage = MapExceptionMessage.MappingException(ex, localizationService!, ex.Message);
+                    return;
                 }
                 catch (Exception ex) {
                     ErreurMessage = MapExceptionMessage.MappingException(ex, localizationService!);

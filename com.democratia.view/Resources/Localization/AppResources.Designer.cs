@@ -169,7 +169,7 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à L&apos;adresse mail es déjà créé.
+        ///   Recherche une chaîne localisée semblable à L&apos;adresse mail est déjà utilisé.
         /// </summary>
         public static string compteExistantErreur {
             get {
@@ -259,6 +259,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez remplir le champ {0}.
+        /// </summary>
+        public static string erreurChamp {
+            get {
+                return ResourceManager.GetString("erreurChamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Erreur lors de la création du compte.
         /// </summary>
         public static string erreurCreation {
@@ -309,6 +318,15 @@ namespace com.democratia.view.Resources.Localization {
         public static string errorPasswordMessage {
             get {
                 return ResourceManager.GetString("errorPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Un champ requiert est vide.
+        /// </summary>
+        public static string errorUnknowEmptyFieldMessage {
+            get {
+                return ResourceManager.GetString("errorUnknowEmptyFieldMessage", resourceCulture);
             }
         }
         

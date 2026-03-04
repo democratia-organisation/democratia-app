@@ -202,10 +202,7 @@
     <value>Verify that all field are entered</value>
   </data>
   <data name="formatEmail" xml:space="preserve">
-    <value>The format email adress is incorrect</value>
-  </data>
-  <data name="compteExistantErreur" xml:space="preserve">
-    <value>Email adress is already used</value>
+    <value>The format email address is incorrect</value>
   </data>
   <data name="formatMotDePasse" xml:space="preserve">
     <value>The password format is incorrect</value>
@@ -332,5 +329,14 @@
   </data>
   <data name="continuer" xml:space="preserve">
     <value>Continue</value>
+  </data>
+  <data name="erreurChamp" xml:space="preserve">
+    <value>Please fullfil the field {0}</value>
+  </data>
+  <data name="compteExistantErreur" xml:space="preserve">
+    <value>The email is already used</value>
+  </data>
+  <data name="errorUnknowEmptyFieldMessage" xml:space="preserve">
+    <value>A required field is empty</value>
   </data>
 </root>

@@ -112,7 +112,7 @@
                 Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.suivant}"
                 Command="{Binding NavigateTappedCommand}"
-                CommandParameter="DeuxiemePage"
+                CommandParameter="DeuxiemeCreationPage"
                 x:Name="nextFirstPageButton"
             />
         </VerticalStackLayout>

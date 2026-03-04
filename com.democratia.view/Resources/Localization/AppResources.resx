@@ -204,9 +204,6 @@
   <data name="formatEmail" xml:space="preserve">
     <value>Le format de l'adresse mail est incorrecte</value>
   </data>
-  <data name="compteExistantErreur" xml:space="preserve">
-    <value>L'adresse mail es déjà créé</value>
-  </data>
   <data name="formatMotDePasse" xml:space="preserve">
     <value>Le format du mot de passe est incorrecte</value>
   </data>
@@ -332,5 +329,14 @@
   </data>
   <data name="continuer" xml:space="preserve">
     <value>Continuer</value>
+  </data>
+  <data name="erreurChamp" xml:space="preserve">
+    <value>Veuillez remplir le champ {0}</value>
+  </data>
+  <data name="compteExistantErreur" xml:space="preserve">
+    <value>L'adresse mail est déjà utilisé</value>
+  </data>
+  <data name="errorUnknowEmptyFieldMessage" xml:space="preserve">
+    <value>Un champ requiert est vide</value>
   </data>
 </root>

@@ -47,9 +47,9 @@ namespace com.democratia.Views.Component
                                 {
                                     File.Delete(file);
                                 }
-                                catch (Exception ex)
+                                catch (Exception)
                                 {
-                                    throw ex;
+                                    throw;
                                 }
                             }
                             Environment.Exit(0);
