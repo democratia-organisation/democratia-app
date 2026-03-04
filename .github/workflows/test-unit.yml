@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Create docker-compose.yml
         run: |
@@ -31,7 +31,10 @@ jobs:
                 DB_USER: root
                 DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
           EOF
-
+      - name: Start Docker daemon via Colima
+        run: |
+          colima start
+          docker info
       - name: Start Docker Compose
         run: docker compose up -d
       - uses: actions/checkout@v4
