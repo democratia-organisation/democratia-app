@@ -32,7 +32,7 @@ jobs:
                 DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
           EOF
       - name: Install Colima and Docker
-        run: brew install colima docker
+        run: brew install colima docker qemu
       - name: Start Docker daemon via Colima
         run: |
           colima start --vm-type=qemu --network-address
