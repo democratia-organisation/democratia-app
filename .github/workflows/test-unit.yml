@@ -31,8 +31,12 @@ jobs:
                 DB_USER: root
                 DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
           EOF
-      - name: Setup Docker on macOS via Colima
-        uses: abiosoft/colima-action@v1
+      - name: Install Colima and Docker
+        run: brew install colima docker
+      - name: Start Docker daemon via Colima
+        run: |
+          colima start --vm-type=qemu --network-address
+          docker info
       - name: Start Docker Compose
         run: docker compose up -d
       - uses: actions/checkout@v4
