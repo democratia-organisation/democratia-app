@@ -3,7 +3,6 @@ using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.Json;
-using Crypt = BCrypt.Net.BCrypt;
 using com.democratia.Models;
 using CommunityToolkit.Mvvm.Messaging;
 
@@ -61,7 +60,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
                 Internaute.courriel = Email;
                 if (await VerifierToutesLesConditions())
                 {
-                    Internaute!.hashageMDP = Crypt.HashPassword(Internaute!.tempMDP);
+                    await Verification.HasherMotDePasse(Internaute!);
                     string reponse = await client?.CreateModelAsync(Internaute!.nom_internaute, Internaute!.prenom_internaute, Internaute!.courriel, Internaute!.adresse_postale, Internaute.hashageMDP )!;
                     List<object> values = RecuprerInformationConnexion(reponse);
                 }
@@ -77,7 +76,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             if (!(!string.IsNullOrWhiteSpace(Internaute!.adresse_postale) &&
               !string.IsNullOrWhiteSpace(Internaute!.nom_internaute) &&
               !string.IsNullOrWhiteSpace(Internaute!.prenom_internaute) &&
-              !string.IsNullOrWhiteSpace(Internaute!.hashageMDP) &&
+              !string.IsNullOrWhiteSpace(Internaute!.tempMDP) &&
               !string.IsNullOrWhiteSpace(Internaute!.courriel)))
                 throw new EmptyRequiredFieldException();
             else return true;
