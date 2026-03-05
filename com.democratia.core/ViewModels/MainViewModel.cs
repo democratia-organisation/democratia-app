@@ -69,13 +69,21 @@ namespace com.democratia.ViewModels.internaute
                 List<object> listeInformation = RecuprerInformationConnexion(jsonString);
                 if (listeInformation.Count == 0) throw new NoUserException();
                 var internaute = JsonSerializer.Deserialize<Internaute>(listeInformation![0].ToString()!);
-                internaute!.tempMDP = MotDePasse;
                 string motDePasseHash = internaute?.hashageMDP!;
+                bool estAuthetifie, 
+                hashedPasswordIsNotEqual = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
 #if DEBUG
-                // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
-                bool estAuthetifie = motDePasseHash != internaute!.tempMDP || !await Verification.VerifierMotDePasseUtilisateur(internaute.tempMDP, motDePasseHash);
+                if (MotDePasse != "root")  
+                // les mots de passe avec le mot root ne vont pas dans tempMDP pour éviter une erreur
+                {
+                    // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
+                    internaute!.tempMDP = MotDePasse;
+                    estAuthetifie = motDePasseHash != internaute!.tempMDP || hashedPasswordIsNotEqual;
+                }    
+                else
+                    estAuthetifie = motDePasseHash != MotDePasse || hashedPasswordIsNotEqual;
 #elif !DEBUG
-                bool estAuthetifie = await Verification.VerifierMotDePasseUtilisateur(internaute.tempMDP, motDePasseHash);
+                estAuthetifie = hashedPasswordIsNotEqual; 
 #endif
                 if (!estAuthetifie) throw new BadPasswordException();
                 else
