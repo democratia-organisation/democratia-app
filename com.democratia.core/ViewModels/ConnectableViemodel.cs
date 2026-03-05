@@ -1,5 +1,4 @@
-﻿using com.democratia.CustomException;
-using com.democratia.Models;
+﻿using com.democratia.Models;
 using com.democratia.Services;
 using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -34,7 +33,7 @@ namespace com.democratia.ViewModels
         {
             string jsonInternaute = JsonSerializer.Serialize<T>(model);
             string cacheDir = FileSystem.Current.CacheDirectory;
-            string filePath = Path.Combine(cacheDir,"cache", $"{model.GetType()}_cache.json");
+            string filePath = Path.Combine(cacheDir, $"{model.GetType()}_cache.json");
             if (!File.Exists(filePath)) await File.WriteAllTextAsync(filePath, jsonInternaute);
             else
             {
@@ -46,7 +45,7 @@ namespace com.democratia.ViewModels
         protected async Task<T?> RetrouverModele<T>() where T : class, IModel
         {
             string cacheDir = FileSystem.Current.CacheDirectory;
-            string filePath = Path.Combine(cacheDir, "cache", $"{typeof(T)}_cache.json");
+            string filePath = Path.Combine(cacheDir, $"{typeof(T)}_cache.json");
             if (File.Exists(filePath))
             {
                 string jsonInternaute = await File.ReadAllTextAsync(filePath);

@@ -25,7 +25,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"];
-            thematiques = (query["thematique"]! as ObservableCollection<Thematique>).ToList();
+            thematiques = [..(query["thematique"] as ObservableCollection<Thematique>)!];
             internaute = (Internaute)query["internaute"];
         }
 

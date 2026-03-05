@@ -2,14 +2,12 @@ name: UnitTest
 
 on:
   pull_request:
-    branches: [ main, "developpment" ]
-  push:
-    branches: ["developpment"]
+    branches: [ main]
 
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET

@@ -14,11 +14,11 @@ namespace com.democratia.Models
         [JsonPropertyName("image")]
         public string? Image { get; set; }
         [JsonPropertyName("budget")]
-        public float? Budget { get; set { if (value is null) { field = 0; } } }
+        public float? Budget { get; set { if (value is null) field = 0; else field = value; } }
         [JsonPropertyName("nbj_dft_vote")]
-        public int? NombreDeJourVote { get; set { if (value is null) { field = 0; } } }
+        public int? NombreDeJourVote { get; set { if (value is null) field = 0; else field = value; } }
         [JsonPropertyName("nbj_dft_discuss")]
-        public int? NombreDeJourDiscuss { get; set { if (value is null) { field = 0; } } } 
+        public int? NombreDeJourDiscuss { get; set { if (value is null) field = 0; else field = value; } } 
         [JsonPropertyName("nb_signalement")]
         public int? NombreSignalement { get; set { if (value is null) { field = 0; } } }
         [JsonConstructor]

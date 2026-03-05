@@ -56,7 +56,7 @@
             <Button
                 Text="{x:Static lang:AppResources.suivant}"
                 Command="{Binding NavigateTappedCommand}"
-                CommandParameter="TroisiemePage"
+                CommandParameter="TroisiemeCreationPage"
                 Style="{DynamicResource ButtonStyle}"
             />
         </VerticalStackLayout>

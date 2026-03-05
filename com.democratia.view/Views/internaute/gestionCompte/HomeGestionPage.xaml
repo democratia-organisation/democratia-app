@@ -25,7 +25,7 @@
                 AutomationId="actionLabelNon"
                 AutomationProperties.Name="actionLabelNon"
                 Grid.Row="1"
-                />  
+                />
 
             <StackLayout Padding="10" Grid.Row="2" x:Name="stackLayout">
                 <BoxView HeightRequest="50"/>

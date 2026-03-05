@@ -9,7 +9,7 @@ namespace com.democratia.view.Views
 {
     internal static class BasePageRoute
     {
-        public static void BasePgeRoute()
+        public static void RouteBase()
         {
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));

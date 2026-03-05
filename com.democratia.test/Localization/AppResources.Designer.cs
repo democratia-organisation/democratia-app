@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace com.democratia.view.Resources.Localization {
+namespace com.democratia.test.Localization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace com.democratia.view.Resources.Localization {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("com.democratia.view.Resources.Localization.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("com.democratia.test.Localization.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -169,7 +169,7 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à L&apos;adresse mail est déjà utilisé.
+        ///   Recherche une chaîne localisée semblable à L&apos;adresse mail es déjà créé.
         /// </summary>
         public static string compteExistantErreur {
             get {
@@ -259,15 +259,6 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Veuillez remplir le champ {0}.
-        /// </summary>
-        public static string erreurChamp {
-            get {
-                return ResourceManager.GetString("erreurChamp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Erreur lors de la création du compte.
         /// </summary>
         public static string erreurCreation {
@@ -318,15 +309,6 @@ namespace com.democratia.view.Resources.Localization {
         public static string errorPasswordMessage {
             get {
                 return ResourceManager.GetString("errorPasswordMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Un champ requiert est vide.
-        /// </summary>
-        public static string errorUnknowEmptyFieldMessage {
-            get {
-                return ResourceManager.GetString("errorUnknowEmptyFieldMessage", resourceCulture);
             }
         }
         
@@ -628,7 +610,7 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Sélectionner une langue.
+        ///   Recherche une chaîne localisée semblable à Sélectionner une langue de préférence.
         /// </summary>
         public static string selectionLangue {
             get {
@@ -637,7 +619,7 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Sélectionner un thème.
+        ///   Recherche une chaîne localisée semblable à Sélectionner un thème par défault.
         /// </summary>
         public static string selectionTheme {
             get {

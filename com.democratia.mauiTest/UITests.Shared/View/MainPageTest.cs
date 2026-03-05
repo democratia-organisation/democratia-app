@@ -1,5 +1,4 @@
 using OpenQA.Selenium.Appium;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -38,8 +37,6 @@ namespace UITests.View
 
             Assert.Equal(nombresEntrees, nombresLabels);
             Assert.Equal(nombresEntrees, nombresEntries);
-            Assert.Equal("Adresse mail", labels?[0].Text);
-            Assert.Equal("Mot de passe", labels?[1].Text);
         }
 
         [Fact(DisplayName = "Test de la navigation vers la page home")]

@@ -202,10 +202,7 @@
     <value>Verify that all field are entered</value>
   </data>
   <data name="formatEmail" xml:space="preserve">
-    <value>The format email adress is incorrect</value>
-  </data>
-  <data name="compteExistantErreur" xml:space="preserve">
-    <value>Email adress is already used</value>
+    <value>The format email address is incorrect</value>
   </data>
   <data name="formatMotDePasse" xml:space="preserve">
     <value>The password format is incorrect</value>
@@ -310,10 +307,10 @@
     <value>Preferences</value>
   </data>
   <data name="selectionLangue" xml:space="preserve">
-    <value>Select a prefered language</value>
+    <value>Select a language</value>
   </data>
   <data name="selectionTheme" xml:space="preserve">
-    <value>Select a default theme</value>
+    <value>Select a theme</value>
   </data>
   <data name="theme" xml:space="preserve">
     <value>Theme</value>
@@ -332,5 +329,14 @@
   </data>
   <data name="continuer" xml:space="preserve">
     <value>Continue</value>
+  </data>
+  <data name="erreurChamp" xml:space="preserve">
+    <value>Please fullfil the field {0}</value>
+  </data>
+  <data name="compteExistantErreur" xml:space="preserve">
+    <value>The email is already used</value>
+  </data>
+  <data name="errorUnknowEmptyFieldMessage" xml:space="preserve">
+    <value>A required field is empty</value>
   </data>
 </root>

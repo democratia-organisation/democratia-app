@@ -15,7 +15,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         [ObservableProperty] private string? retourMessage;
 
         public Internaute? internaute;
-        private readonly ILocalizationService? localizationService;
+        private bool _isNavigating = false;
         private readonly INavigationService navigationService1;
         private readonly WeakReferenceMessenger weakReferenceMessenger;
         public HomeGestionViewModel(IEnumerable<IClient> clients, ILocalizationService? localizationService, INavigationService navigationService) 
@@ -38,7 +38,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             if (((InternauteClient)client!).succes)
                 weakReferenceMessenger.Send<EventSuppressionSuccess>();
             else
-                RetourMessage = localizationService?.GetString("connexionErreur");
+                RetourMessage = LocalizationService?.GetString("connexionErreur");
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -47,12 +47,21 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             else internaute = await RetrouverModele<Internaute>();
         }
 
-        [RelayCommand]
+        [RelayCommand(AllowConcurrentExecutions = false)]
         public async Task NavigateTapped(string commande)
         {
+            if (_isNavigating) return;
+            _isNavigating = true;
             var parameter = commande == "ModifierGestionPage" ?
                 new ShellNavigationQueryParameters { { "internaute", internaute! } } : null;
-            await navigationService1.GoToAsync(commande, parameter);
+            try
+            {
+                await navigationService1.GoToAsync(commande, parameter);
+            }
+            finally
+            {
+                _isNavigating = false;
+            }
         }
         public record EventSuppressionSend() { }
         public record EventSuppressionSuccess() { }

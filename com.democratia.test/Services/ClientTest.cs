@@ -1,4 +1,6 @@
 ﻿using com.democratia.Services;
+using com.democratia.Utils;
+using com.democratia.test.Localization;
 
 namespace com.democratia.test.Services
 {
@@ -17,8 +19,6 @@ namespace com.democratia.test.Services
             _serviceProvider = TestServiceCollection.CreateTestServiceProviderForClients();
         }
 
-        // TODO : tester
-        //      - CreateMethode
 
         [Theory]
         [MemberData(nameof(ClientData))]
@@ -27,31 +27,22 @@ namespace com.democratia.test.Services
             Provider provider = _serviceProvider!.GetRequiredService<Provider>();
             IEnumerable<IClient?>? clients = provider.clients;
             IClient? testeur = clients!.FirstOrDefault(c => c?.GetType() == client.GetType());
-
-
             string result = await testeur?.GetModelAsync(parameters![0])!;
-
-
             Assert.NotNull(result);
             Assert.IsType<string>(result);
         }
 
         [Theory]
         [MemberData(nameof(ClientData))]
-        public async Task GetMethodeErroConnexoTest(Client client, params object?[]? parameters)
+        public async Task GetMethodeErrorConnexoTest(Client client, params object?[]? parameters)
         {
 
             Provider provider = _serviceProvider!.GetRequiredService<Provider>();
             IEnumerable<IClient?>? clients = provider.clients;
             IClient? testeur = clients!.FirstOrDefault(c => c?.GetType() == client.GetType());
             testeur?.SetPort(1234); // Port incorrect pour provoquer une erreur de connexion
-
-
-            // TODO : si le timeout est configuré, il faut modifier le test qui doit attendre une exception de type TaskCanceledException
-            HttpRequestException result = await Assert.ThrowsAsync<HttpRequestException>(async () => await testeur!.GetModelAsync(parameters![0]));
-            Assert.Equal("Erreur de connexion inattendu", result.Message);
+            ConnexionErrorException result = await Assert.ThrowsAsync<ConnexionErrorException>(async () => await testeur!.GetModelAsync(parameters![0]));
+            Assert.Equal(AppResources.connexionErreur, result.Message);
         }
-
-        // TODO : tester CreateModelAsync quand il sera implémenté
     }
 }

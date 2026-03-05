@@ -86,7 +86,7 @@
                 x:Name="buttonNext"
                 AutomationProperties.Name="buttonNext"
                 Command="{Binding NavigateTappedCommand}"
-                CommandParameter="/Home"
+                CommandParameter="/HomePage"
                 IsVisible="{Binding IsFinish}"/>
         </VerticalStackLayout>
     </ScrollView>

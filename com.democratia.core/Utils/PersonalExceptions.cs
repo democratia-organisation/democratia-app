@@ -1,7 +1,4 @@
-﻿
-using com.democratia.Utils;
-
-namespace com.democratia.CustomException
+﻿namespace com.democratia.Utils
 {
     internal class MailException : Exception { }
 
@@ -11,7 +8,11 @@ namespace com.democratia.CustomException
 
     internal class EmptyPassWordFieldException : Exception { }
 
-    internal class EmptyRequiredFieldException : Exception { }
+    internal class EmptyRequiredFieldException(string message) : Exception(message) 
+    {
+        public EmptyRequiredFieldException() : this("") { }
+
+    }
     internal class ConnexionErrorException : Exception { }
     internal class BadPasswordException : Exception { }
 
@@ -19,11 +20,12 @@ namespace com.democratia.CustomException
     internal class FetchDataException : Exception { }
 
     internal class CompteExistantException : Exception { }
+    internal class NoImageGiven : Exception { }
 
 
     internal static class MapExceptionMessage
     {
-        public static string? MappingException(Exception e, ILocalizationService localizationService)
+        public static string? MappingException(Exception e, ILocalizationService localizationService, params object[] args)
         {
             switch (e)
             {
@@ -32,11 +34,14 @@ namespace com.democratia.CustomException
                 case EmptyPassWordFieldException _:
                     return localizationService?.GetString("errorMailMessage");
                 case EmptyRequiredFieldException _:
-                    return localizationService.GetString("");
+                    if (args.Length>0)
+                        return localizationService.GetString("errorEmptyFieldMessage", args[0]);
+                    else 
+                        return localizationService.GetString("errorUnknowEmptyFieldMessage");
                 case MailException _:
-                    return localizationService.GetString("");
+                    return localizationService.GetString("errorMailMessage");
                 case PassWordException _:
-                    return localizationService.GetString("");
+                    return localizationService.GetString("errorPasswordMessage");
                 case ConnexionErrorException _:
                     return localizationService?.GetString("connexionErreur");
                 case NoUserException _:
@@ -46,8 +51,9 @@ namespace com.democratia.CustomException
                 case FetchDataException _:
                     return localizationService.GetString("erreurDonne");
                 case CompteExistantException _:
-                    return localizationService.GetString("");
-
+                    return localizationService.GetString("compteExistantErreur");
+                case NoImageGiven _:
+                    return localizationService.GetString("erreurPhoto");
                 default:
                     return localizationService?.GetString("erreurInattendu");
             }

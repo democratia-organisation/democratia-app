@@ -1,6 +1,4 @@
-﻿
-using com.democratia.CustomException;
-using com.democratia.Utils;
+﻿using com.democratia.Utils;
 using System.Text.Json.Serialization;
 
 namespace com.democratia.Models
@@ -28,16 +26,14 @@ namespace com.democratia.Models
                 if (value is null) { field = value; return; }
                 if (!Verification.VerifierFormatage(value!, new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$")))
                     throw new MailException();
+                else field = value;
         } } 
         public string? hashageMDP { get; set; }
-        public string? tempMDP
-        {
-            get; set
-            {
+        public string? tempMDP { get; set {
                 if (value is null) { field = value; return; }
                 if (!Verification.VerifierFormatage(value!, new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$")))
                     throw new PassWordException();
-            }
-        }
+                else field = value;
+        } }
     }
 }

@@ -14,30 +14,32 @@ namespace UITests
         private const string MacIp = "51.159.121.26";
         private const string MacUser = "m1";
         // Le chemin vers votre app macOS (.app Catalyst ou native)
-        private const string MacAppPath = "/Users/m1/Documents/democratia-mobile/com.democratia.view/bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app";
-        private const string MacProjectDir = "/Users/m1/Documents/democratia-mobile/com.democratia.mauiTest/UITests.macOS/";
+        private const string MacAppPath = "./bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app";
+        private const string MacProjectDir = "./com.democratia.mauiTest/UITests.macOS/";
 
         public AppiumSetup()
         {
             if (OperatingSystem.IsWindows())
             {
-                // On délègue au Mac
                 RunTestsRemotelyOnMac();
                 return;
             }
-            else
+            else 
             {
-                // On exécute localement sur l'interface macOS
+                AppiumServerHelper.StartAppiumLocalServer();
                 InitLocalMacDriver();
-            }
+            } 
+            
+            
         }
         private void InitLocalMacDriver()
         {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var options = new AppiumOptions
             {
                 AutomationName = "mac2",
-                PlatformName = "macOS", // "macOS" est la valeur standard attendue par Mac2Driver
-                App = MacAppPath
+                PlatformName = "macOS",
+                App = Path.GetFullPath(Path.Combine(baseDir, @"../../../../../bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app"))
             };
 
             // Ajoutez ceci pour éviter les erreurs de "Path" sur le Mac
@@ -50,8 +52,10 @@ namespace UITests
 
             
 
-            driver = new MacDriver(new Uri("http://127.0.0.1:4723/"), options, TimeSpan.FromSeconds(120));
+            driver = new MacDriver(new Uri("http://127.0.0.1:4724/"), options, TimeSpan.FromSeconds(120));
         }
+
+
         private void RunTestsRemotelyOnMac()
         {
             string remoteResultsPath = $"/Users/m1/Documents/democratia-mobile/com.democratia.mauiTest/UITests.macOS/TestResults/results.trx";

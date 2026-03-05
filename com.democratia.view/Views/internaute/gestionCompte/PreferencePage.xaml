@@ -6,9 +6,12 @@
              x:DataType="viewModel:PreferenceViewModel"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="com.democratia.Views.internaute.gestionCompte.PreferencePage"
+             xmlns:component="clr-namespace:com.democratia.Views.Component"
              Style="{DynamicResource fondEcran}"
              Title="PreferencePage">
     <VerticalStackLayout>
+        <component:Header/>
+        <BoxView HeightRequest="20"/>
         <HorizontalStackLayout>
             <Label 
                 Text="{x:Static lang:AppResources.selectionLangue}"

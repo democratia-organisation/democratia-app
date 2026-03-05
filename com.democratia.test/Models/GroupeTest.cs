@@ -4,13 +4,14 @@ namespace com.democratia.test.Models
 {
     public class GroupeTest
     {
-        private readonly int? idGroupe = 3, nombreJourDeVote = 4, nombreDeJourDiscussion = 10, nombreSignalement = 0;
+        private readonly Guid? idGroupe = Guid.CreateVersion7();
+        private readonly int? nombreJourDeVote = 4, nombreDeJourDiscussion = 10, nombreSignalement = 0;
         private readonly float? budget = 1000;
         private readonly string? nomGroupe = "les baroudeurs", couleurGroupe = "#F2F3F4", image = "bonjour.png";
         [Fact]
         public void ConstructeurTest()
         {
-            Groupe groupe = new(idGroupe, nomGroupe, couleurGroupe, image, budget, nombreJourDeVote, nombreDeJourDiscussion, nombreSignalement);
+            Groupe groupe = new(idGroupe,nomGroupe,couleurGroupe,image,budget,nombreJourDeVote,nombreDeJourDiscussion,nombreSignalement);
             Assert.NotNull(groupe);
             VerificationChamp(groupe);
         }

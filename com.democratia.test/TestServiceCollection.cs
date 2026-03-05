@@ -6,11 +6,11 @@ using com.democratia.ViewModels.internaute.gestionCompte;
 
 namespace com.democratia.test;
 
-public static class TestServiceCollection // TODO : ajouter l'assembly com.democratia.view pour utiliser la classe AppResources
+public static class TestServiceCollection
 {
     public static IServiceProvider CreateTestServiceProviderForMainViewModel()
     {
-        var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
+        var services = new ServiceCollection();
 
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IClient, InternauteClient>();
@@ -44,8 +44,6 @@ public static class TestServiceCollection // TODO : ajouter l'assembly com.democ
     public static IServiceProvider CreateTestServiceProviderForClients()
     {
         var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
-
-        // TODO : ajouter d'autres clients si nécessaire
         services.AddSingleton<IClient, InternauteClient>();
         services.AddTransient<Provider>();
 

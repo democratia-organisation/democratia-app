@@ -20,7 +20,7 @@ namespace com.democratia.test.Models
         {
             Assert.Equal(exceptId, internaute.id_internaute);
             Assert.Equal(exceptMail, internaute.courriel);
-            Assert.Equal(exceptAdress, internaute.adresse_postal);
+            Assert.Equal(exceptAdress, internaute.adresse_postale);
             Assert.Equal(exceptNom, internaute.nom_internaute);
             Assert.Equal(exceptPrenom, internaute.prenom_internaute);
         }

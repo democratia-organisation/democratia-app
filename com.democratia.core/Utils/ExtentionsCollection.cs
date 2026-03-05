@@ -12,7 +12,7 @@ using com.democratia.ViewModels.groupe;
 
 namespace com.democratia.Utils
 {
-    public static class ServiceCollection
+    public static class ExtentionsCollection
     {
         private static MauiAppBuilder? maui;
         
@@ -67,6 +67,9 @@ namespace com.democratia.Utils
                 services.AddSingleton<INavigeablleViewModel, DeuxiemePageViewModel>();
                 services.AddSingleton<INavigeablleViewModel, GroupeViewModel>();
                 services.AddSingleton<INavigeablleViewModel, ModifierGestionViewModel>();
+                services.AddSingleton<INavigeablleViewModel, PreferenceViewModel>();
+                services.AddSingleton<INavigeablleViewModel, HomeGestionViewModel>();
+
 
                 return services;
             }
@@ -110,7 +113,7 @@ namespace com.democratia.Utils
             {
                 Uri url;
 #if DEBUG
-                if (DeviceInfo.Current.DeviceType == DeviceType.Virtual && DeviceInfo.Current.Platform == DevicePlatform.Android)
+                if (DeviceInfo.Current.Platform == DevicePlatform.Android)
                     url = new(maui!.GetAppSetting("VIRTUAL_URL"));
                 else
                     url = new(maui!.GetAppSetting("API_URL"));

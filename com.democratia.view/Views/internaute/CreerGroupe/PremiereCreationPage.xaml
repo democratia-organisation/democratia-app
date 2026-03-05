@@ -30,7 +30,7 @@
                 x:Name="labelErreur"
                 AutomationProperties.Name="labelErreur"/>
             <BoxView HeightRequest="50"/>
-            <Component:EntryComponent Title="{x:Static lang:AppResources.entrezNomGroupe}" ValeurDonne="{Binding NomGroupe}" x:Name="nomGroupeEntry" />
+            <Component:EntryComponent Title="{x:Static lang:AppResources.entrezNomGroupe}" ValeurDonne="{Binding Groupe.NomGroupe}" x:Name="nomGroupeEntry" />
 
             <!--theme refait à la main pour avoir metttre un relai comande lors de la touche entrée-->
             <Label
@@ -71,8 +71,7 @@
                     AutomationProperties.Name="searchTheme"
                     x:Name="searchTheme"
                     Text="{Binding Thematique}"
-                    SearchCommand="{Binding PrendreThematiqueCommand}"
-                >
+                    SearchCommand="{Binding PrendreThematiqueCommand}">
                     <SearchBar.Behaviors>
                         <communityToolkit:EventToCommandBehavior
                             EventName="TextChanged"
@@ -82,6 +81,7 @@
                 </SearchBar>
             </Border>
             <CollectionView
+                IsVisible="{Binding AfficheCollectionView}"
                 ItemsSource="{Binding ThematiquesAffiches}"
                 SelectionMode="Single"
                 RemainingItemsThreshold="3"
@@ -112,7 +112,7 @@
                 Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.suivant}"
                 Command="{Binding NavigateTappedCommand}"
-                CommandParameter="DeuxiemePage"
+                CommandParameter="DeuxiemeCreationPage"
                 x:Name="nextFirstPageButton"
             />
         </VerticalStackLayout>

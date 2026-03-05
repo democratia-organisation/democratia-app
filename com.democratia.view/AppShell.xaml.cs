@@ -11,9 +11,9 @@ namespace com.democratia
         public AppShell()
         {
             InitializeComponent();
-            BasePageRoute.BasePgeRoute();
+            BasePageRoute.RouteBase();
             CreerGroupeRoute.RouteCreationGroup();
-            CreerGroupeRoute.RouteCreationGroup();
+            GestionCompteRoute.RouteGestionCompte();
         }
     }
 }

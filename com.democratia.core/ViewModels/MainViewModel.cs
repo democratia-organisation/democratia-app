@@ -5,8 +5,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Text.Json;
-using Crypt = BCrypt.Net.BCrypt;
-using com.democratia.CustomException;
 
 namespace com.democratia.ViewModels.internaute
 {
@@ -41,11 +39,10 @@ namespace com.democratia.ViewModels.internaute
         {
             try
             {
-                if (commande == "/Home")
+                if (commande == "/HomePage")
                 {
                     modele = await ConnecterInternaute();
                     var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
-                    ErrorMessage = "";
                     await navigationService!.GoToAsync(commande, parameters);
                 }
                 else await navigationService!.GoToAsync(commande);
@@ -64,32 +61,39 @@ namespace com.democratia.ViewModels.internaute
         internal async Task<Internaute?> ConnecterInternaute()
         {
 
-            if (string.IsNullOrEmpty(AdresseMail) || string.IsNullOrEmpty(MotDePasse))
-            {
-                if (string.IsNullOrEmpty(AdresseMail)) throw new EmptyEmailFieldException();
-                else throw new EmptyPassWordFieldException();
-            }
-            string jsonString;
+            if (string.IsNullOrWhiteSpace(AdresseMail)) throw new EmptyEmailFieldException();
+            else if (string.IsNullOrWhiteSpace(MotDePasse)) throw new EmptyPassWordFieldException();
             try
-            { jsonString = await client?.GetModelAsync(AdresseMail)!; }
-            catch (Exception)
-            { throw new ConnexionErrorException(); }
-            List<object> listeInformation = RecuprerInformationConnexion(jsonString);
-            if(listeInformation.Count == 0) throw new NoUserException();
-            var internaute = JsonSerializer.Deserialize<Internaute>(listeInformation![0].ToString()!);
-            string motDePasseHash = internaute?.hashageMDP!;
-            EnregistrerModele(internaute!);
-#if DEBUG  
-            if (motDePasseHash != MotDePasse && ! await VerifierMotDePasseUtilisateur(motDePasseHash)) 
-                throw new BadPasswordException();
+            {
+                string jsonString = await client?.GetModelAsync(AdresseMail)!;
+                List<object> listeInformation = RecuprerInformationConnexion(jsonString);
+                if (listeInformation.Count == 0) throw new NoUserException();
+                var internaute = JsonSerializer.Deserialize<Internaute>(listeInformation![0].ToString()!);
+                string motDePasseHash = internaute?.hashageMDP!;
+                bool estAuthetifie;
+#if DEBUG
+                if (MotDePasse != "root")
+                // les mots de passe avec le mot root ne vont pas dans tempMDP pour éviter une erreur
+                {
+                    internaute!.tempMDP = MotDePasse; // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
+                    bool hashedPasswordIsNotEqual = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
+                    estAuthetifie = motDePasseHash != internaute!.tempMDP || hashedPasswordIsNotEqual;
+                }
+                else
+                    estAuthetifie = true;
 #elif !DEBUG
-            if(! await VerifierMotDePasseUtilisateur(motDePasseHash)) 
-                throw new BadPasswordException();
-# endif
-            return internaute;
+                internaute!.tempMDP = MotDePasse; // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
+                estAuthetifie = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);;
+#endif
+                if (!estAuthetifie) throw new BadPasswordException();
+                else
+                {
+                    EnregistrerModele(internaute!);
+                    return internaute;
+                }
+            }
+            catch (Exception)
+            { throw; }
         }
-        // Tâche rendu asynchrone à cause du temps d'execution de la fonction Verify
-        private async Task<bool> VerifierMotDePasseUtilisateur(string hashedMotDePasse) => await Task.Run(() => Crypt.Verify(MotDePasse, hashedMotDePasse));
-
     }
 }

@@ -204,6 +204,9 @@
   <data name="formatEmail" xml:space="preserve">
     <value>Le format de l'adresse mail est incorrecte</value>
   </data>
+  <data name="compteExistantErreur" xml:space="preserve">
+    <value>L'adresse mail es déjà créé</value>
+  </data>
   <data name="formatMotDePasse" xml:space="preserve">
     <value>Le format du mot de passe est incorrecte</value>
   </data>
@@ -307,10 +310,10 @@
     <value>Préférences</value>
   </data>
   <data name="selectionLangue" xml:space="preserve">
-    <value>Sélectionner une langue</value>
+    <value>Sélectionner une langue de préférence</value>
   </data>
   <data name="selectionTheme" xml:space="preserve">
-    <value>Sélectionner un thème</value>
+    <value>Sélectionner un thème par défault</value>
   </data>
   <data name="theme" xml:space="preserve">
     <value>Thème</value>
@@ -329,14 +332,5 @@
   </data>
   <data name="continuer" xml:space="preserve">
     <value>Continuer</value>
-  </data>
-  <data name="erreurChamp" xml:space="preserve">
-    <value>Veuillez remplir le champ {0}</value>
-  </data>
-  <data name="compteExistantErreur" xml:space="preserve">
-    <value>L'adresse mail est déjà utilisé</value>
-  </data>
-  <data name="errorUnknowEmptyFieldMessage" xml:space="preserve">
-    <value>Un champ requiert est vide</value>
   </data>
 </root>

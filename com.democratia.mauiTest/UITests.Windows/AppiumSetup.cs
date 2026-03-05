@@ -16,10 +16,9 @@ namespace UITests
 
         public AppiumSetup()
         {
-            // If you started an Appium server manually, make sure to comment out the next line
-            // This line starts a local Appium server for you as part of the test run
             if (SystemInfo.SSHHost()) return;
             AppiumServerHelper.StartAppiumLocalServer();
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var windowsOptions = new AppiumOptions
             {
                 // Specify windows as the driver, typically don't need to change this
@@ -28,7 +27,7 @@ namespace UITests
                 PlatformName = "Windows",
 
                 // The identifier of the deployed application to test
-                App = @"C:\Users\naher\Documents\autre\projet\projets_personnel\democratia\application\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe",
+                App = Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe"))
             };
             windowsOptions.AddAdditionalAppiumOption("unicodeKeyboard", true);
             windowsOptions.AddAdditionalAppiumOption("resetKeyboard", true);
@@ -36,7 +35,7 @@ namespace UITests
 
             // Note there are many more options that you can use to influence the app under test according to your needs
 
-            driver = new WindowsDriver(new Uri("http://127.0.0.1:4724"), windowsOptions);
+            driver = new WindowsDriver(new Uri("http://127.0.0.1:4724/"), windowsOptions);
         }
 
         public void Dispose()

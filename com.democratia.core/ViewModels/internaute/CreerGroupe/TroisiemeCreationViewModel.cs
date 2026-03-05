@@ -1,5 +1,4 @@
-﻿using com.democratia.CustomException;
-using com.democratia.Models;
+﻿using com.democratia.Models;
 using com.democratia.Services;
 using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -42,13 +41,20 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            groupe!.IdGroupe = Guid.CreateVersion7();
-            await client!.CreateModelAsync(groupe!);
-            foreach (Thematique item in thematiques!)
-                await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.IdGroupe, item.id_thematique, item.budget);
-            await client.UploadImage(groupe!.IdGroupe, imagePath);
-            await ((GroupClient)client).AjouterCreateur(internaute!.id_internaute, groupe.IdGroupe);
-            await service.GoToAsync(commande);
+            try
+            {
+                groupe!.IdGroupe = Guid.CreateVersion7();
+                await client!.CreateModelAsync(groupe!);
+                foreach (Thematique item in thematiques!)
+                    await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.IdGroupe, item.id_thematique, item.budget);
+                if (string.IsNullOrWhiteSpace(imagePath)) throw new NoImageGiven();
+                await client.UploadImage(groupe!.IdGroupe, imagePath);
+                await ((GroupClient)client).AjouterCreateur(internaute!.id_internaute, groupe.IdGroupe);
+                await service.GoToAsync(commande);
+            } catch (Exception ex)
+            {
+                MapExceptionMessage.MappingException(ex, localizationService!);
+            }
         }
 
         [RelayCommand]
@@ -91,7 +97,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
 #if DEBUG
                 ErrorMessage = MapExceptionMessage.MappingException(ex,localizationService!);
 #elif !DEBUG
-                ErrorMessage = localizationService?.GetString("erreurPhoto");
+                ErrorMessage = localizationService?.GetString("erreurInattendu");
 #endif
             }
         }

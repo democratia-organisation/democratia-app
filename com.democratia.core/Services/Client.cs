@@ -1,5 +1,4 @@
-﻿using com.democratia.CustomException;
-using com.democratia.Utils;
+﻿using com.democratia.Utils;
 using Microsoft.Maui.Controls;
 using System.IO.Pipelines;
 using System.Net.Http.Headers;
@@ -89,7 +88,7 @@ namespace com.democratia.Services
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<ImageSource?> GetImageAsync(string url)
+        public async Task<ImageSource?> GetImageAsync(string? url)
         {
             var requete = $"""?request=obtenirImage&parameters=["{url}"]""";
             DebutRequete();
