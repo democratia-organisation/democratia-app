@@ -41,7 +41,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         private async Task ModifierInternaute()
         {
             RecupererInformations();
-            await HasherMotDePasse();
+            if(!string.IsNullOrWhiteSpace(Password)) await HasherMotDePasse();
             await client?.UpdateModelAsync(internaute)!;
             EnregistrerModele(internaute!);
             WeakReferenceMessenger.Default.Send<EventModificationSuccessSender>();
@@ -57,7 +57,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             try
             {
                 internaute!.courriel = Merge(internaute.courriel, Email);
-                internaute!.tempMDP = Merge(internaute.tempMDP, Password);
+                if(!string.IsNullOrWhiteSpace(Password)) internaute!.tempMDP = Merge(internaute.tempMDP, Password);
             }
             catch (Exception ex) {
 
@@ -66,7 +66,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         }
 
         private static string? Merge(string? baseValue, string? newValue) =>
-            string.IsNullOrEmpty(newValue) ? baseValue : newValue;
+            string.IsNullOrWhiteSpace(newValue) ? baseValue : newValue;
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {

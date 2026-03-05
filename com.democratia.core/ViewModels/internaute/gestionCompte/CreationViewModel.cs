@@ -74,11 +74,11 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
 
         private bool VerifierChampComplet()
         {
-            if (!(!string.IsNullOrEmpty(Internaute!.adresse_postale) &&
-              !string.IsNullOrEmpty(Internaute!.nom_internaute) &&
-              !string.IsNullOrEmpty(Internaute!.prenom_internaute) &&
-              !string.IsNullOrEmpty(Internaute!.hashageMDP) &&
-              !string.IsNullOrEmpty(Internaute!.courriel)))
+            if (!(!string.IsNullOrWhiteSpace(Internaute!.adresse_postale) &&
+              !string.IsNullOrWhiteSpace(Internaute!.nom_internaute) &&
+              !string.IsNullOrWhiteSpace(Internaute!.prenom_internaute) &&
+              !string.IsNullOrWhiteSpace(Internaute!.hashageMDP) &&
+              !string.IsNullOrWhiteSpace(Internaute!.courriel)))
                 throw new EmptyRequiredFieldException();
             else return true;
         }

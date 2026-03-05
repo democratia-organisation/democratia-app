@@ -63,9 +63,9 @@ namespace com.democratia.ViewModels.internaute
         internal async Task<Internaute?> ConnecterInternaute()
         {
 
-            if (string.IsNullOrEmpty(AdresseMail) || string.IsNullOrEmpty(MotDePasse))
+            if (string.IsNullOrWhiteSpace(AdresseMail) || string.IsNullOrWhiteSpace(MotDePasse))
             {
-                if (string.IsNullOrEmpty(AdresseMail)) throw new EmptyEmailFieldException();
+                if (string.IsNullOrWhiteSpace(AdresseMail)) throw new EmptyEmailFieldException();
                 else throw new EmptyPassWordFieldException();
             }
             string jsonString;
