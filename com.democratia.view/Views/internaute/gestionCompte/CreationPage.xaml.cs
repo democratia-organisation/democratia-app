@@ -26,7 +26,7 @@ namespace com.democratia.Views.internaute.gestionCompte
                             LabelText = AppResources.BonneNouvelle,
                             ButtonText = AppResources.connecter,
                             Command = viewModel!.NavigateTappedCommand,
-                            CommandParameter = $"{nameof(MainPage)}"
+                            CommandParameter = $"///{nameof(MainPage)}"
                         }
                     }
                 };

@@ -27,7 +27,7 @@ namespace com.democratia.Views.internaute.gestionCompte
         private void AjoutGrille(string labelText, string buttonText, ICommand command, object? parameter = null)
         {
             grille.Remove(stackLayout);
-            var layout = new StackLayout
+            stackLayout = new StackLayout
             {
                 Children =
                 {
@@ -40,8 +40,8 @@ namespace com.democratia.Views.internaute.gestionCompte
                     }
                 }
             };
-            grille.Add(layout);
-            grille.SetRow(layout, 2);
+            grille.Add(stackLayout);
+            grille.SetRow(stackLayout, 2);
         }
     }
 }

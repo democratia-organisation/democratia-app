@@ -44,7 +44,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            if (string.IsNullOrEmpty(Groupe?.NomGroupe))
+            if (string.IsNullOrWhiteSpace(Groupe?.NomGroupe))
             {
                 ErreurMessage = localizationService?.GetString("nomGroupeRequis");
                 return;
@@ -114,8 +114,8 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         private void AfficherThematiquesMatch() 
         {
 
-            if(!string.IsNullOrEmpty(Thematique) && !AfficheCollectionView) AfficheCollectionView = true;
-            else if (string.IsNullOrEmpty(Thematique) && AfficheCollectionView) AfficheCollectionView = false;
+            if(!string.IsNullOrWhiteSpace(Thematique) && !AfficheCollectionView) AfficheCollectionView = true;
+            else if (string.IsNullOrWhiteSpace(Thematique) && AfficheCollectionView) AfficheCollectionView = false;
             string texteRecherche = Thematique?.ToLower() ?? string.Empty;
             var thematiquesFiltrees = thematiquesExistantes!.Where(t => (bool)t.nom_thematique?.ToLower()?.Contains(texteRecherche)!).ToList();
             ThematiquesAffiches!.Clear();

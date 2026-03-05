@@ -77,9 +77,9 @@ namespace com.democratia.test.ViewModels.internaute
             mainPageViewModel.MotDePasse = motDePasse;
             Exception exception;
 
-            if (string.IsNullOrEmpty(mainPageViewModel.AdresseMail))
+            if (string.IsNullOrWhiteSpace(mainPageViewModel.AdresseMail))
                 exception = await Assert.ThrowsAsync<MailException>(async () => await mainPageViewModel!.ConnecterInternaute());
-            if (string.IsNullOrEmpty(mainPageViewModel.MotDePasse))
+            if (string.IsNullOrWhiteSpace(mainPageViewModel.MotDePasse))
                 exception = await Assert.ThrowsAsync<PassWordException>(async () => await mainPageViewModel!.ConnecterInternaute());
 
             else

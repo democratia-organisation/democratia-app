@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
-using Crypt = BCrypt.Net.BCrypt;
 
 
 namespace com.democratia.ViewModels.internaute.gestionCompte
@@ -41,13 +40,13 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         private async Task ModifierInternaute()
         {
             RecupererInformations();
-            await HasherMotDePasse();
+            await Verification.HasherMotDePasse(internaute!);
             await client?.UpdateModelAsync(internaute)!;
             EnregistrerModele(internaute!);
             WeakReferenceMessenger.Default.Send<EventModificationSuccessSender>();
         }
 
-        private async Task HasherMotDePasse() => await Task.Run(() => internaute!.hashageMDP = Crypt.HashPassword(internaute!.tempMDP!));
+        
 
         private void RecupererInformations()
         {
@@ -66,7 +65,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         }
 
         private static string? Merge(string? baseValue, string? newValue) =>
-            string.IsNullOrEmpty(newValue) ? baseValue : newValue;
+            string.IsNullOrWhiteSpace(newValue) ? baseValue : newValue;
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {

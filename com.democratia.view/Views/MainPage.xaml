@@ -79,7 +79,7 @@
                         AutomationId="Creer"
                         AutomationProperties.Name="Creer" >
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NavigateTappedCommand}" CommandParameter="Creation" />
+                            <TapGestureRecognizer Command="{Binding NavigateTappedCommand}" CommandParameter="CreationPage" />
                         </Label.GestureRecognizers>
                     </Label>
                 </HorizontalStackLayout>

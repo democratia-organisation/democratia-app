@@ -47,7 +47,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                 await client!.CreateModelAsync(groupe!);
                 foreach (Thematique item in thematiques!)
                     await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.IdGroupe, item.id_thematique, item.budget);
-                if (string.IsNullOrEmpty(imagePath)) throw new NoImageGiven();
+                if (string.IsNullOrWhiteSpace(imagePath)) throw new NoImageGiven();
                 await client.UploadImage(groupe!.IdGroupe, imagePath);
                 await ((GroupClient)client).AjouterCreateur(internaute!.id_internaute, groupe.IdGroupe);
                 await service.GoToAsync(commande);
