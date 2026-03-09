@@ -80,17 +80,24 @@ namespace com.democratia.Services
             if (!response.IsSuccessStatusCode) {
                 string content = await response.Content.ReadAsStringAsync();
                 if(response.StatusCode == HttpStatusCode.Unauthorized)
-                    // TODO : retrouver où est stocké la requete qui a échoué pour la refaire après l'obtention de la clé JWT
-                    return await GenerateJWTKey(response.Content);
+                {
+                    var initialRequest = response!.RequestMessage!.RequestUri!.OriginalString;
+                    initialRequest = initialRequest.Split("php")[1];
+                    return await GenerateJWTKey(initialRequest);
+                }
+                    
                 
                 throw new ConnexionErrorException();
             } 
 
             else
-                return await response.Content.ReadAsStringAsync();
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                return content;
+            }
         }
 
-        private async Task<string> GenerateJWTKey(HttpContent content)
+        private async Task<string> GenerateJWTKey(string content)
         {
             DebutRequete();
             try
@@ -110,7 +117,7 @@ namespace com.democratia.Services
                     string key = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![API_KEY];
                     await SecureStorage.Default.SetAsync(API_KEY, key);
                     DebutRequete();
-                    response = await client.GetAsync(content.ToString());
+                    response = await client.GetAsync(content);
                     return await FinRequete(response);
 
 
