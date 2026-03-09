@@ -1,7 +1,9 @@
 ﻿using com.democratia.Utils;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
 using System.IO.Pipelines;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Xunit.Abstractions;
 
 namespace com.democratia.Services
@@ -13,6 +15,8 @@ namespace com.democratia.Services
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
+        private static string API_KEY = "API_KEY";
+        
         public bool succes {  get; private set; }
         
         protected Client()
@@ -75,6 +79,9 @@ namespace com.democratia.Services
             MettreAJourStatuts(response);
             if (!response.IsSuccessStatusCode) {
                 string content = await response.Content.ReadAsStringAsync();
+                if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized) 
+                    return await GenerateJWTKey(response.Content);
+                
                 throw new ConnexionErrorException();
             } 
 
@@ -82,10 +89,43 @@ namespace com.democratia.Services
                 return await response.Content.ReadAsStringAsync();
         }
 
-        protected void DebutRequete()
+        private async Task<string> GenerateJWTKey(HttpContent content)
+        {
+            DebutRequete();
+            try
+            {
+                HttpResponseMessage response = await client!.GetAsync("?request=login&parameters=[]");
+                MettreAJourStatuts(response);
+                if (!response.IsSuccessStatusCode)
+                {
+                    string contente = await response.Content.ReadAsStringAsync();
+                    throw new ConnexionErrorException();
+                }
+
+                else
+                {
+                    var réponse = await response.Content.ReadFromJsonAsync<Dictionary<string,object>>();
+                    string key = réponse!["data"].ToString()!;
+                    await SecureStorage.Default.SetAsync(API_KEY, key);
+                    DebutRequete();
+                    response = await client.GetAsync(content.ToString());
+                    return await FinRequete(response);
+
+
+                }
+
+            }
+            catch (Exception) { throw; }
+            
+
+        }
+
+        protected async void DebutRequete()
         {
             client!.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            string key = (await SecureStorage.Default.GetAsync(API_KEY))!;
+            client.DefaultRequestHeaders.Add("Beares", key);
         }
 
         public async Task<ImageSource?> GetImageAsync(string? url)
