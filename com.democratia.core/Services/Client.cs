@@ -103,7 +103,7 @@ namespace com.democratia.Services
             try
             {
                 // TODO : ajouter les données user pour cette requete
-                HttpResponseMessage response = await client!.GetAsync("?request=login&parameters=[]");
+                HttpResponseMessage response = await client!.GetAsync("?request=login");
                 MettreAJourStatuts(response);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -134,7 +134,7 @@ namespace com.democratia.Services
             client!.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             string key = (await SecureStorage.Default.GetAsync(API_KEY))!;
-            client.DefaultRequestHeaders.Add("Beares", key);
+            client.DefaultRequestHeaders.Add("Bearer", key);
         }
 
         public async Task<ImageSource?> GetImageAsync(string? url)
