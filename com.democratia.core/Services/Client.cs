@@ -1,7 +1,7 @@
 ﻿using com.democratia.Utils;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
-using System.IO.Pipelines;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -64,8 +64,7 @@ namespace com.democratia.Services
             statuts = info.GetValue<int?>("Statuts");
 
             client = new HttpClient { BaseAddress = new Uri(BASE_URL) };
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            DebutRequete();
         }
 
         public void Serialize(IXunitSerializationInfo info)
@@ -80,7 +79,7 @@ namespace com.democratia.Services
             MettreAJourStatuts(response);
             if (!response.IsSuccessStatusCode) {
                 string content = await response.Content.ReadAsStringAsync();
-                if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                if(response.StatusCode == HttpStatusCode.Unauthorized)
                     // TODO : retrouver où est stocké la requete qui a échoué pour la refaire après l'obtention de la clé JWT
                     return await GenerateJWTKey(response.Content);
                 
