@@ -36,7 +36,7 @@ namespace com.democratia.Services
             try
             {
                 var content = "?request=SELECT * FROM thematique ORDER BY id_thematique&parameters=[]";
-                DebutRequete();
+                await DebutRequete();
                 response = await client?.GetAsync(content)!;
                 return await FinRequete(response);
 

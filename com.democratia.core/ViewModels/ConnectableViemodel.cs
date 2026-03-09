@@ -19,7 +19,7 @@ namespace com.democratia.ViewModels
         protected readonly ILocalizationService? LocalizationService = localizationService;
 
 
-        protected List<object> RecuprerInformationConnexion(string stringJson)
+        protected static List<object> RecuprerInformationConnexion(string stringJson)
         {
             Dictionary<string, object> dictionnary;
             var finalJson = stringJson.Trim();
@@ -29,7 +29,7 @@ namespace com.democratia.ViewModels
             return JsonSerializer.Deserialize<List<object>>(rawElement!)!;
 
         }
-        protected async void EnregistrerModele<T>(T model) where T : class, IModel
+        protected static async void EnregistrerModele<T>(T model) where T : class, IModel
         {
             string jsonInternaute = JsonSerializer.Serialize<T>(model);
             string cacheDir = FileSystem.Current.CacheDirectory;
@@ -42,7 +42,7 @@ namespace com.democratia.ViewModels
             }
         }
 
-        protected async Task<T?> RetrouverModele<T>() where T : class, IModel
+        protected static async Task<T?> RetrouverModele<T>() where T : class, IModel
         {
             string cacheDir = FileSystem.Current.CacheDirectory;
             string filePath = Path.Combine(cacheDir, $"{typeof(T)}_cache.json");

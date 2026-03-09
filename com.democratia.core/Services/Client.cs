@@ -15,15 +15,20 @@ namespace com.democratia.Services
         protected static string? BASE_URL;
         protected string? statutsMessage;
         protected int? statuts;
+        protected CookieContainer cookieContainer;
+        protected HttpClientHandler handler;
         protected HttpClient? client;
-        private static string API_KEY = "API_KEY";
-        
+        private static readonly string API_KEY = "API_KEY";
+        private static readonly string CSRF_TOKEN = "X-CSRF-TOKEN";
+
         public bool succes {  get; private set; }
         
         protected Client()
         {
             statutsMessage = string.Empty;
             statuts = 0;
+            cookieContainer = new CookieContainer();
+            handler = new HttpClientHandler() { CookieContainer = cookieContainer };
             client = new()
             {
                 BaseAddress = this.AffecterURL(),
@@ -37,7 +42,7 @@ namespace com.democratia.Services
 
         protected async Task<string> GetMethode()
         {
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage response = await client!.GetAsync("?request=getMethode");
             return await FinRequete(response);
         }
@@ -57,14 +62,13 @@ namespace com.democratia.Services
             succes = response.IsSuccessStatusCode;
         }
 
-        public void Deserialize(IXunitSerializationInfo info)
+        public async void Deserialize(IXunitSerializationInfo info)
         {
             BASE_URL = info.GetValue<string>("BaseUrl");
             statutsMessage = info.GetValue<string>("StatutsMessage");
             statuts = info.GetValue<int?>("Statuts");
-
             client = new HttpClient { BaseAddress = new Uri(BASE_URL) };
-            DebutRequete();
+            await DebutRequete();
         }
 
         public void Serialize(IXunitSerializationInfo info)
@@ -82,14 +86,12 @@ namespace com.democratia.Services
                 if(response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     var initialRequest = response!.RequestMessage!.RequestUri!.OriginalString;
+                    var methode = response!.RequestMessage.Method;
                     initialRequest = initialRequest.Split("php")[1];
-                    return await GenerateJWTKey(initialRequest);
+                    return await GenerateJWTKey(initialRequest, methode);
                 }
-                    
-                
                 throw new ConnexionErrorException();
             } 
-
             else
             {
                 string content = await response.Content.ReadAsStringAsync();
@@ -97,12 +99,11 @@ namespace com.democratia.Services
             }
         }
 
-        private async Task<string> GenerateJWTKey(string content)
+        private async Task<string> GenerateJWTKey(string content, HttpMethod method)
         {
-            DebutRequete();
+            await DebutRequete();
             try
             {
-                // TODO : ajouter les données user pour cette requete
                 HttpResponseMessage response = await client!.GetAsync("?request=login");
                 MettreAJourStatuts(response);
                 if (!response.IsSuccessStatusCode)
@@ -115,32 +116,38 @@ namespace com.democratia.Services
                 {
                     var réponse = await response.Content.ReadFromJsonAsync<Dictionary<string,object>>();
                     string key = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![API_KEY];
+                    string csrf = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![CSRF_TOKEN];
                     await SecureStorage.Default.SetAsync(API_KEY, key);
-                    DebutRequete();
-                    response = await client.GetAsync(content);
+                    await SecureStorage.Default.SetAsync(CSRF_TOKEN, csrf);
+                    await DebutRequete();
+                    response = method.Method switch
+                    {
+                        "GET" => await client!.GetAsync(content),
+                        "POST" => await client!.PostAsync(content, null),
+                        "PUT" => await client!.PutAsync(content, null),
+                        "PATCH" => await client!.PatchAsync(content, null),
+                        "DELETE" => await client!.DeleteAsync(content),
+                        _ => throw new InvalidOperationException("Méthode HTTP non supportée")
+                    };
                     return await FinRequete(response);
-
-
                 }
-
             }
             catch (Exception) { throw; }
-            
-
         }
 
-        protected async void DebutRequete()
+        protected async Task DebutRequete()
         {
-            client!.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string key = (await SecureStorage.Default.GetAsync(API_KEY))!;
-            client.DefaultRequestHeaders.Add("Bearer", key);
+            client!.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (await SecureStorage.Default.GetAsync(API_KEY) is string key)
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
+            if(await SecureStorage.Default.GetAsync(CSRF_TOKEN) is string token)
+                client.DefaultRequestHeaders.Add(CSRF_TOKEN, token);
         }
 
         public async Task<ImageSource?> GetImageAsync(string? url)
         {
             var requete = $"""?request=obtenirImage&parameters=["{url}"]""";
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             try
             {
@@ -163,13 +170,12 @@ namespace com.democratia.Services
                 if (imageBytes.Length == 0) return null;
                 return ImageSource.FromStream(() => new MemoryStream(imageBytes));
             }
-
         }
 
         public async Task<string> UploadImage(Guid? id, string filePath)
         {
             var requete = $"""?request=publierImage&parameters=["{id}"]""";
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             
             try

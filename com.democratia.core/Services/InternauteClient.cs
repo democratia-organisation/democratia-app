@@ -10,7 +10,7 @@ namespace com.democratia.Services
 
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
-            DebutRequete();
+            await DebutRequete();
 
             HttpResponseMessage? response;
 
@@ -29,7 +29,7 @@ namespace com.democratia.Services
 
         public async Task<string> GetModelAsync(params object?[] parameters)
         {
-            DebutRequete();
+            await DebutRequete();
 
             HttpResponseMessage? response;
             try
@@ -49,7 +49,7 @@ namespace com.democratia.Services
 
         public async Task<string> DoublonEmailAsync(string email)
         {
-            DebutRequete();
+            await DebutRequete();
 
             HttpResponseMessage? response;
             try
@@ -69,7 +69,7 @@ namespace com.democratia.Services
 
         public async Task<string> UpdateModelAsync(params object?[]? parameters)
         {
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             var internaute = (Internaute)parameters![0]!;
             try
@@ -84,7 +84,7 @@ namespace com.democratia.Services
 
         public async Task<string> DeleteModelAsync(params object?[]? parameters)
         {
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             try
             {
