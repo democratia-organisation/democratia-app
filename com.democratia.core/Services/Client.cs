@@ -1,7 +1,10 @@
 ﻿using com.democratia.Utils;
 using Microsoft.Maui.Controls;
-using System.IO.Pipelines;
+using Microsoft.Maui.Storage;
+using System.Net;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text.Json;
 using Xunit.Abstractions;
 
 namespace com.democratia.Services
@@ -13,6 +16,8 @@ namespace com.democratia.Services
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
+        private static readonly string API_KEY = "API_KEY";
+
         public bool succes {  get; private set; }
         
         protected Client()
@@ -23,7 +28,7 @@ namespace com.democratia.Services
             {
                 BaseAddress = this.AffecterURL(),
 #if DEBUG
-                Timeout = TimeSpan.FromSeconds(60)
+                Timeout = TimeSpan.FromSeconds(60*7)
 #elif !DEBUG
                 Timeout = TimeSpan.FromSeconds(10)
 #endif
@@ -32,7 +37,7 @@ namespace com.democratia.Services
 
         protected async Task<string> GetMethode()
         {
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage response = await client!.GetAsync("?request=getMethode");
             return await FinRequete(response);
         }
@@ -52,15 +57,13 @@ namespace com.democratia.Services
             succes = response.IsSuccessStatusCode;
         }
 
-        public void Deserialize(IXunitSerializationInfo info)
+        public async void Deserialize(IXunitSerializationInfo info)
         {
             BASE_URL = info.GetValue<string>("BaseUrl");
             statutsMessage = info.GetValue<string>("StatutsMessage");
             statuts = info.GetValue<int?>("Statuts");
-
             client = new HttpClient { BaseAddress = new Uri(BASE_URL) };
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            await DebutRequete();
         }
 
         public void Serialize(IXunitSerializationInfo info)
@@ -75,23 +78,75 @@ namespace com.democratia.Services
             MettreAJourStatuts(response);
             if (!response.IsSuccessStatusCode) {
                 string content = await response.Content.ReadAsStringAsync();
+                if(response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Conflict)
+                {
+                    string initialRequest = response!.RequestMessage!.RequestUri!.OriginalString.Split("php")[1];
+                    HttpMethod methode = response!.RequestMessage.Method;
+                    return await GenerateJWTKey(initialRequest, methode);
+                }
                 throw new ConnexionErrorException();
             } 
-
             else
-                return await response.Content.ReadAsStringAsync();
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                return content;
+            }
         }
 
-        protected void DebutRequete()
+        private async Task<string> GenerateJWTKey(string content, HttpMethod method)
         {
-            client!.DefaultRequestHeaders.Accept.Clear();
+            await DebutRequete();
+            try
+            {
+                string email = await SecureStorage.Default.GetAsync("id_internaute") ?? string.Empty;
+                HttpResponseMessage response = await client!.GetAsync($"""?request=login&parameters=["{email}"]""");
+                MettreAJourStatuts(response);
+                if (!response.IsSuccessStatusCode)
+                {
+                    string contente = await response.Content.ReadAsStringAsync();
+                    throw new ConnexionErrorException();
+                }
+
+                else
+                {
+                    var réponse = await response.Content.ReadFromJsonAsync<Dictionary<string,object>>();
+                    string key = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![API_KEY];
+                    string refresh = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)!["REFRESH"];
+                    await SecureStorage.Default.SetAsync(API_KEY, key);
+                    await SecureStorage.Default.SetAsync("REFRESH", refresh);
+                    await DebutRequete();
+                    response = method.Method switch
+                    {
+                        "GET" => await client!.GetAsync(content),
+                        "POST" => await client!.PostAsync(content, null),
+                        "PUT" => await client!.PutAsync(content, null),
+                        "PATCH" => await client!.PatchAsync(content, null),
+                        "DELETE" => await client!.DeleteAsync(content),
+                        _ => throw new InvalidOperationException("Méthode HTTP non supportée")
+                    };
+                    return await FinRequete(response);
+                }
+            }
+            catch (Exception) { throw; }
+        }
+
+        protected async Task DebutRequete()
+        {
+            client!.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (await SecureStorage.Default.GetAsync(API_KEY) is string refresh)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", refresh);
+                return;
+            }
+            if (await SecureStorage.Default.GetAsync(API_KEY) is string key)
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
         }
 
         public async Task<ImageSource?> GetImageAsync(string? url)
         {
             var requete = $"""?request=obtenirImage&parameters=["{url}"]""";
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             try
             {
@@ -114,13 +169,12 @@ namespace com.democratia.Services
                 if (imageBytes.Length == 0) return null;
                 return ImageSource.FromStream(() => new MemoryStream(imageBytes));
             }
-
         }
 
         public async Task<string> UploadImage(Guid? id, string filePath)
         {
             var requete = $"""?request=publierImage&parameters=["{id}"]""";
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             
             try

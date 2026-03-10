@@ -10,5 +10,12 @@ namespace com.democratia.Views.internaute.CreerGroupe
             InitializeComponent();
             behavior.BindingContext = BindingContext;
         }
+
+        protected async override void OnNavigatedTo(NavigatedToEventArgs args)
+        {
+            base.OnNavigatedTo(args);
+            PremiereCreationViewModel viewModel = (PremiereCreationViewModel)BindingContext;
+            await viewModel.RemplirThematique();
+        }
     }
 }

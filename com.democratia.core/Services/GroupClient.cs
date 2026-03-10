@@ -11,7 +11,7 @@ namespace com.democratia.Services
             var requete = $"""
                 ?request=INSERT INTO groupe (id_groupe,nom_groupe,couleur_groupe,budget,nbj_dft_vote,nbj_dft_discuss) VALUES (UUID_TO_BIN(?,0),?,?,?,?,?)&parameters=["{groupe.IdGroupe}","{groupe.NomGroupe}", "{Uri.EscapeDataString(groupe.CouleurGroupe!)}", "{groupe.Budget}", "{groupe.NombreDeJourVote}", "{groupe.NombreDeJourDiscuss}"]
                 """;
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             try
             {
@@ -32,7 +32,7 @@ namespace com.democratia.Services
                 VALUES (UUID_TO_BIN(?,0),?,?);
                 &parameters=["{idGroupe}", "{idThematique}", "{budgetThematique}"]
                 """;
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             try
             {
@@ -56,7 +56,7 @@ namespace com.democratia.Services
                 ?request=SELECT BIN_TO_UUID(g.id_groupe, 1) as id, nom_groupe, couleur_groupe, g.image, budget, nb_signalement, nbj_dft_discuss, nbj_dft_vote  FROM groupe g  INNER JOIN infos_membre ifo ON g.id_groupe = ifo.id_groupe WHERE ifo.id_internaute=?
                 &parameters=["{((Internaute?)parameters![0])?.id_internaute}"]
                 """;
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             try
             {
@@ -95,7 +95,7 @@ namespace com.democratia.Services
                   )
                 &parameters=["{id_groupe}", "{id_internaute}", "{adminId}", "{notificationId}"]
                 """;
-            DebutRequete();
+            await DebutRequete();
             HttpResponseMessage? response;
             try
             {

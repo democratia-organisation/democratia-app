@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Text.Json;
+using Microsoft.Maui.Storage;
 
 namespace com.democratia.ViewModels.internaute
 {
@@ -65,6 +66,7 @@ namespace com.democratia.ViewModels.internaute
             else if (string.IsNullOrWhiteSpace(MotDePasse)) throw new EmptyPassWordFieldException();
             try
             {
+                await SecureStorage.Default.SetAsync("id_internaute", AdresseMail);
                 string jsonString = await client?.GetModelAsync(AdresseMail)!;
                 List<object> listeInformation = RecuprerInformationConnexion(jsonString);
                 if (listeInformation.Count == 0) throw new NoUserException();
