@@ -36,10 +36,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
             thematiquesExistantes = [];
             thematiquesRetenues = [];
-            RemplirThematique();
-
         }
-
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
@@ -133,7 +130,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             Thematique = string.Empty;
         }
 
-        private async void RemplirThematique()
+        public async Task RemplirThematique()
         {
             string listeRequete = await client!.GetModelAsync();
             List<object> thematiques = RecuprerInformationConnexion(listeRequete);

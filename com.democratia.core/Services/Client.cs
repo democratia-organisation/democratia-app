@@ -15,11 +15,8 @@ namespace com.democratia.Services
         protected static string? BASE_URL;
         protected string? statutsMessage;
         protected int? statuts;
-        protected CookieContainer cookieContainer;
-        protected HttpClientHandler handler;
         protected HttpClient? client;
         private static readonly string API_KEY = "API_KEY";
-        private static readonly string CSRF_TOKEN = "X-CSRF-TOKEN";
 
         public bool succes {  get; private set; }
         
@@ -27,13 +24,11 @@ namespace com.democratia.Services
         {
             statutsMessage = string.Empty;
             statuts = 0;
-            cookieContainer = new CookieContainer();
-            handler = new HttpClientHandler() { CookieContainer = cookieContainer };
             client = new()
             {
                 BaseAddress = this.AffecterURL(),
 #if DEBUG
-                Timeout = TimeSpan.FromSeconds(60)
+                Timeout = TimeSpan.FromSeconds(60*7)
 #elif !DEBUG
                 Timeout = TimeSpan.FromSeconds(10)
 #endif
@@ -83,11 +78,10 @@ namespace com.democratia.Services
             MettreAJourStatuts(response);
             if (!response.IsSuccessStatusCode) {
                 string content = await response.Content.ReadAsStringAsync();
-                if(response.StatusCode == HttpStatusCode.Unauthorized)
+                if(response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Conflict)
                 {
-                    var initialRequest = response!.RequestMessage!.RequestUri!.OriginalString;
-                    var methode = response!.RequestMessage.Method;
-                    initialRequest = initialRequest.Split("php")[1];
+                    string initialRequest = response!.RequestMessage!.RequestUri!.OriginalString.Split("php")[1];
+                    HttpMethod methode = response!.RequestMessage.Method;
                     return await GenerateJWTKey(initialRequest, methode);
                 }
                 throw new ConnexionErrorException();
@@ -104,7 +98,8 @@ namespace com.democratia.Services
             await DebutRequete();
             try
             {
-                HttpResponseMessage response = await client!.GetAsync("?request=login");
+                string email = await SecureStorage.Default.GetAsync("id_internaute") ?? string.Empty;
+                HttpResponseMessage response = await client!.GetAsync($"""?request=login&parameters=["{email}"]""");
                 MettreAJourStatuts(response);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -116,9 +111,9 @@ namespace com.democratia.Services
                 {
                     var réponse = await response.Content.ReadFromJsonAsync<Dictionary<string,object>>();
                     string key = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![API_KEY];
-                    string csrf = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![CSRF_TOKEN];
+                    string refresh = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)!["REFRESH"];
                     await SecureStorage.Default.SetAsync(API_KEY, key);
-                    await SecureStorage.Default.SetAsync(CSRF_TOKEN, csrf);
+                    await SecureStorage.Default.SetAsync("REFRESH", refresh);
                     await DebutRequete();
                     response = method.Method switch
                     {
@@ -137,11 +132,15 @@ namespace com.democratia.Services
 
         protected async Task DebutRequete()
         {
-            client!.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client!.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (await SecureStorage.Default.GetAsync(API_KEY) is string refresh)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", refresh);
+                return;
+            }
             if (await SecureStorage.Default.GetAsync(API_KEY) is string key)
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
-            if(await SecureStorage.Default.GetAsync(CSRF_TOKEN) is string token)
-                client.DefaultRequestHeaders.Add(CSRF_TOKEN, token);
         }
 
         public async Task<ImageSource?> GetImageAsync(string? url)
