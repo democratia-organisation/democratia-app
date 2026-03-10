@@ -27,36 +27,22 @@
     {
         public static string? MappingException(Exception e, ILocalizationService localizationService, params object[] args)
         {
-            switch (e)
+            return e switch
             {
-                case EmptyEmailFieldException _:
-                    return localizationService.GetString("errorPasswordMessage");
-                case EmptyPassWordFieldException _:
-                    return localizationService?.GetString("errorMailMessage");
-                case EmptyRequiredFieldException _:
-                    if (args.Length>0)
-                        return localizationService.GetString("errorEmptyFieldMessage", args[0]);
-                    else 
-                        return localizationService.GetString("errorUnknowEmptyFieldMessage");
-                case MailException _:
-                    return localizationService.GetString("errorMailMessage");
-                case PassWordException _:
-                    return localizationService.GetString("errorPasswordMessage");
-                case ConnexionErrorException _:
-                    return localizationService?.GetString("connexionErreur");
-                case NoUserException _:
-                    return localizationService.GetString("noUser");
-                case BadPasswordException _:
-                    return localizationService.GetString("mauvaisMdp");
-                case FetchDataException _:
-                    return localizationService.GetString("erreurDonne");
-                case CompteExistantException _:
-                    return localizationService.GetString("compteExistantErreur");
-                case NoImageGiven _:
-                    return localizationService.GetString("erreurPhoto");
-                default:
-                    return localizationService?.GetString("erreurInattendu");
-            }
+                EmptyEmailFieldException => localizationService?.GetString("errorPasswordMessage"),
+                EmptyPassWordFieldException => localizationService?.GetString("errorMailMessage"),
+                EmptyRequiredFieldException when args.Length > 0 => localizationService?.GetString("errorEmptyFieldMessage", args[0]),
+                EmptyRequiredFieldException => localizationService?.GetString("errorUnknowEmptyFieldMessage"),
+                MailException => localizationService?.GetString("errorMailMessage"),
+                PassWordException => localizationService?.GetString("errorPasswordMessage"),
+                ConnexionErrorException => localizationService?.GetString("connexionErreur"),
+                NoUserException => localizationService?.GetString("noUser"),
+                BadPasswordException => localizationService?.GetString("mauvaisMdp"),
+                FetchDataException => localizationService?.GetString("erreurDonne"),
+                CompteExistantException => localizationService?.GetString("compteExistantErreur"),
+                NoImageGiven => localizationService?.GetString("erreurPhoto"),
+                _ => localizationService?.GetString("erreurInattendu")
+            };
         }
     }
 }
