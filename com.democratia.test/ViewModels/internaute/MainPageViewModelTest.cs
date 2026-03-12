@@ -2,6 +2,7 @@
 using com.democratia.test.Localization;
 using com.democratia.Utils;
 using com.democratia.ViewModels.internaute;
+using System.Globalization;
 
 
 
@@ -20,7 +21,7 @@ namespace com.democratia.test.ViewModels.internaute
             mainPageViewModel.AdresseMail = "modadary56@gmail.com";
             mainPageViewModel.MotDePasse = "Djonodo20050207/";
             mainPageViewModel.ErrorMessage = null;
-            AppResources.Culture = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
+            AppResources.Culture = CultureInfo.CreateSpecificCulture("fr-FR");
         }
 
         [Fact(DisplayName = "Cas de base")]
