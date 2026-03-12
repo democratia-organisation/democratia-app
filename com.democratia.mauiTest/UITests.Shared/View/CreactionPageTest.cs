@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Enums;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,10 +10,6 @@ namespace UITests.View
     [DisplayName("Création de compte")]
     public class CreationPageTest : BaseTest
     {
-        // /!\ écrire les paramètres de SendKeys en qwerti, afin que les caractères utf-8 interprétés
-        // par C# puis envoyé dans le driver soit les bons
-        // /!\ on ne teste que la présence d'un élément UI car la présence du comtenu du texte est déjà
-        // testé dans les test du vue modèle
         [Fact(DisplayName = "Test de la présence des éléments dans la page")]
         public void PresenceDesEntriesTest()
         {
@@ -36,7 +31,6 @@ namespace UITests.View
         public CreationPageTest() : base()
         {
             
-            var _ = new AppiumSetup();
             AppiumElement? creationPage = FindUIElement("Creer"); ;
             creationPage?.Click();
         }

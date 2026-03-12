@@ -1,9 +1,12 @@
 ﻿using OpenQA.Selenium.Appium;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Xunit;
 
 namespace UITests.View.groupe.decideur
 {
+    [Collection("UITests")]
+    [DisplayName("Page d'accueil de la partie décideur")]
     public class HomePageTest : BaseTest
     {
         public HomePageTest() : base()
@@ -13,8 +16,6 @@ namespace UITests.View.groupe.decideur
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             foreach (var entry in entries!) entry.Clear();
             var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
-            adresseMailEntry?.Clear();
-            motDePasseEntry?.Clear();
             adresseMailEntry?.SendKeys("vincent.leclerc@example.com");
             motDePasseEntry?.SendKeys("root");
             seConecterButton?.Click();
