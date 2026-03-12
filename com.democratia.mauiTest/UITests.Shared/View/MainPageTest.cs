@@ -26,7 +26,7 @@ namespace UITests.View
         public void PresenceDesEntriesTest()
         {
 
-            if (SystemInfo.SSHHost()) return;
+            
             Debug.WriteLine(App.PageSource);
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
@@ -44,20 +44,15 @@ namespace UITests.View
         {
 
 
-            if (SystemInfo.SSHHost()) return;
-            Debug.WriteLine(App.PageSource);
+            
             AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             foreach (var entry in entries!) entry.Clear();
             var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
             adresseMailEntry?.Clear();
             motDePasseEntry?.Clear();
-            // /!\ important afin de laisser le temps d'arriver la page HomePage
-            if (AppiumSetup.device != "android")
-                App.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-
-            adresseMailEntry?.SendKeys("example@gmail.com");
-            motDePasseEntry?.SendKeys("MotDePasse123/");
+            adresseMailEntry?.SendKeys("vincent.leclerc@example.com");
+            motDePasseEntry?.SendKeys("root");
             seConecterButton?.Click();
 
             Assert.NotNull(FindUIElement("ProfileButton"));
@@ -72,7 +67,7 @@ namespace UITests.View
         public void NavigationPageErrorTest(string adresseMail, string motDePasse)
         {
 
-            if (SystemInfo.SSHHost()) return;
+            
             AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             foreach (var entry in entries!) entry.Clear();

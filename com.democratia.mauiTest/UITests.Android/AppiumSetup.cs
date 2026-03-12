@@ -19,7 +19,7 @@ namespace UITests
         public AppiumSetup()
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            if (SystemInfo.SSHHost()) return;
+            if (SystemInfo.SSHHost()) Environment.Exit(0);
             AppiumServerHelper.StartAppiumLocalServer();
             var androidOptions = new AppiumOptions
             {

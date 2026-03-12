@@ -16,7 +16,7 @@ namespace UITests
 
         public AppiumSetup()
         {
-            if (SystemInfo.SSHHost()) return;
+            
             AppiumServerHelper.StartAppiumLocalServer();
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var windowsOptions = new AppiumOptions

@@ -19,7 +19,7 @@ namespace UITests.View
         public void PresenceDesEntriesTest()
         {
 
-            if (SystemInfo.SSHHost()) return;
+            
             Debug.WriteLine(App.PageSource);
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
@@ -35,7 +35,7 @@ namespace UITests.View
         }
         public CreationPageTest() : base()
         {
-            if (SystemInfo.SSHHost()) return;
+            
             var _ = new AppiumSetup();
             AppiumElement? creationPage = FindUIElement("Creer"); ;
             creationPage?.Click();
@@ -44,7 +44,7 @@ namespace UITests.View
         [Fact(DisplayName = "Création de compte")]
         public void CreationCompteTest()
         {
-            if (SystemInfo.SSHHost()) return;
+            
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
@@ -83,7 +83,7 @@ namespace UITests.View
         [InlineData("hello", "bonjour", "132 rue de Lyon", "modadary56@gmail.com", "Djonodo8/")] // email déjà utilisé
         public void CreationCompteTestError(string nom, string prenom, string adressePostale, string adresseMail, string motDePasse)
         {
-            if (SystemInfo.SSHHost()) return;
+            
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
