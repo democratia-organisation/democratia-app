@@ -20,7 +20,6 @@ namespace UITests.View.groupe.decideur
             adresseMailEntry?.SendKeys("vincent.leclerc@example.com");
             motDePasseEntry?.SendKeys("root");
             seConecterButton?.Click();
-            RentrerDanUnGroupe("AeroParis");
         }
 
         [Fact]  
@@ -36,6 +35,9 @@ namespace UITests.View.groupe.decideur
         [InlineData("like")]
         public void TrierProposition(string nomCritere)
         {
+            AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
+            Assert.NotNull(groupe);
+            groupe.Click();
             ReadOnlyCollection<AppiumElement> propositions = FindUIElements("propositions")!;
             AppiumElement bouttonTrie = FindUIElement("trieur")!;
             Assert.NotNull(propositions);
@@ -52,6 +54,9 @@ namespace UITests.View.groupe.decideur
         [Fact]
         public void ModifierProposition() 
         {
+            AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
+            Assert.NotNull(groupe);
+            groupe.Click();
             AppiumElement proposition = FindUIElements("propositions")![0];
             AppiumElement entrie = FindUIElement("Entry")!;
             AppiumElement validation = FindUIElement("validationButton")!;
@@ -73,19 +78,21 @@ namespace UITests.View.groupe.decideur
         }
 
         [Fact]
-        public void GroupeSansThematique() 
+        public void GroupeSansProposition() 
         {
-            AppiumElement? groupe = RentrerDanUnGroupe("hello");
+            AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
-            AppiumElement messageTexte = FindUIElement("groupeSansThematiqueLabel")!;
+            groupe.Click();
+            AppiumElement messageTexte = FindUIElement("groupeSansPropositionLabel")!;
             Assert.NotNull(messageTexte);
-            //Assert.Equal(AppResources.groupeSansThematique,messageText.Text);
+            //Assert.Equal(AppResources.groupeSansProposition,messageText.Text);
         }
         [Fact]
         public void ThematiqueSansProposition() 
         {
             AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
+            groupe.Click();
             AppiumElement thematique = FindUIElements("thematique")![0];
             Assert.NotNull(thematique);
             thematique.Click();
@@ -95,12 +102,14 @@ namespace UITests.View.groupe.decideur
         }
 
 
-        [Theory(DisplayName = "Trie les propostions selon un critère donnée")]
+        [Theory(DisplayName = "Ne pas trier des fonction dont une proposition n'a pas de valeur pour le critère donnée")]
         [InlineData("popularite")]
-        [InlineData("prix")]
         [InlineData("like")]
         public void PropositionSansDonneDeCriteres(string nomCritere) 
         {
+            AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
+            Assert.NotNull(groupe);
+            groupe.Click();
             ReadOnlyCollection<AppiumElement> propositions = FindUIElements("propositions")!;
             AppiumElement bouttonTrie = FindUIElement("trieur")!;
             Assert.NotNull(propositions);
