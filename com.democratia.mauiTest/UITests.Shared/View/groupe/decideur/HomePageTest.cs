@@ -93,8 +93,13 @@ namespace UITests.View.groupe.decideur
             Assert.NotNull(messageTexte);
             //Assert.Equal(AppResources.thematiqueSansProposition,messageText.Text);
         }
-        [Fact]
-        public void PropositionSansDonneDeCriteres() 
+
+
+        [Theory(DisplayName = "Trie les propostions selon un critère donnée")]
+        [InlineData("popularite")]
+        [InlineData("prix")]
+        [InlineData("like")]
+        public void PropositionSansDonneDeCriteres(string nomCritere) 
         {
             ReadOnlyCollection<AppiumElement> propositions = FindUIElements("propositions")!;
             AppiumElement bouttonTrie = FindUIElement("trieur")!;
