@@ -41,7 +41,6 @@ namespace UITests.View
 
         public virtual void Dispose()
         {
-            if (SystemInfo.SSHHost()) return;
             App?.Dispose();
             GC.SuppressFinalize(this);
         }
@@ -61,9 +60,8 @@ namespace UITests.View
         }
 
         protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
-        {
-            return App.FindElements(MobileBy.AccessibilityId(id)).Count > 0 ? App.FindElements(MobileBy.AccessibilityId(id)) : null;
-        }
+         => App.FindElements(MobileBy.AccessibilityId(id)).Count > 0 ? App.FindElements(MobileBy.AccessibilityId(id)) : null;
+        
 
 
     }

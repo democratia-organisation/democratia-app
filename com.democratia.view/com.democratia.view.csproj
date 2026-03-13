@@ -155,4 +155,7 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\groupe\decideur\" />
+  </ItemGroup>
 </Project>

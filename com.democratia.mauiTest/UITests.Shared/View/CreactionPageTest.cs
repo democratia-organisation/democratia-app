@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Enums;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,15 +10,11 @@ namespace UITests.View
     [DisplayName("Création de compte")]
     public class CreationPageTest : BaseTest
     {
-        // /!\ écrire les paramètres de SendKeys en qwerti, afin que les caractères utf-8 interprétés
-        // par C# puis envoyé dans le driver soit les bons
-        // /!\ on ne teste que la présence d'un élément UI car la présence du comtenu du texte est déjà
-        // testé dans les test du vue modèle
         [Fact(DisplayName = "Test de la présence des éléments dans la page")]
         public void PresenceDesEntriesTest()
         {
 
-            if (SystemInfo.SSHHost()) return;
+            
             Debug.WriteLine(App.PageSource);
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
@@ -35,8 +30,7 @@ namespace UITests.View
         }
         public CreationPageTest() : base()
         {
-            if (SystemInfo.SSHHost()) return;
-            var _ = new AppiumSetup();
+            
             AppiumElement? creationPage = FindUIElement("Creer"); ;
             creationPage?.Click();
         }
@@ -44,7 +38,7 @@ namespace UITests.View
         [Fact(DisplayName = "Création de compte")]
         public void CreationCompteTest()
         {
-            if (SystemInfo.SSHHost()) return;
+            
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
@@ -83,7 +77,7 @@ namespace UITests.View
         [InlineData("hello", "bonjour", "132 rue de Lyon", "modadary56@gmail.com", "Djonodo8/")] // email déjà utilisé
         public void CreationCompteTestError(string nom, string prenom, string adressePostale, string adresseMail, string motDePasse)
         {
-            if (SystemInfo.SSHHost()) return;
+            
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
