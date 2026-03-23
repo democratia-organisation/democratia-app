@@ -136,6 +136,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <MauiXaml Update="Views\groupe\decideur\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
@@ -154,8 +157,5 @@
     <MauiXaml Update="Views\internaute\gestionCompte\PreferencePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\groupe\decideur\" />
   </ItemGroup>
 </Project>

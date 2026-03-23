@@ -367,6 +367,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce groupe ne contient aucune proposition.
+        /// </summary>
+        public static string groupeSansProposition {
+            get {
+                return ResourceManager.GetString("groupeSansProposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à S&apos;indentifier.
         /// </summary>
         public static string Identifiant {
@@ -714,6 +723,15 @@ namespace com.democratia.view.Resources.Localization {
         public static string thematiqueRequise {
             get {
                 return ResourceManager.GetString("thematiqueRequise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cette thématique n&apos;a pas de proposition.
+        /// </summary>
+        public static string thematiqueSansProposition {
+            get {
+                return ResourceManager.GetString("thematiqueSansProposition", resourceCulture);
             }
         }
         

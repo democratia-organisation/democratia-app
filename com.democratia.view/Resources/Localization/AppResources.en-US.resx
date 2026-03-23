@@ -339,4 +339,10 @@
   <data name="errorUnknowEmptyFieldMessage" xml:space="preserve">
     <value>A required field is empty</value>
   </data>
+  <data name="groupeSansProposition" xml:space="preserve">
+    <value>This group has any proposition</value>
+  </data>
+  <data name="thematiqueSansProposition" xml:space="preserve">
+    <value>This proposition has any proposition</value>
+  </data>
 </root>

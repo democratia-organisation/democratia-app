@@ -85,7 +85,7 @@ namespace UITests.View.groupe.decideur
             groupe.Click();
             AppiumElement messageTexte = FindUIElement("groupeSansPropositionLabel")!;
             Assert.NotNull(messageTexte);
-            //Assert.Equal(AppResources.groupeSansProposition,messageText.Text);
+            Assert.Equal(AppResources.groupeSansProposition,messageTexte.Text);
         }
         [Fact]
         public void ThematiqueSansProposition() 
@@ -98,7 +98,7 @@ namespace UITests.View.groupe.decideur
             thematique.Click();
             AppiumElement messageTexte = FindUIElement("thematiqueSansProposition")!;
             Assert.NotNull(messageTexte);
-            //Assert.Equal(AppResources.thematiqueSansProposition,messageText.Text);
+            Assert.Equal(AppResources.thematiqueSansProposition,messageTexte.Text);
         }
 
 
