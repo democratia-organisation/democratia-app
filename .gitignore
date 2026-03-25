@@ -69,4 +69,5 @@ com.democratia/com.democratia/Resources/Styles/material-theme.json
 /com.democratia.view/Resources/Raw/convert.py
 /com.democratia.view/com.democratia.view.csproj.user
 /com.democratia.core/.env
-*.json
+node_modules
+com.democratia.core/*.json
