@@ -27,12 +27,10 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         
         private List<Thematique> thematiquesNouvelles { get; set; } = []; 
         private INavigationService navigationService;
-        private ILocalizationService? localizationService;
-        public PremiereCreationViewModel(INavigationService navigation, IEnumerable<IClient?>? clients, ILocalizationService? localizationService)
-            : base(clients!.OfType<ThematiqueClient>().FirstOrDefault(), localizationService)
+        public PremiereCreationViewModel(INavigationService navigation, IEnumerable<IClient?>? clients, ILocalizationService? LocalizationService)
+            : base(clients!.OfType<ThematiqueClient>().FirstOrDefault(), LocalizationService)
         {
             navigationService = navigation;
-            this.localizationService = localizationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
             thematiquesExistantes = [];
             thematiquesRetenues = [];
@@ -43,12 +41,12 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         {
             if (string.IsNullOrWhiteSpace(Groupe?.NomGroupe))
             {
-                ErreurMessage = localizationService?.GetString("nomGroupeRequis");
+                ErreurMessage = LocalizationService?.GetString("nomGroupeRequis");
                 return;
             }
             else if (ThematiquesRetenues!.Count == 0)
             {
-                ErreurMessage = localizationService?.GetString("thematiqueRequise");
+                ErreurMessage = LocalizationService?.GetString("thematiqueRequise");
                 return;
             }
             else
@@ -62,17 +60,17 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                     });
                     if (Groupe.Budget < themeBudget)
                     {
-                        ErreurMessage = localizationService?.GetString("budgetInsuffisant");
+                        ErreurMessage = LocalizationService?.GetString("budgetInsuffisant");
                         return;
                     }
                 }
                 catch (EmptyRequiredFieldException ex)
                 {
-                    ErreurMessage = MapExceptionMessage.MappingException(ex, localizationService!, ex.Message);
+                    ErreurMessage = MapExceptionMessage.MappingException(ex, LocalizationService!, ex.Message);
                     return;
                 }
                 catch (Exception ex) {
-                    ErreurMessage = MapExceptionMessage.MappingException(ex, localizationService!);
+                    ErreurMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
                 
                 }
                 thematiquesNouvelles = [.. ThematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];

@@ -25,7 +25,7 @@ namespace com.democratia.Models
         public override string ToString() => nom_thematique ?? string.Empty;
         
     }
-    public class ThematiqueEqualityComparer : IEqualityComparer<Thematique>
+    public record class ThematiqueEqualityComparer : IEqualityComparer<Thematique>
     {
         public bool Equals(Thematique? x, Thematique? y)
         {

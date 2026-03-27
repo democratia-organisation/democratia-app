@@ -13,7 +13,6 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
     public partial class ModifierGestionViewModel : ConnectableViewModel, INavigeablleViewModel, INotifyPropertyChanged, IQueryAttributable
     {
         private INavigationService NavigationService { get; set; }
-        private ILocalizationService localizationService { get; set; }
         private Internaute? internaute;
         [ObservableProperty] private string? retourMessage;
         [ObservableProperty] private Internaute? tempInternaute = new();
@@ -25,7 +24,6 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         {
             this.NavigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
-            this.localizationService = localizationService;
         }
 
         [RelayCommand]
@@ -60,7 +58,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             }
             catch (Exception ex) {
 
-                RetourMessage = MapExceptionMessage.MappingException(ex, localizationService!);
+                RetourMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
             }
         }
 

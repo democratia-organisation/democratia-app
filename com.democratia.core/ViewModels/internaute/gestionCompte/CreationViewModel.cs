@@ -16,7 +16,6 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         [ObservableProperty] private string? password; // passowrd tempon afin d'éviter le set à chaque écriture dans la varible
         [ObservableProperty] private string? email;
         private readonly INavigationService? navigationService;
-        private readonly ILocalizationService? localizationService;
         
 
         public CreationViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService service)
@@ -24,7 +23,6 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         {
             this.navigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
-            this.localizationService = service;
         }
 
         public CreationViewModel() : base(null, null) { }

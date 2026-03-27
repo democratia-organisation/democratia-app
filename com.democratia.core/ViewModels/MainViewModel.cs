@@ -23,13 +23,11 @@ namespace com.democratia.ViewModels.internaute
         private string? errorMessage;
 
         private readonly INavigationService? navigationService;
-        private readonly ILocalizationService? localizationService;
 
         public MainViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization)
             : base(clients?.OfType<InternauteClient>().FirstOrDefault(), localization)
         {
             this.navigationService = navigationService;
-            this.localizationService = localization;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
         }
 
@@ -52,9 +50,9 @@ namespace com.democratia.ViewModels.internaute
             catch (Exception ex)
             {
 #if DEBUG
-                ErrorMessage = MapExceptionMessage.MappingException(ex,localizationService!); 
+                ErrorMessage = MapExceptionMessage.MappingException(ex,LocalizationService!);
 #elif !DEBUG
-                ErrorMessage = localizationService?.GetString("erreurInattendu");    
+                ErrorMessage = LocalizationService?.GetString("erreurInattendu");    
 #endif
             }
         }

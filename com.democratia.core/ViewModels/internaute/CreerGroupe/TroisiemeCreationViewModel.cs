@@ -15,7 +15,6 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
 
         private INavigationService service;
         private Groupe? groupe;
-        private ILocalizationService? localizationService;
         private string imagePath;
         private Internaute? internaute;
         [ObservableProperty] private ImageSource? _image;
@@ -23,11 +22,10 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [ObservableProperty] private string? _errorMessage;
         [ObservableProperty] private bool _isFinish = false;
         private List<Thematique>? thematiques { get; set; }
-        public TroisiemeCreationViewModel(IEnumerable<IClient?>? clients, ILocalizationService? localizationService, INavigationService service) 
-            : base(clients?.OfType<GroupClient>().FirstOrDefault(), localizationService)
+        public TroisiemeCreationViewModel(IEnumerable<IClient?>? clients, ILocalizationService? LocalizationService, INavigationService service) 
+            : base(clients?.OfType<GroupClient>().FirstOrDefault(), LocalizationService)
         {
             this.service = service;
-            this.localizationService = localizationService;
             imagePath = string.Empty;
         }
 
@@ -53,7 +51,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                 await service.GoToAsync(commande);
             } catch (Exception ex)
             {
-                MapExceptionMessage.MappingException(ex, localizationService!);
+                MapExceptionMessage.MappingException(ex, LocalizationService!);
             }
         }
 
@@ -95,9 +93,9 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             catch (Exception ex)
             {
 #if DEBUG
-                ErrorMessage = MapExceptionMessage.MappingException(ex,localizationService!);
+                ErrorMessage = MapExceptionMessage.MappingException(ex,LocalizationService!);
 #elif !DEBUG
-                ErrorMessage = localizationService?.GetString("erreurInattendu");
+                ErrorMessage = LocalizationService?.GetString("erreurInattendu");
 #endif
             }
         }

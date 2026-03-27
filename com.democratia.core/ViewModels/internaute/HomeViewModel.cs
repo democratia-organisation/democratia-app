@@ -13,7 +13,6 @@ namespace com.democratia.ViewModels.internaute
     {
         private Internaute? internaute;
         private readonly INavigationService? navigationService;
-        private readonly ILocalizationService? localizationService;
         private readonly TaskCompletionSource<bool> _internautePret = new(false);
         public ObservableCollection<Groupe> Groupes { get; private set; } = [];
         public readonly List<Groupe> listeRecu = [];
@@ -22,7 +21,6 @@ namespace com.democratia.ViewModels.internaute
         {
             this.navigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
-            this.localizationService = localizationService;
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
