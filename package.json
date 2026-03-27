@@ -15,7 +15,7 @@
   },
   "lint-staged": {
     "**/*.cs": [
-      "dotnet format --verify-no-changes"
+      "dotnet format --verify-no-changes --include"
     ]
   }
 }
