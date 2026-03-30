@@ -32,10 +32,15 @@ public static class TestServiceCollection
 
     public static IServiceProvider CreateFakeServiceProviderForMainViewModel(string? fakeResponse)
     {
-        var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
+        var services = new ServiceCollection();
 
         services.AddSingleton<INavigationService, ShellNavigationService>();
-        services.AddSingleton<IClient>(sp => new FakeClient(fakeResponse));
+        services.AddSingleton<IFakeClient>(sp =>
+        {
+            var factory = sp.GetRequiredService<IHttpClientFactory>();
+            var httpClient = factory.CreateClient(nameof(IInternauteClient));
+            return new FakeClient(httpClient,fakeResponse);
+        });
         services.AddTransient<MainViewModel>();
 
         return services.BuildServiceProvider();

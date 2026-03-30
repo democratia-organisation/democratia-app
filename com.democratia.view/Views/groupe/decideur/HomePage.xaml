@@ -2,11 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="com.democratia.Views.groupe.decideur.HomePage"
-             Title="HomePage">
+             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
+             xmlns:viewModelDecideur="clr-namespace:com.democratia.ViewModels.groupe.decideur;assembly=com.democratia.core"
+             Title="HomePage"
+             x:DataType="viewModelDecideur:HomeViewModel">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <!--TODO : mettre le reste de la partie décideur-->
+        <ScrollView
+            Scrolled="ScrollView_Scrolled">
+            <VerticalStackLayout
+                x:DataType="viewModel:GroupeViewModel"
+                BindableLayout.ItemsSource="{Binding Propositions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <!--TODO : faire le composant proposition avec les fonctionnalités décideur-->
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

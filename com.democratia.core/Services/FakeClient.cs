@@ -4,15 +4,15 @@ namespace com.democratia.Services
     /// <summary>
     /// Classe utilisée pour simuler un client comportant des erreurs dans les tests unitaires.
     /// </summary>
-    internal class FakeClient : Client, IClient
+    internal class FakeClient : Client, IFakeClient
     {
         private readonly string? fakeResponse;
-        public FakeClient(string? fakeResponse)
+
+        public FakeClient(HttpClient? client, string? fakeResponse) : base(client!) 
         {
             this.fakeResponse = fakeResponse;
         }
-
-        public FakeClient() : this(null) { }
+        public FakeClient() : this(null, null) { }
 
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {

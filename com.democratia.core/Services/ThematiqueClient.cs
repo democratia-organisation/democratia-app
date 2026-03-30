@@ -3,8 +3,12 @@ using com.democratia.Utils;
 
 namespace com.democratia.Services
 {
-    internal class ThematiqueClient : Client, IClient
+    internal class ThematiqueClient : Client, IThematiqueClient
     {
+        public ThematiqueClient(HttpClient client) : base(client)
+        {
+        }
+
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
             var thematique = (Thematique)parameters![0]!;
@@ -21,7 +25,7 @@ namespace com.democratia.Services
             catch (Exception) { 
                 throw new ConnexionErrorException();
             }
-            return await FinRequete(response);
+            return await response.Content.ReadAsStringAsync();
 
         }
 
@@ -36,9 +40,9 @@ namespace com.democratia.Services
             try
             {
                 var content = "?request=SELECT * FROM thematique ORDER BY id_thematique&parameters=[]";
-                await DebutRequete();
+                
                 response = await client?.GetAsync(content)!;
-                return await FinRequete(response);
+                return await response.Content.ReadAsStringAsync();
 
             }
             catch (HttpRequestException ex)

@@ -28,7 +28,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
 
         [RelayCommand]
         private void ActionInternaute() =>
-            weakReferenceMessenger.Send<EventSuppressionSend>();
+            weakReferenceMessenger.Send<EventSuppression, string>(TypeEventSuppression.Send.ToString());
 
         
         [RelayCommand]
@@ -36,7 +36,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         {
             await client?.DeleteModelAsync(internaute)!;
             if (((InternauteClient)client!).succes)
-                weakReferenceMessenger.Send<EventSuppressionSuccess>();
+                weakReferenceMessenger.Send<EventSuppression, string>(TypeEventSuppression.Sucess.ToString());
             else
                 RetourMessage = LocalizationService?.GetString("connexionErreur");
         }
@@ -63,7 +63,11 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
                 _isNavigating = false;
             }
         }
-        public record EventSuppressionSend() { }
-        public record EventSuppressionSuccess() { }
+        public enum TypeEventSuppression
+        {
+            Sucess,
+            Send
+        }
+        public record EventSuppression() { }
     }
 }

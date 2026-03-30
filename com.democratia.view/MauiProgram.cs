@@ -31,9 +31,9 @@ namespace com.democratia
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
             builder.Services.AddServices();
             builder.Services.AddPages();
-            builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
             builder.SetUrl();
 
 #if DEBUG

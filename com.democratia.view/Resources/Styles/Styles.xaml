@@ -227,32 +227,6 @@
         <Setter Property="HorizontalTextAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="ListViewStyle" TargetType="CollectionView">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-surfaceBright}, Dark={DynamicResource Dark-surfaceBright}}" />
-        <Setter Property="SelectionMode" Value="None"/>
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
-                    <VisualState x:Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-surfaceContainerLowest}, Dark={DynamicResource Dark-surfaceContainerLowest}}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-        <Setter Property="ItemTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <Grid Padding="10">
-                        <Label Text="{Binding .}" Style="{StaticResource LabelStyle}" />
-                    </Grid>
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style x:Key="PickerStyle" TargetType="Picker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
         <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />

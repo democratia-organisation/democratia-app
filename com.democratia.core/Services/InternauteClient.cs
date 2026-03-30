@@ -1,16 +1,14 @@
-﻿
-
-using com.democratia.Models;
+﻿using com.democratia.Models;
 
 namespace com.democratia.Services
 {
-    public class InternauteClient : Client, IClient
+    public class InternauteClient : Client, IInternauteClient
     {
-        public InternauteClient() : base() { }
+        public InternauteClient(HttpClient client) : base(client) { }
 
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
-            await DebutRequete();
+            
 
             HttpResponseMessage? response;
 
@@ -24,12 +22,12 @@ namespace com.democratia.Services
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
 
-            return await FinRequete(response);
+            return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> GetModelAsync(params object?[] parameters)
         {
-            await DebutRequete();
+            
 
             HttpResponseMessage? response;
             try
@@ -44,12 +42,12 @@ namespace com.democratia.Services
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
 
-            return await FinRequete(response);
+            return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> DoublonEmailAsync(string email)
         {
-            await DebutRequete();
+            
 
             HttpResponseMessage? response;
             try
@@ -64,12 +62,12 @@ namespace com.democratia.Services
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
 
-            return await FinRequete(response);
+            return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> UpdateModelAsync(params object?[]? parameters)
         {
-            await DebutRequete();
+            
             HttpResponseMessage? response;
             var internaute = (Internaute)parameters![0]!;
             try
@@ -79,12 +77,12 @@ namespace com.democratia.Services
             catch (HttpRequestException ex) {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-            return await FinRequete(response);
+            return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> DeleteModelAsync(params object?[]? parameters)
         {
-            await DebutRequete();
+            
             HttpResponseMessage? response;
             try
             {
@@ -94,7 +92,7 @@ namespace com.democratia.Services
             {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-            return await FinRequete(response);
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

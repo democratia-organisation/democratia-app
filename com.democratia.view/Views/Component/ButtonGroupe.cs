@@ -16,6 +16,7 @@ namespace com.democratia.Views.Component
             this.title = title;
             this.viewModel = viewModel;
             BindingContext = this.viewModel;
+            
             button = new ImageButton
             {
                 HeightRequest = 100,
@@ -45,17 +46,22 @@ namespace com.democratia.Views.Component
                 Color lightCouleur = (Color)light, darkCouleur = (Color)dark;
                 this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
             }
-
-            Content = new VerticalStackLayout
+            var bordure = new Border
             {
-                Children = {
-                button,
-                label
-            },
-                MaximumHeightRequest = 300,
-                MaximumWidthRequest = 300
-
+                Style = (Style?)Application.Current?.Resources["BorderStyleButton"],
+                Content = new VerticalStackLayout
+                {
+                    Children =
+                    {
+                        button,
+                        label
+                    },
+                    MaximumHeightRequest = 300,
+                    MaximumWidthRequest = 300
+                }
             };
+
+            Content = bordure;
             this.viewModel!.GetImageAsync(imageUrl!);
         }
     }

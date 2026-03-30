@@ -11,8 +11,7 @@ namespace UITests.View.groupe.decideur
     public class HomePageTest : BaseTest
     {
         public HomePageTest() : base()
-        {
-            
+        {   
             AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             foreach (var entry in entries!) entry.Clear();

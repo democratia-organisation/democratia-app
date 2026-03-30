@@ -6,6 +6,11 @@ namespace com.democratia.Views.groupe.decideur
         {
             InitializeComponent();
         }
+
+        private void ScrollView_Scrolled(object sender, ScrolledEventArgs e)
+        {
+
+        }
     }
 }
 

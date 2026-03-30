@@ -24,8 +24,8 @@ namespace com.democratia.ViewModels.internaute
 
         private readonly INavigationService? navigationService;
 
-        public MainViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization)
-            : base(clients?.OfType<InternauteClient>().FirstOrDefault(), localization)
+        public MainViewModel(INavigationService navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization)
+            : base(clients!.OfType<InternauteClient>().FirstOrDefault(), localization)
         {
             this.navigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
@@ -36,25 +36,24 @@ namespace com.democratia.ViewModels.internaute
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            try
+            if (commande == "/HomePage")
             {
-                if (commande == "/HomePage")
-                {
+                try {
                     modele = await ConnecterInternaute();
-                    var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
-                    await navigationService!.GoToAsync(commande, parameters);
                 }
-                else await navigationService!.GoToAsync(commande);
-
-            }
-            catch (Exception ex)
-            {
+                catch (Exception ex) {
 #if DEBUG
-                ErrorMessage = MapExceptionMessage.MappingException(ex,LocalizationService!);
+                    ErrorMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
 #elif !DEBUG
-                ErrorMessage = LocalizationService?.GetString("erreurInattendu");    
+                    ErrorMessage = LocalizationService?.GetString("erreurInattendu");    
 #endif
+                    return;
+                }
+                var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
+                await navigationService!.GoToAsync(commande, parameters);
             }
+            else await navigationService!.GoToAsync(commande);
+            
         }
 
         internal async Task<Internaute?> ConnecterInternaute()
@@ -82,7 +81,7 @@ namespace com.democratia.ViewModels.internaute
                 else
                     estAuthetifie = true;
 #elif !DEBUG
-                internaute!.tempMDP = MotDePasse; // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
+                internaute!.tempMDP = MotDePasse;
                 estAuthetifie = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);;
 #endif
                 if (!estAuthetifie) throw new BadPasswordException();

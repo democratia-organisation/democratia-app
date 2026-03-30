@@ -1,21 +1,55 @@
 ﻿using com.democratia.Services;
+using com.democratia.ViewModels.groupe;
 using com.democratia.ViewModels.internaute;
+using com.democratia.ViewModels.internaute.CreerGroupe;
 using com.democratia.ViewModels.internaute.gestionCompte;
-using com.democratia.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
+using System.Net.Http.Headers;
 using System.Reflection;
-using com.democratia.ViewModels.internaute.CreerGroupe;
-using com.democratia.ViewModels.groupe;
 
 namespace com.democratia.Utils
 {
     public static class ExtentionsCollection
     {
         private static MauiAppBuilder? maui;
-        
+
+        extension(HttpRequestMessage request)
+        {
+            public async Task<HttpRequestMessage> CloneRequest()
+            {
+                var clone = new HttpRequestMessage(request.Method, request.RequestUri)
+                {
+                    Version = request.Version
+                };
+
+                if (request.Content != null)
+                {
+                    var contentStream = new MemoryStream();
+                    await request.Content.CopyToAsync(contentStream);
+                    contentStream.Position = 0;
+                    clone.Content = new StreamContent(contentStream);
+                    request.CloneHeader(request.Content.Headers, clone.Content.Headers);
+                }
+                request.CloneHeader(request.Headers, clone.Headers);
+
+                foreach (var prop in request.Options)
+                {
+                    clone.Options.Set(new HttpRequestOptionsKey<object?>(prop.Key), prop.Value);
+                }
+                return clone;
+            }
+            public void CloneHeader(HttpHeaders source, HttpHeaders destination)
+            {
+                foreach (var header in source)
+                {
+                    destination.TryAddWithoutValidation(header.Key, header.Value);
+                }
+            }
+        }
+
 
         extension(IServiceCollection services)
         {
@@ -25,24 +59,58 @@ namespace com.democratia.Utils
             /// <returns>Retourne la collection de services après l'ajout des services.</returns>
             public IServiceCollection AddServices()
             {
-                services.AddViewModels();
                 services.AddSingleton<INavigationService, ShellNavigationService>();
                 services.AddClients();
+                services.AddClient();
                 services.AddTransientViewModel();
 
                 return services;
             }
 
-            public IServiceCollection AddClients()
+            private IServiceCollection AddClients()
             {
-                services.AddSingleton<IClient, InternauteClient>();
-                services.AddSingleton<IClient, GroupClient>();
-                services.AddSingleton<IClient, ThematiqueClient>();
+                services.AddHttpExtension();
+                services.AddHttpClient<IInternauteClient, InternauteClient>()
+                    .AddHttpMessageHandler<DebutRequete>()
+                    .AddHttpMessageHandler<AuthentificationHandler>()
+                    .AddHttpMessageHandler<FinRequete>();
+                services.AddHttpClient<IGroupeClient, GroupClient>()
+                    .AddHttpMessageHandler<DebutRequete>()
+                    .AddHttpMessageHandler<AuthentificationHandler>()
+                    .AddHttpMessageHandler<FinRequete>();
+                services.AddHttpClient<IThematiqueClient, ThematiqueClient>()
+                    .AddHttpMessageHandler<DebutRequete>()
+                    .AddHttpMessageHandler<AuthentificationHandler>()
+                    .AddHttpMessageHandler<FinRequete>();
+                services.AddHttpClient("ClientBrut", c => {
+                    Uri url;
+#if DEBUG
+                    if (DeviceInfo.Current.Platform == DevicePlatform.Android)
+                        url = new(maui!.GetAppSetting("VIRTUAL_URL"));
+                    else
+                        url = new(maui!.GetAppSetting("API_URL"));
+#elif !DEBUG
+                url = new(maui!.GetAppSetting("API_URL"));
+#endif
+
+                    c.BaseAddress = url;
+                });
+
                 return services;
 
             }
 
-            public IServiceCollection AddTransientViewModel()
+            public IServiceCollection AddClient()
+            {
+               
+                services.AddTransient<IClient>(s => s.GetRequiredService<IInternauteClient>());
+                services.AddTransient<IClient>(s => s.GetRequiredService<IGroupeClient>());
+                services.AddTransient<IClient>(s => s.GetRequiredService<IThematiqueClient>());
+
+                return services;
+            }
+
+            private IServiceCollection AddTransientViewModel()
             {
                 services.AddTransient<MainViewModel>();
                 services.AddTransient<CreationViewModel>();
@@ -54,24 +122,16 @@ namespace com.democratia.Utils
                 services.AddTransient<GroupeViewModel>();
                 services.AddTransient<ModifierGestionViewModel>();
                 services.AddTransient<PreferenceViewModel>();
+                services.AddTransient<ViewModels.groupe.decideur.HomeViewModel>();
 
                 return services;
             }
 
-            public IServiceCollection AddViewModels()
+            private void AddHttpExtension()
             {
-                services.AddSingleton<INavigeablleViewModel, MainViewModel>();
-                services.AddSingleton<INavigeablleViewModel, CreationViewModel>();
-                services.AddSingleton<INavigeablleViewModel, HomeViewModel>();
-                services.AddSingleton<INavigeablleViewModel, PremiereCreationViewModel>();
-                services.AddSingleton<INavigeablleViewModel, DeuxiemePageViewModel>();
-                services.AddSingleton<INavigeablleViewModel, GroupeViewModel>();
-                services.AddSingleton<INavigeablleViewModel, ModifierGestionViewModel>();
-                services.AddSingleton<INavigeablleViewModel, PreferenceViewModel>();
-                services.AddSingleton<INavigeablleViewModel, HomeGestionViewModel>();
-
-
-                return services;
+                services.AddTransient<DebutRequete>();
+                services.AddTransient<AuthentificationHandler>();
+                services.AddTransient<FinRequete>();
             }
         }
         extension(MauiAppBuilder builder)

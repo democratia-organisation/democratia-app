@@ -22,5 +22,21 @@ namespace com.democratia.Services
         public Task<ImageSource?> GetImageAsync(string? url);
         public Task<string> UploadImage(Guid? id, string filePath);
     }
+
+    public interface IGroupeClient : IClient
+    {
+    }
+
+    public interface IInternauteClient : IClient
+    {
+    }
+
+    public interface IThematiqueClient : IClient
+    {
+    }
+
+    public interface IFakeClient : IClient
+    {
+    }
 }
 

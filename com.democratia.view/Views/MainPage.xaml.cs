@@ -6,10 +6,9 @@ namespace com.democratia.Views
     public partial class MainPage : ContentPage
     {
 
-        public MainPage(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
+        public MainPage(MainViewModel viewModel)
         {
             InitializeComponent();
-            MainViewModel? viewModel = navigeablleViewModels!.OfType<MainViewModel>().FirstOrDefault();
             BindingContext = viewModel!;
         }
     }

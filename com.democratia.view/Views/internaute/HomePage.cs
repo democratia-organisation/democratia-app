@@ -18,11 +18,13 @@ namespace com.democratia.Views.internaute
         public HomePage(HomeViewModel viewModel)
         {
             BindingContext = viewModel;
+            object  light, dark;
+            Color lightCouleur = new(), darkCouleur = new();
 
-            if (Application.Current!.Resources.TryGetValue("Light-background", out var light) && Application.Current!.Resources.TryGetValue("Dark-background", out var dark))
+            if (Application.Current!.Resources.TryGetValue("Light-background", out light) && Application.Current!.Resources.TryGetValue("Dark-background", out dark))
             {
-                Color lightCouleur = (Color)light;
-                Color darkCouleur = (Color)dark;
+                lightCouleur = (Color)light;
+                darkCouleur = (Color)dark;
                 this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
             }
             var profileIcone = new Border  // bordure car sur iOS, les images sont davantages cropés, donc la bordure empeche le cropage de l'image
@@ -46,9 +48,10 @@ namespace com.democratia.Views.internaute
                 }
             };
             AutomationProperties.SetName(profileIcone, "ProfileButton");
-            if (Application.Current!.Resources.TryGetValue("Light-onSurface", out var lightP) && Application.Current!.Resources.TryGetValue("Dark-onSurface", out var darkP))
+            if (Application.Current!.Resources.TryGetValue("Light-onSurface", out light) && Application.Current!.Resources.TryGetValue("Dark-onSurface", out dark))
             {
-                Color lightCouleur = (Color)lightP, darkCouleur = (Color)darkP;
+                lightCouleur = (Color)light;
+                darkCouleur = (Color)dark;
                 profileIcone.SetAppThemeColor(Border.StrokeProperty, lightCouleur, darkCouleur);
             }
 
@@ -92,27 +95,20 @@ namespace com.democratia.Views.internaute
                 },
                 ItemTemplate = new DataTemplate(() =>
                 {
-                    var container = new Border
+                    ButtonGroupe? buttonGroupe = null;
+                    BindingContextChanged += (s, e) =>
                     {
-                        Style = (Style?)Application.Current?.Resources["BorderStyleButton"],
-                    };
-
-                    container.BindingContextChanged += (s, e) =>
-                    {
-                        var border = (Border?)s;
                         var groupeViewModel = ServiceHelper.GetService<GroupeViewModel>();
-                        if (border?.BindingContext is Models.Groupe groupe)
-                        {
-                            border.Content = new ButtonGroupe(
-                                groupe.Image,
+                        var groupe = BindingContext as Models.Groupe;
+                        buttonGroupe = new ButtonGroupe(
+                                groupe!.Image,
                                 groupe.NomGroupe,
                                 groupeViewModel!.OpenGroupCommand,
                                 groupe.IdGroupe,
                                 groupeViewModel
-                            );
-                        }
+                        );
                     };
-                    return container;
+                    return buttonGroupe;
                 }),
             };
             this._collectionView.HeightRequest = 400;

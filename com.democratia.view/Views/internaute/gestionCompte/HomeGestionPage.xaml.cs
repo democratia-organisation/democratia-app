@@ -15,13 +15,15 @@ namespace com.democratia.Views.internaute.gestionCompte
             BindingContext = viewModel;
             var referenceMessenger = WeakReferenceMessenger.Default;
 
-            referenceMessenger.Register<HomeGestionViewModel.EventSuppressionSend>(this, (r, m) =>
-                AjoutGrille(AppResources.mauvaiseNouvelle, AppResources.confirmeSupp, viewModel.SupprimerCompteCommand)
-            );
+            referenceMessenger.Register<HomeGestionPage, HomeGestionViewModel.EventSuppression, string>
+                (this, HomeGestionViewModel.TypeEventSuppression.Send.ToString() ,(r, m) =>
+                    AjoutGrille(AppResources.mauvaiseNouvelle, AppResources.confirmeSupp, viewModel.SupprimerCompteCommand)
+                );
 
-            referenceMessenger.Register<HomeGestionViewModel.EventSuppressionSuccess>(this, (r, m) =>
-                AjoutGrille(AppResources.bienSupp, AppResources.retourConnexion, viewModel.NavigateTappedCommand, "///MainPage")
-            );
+            referenceMessenger.Register<HomeGestionPage,HomeGestionViewModel.EventSuppression, string>
+                (this,HomeGestionViewModel.TypeEventSuppression.Sucess.ToString(),(r, m) =>
+                    AjoutGrille(AppResources.bienSupp, AppResources.retourConnexion, viewModel.NavigateTappedCommand, "///MainPage")
+                );
         }
 
         private void AjoutGrille(string labelText, string buttonText, ICommand command, object? parameter = null)
