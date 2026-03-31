@@ -7,9 +7,12 @@ namespace com.democratia.Views.groupe
 {
     public partial class GroupePage : ContentPage
     {
+        private HorizontalStackLayout? horizontalLayout;
+        Color darkColor = new(), lightColor = new();
+
         public GroupePage(GroupeViewModel viewModel)
         {
-            Color darkColor = new(), lightColor = new();
+            BindingContext = viewModel;
             object? valueDarkColor, valueLightColor;
             WeakReferenceMessenger.Default.Register<GroupePage, GroupeViewModel.EventEndScroll,string>(this, GroupeViewModel.TypeEventScroll.RechargeScoll.ToString(), RecharPage);
             var scroll = new ScrollView
@@ -17,35 +20,17 @@ namespace com.democratia.Views.groupe
                 Content = new VerticalStackLayout
                 {
                     Children =
-                         {
-                             new CollectionView
-                             {
-                                 ItemsSource = viewModel.Propositions,
-                                 ItemTemplate = new DataTemplate(()=> new PropositionPresentation())
+                    {
+                        new CollectionView
+                        {
+                            ItemsSource = viewModel.Propositions,
+                            ItemTemplate = new DataTemplate(()=> new PropositionCard())
                                  
-                             }
-                         }
+                        }
+                    }
                 },
             };
-            var horizontalLayout = new HorizontalStackLayout
-            {
-                Children =
-                     {
-                         new ImageButton { }, //icone groupe
-                         new Label
-                         {
-                             Style = (Style)Application.Current!.Resources["e"],
-                             Text = viewModel.Groupe!.NomGroupe
-                         },
-                         new ImageButton{ }, // icone rouage
-                         new ImageButton {
-                            Command = viewModel.NavigateTappedCommand,
-                            CommandParameter = $"{typeof(HomePage)}"
-
-                         }, // icone loupe
-                     }
-            };
-
+            
             if (Application.Current!.Resources.TryGetValue("", out valueDarkColor) && Application.Current!.Resources.TryGetValue("", out valueLightColor))
             {
                 darkColor = (Color)valueDarkColor;
@@ -65,12 +50,11 @@ namespace com.democratia.Views.groupe
                  {
                      Command = viewModel.NavigateTappedCommand,
                      CommandParameter = "nouvelle proposition",
-                     Style = (Style)Application.Current!.Resources["e"]
+                     Style = (Style)Application.Current!.Resources["ButtonStyle"]
                  }
 
                 }
             };
-            horizontalLayout.SetAppThemeColor(BackgroundColorProperty, darkColor, lightColor);
             scroll.Scrolled += Scroll_Scrolled;
         }
 
@@ -80,6 +64,32 @@ namespace com.democratia.Views.groupe
             // TODO : faire une animation de chargement de page
         }
 
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            GroupeViewModel viewModel = ((GroupeViewModel)BindingContext);
+            this.horizontalLayout = new HorizontalStackLayout
+            {
+                Children =
+                     {
+                         new ImageButton { }, //icone groupe
+                         new Label
+                         {
+                             Style = (Style)Application.Current!.Resources["LabelStyle"],
+                             Text = viewModel.Groupe!.NomGroupe
+                         },
+                         new ImageButton{ }, // icone rouage
+                         new ImageButton {
+                            Command = viewModel.NavigateTappedCommand,
+                            CommandParameter = $"{typeof(DecideurPage)}"
+
+                         }, // icone loupe
+                     }
+            };
+            horizontalLayout.SetAppThemeColor(BackgroundColorProperty, darkColor, lightColor);
+            await viewModel.ChargerProposition();
+        }
+
         private void Scroll_Scrolled(object? sender, ScrolledEventArgs e)
         {
             if (sender is not ScrollView scrollView) return;
@@ -87,6 +97,7 @@ namespace com.democratia.Views.groupe
             var scrollSpace = scrollView.ContentSize.Height - scrollView.Height;
 
             if (scrollSpace > e.ScrollY) return;
+            // TODO : détecter si on a regardé toutes les propositions
             WeakReferenceMessenger.Default.Send<GroupeViewModel.EventEndScroll,string>(GroupeViewModel.TypeEventScroll.EndScroll.ToString());
         }
     }

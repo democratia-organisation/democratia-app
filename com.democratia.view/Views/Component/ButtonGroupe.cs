@@ -1,19 +1,16 @@
 using com.democratia.ViewModels.groupe;
-using CommunityToolkit.Mvvm.Input;
 
 namespace com.democratia.Views.Component
 {
-    public class ButtonGroupe : ContentView
+    public partial class ButtonGroupe : ContentView
     {
-        private string? imageUrl;
-        private string? title;
+        private Models.Groupe groupe;
         private GroupeViewModel? viewModel;
         private ImageButton? button;
 
-        public ButtonGroupe(string? imageUrl, string? title, IAsyncRelayCommand command, Guid? groupeParameter, GroupeViewModel? viewModel)
+        public ButtonGroupe(Models.Groupe groupe, GroupeViewModel? viewModel)
         {
-            this.imageUrl = imageUrl;
-            this.title = title;
+            this.groupe = groupe;
             this.viewModel = viewModel;
             BindingContext = this.viewModel;
             
@@ -22,16 +19,16 @@ namespace com.democratia.Views.Component
                 HeightRequest = 100,
                 WidthRequest = 100,
                 HorizontalOptions = LayoutOptions.Center,
-                Command = command,
-                CommandParameter = groupeParameter.ToString(),
-                AutomationId = "ButtonGroupe_" + title
+                Command = this.viewModel!.OpenGroupCommand,
+                CommandParameter = this.groupe.NomGroupe,
+                AutomationId = "ButtonGroupe_" + this.groupe.NomGroupe
             };
-            AutomationProperties.SetName(button, "ButtonGroupe_" + title);
+            AutomationProperties.SetName(button, "ButtonGroupe_" + this.groupe.NomGroupe);
             button.SetBinding(ImageButton.SourceProperty, "Image");
             var label = new Label
             {
                 HorizontalOptions = LayoutOptions.Center,
-                Text = this.title,
+                Text = this.groupe.NomGroupe,
                 Style = (Style?)Application.Current?.Resources["SubHeadlineStyle"],
                 LineBreakMode = LineBreakMode.WordWrap
 
@@ -46,23 +43,36 @@ namespace com.democratia.Views.Component
                 Color lightCouleur = (Color)light, darkCouleur = (Color)dark;
                 this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
             }
-            var bordure = new Border
+            Content = new Border
             {
-                Style = (Style?)Application.Current?.Resources["BorderStyleButton"],
                 Content = new VerticalStackLayout
                 {
                     Children =
                     {
                         button,
                         label
-                    },
-                    MaximumHeightRequest = 300,
-                    MaximumWidthRequest = 300
-                }
+                    }
+                },
+                Style = (Style?)Application.Current?.Resources["BorderStyleButton"],
+                MaximumHeightRequest = 300,
+                MaximumWidthRequest = 300
             };
+            this.viewModel!.GetImageAsync(this.groupe.Image!);
+        }
+    }
 
-            Content = bordure;
-            this.viewModel!.GetImageAsync(imageUrl!);
+    public partial class ButtonGroupeCell : ContentView
+    {
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+
+            if (BindingContext is Models.Groupe groupe)
+            {
+                var groupeViewModel = ServiceHelper.GetService<GroupeViewModel>();
+                groupeViewModel!.Groupe = groupe;
+                this.Content = new ButtonGroupe(groupe, groupeViewModel);
+            }
         }
     }
 }

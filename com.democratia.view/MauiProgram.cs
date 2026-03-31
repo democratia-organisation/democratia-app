@@ -2,6 +2,7 @@
 using com.democratia.Utils;
 using com.democratia.Views;
 using com.democratia.Views.groupe;
+using com.democratia.Views.groupe.decideur;
 using com.democratia.Views.internaute;
 using com.democratia.Views.internaute.CreerGroupe;
 using com.democratia.Views.internaute.gestionCompte;
@@ -52,6 +53,7 @@ namespace com.democratia
             var app = builder.Build();
             Directory.CreateDirectory(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
             ServiceHelper.Initialize(app.Services);
+            Utils.ServiceHelper.Initialize(app.Services);
 
             return app;
 
@@ -82,6 +84,8 @@ namespace com.democratia
                 builder.AddTransient<TroisiemeCreationPage>();
                 builder.AddTransient<GroupePage>();
                 builder.AddTransient<PreferencePage>();
+                builder.AddTransient<GroupePage>();
+                builder.AddTransient<DecideurPage>();
 
                 return builder;
             }

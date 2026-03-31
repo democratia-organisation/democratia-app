@@ -1,6 +1,6 @@
 ﻿namespace com.democratia.ViewModels.groupe.decideur
 {
-    public class HomeViewModel
+    public class DecideurViewModel
     {
     }
 }

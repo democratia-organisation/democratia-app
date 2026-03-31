@@ -6,7 +6,7 @@ using Xunit.Abstractions;
 namespace com.democratia.Services
 {
 
-    public class Client
+    public class Client : IDisposable, IXunitSerializable
     {
         protected static string? BASE_URL;
         protected string? statutsMessage;
@@ -117,6 +117,11 @@ namespace com.democratia.Services
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
             return await response.Content.ReadAsStringAsync();
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

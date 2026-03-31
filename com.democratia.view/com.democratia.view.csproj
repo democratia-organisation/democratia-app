@@ -3,6 +3,9 @@
     <TargetFrameworks>net10.0-ios;</TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks)net10.0-android;net10.0-windows10.0.19041.0</TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(TargetFrameworks)net10.0-maccatalyst</TargetFrameworks>
+	<EnablePreviewFeatures>true</EnablePreviewFeatures>
+	<MauiXamlInflator>SourceGen</MauiXamlInflator>
+	
     <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
     <!--<TargetFrameworks>$(TargetFrameworks);net10.0-tizen</TargetFrameworks>-->
     <!-- Note for MacCatalyst:
@@ -35,7 +38,7 @@
     <UserSecretsId>c026941f-3829-4e74-bd61-6855fd2a538c</UserSecretsId>
 	  <AssemblyName>com.democratia.view</AssemblyName>
 	  <ArchiveOnBuild>false</ArchiveOnBuild>
-	  <DefaultLanguage>fr</DefaultLanguage>
+	  <DefaultLanguage>fr-FR</DefaultLanguage>
   </PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-maccatalyst' And '$(Configuration)' == 'Release'">
 		<RuntimeIdentifier>maccatalyst-arm64</RuntimeIdentifier>
@@ -107,6 +110,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\groupe\decideur\DecideurPage.xaml.cs">
+      <DependentUpon>DecideurPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\internaute\CreerGroupe\TroisiemeCreationPage.xaml.cs">
       <DependentUpon>TroisiemeCreationPage.xaml</DependentUpon>
     </Compile>
@@ -136,7 +142,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <MauiXaml Update="Views\groupe\decideur\HomePage.xaml">
+    <MauiXaml Update="Views\Component\PropositionCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\groupe\decideur\DecideurPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml">

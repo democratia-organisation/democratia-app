@@ -1,10 +1,10 @@
 ﻿using com.democratia.view.Resources.Localization;
-using com.democratia.Views.Component;
-using com.democratia.ViewModels.internaute;
-using Microsoft.Maui.Controls.Shapes;
-using com.democratia.Views.internaute.CreerGroupe;
 using com.democratia.ViewModels.groupe;
+using com.democratia.ViewModels.internaute;
+using com.democratia.Views.Component;
+using com.democratia.Views.internaute.CreerGroupe;
 using com.democratia.Views.internaute.gestionCompte;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace com.democratia.Views.internaute
 {
@@ -82,34 +82,18 @@ namespace com.democratia.Views.internaute
                 AutomationId = "MyGroupsLabel",
             };
             AutomationProperties.SetName(this._ownGroupeLabel, "MyGroupsLabel");
+            
             this._collectionView = new CollectionView
             {
-                ItemsSource = viewModel.Groupes,
                 VerticalOptions = LayoutOptions.Fill,
                 HorizontalOptions = LayoutOptions.Fill,
-                
+                ItemsSource = viewModel.Groupes,
+                ItemTemplate = new(() => new ButtonGroupeCell()),
                 ItemsLayout = new GridItemsLayout(3, ItemsLayoutOrientation.Vertical)
                 {
                     HorizontalItemSpacing = 10,
                     VerticalItemSpacing = 10
-                },
-                ItemTemplate = new DataTemplate(() =>
-                {
-                    ButtonGroupe? buttonGroupe = null;
-                    BindingContextChanged += (s, e) =>
-                    {
-                        var groupeViewModel = ServiceHelper.GetService<GroupeViewModel>();
-                        var groupe = BindingContext as Models.Groupe;
-                        buttonGroupe = new ButtonGroupe(
-                                groupe!.Image,
-                                groupe.NomGroupe,
-                                groupeViewModel!.OpenGroupCommand,
-                                groupe.IdGroupe,
-                                groupeViewModel
-                        );
-                    };
-                    return buttonGroupe;
-                }),
+                }
             };
             this._collectionView.HeightRequest = 400;
 

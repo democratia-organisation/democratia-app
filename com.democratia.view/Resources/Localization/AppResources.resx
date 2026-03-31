@@ -345,4 +345,7 @@
   <data name="thematiqueSansProposition" xml:space="preserve">
     <value>Cette thématique n'a pas de proposition</value>
   </data>
+  <data name="finDiscussion" xml:space="preserve">
+    <value>La discussion prend fin le </value>
+  </data>
 </root>

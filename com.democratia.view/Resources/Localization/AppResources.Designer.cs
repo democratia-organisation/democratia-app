@@ -331,6 +331,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à La discussion prend fin le .
+        /// </summary>
+        public static string finDiscussion {
+            get {
+                return ResourceManager.GetString("finDiscussion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Le format de l&apos;adresse mail est incorrecte.
         /// </summary>
         public static string formatEmail {

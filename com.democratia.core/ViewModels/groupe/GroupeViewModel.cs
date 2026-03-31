@@ -6,10 +6,11 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace com.democratia.ViewModels.groupe
 {
-    public partial class GroupeViewModel : ConnectableViewModel, INavigeablleViewModel
+    public partial class GroupeViewModel : ConnectableViewModel, INavigeablleViewModel, IQueryAttributable
     {
         [ObservableProperty] private ImageSource? image;
         [ObservableProperty] private Groupe? groupe;
@@ -28,18 +29,32 @@ namespace com.democratia.ViewModels.groupe
             await navigationService?.GoToAsync(commande)!;
         }
 
+        public async Task ChargerProposition()
+        {
+            var propositionClient = ServiceHelper.GetService<IPropositionClient>();
+            var response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(Groupe!.IdGroupe);
+            var stringpropositions = RecuprerInformationConnexion(response)!;            
+            Propositions = stringpropositions.Count == 0 ?[] : 
+                [..JsonSerializer.Deserialize<List<Proposition>>(stringpropositions.ToString()!)!];
+        }
+
         public async void GetImageAsync(string? url) => Image = await client!.GetImageAsync(url);
 
         [RelayCommand]
         public async Task OpenGroup(string nomGroupe)
         {
-            var parameters = new ShellNavigationQueryParameters { { "nomGroupe", nomGroupe } };
-            await navigationService?.GoToAsync("Groupe", parameters)!;
+            var parameters = new ShellNavigationQueryParameters { { "nomGroupe", nomGroupe }, { "modele", Groupe! } };
+            await navigationService?.GoToAsync("GroupePage", parameters)!;
         }
 
         private void UpdateList(object _, EventEndScroll __)
         {
+            throw new NotImplementedException();
+        }
 
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            Groupe = query.TryGetValue("modele", out var value) ? (Groupe)value : new();
         }
 
         public record class EventEndScroll {}

@@ -4,7 +4,7 @@ using Microsoft.Maui.Controls.Shapes;
 namespace com.democratia.Views.Component
 {
 
-    public class LabelBudgetaire : ContentView
+    public partial class LabelBudgetaire : ContentView
     {
         public static readonly BindableProperty TitleProperty = BindableProperty.Create(
             propertyName: nameof(Title),

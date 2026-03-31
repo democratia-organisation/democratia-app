@@ -6,11 +6,10 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
-using System.ComponentModel;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
-    public partial class TroisiemeCreationViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable, INotifyPropertyChanged
+    public partial class TroisiemeCreationViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable
     {
 
         private INavigationService service;

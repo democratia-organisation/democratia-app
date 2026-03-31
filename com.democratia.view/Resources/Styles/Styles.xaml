@@ -8,6 +8,9 @@
         <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-surface}}"/>
         <Setter Property="Background" Value="{AppThemeBinding Light={DynamicResource Light-primaryContainer}, Dark={DynamicResource Dark-primaryContainer}}"/>
     </Style>
+    <Style x:Key="ContenViewStyle" TargetType="ContentView">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainer}, Light={DynamicResource Light-surfaceContainer}}"/>
+    </Style>
     <Style x:Key="fondEcran" TargetType="ContentPage">
         <Setter Property="Background" Value="{AppThemeBinding Light={DynamicResource Light-background}, Dark={DynamicResource Dark-background}}"/>
     </Style>

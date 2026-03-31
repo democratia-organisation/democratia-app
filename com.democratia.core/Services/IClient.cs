@@ -38,5 +38,9 @@ namespace com.democratia.Services
     public interface IFakeClient : IClient
     {
     }
+
+    public interface IPropositionClient : IClient
+    {
+    }
 }
 

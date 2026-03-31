@@ -4,7 +4,7 @@
     {
         public static void RouteBase()
         {
-            Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
+            Routing.RegisterRoute(nameof(DecideurPage), typeof(DecideurPage));
             
         }
     }

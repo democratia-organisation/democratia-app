@@ -49,6 +49,25 @@ namespace com.democratia.Services
             return await response.Content.ReadAsStringAsync();
         }
 
+        public async Task<string> GetJointureThemeEtGroupeAsync(Guid? idGroupe)
+        {
+            var requete = $"""
+                ?request=SELECT *  FROM theme_groupe WHERE idGroupe=?;
+                &parameters=["{idGroupe}"]
+                """;
+
+            HttpResponseMessage? response;
+            try
+            {
+                response = await client!.PostAsync(requete, null);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+            return await response.Content.ReadAsStringAsync();
+        }
+
         public Task<string> DeleteModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();

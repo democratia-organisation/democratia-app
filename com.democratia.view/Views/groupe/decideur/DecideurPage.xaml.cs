@@ -1,8 +1,8 @@
 namespace com.democratia.Views.groupe.decideur
 {
-    public partial class HomePage : ContentPage
+    public partial class DecideurPage : ContentPage
     {
-        public HomePage()
+        public DecideurPage()
         {
             InitializeComponent();
         }

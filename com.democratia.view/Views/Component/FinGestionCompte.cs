@@ -3,7 +3,7 @@ using StackLayout = Microsoft.Maui.Controls.StackLayout;
 
 namespace com.democratia.Views.Component
 {
-    public class FinGestionCompte : ContentView
+    public partial class FinGestionCompte : ContentView
     {
         
         private readonly Label _label;

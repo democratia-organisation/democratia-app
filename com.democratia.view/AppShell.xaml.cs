@@ -1,5 +1,6 @@
 ﻿using com.democratia.view.Views;
 using com.democratia.Views.groupe;
+using com.democratia.Views.groupe.decideur;
 using com.democratia.Views.internaute;
 using com.democratia.Views.internaute.CreerGroupe;
 using com.democratia.Views.internaute.gestionCompte;
@@ -14,6 +15,8 @@ namespace com.democratia
             BasePageRoute.RouteBase();
             CreerGroupeRoute.RouteCreationGroup();
             GestionCompteRoute.RouteGestionCompte();
+            DecideurBaseRoute.RouteBase();
+            Routing.RegisterRoute(nameof(GroupePage), typeof(GroupePage));
         }
     }
 }

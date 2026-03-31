@@ -1,5 +1,6 @@
 ﻿using com.democratia.Services;
 using com.democratia.ViewModels.groupe;
+using com.democratia.ViewModels.groupe.decideur;
 using com.democratia.ViewModels.internaute;
 using com.democratia.ViewModels.internaute.CreerGroupe;
 using com.democratia.ViewModels.internaute.gestionCompte;
@@ -31,9 +32,9 @@ namespace com.democratia.Utils
                     await request.Content.CopyToAsync(contentStream);
                     contentStream.Position = 0;
                     clone.Content = new StreamContent(contentStream);
-                    request.CloneHeader(request.Content.Headers, clone.Content.Headers);
+                    CloneHeader(request.Content.Headers, clone.Content.Headers);
                 }
-                request.CloneHeader(request.Headers, clone.Headers);
+                CloneHeader(request.Headers, clone.Headers);
 
                 foreach (var prop in request.Options)
                 {
@@ -41,7 +42,7 @@ namespace com.democratia.Utils
                 }
                 return clone;
             }
-            public void CloneHeader(HttpHeaders source, HttpHeaders destination)
+            public static void CloneHeader(HttpHeaders source, HttpHeaders destination)
             {
                 foreach (var header in source)
                 {
@@ -50,6 +51,16 @@ namespace com.democratia.Utils
             }
         }
 
+        extension(IHttpClientBuilder builder)
+        {
+            public IHttpClientBuilder AddAllHttpHander()
+            {
+                builder.AddHttpMessageHandler<DebutRequete>()
+                    .AddHttpMessageHandler<AuthentificationHandler>()
+                    .AddHttpMessageHandler<FinRequete>();
+                return builder;
+            }
+        }
 
         extension(IServiceCollection services)
         {
@@ -70,31 +81,14 @@ namespace com.democratia.Utils
             private IServiceCollection AddClients()
             {
                 services.AddHttpExtension();
-                services.AddHttpClient<IInternauteClient, InternauteClient>()
-                    .AddHttpMessageHandler<DebutRequete>()
-                    .AddHttpMessageHandler<AuthentificationHandler>()
-                    .AddHttpMessageHandler<FinRequete>();
-                services.AddHttpClient<IGroupeClient, GroupClient>()
-                    .AddHttpMessageHandler<DebutRequete>()
-                    .AddHttpMessageHandler<AuthentificationHandler>()
-                    .AddHttpMessageHandler<FinRequete>();
-                services.AddHttpClient<IThematiqueClient, ThematiqueClient>()
-                    .AddHttpMessageHandler<DebutRequete>()
-                    .AddHttpMessageHandler<AuthentificationHandler>()
-                    .AddHttpMessageHandler<FinRequete>();
-                services.AddHttpClient("ClientBrut", c => {
-                    Uri url;
+                services.AddHttpClient<IInternauteClient, InternauteClient>().AddAllHttpHander();
+                services.AddHttpClient<IGroupeClient, GroupClient>().AddAllHttpHander();
+                services.AddHttpClient<IThematiqueClient, ThematiqueClient>().AddAllHttpHander();
+                services.AddHttpClient<IPropositionClient, PropositionClient>().AddAllHttpHander();
 #if DEBUG
-                    if (DeviceInfo.Current.Platform == DevicePlatform.Android)
-                        url = new(maui!.GetAppSetting("VIRTUAL_URL"));
-                    else
-                        url = new(maui!.GetAppSetting("API_URL"));
-#elif !DEBUG
-                url = new(maui!.GetAppSetting("API_URL"));
+                // utiliser pour avoir les clé JWT dans les middlewares 
 #endif
-
-                    c.BaseAddress = url;
-                });
+                services.AddHttpClient("ClientBrut", static c => c.BaseAddress = GetUrl()); 
 
                 return services;
 
@@ -106,6 +100,7 @@ namespace com.democratia.Utils
                 services.AddTransient<IClient>(s => s.GetRequiredService<IInternauteClient>());
                 services.AddTransient<IClient>(s => s.GetRequiredService<IGroupeClient>());
                 services.AddTransient<IClient>(s => s.GetRequiredService<IThematiqueClient>());
+                services.AddTransient<IClient>(s => s.GetRequiredService<IPropositionClient>());
 
                 return services;
             }
@@ -122,7 +117,7 @@ namespace com.democratia.Utils
                 services.AddTransient<GroupeViewModel>();
                 services.AddTransient<ModifierGestionViewModel>();
                 services.AddTransient<PreferenceViewModel>();
-                services.AddTransient<ViewModels.groupe.decideur.HomeViewModel>();
+                services.AddTransient<DecideurViewModel>();
 
                 return services;
             }
@@ -134,6 +129,21 @@ namespace com.democratia.Utils
                 services.AddTransient<FinRequete>();
             }
         }
+
+        private static Uri GetUrl()
+        {
+            Uri url;
+#if DEBUG
+            if (DeviceInfo.Current.Platform == DevicePlatform.Android)
+                url = new(maui!.GetAppSetting("VIRTUAL_URL"));
+            else
+                url = new(maui!.GetAppSetting("API_URL"));
+#elif !DEBUG
+                url = new(maui!.GetAppSetting("API_URL"));
+#endif
+            return url;
+        }
+
         extension(MauiAppBuilder builder)
         {
             public void SetUrl()
@@ -169,19 +179,7 @@ namespace com.democratia.Utils
         }
         extension(Client builder)
         {
-            public Uri AffecterURL()
-            {
-                Uri url;
-#if DEBUG
-                if (DeviceInfo.Current.Platform == DevicePlatform.Android)
-                    url = new(maui!.GetAppSetting("VIRTUAL_URL"));
-                else
-                    url = new(maui!.GetAppSetting("API_URL"));
-#elif !DEBUG
-                url = new(maui!.GetAppSetting("API_URL"));
-#endif
-                return url;
-            }
+            public Uri AffecterURL() => GetUrl();
         }
     }
 }

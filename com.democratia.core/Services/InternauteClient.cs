@@ -2,14 +2,10 @@
 
 namespace com.democratia.Services
 {
-    public class InternauteClient : Client, IInternauteClient
+    public class InternauteClient(HttpClient client) : Client(client), IInternauteClient
     {
-        public InternauteClient(HttpClient client) : base(client) { }
-
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
-            
-
             HttpResponseMessage? response;
 
             try

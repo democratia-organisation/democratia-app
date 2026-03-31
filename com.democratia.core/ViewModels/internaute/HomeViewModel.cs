@@ -33,7 +33,9 @@ namespace com.democratia.ViewModels.internaute
         public async void InitializeAsync()
         {
             
-            await _internautePret.Task; // code pour résoudre un race condition error
+            await _internautePret.Task; 
+            // instruction pour résoudre un race condition parce que ApplyQueryAttributes
+            // renvoie un void donc la fonction ne peut pas être attendu
             var jsonString = string.Empty;
             try
             { jsonString = await client?.GetModelAsync(internaute!)!; }
