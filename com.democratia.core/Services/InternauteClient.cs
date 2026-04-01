@@ -28,10 +28,14 @@ namespace com.democratia.Services
             HttpResponseMessage? response;
             try
             {
-                response = await client!.GetAsync(
-                    $$"""
-                        ?request=SELECT * FROM internaute WHERE courriel=?&parameters=["{{parameters[0]}}"]
-                        """);
+                var requete = parameters.Length == 1 ?
+                    $"""
+                        ?request=SELECT * FROM internaute WHERE courriel=?&parameters=["{parameters[0]}"]
+                        """ :
+                    $"""
+                        ?request={parameters[1]}&parameters=["{parameters[0]}"]
+                        """;
+                response = await client!.GetAsync(requete);
             }
             catch (HttpRequestException ex)
             {

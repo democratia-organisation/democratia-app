@@ -1,5 +1,4 @@
 ﻿using com.democratia.Utils;
-using Microsoft.Maui.ApplicationModel.Communication;
 using Microsoft.Maui.Storage;
 using System.Net;
 using System.Net.Http.Headers;
@@ -17,20 +16,17 @@ namespace com.democratia.Services
         {
             request.Headers.Clear();
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            bool isParsed = bool.TryParse(await SecureStorage.Default.GetAsync("is_refresh_key_fresh"), out bool isFresh);
+            bool isParsed = bool.TryParse(await SecureStorage.Default.GetAsync(IS_FRESH), out bool isFresh);
             if (!isParsed)
-            {
-                throw new ConnexionErrorException();
-            }
+                return await base.SendAsync(request, cancellationToken);
+            
             if (isFresh && await SecureStorage.Default.GetAsync(REFRESH) is string refresh)
-            {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", refresh);
-            }
+            
             else if(await SecureStorage.Default.GetAsync(API_KEY) is string apiKey)
-            {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-            }
-            return await base.SendAsync(await request.CloneRequest(), cancellationToken);
+            
+            return await base.SendAsync(request, cancellationToken);
         }
     }
 
@@ -65,15 +61,10 @@ namespace com.democratia.Services
                 {
                     var authorisation = response.RequestMessage!.Headers.Authorization!;
                     if (authorisation.Equals(await SecureStorage.Default.GetAsync(REFRESH)))
-                    {
                         await SecureStorage.Default.SetAsync(IS_FRESH, $"{false}");
-                        return await base.SendAsync(clone, cancellationToken);
-                    }
                     else
-                    {
                         response.StatusCode = HttpStatusCode.Unauthorized;
-                        return await base.SendAsync(clone, cancellationToken);
-                    }
+                    return await base.SendAsync(clone, cancellationToken);
 
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
@@ -82,7 +73,9 @@ namespace com.democratia.Services
                     HttpResponseMessage responseToken = await RefreshKeys(cancellationToken);
                     if (!responseToken.IsSuccessStatusCode)
                     {
+#if DEBUG
                         string contente = await response.Content.ReadAsStringAsync();
+#endif
                         throw new ConnexionErrorException();
                     }
 
@@ -98,6 +91,8 @@ namespace com.democratia.Services
                         return await base.SendAsync(clone, cancellationToken);
                     }
                 }
+                else if ((int)response.StatusCode == 412 && request.RequestUri!.Query == $"?request=relogin&parameters=[%22{await SecureStorage.Default.GetAsync("id_internaute")}%22]")
+                    return response;
                 else throw new ConnexionErrorException();
             }
             else
@@ -111,10 +106,17 @@ namespace com.democratia.Services
             HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
+#if DEBUG
                 string content = await response.Content.ReadAsStringAsync();
-                HttpRequestMessage clone = await request.CloneRequest();
+#endif
                 if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Conflict)
                     return response;
+                else if ((int)response.StatusCode == 412 && request.RequestUri!.Query == $"?request=relogin&parameters=[%22{await SecureStorage.Default.GetAsync("id_internaute")}%22]")
+                {
+                    SecureStorage.Default.RemoveAll();
+                    return response;
+                }
+
                 else
                     throw new ConnexionErrorException();
             }

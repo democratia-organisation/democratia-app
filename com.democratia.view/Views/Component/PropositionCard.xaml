@@ -23,12 +23,11 @@
             />
         </HorizontalStackLayout>
         <Label
-            x:DataType="viewModels:PropositionViewModel"
             HorizontalTextAlignment="Start">
             <Label.Text>
                 <MultiBinding StringFormat="{}{0} {1}">
                     <Binding Source="{x:Static lang:AppResources.finDiscussion}" />
-                    <Binding Path="DateFinDiscussion" />
+                    <Binding Path="FormatDateFinDiscussion" />
                 </MultiBinding>
             </Label.Text>
         </Label>

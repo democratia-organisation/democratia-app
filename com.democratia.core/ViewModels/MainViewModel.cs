@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Text.Json;
 using Microsoft.Maui.Storage;
+using System.Text;
 
 namespace com.democratia.ViewModels.internaute
 {
@@ -39,7 +40,7 @@ namespace com.democratia.ViewModels.internaute
             if (commande == "/HomePage")
             {
                 try {
-                    modele = await ConnecterInternaute();
+                    modele = await ConnecterInternaute(false);
                 }
                 catch (Exception ex) {
 #if DEBUG
@@ -56,11 +57,11 @@ namespace com.democratia.ViewModels.internaute
             
         }
 
-        internal async Task<Internaute?> ConnecterInternaute()
+        internal async Task<Internaute?> ConnecterInternaute(bool autoConnect)
         {
 
             if (string.IsNullOrWhiteSpace(AdresseMail)) throw new EmptyEmailFieldException();
-            else if (string.IsNullOrWhiteSpace(MotDePasse)) throw new EmptyPassWordFieldException();
+            else if (string.IsNullOrWhiteSpace(MotDePasse) && !autoConnect) throw new EmptyPassWordFieldException();
             try
             {
                 await SecureStorage.Default.SetAsync("id_internaute", AdresseMail);
@@ -93,6 +94,23 @@ namespace com.democratia.ViewModels.internaute
             }
             catch (Exception)
             { throw; }
+        }
+
+        public async Task AutoConnect()
+        {
+            string? mail = await SecureStorage.Default.GetAsync("id_internaute") ;
+            if (mail == null) return;
+            string reponse = await client!.GetModelAsync(mail, "relogin");
+            var success = bool.Parse(JsonSerializer.Deserialize<Dictionary<string, object>>(reponse)!["success"].ToString()!); ;
+            if (success)
+            {
+                AdresseMail = mail;
+                modele = await ConnecterInternaute(true);
+                var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
+                await navigationService!.GoToAsync("/HomePage", parameters)!;
+            }
+            ;
+
         }
     }
 }
