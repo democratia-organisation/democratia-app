@@ -119,9 +119,7 @@ namespace com.democratia.Services
             return await response.Content.ReadAsStringAsync();
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+        public void Dispose() => client!.Dispose();
+        
     }
 }

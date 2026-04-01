@@ -20,7 +20,7 @@ namespace com.democratia.Services
             HttpResponseMessage? response;
             string? requete = $""""
 
-                ?request=SELECT bin_to_uuid(id_groupe) as id_groupe,
+                ?request=SELECT BIN_TO_UUID(id_groupe) AS id_groupe,
                     budget,
                     date_publication,
                     description_proposition,

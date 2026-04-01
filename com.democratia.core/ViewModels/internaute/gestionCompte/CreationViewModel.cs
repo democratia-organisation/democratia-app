@@ -60,7 +60,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
                 {
                     await Verification.HasherMotDePasse(Internaute!);
                     string reponse = await client?.CreateModelAsync(Internaute!.nom_internaute, Internaute!.prenom_internaute, Internaute!.courriel, Internaute!.adresse_postale, Internaute.hashageMDP )!;
-                    List<object> values = RecuprerInformationConnexion(reponse);
+                    List<object> values = RecuprerInformationConnexion<object>(reponse);
                 }
             }
             catch (Exception)
@@ -83,8 +83,8 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         private async Task<bool> VerifierMailDoublon()
         {
             string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(Internaute!.courriel!)!;
-            List<object>? listeInformation = RecuprerInformationConnexion(retourJson);
-            int? nombreMail = JsonSerializer.Deserialize<Dictionary<string, int>>(listeInformation[0].ToString()!)!.TryGetValue("COUNT(courriel)", out var value) ? value : null;
+            List<Dictionary<string, int>>? listeInformation = RecuprerInformationConnexion<Dictionary<string, int>>(retourJson);
+            int? nombreMail = listeInformation![0].TryGetValue("COUNT(courriel)", out var value) ? value : null;
             return nombreMail == 0 ? true : throw new CompteExistantException();
         }
         

@@ -19,14 +19,14 @@ namespace com.democratia.ViewModels
         protected readonly ILocalizationService? LocalizationService = localizationService;
 
 
-        protected static List<object> RecuprerInformationConnexion(string stringJson)
+        protected static List<T> RecuprerInformationConnexion<T>(string stringJson)
         {
             Dictionary<string, object> dictionnary;
             var finalJson = stringJson.Trim();
             try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(finalJson)!; }
             catch (Exception) { throw new FetchDataException(); }
             var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new FetchDataException();
-            return JsonSerializer.Deserialize<List<object>>(rawElement!)!;
+            return JsonSerializer.Deserialize<List<T>>(rawElement!)!;
 
         }
         protected static async void EnregistrerModele<T>(T model) where T : class, IModel

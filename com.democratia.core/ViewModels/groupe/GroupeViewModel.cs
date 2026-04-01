@@ -6,6 +6,8 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
+using System.IO.Pipelines;
+using System.Text;
 using System.Text.Json;
 
 namespace com.democratia.ViewModels.groupe
@@ -33,9 +35,7 @@ namespace com.democratia.ViewModels.groupe
         {
             var propositionClient = ServiceHelper.GetService<IPropositionClient>();
             var response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(Groupe!.IdGroupe);
-            var stringpropositions = RecuprerInformationConnexion(response)!;            
-            Propositions = stringpropositions.Count == 0 ?[] : 
-                [..JsonSerializer.Deserialize<List<Proposition>>(stringpropositions.ToString()!)!];
+            Propositions = [.. RecuprerInformationConnexion<Proposition>(response)];
         }
 
         public async void GetImageAsync(string? url) => Image = await client!.GetImageAsync(url);

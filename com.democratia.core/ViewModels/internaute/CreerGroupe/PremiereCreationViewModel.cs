@@ -77,8 +77,8 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                 foreach (Thematique item in thematiquesNouvelles)
                 {
                     await client!.CreateModelAsync(item);
-                    List<object> thematiques = RecuprerInformationConnexion(await client.GetModelAsync());
-                    item.id_thematique = JsonSerializer.Deserialize<Thematique>(thematiques.Last().ToString()!)!.id_thematique;
+                    List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(await client.GetModelAsync());
+                    item.id_thematique = thematiques.Last().id_thematique;
                 }
 
                 await navigationService.GoToAsync(commande, new()
@@ -131,13 +131,8 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         public async Task RemplirThematique()
         {
             string listeRequete = await client!.GetModelAsync();
-            List<object> thematiques = RecuprerInformationConnexion(listeRequete);
-            foreach (var item in thematiques)
-            {
-                var thematique = JsonSerializer.Deserialize<Thematique>(item.ToString()!);
-                thematiquesExistantes!.Add(thematique!);
-
-            }
+            List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(listeRequete);
+            thematiques.ForEach(t => thematiquesExistantes!.Add(t));
             ThematiquesAffiches = [..thematiquesExistantes!];
         }
 

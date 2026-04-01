@@ -41,10 +41,9 @@ namespace com.democratia.ViewModels.internaute
             { jsonString = await client?.GetModelAsync(internaute!)!; }
             catch (Exception)
             { throw new ConnexionErrorException(); }
-            List<object> listeInformation = RecuprerInformationConnexion(jsonString);
+            List<Groupe> listeInformation = RecuprerInformationConnexion<Groupe>(jsonString);
             Groupes.Clear();
-            listeInformation.ForEach(groupe => Groupes.Add(JsonSerializer.Deserialize<Groupe>(groupe.ToString()!)!));
-
+            listeInformation.ForEach(groupe => Groupes.Add(groupe));
         }
 
         [RelayCommand]

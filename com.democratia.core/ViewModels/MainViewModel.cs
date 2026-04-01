@@ -65,9 +65,9 @@ namespace com.democratia.ViewModels.internaute
             {
                 await SecureStorage.Default.SetAsync("id_internaute", AdresseMail);
                 string jsonString = await client?.GetModelAsync(AdresseMail)!;
-                List<object> listeInformation = RecuprerInformationConnexion(jsonString);
+                List<Internaute> listeInformation = RecuprerInformationConnexion<Internaute>(jsonString);
                 if (listeInformation.Count == 0) throw new NoUserException();
-                var internaute = JsonSerializer.Deserialize<Internaute>(listeInformation![0].ToString()!);
+                var internaute = listeInformation![0];
                 string motDePasseHash = internaute?.hashageMDP!;
                 bool estAuthetifie;
 #if DEBUG
