@@ -14,14 +14,14 @@ namespace com.democratia.ViewModels.internaute
         [ObservableProperty]
         private string? adresseMail;
 
-        private Internaute? modele;
+        public Internaute? modele { get; private set; }
 
         [ObservableProperty]
         private string? motDePasse;
 
         [ObservableProperty]
         private string? errorMessage;
-
+        public bool autoConnectSuccess { get; private set; }
         private readonly INavigationService? navigationService;
 
         public MainViewModel(INavigationService navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization)
@@ -70,13 +70,19 @@ namespace com.democratia.ViewModels.internaute
                 var internaute = listeInformation![0];
                 string motDePasseHash = internaute?.hashageMDP!;
                 bool estAuthetifie;
+                
+
 #if DEBUG
                 if (MotDePasse != "root")
                 // les mots de passe avec le mot root ne vont pas dans tempMDP pour éviter une erreur
                 {
                     internaute!.tempMDP = MotDePasse; // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
-                    bool hashedPasswordIsNotEqual = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
-                    estAuthetifie = motDePasseHash != internaute!.tempMDP || hashedPasswordIsNotEqual;
+                    if (!autoConnect)
+                    {
+                        bool hashedPasswordIsNotEqual = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
+                        estAuthetifie = motDePasseHash != internaute!.tempMDP || hashedPasswordIsNotEqual;
+                    }
+                    else estAuthetifie = true;
                 }
                 else
                     estAuthetifie = true;
@@ -95,20 +101,19 @@ namespace com.democratia.ViewModels.internaute
             { throw; }
         }
 
-        public async Task AutoConnect()
+        public async Task AutoConnect(HomeViewModel viewModel)
         {
             string? mail = await SecureStorage.Default.GetAsync("id_internaute") ;
             if (mail == null) return;
             string reponse = await client!.GetModelAsync(mail, "relogin");
-            var success = bool.Parse(JsonSerializer.Deserialize<Dictionary<string, object>>(reponse)!["success"].ToString()!); ;
-            if (success)
+            autoConnectSuccess = bool.Parse(JsonSerializer.Deserialize<Dictionary<string, object>>(reponse)!["success"].ToString()!); ;
+            if (autoConnectSuccess)
             {
                 AdresseMail = mail;
-                modele = await ConnecterInternaute(true);
-                var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
-                await navigationService!.GoToAsync("/HomePage", parameters)!;
+                var internaute = await ConnecterInternaute(true)!;
+                viewModel.InitializeAsync();
+                modele = internaute;
             }
-
         }
     }
 }
