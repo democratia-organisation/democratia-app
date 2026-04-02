@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Style x:Key="ActivityIndicatorStyle" TargetType="ActivityIndicator">
-        <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-surface}}"/>
+        <Setter Property="Color" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}"/>
         <Setter Property="Background" Value="{AppThemeBinding Light={DynamicResource Light-primaryContainer}, Dark={DynamicResource Dark-primaryContainer}}"/>
     </Style>
     <Style x:Key="ContenViewStyle" TargetType="ContentView">

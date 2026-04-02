@@ -21,6 +21,8 @@ namespace com.democratia.Models
         public int? Thematique { get; private set; } = thematique;
         [JsonPropertyName("id_groupe")]
         public Guid? IdGroupe { get; private set; } = idGroupe;
+        public DateOnly FormatDateFinDiscussion => DateOnly.FromDateTime(DateTime.Parse(DateOnly.Parse(Publication!).ToString("dd MMMM yyy"))).AddDays(JourDiscussion);
+        public int JourDiscussion { get; set; } = 1;
         public Proposition() : this(null, null, null, null, null, null, null, null) { }
 
 

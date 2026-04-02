@@ -6,23 +6,26 @@
              xmlns:models="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
              xmlns:viewModels="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
              xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
-             x:DataType="models:Proposition">
+             x:DataType="viewModels:GroupeViewModel">
     <VerticalStackLayout>
         <HorizontalStackLayout>
             <Label
+                x:DataType="models:Proposition"
                 Text="{Binding Titre}"
                 Style="{DynamicResource LabelStyle}"
                 HorizontalTextAlignment="Center"
                 HorizontalOptions="Center"
+                x:Name="labelTitre"
             />
             <Image
                 HeightRequest="30"
                 WidthRequest="30"
                 VerticalOptions="End"
-                Source="home.png"
+                Source="loupe.png"
             />
         </HorizontalStackLayout>
         <Label
+            x:DataType="models:Proposition"
             HorizontalTextAlignment="Start">
             <Label.Text>
                 <MultiBinding StringFormat="{}{0} {1}">

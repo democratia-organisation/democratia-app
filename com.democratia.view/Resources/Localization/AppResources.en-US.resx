@@ -348,4 +348,7 @@
   <data name="finDiscussion" xml:space="preserve">
     <value>The discussion ends at</value>
   </data>
+  <data name="nouvellProp" xml:space="preserve">
+    <value>Submit a new proposition</value>
+  </data>
 </root>

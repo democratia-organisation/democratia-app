@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Text.Json;
 using Microsoft.Maui.Storage;
-using System.Text;
 
 namespace com.democratia.ViewModels.internaute
 {

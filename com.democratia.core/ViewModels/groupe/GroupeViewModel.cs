@@ -6,9 +6,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
-using System.IO.Pipelines;
-using System.Text;
-using System.Text.Json;
 
 namespace com.democratia.ViewModels.groupe
 {
@@ -16,10 +13,10 @@ namespace com.democratia.ViewModels.groupe
     {
         [ObservableProperty] private ImageSource? image;
         [ObservableProperty] private Groupe? groupe;
-        [ObservableProperty] private ObservableCollection<Proposition>? propositions;
-        private INavigationService? navigationService;
+        [ObservableProperty] private ObservableCollection<Proposition> propositions = [];
+        private readonly INavigationService navigationService;
 
-        public GroupeViewModel(IEnumerable<IClient> clients, INavigationService? navigationService) : base(clients.FirstOrDefault(), null)
+        public GroupeViewModel(IEnumerable<IClient> clients, INavigationService navigationService, ILocalizationService localizationService) : base(clients.OfType<IGroupeClient>().FirstOrDefault(), localizationService)
         {
             this.navigationService = navigationService;
             WeakReferenceMessenger.Default.Register<GroupeViewModel,EventEndScroll,string>(this, TypeEventScroll.EndScroll.ToString() ,UpdateList);
@@ -34,8 +31,12 @@ namespace com.democratia.ViewModels.groupe
         public async Task ChargerProposition()
         {
             var propositionClient = ServiceHelper.GetService<IPropositionClient>();
-            var response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(Groupe!.IdGroupe);
-            Propositions = [.. RecuprerInformationConnexion<Proposition>(response)];
+            string response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(Groupe!.IdGroupe);
+            List<Proposition> propositions = RecuprerInformationConnexion<Proposition>(response)!;
+            propositions.ForEach(p => {
+                p.JourDiscussion = (int)Groupe.NombreDeJourDiscuss!;
+                Propositions.Add(p);
+            });
         }
 
         public async void GetImageAsync(string? url) => Image = await client!.GetImageAsync(url);
@@ -43,7 +44,7 @@ namespace com.democratia.ViewModels.groupe
         [RelayCommand]
         public async Task OpenGroup(string nomGroupe)
         {
-            var parameters = new ShellNavigationQueryParameters { { "nomGroupe", nomGroupe }, { "modele", Groupe! } };
+            var parameters = new ShellNavigationQueryParameters { { "nomGroupe", nomGroupe }, { "modele", Groupe! }, { "Image", Image! } };
             await navigationService?.GoToAsync("GroupePage", parameters)!;
         }
 
@@ -54,7 +55,8 @@ namespace com.democratia.ViewModels.groupe
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            Groupe = query.TryGetValue("modele", out var value) ? (Groupe)value : new();
+            Groupe = query.TryGetValue("modele", out var groupe) ? (Groupe)groupe : new();
+            Image = query.TryGetValue("Image", out var image) ? (ImageSource)image : null;
         }
 
         public record class EventEndScroll {}

@@ -547,6 +547,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Soumettre une nouvelle proposition.
+        /// </summary>
+        public static string nouvellProp {
+            get {
+                return ResourceManager.GetString("nouvellProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Oui.
         /// </summary>
         public static string oui {
