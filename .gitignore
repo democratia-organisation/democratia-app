@@ -71,3 +71,4 @@ com.democratia/com.democratia/Resources/Styles/material-theme.json
 /com.democratia.core/.env
 node_modules
 com.democratia.core/*.json
+dotnet-tools.json

@@ -16,6 +16,9 @@
   "lint-staged": {
     "**/*.cs": [
       "dotnet format --verify-no-changes --include"
+    ],
+    "**/*.xaml" : [
+	"dotnet xstyler -f"
     ]
   }
 }
