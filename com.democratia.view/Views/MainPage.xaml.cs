@@ -15,7 +15,8 @@ namespace com.democratia.Views
         {
             base.OnAppearing();
             var viewModel = (MainViewModel)BindingContext;
-            await viewModel.AutoConnect();
+            // TODO : corriger l'implémentation notamment le fait de récupérer une instance d'un Internaute
+            //await viewModel.AutoConnect();
         }
     }
 

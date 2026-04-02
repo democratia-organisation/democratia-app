@@ -34,7 +34,6 @@ namespace com.democratia
                 });
             builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
             builder.Services.AddServices();
-            builder.Services.AddPages();
             builder.SetUrl();
 
 #if DEBUG
@@ -71,24 +70,6 @@ namespace com.democratia
             file.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
             file.Write(Encoding.UTF8.GetBytes(ex?.StackTrace ?? string.Empty));
         }
-        extension(IServiceCollection builder)
-        {
-            public IServiceCollection AddPages()
-            {
-                builder.AddTransient<CreationPage>();
-                builder.AddTransient<MainPage>();
-                builder.AddTransient<HomePage>();
-                builder.AddTransient<HomeGestionPage>();
-                builder.AddTransient<PremiereCreationPage>();
-                builder.AddTransient<DeuxiemeCreationPage>();
-                builder.AddTransient<TroisiemeCreationPage>();
-                builder.AddTransient<GroupePage>();
-                builder.AddTransient<PreferencePage>();
-                builder.AddTransient<GroupePage>();
-                builder.AddTransient<DecideurPage>();
-
-                return builder;
-            }
-        }
+        
     }
 }

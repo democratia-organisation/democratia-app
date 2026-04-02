@@ -109,7 +109,6 @@ namespace com.democratia.ViewModels.internaute
                 var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
                 await navigationService!.GoToAsync("/HomePage", parameters)!;
             }
-            ;
 
         }
     }
