@@ -41,13 +41,13 @@ namespace com.democratia
             builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
 
-            AppDomain.CurrentDomain.UnhandledException += async (sender, e) =>
-                await LogErreur((e.ExceptionObject as Exception)!, "AppDomain.UnhandledException");
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+                LogErreur((e.ExceptionObject as Exception)!, "AppDomain.UnhandledException");
             
 
             
-            TaskScheduler.UnobservedTaskException += async  (sender, e) 
-                => await LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
+            TaskScheduler.UnobservedTaskException += (sender, e) => 
+                LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
 
             var app = builder.Build();
             Directory.CreateDirectory(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
@@ -57,7 +57,7 @@ namespace com.democratia
             return app;
 
         }
-        private static async Task LogErreur(Exception ex, string source)
+        private static void LogErreur(Exception ex, string source)
         {
             var message = $"Source: {source} | Erreur: {ex?.Message}";
 

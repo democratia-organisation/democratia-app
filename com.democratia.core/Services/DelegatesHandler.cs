@@ -31,18 +31,13 @@ namespace com.democratia.Services
     }
 
 
-    public class AuthentificationHandler : DelegatingHandler
+    public class AuthentificationHandler(IHttpClientFactory factory) : DelegatingHandler
     {
         private static readonly string API_KEY = "API_KEY";
         private static readonly string REFRESH = "REFRESH";
         private static readonly string IS_FRESH = "is_refresh_key_fresh";
 
-        private readonly IHttpClientFactory _factory;
-
-        public AuthentificationHandler(IHttpClientFactory factory)
-        {
-            _factory = factory;
-        }
+        private readonly IHttpClientFactory _factory = factory;
 
         private async Task<HttpResponseMessage> RefreshKeys(CancellationToken ct)
         {
