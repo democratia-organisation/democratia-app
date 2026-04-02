@@ -26,13 +26,8 @@
         </HorizontalStackLayout>
         <Label
             x:DataType="models:Proposition"
-            HorizontalTextAlignment="Start">
-            <Label.Text>
-                <MultiBinding StringFormat="{}{0} {1}">
-                    <Binding Source="{x:Static lang:AppResources.finDiscussion}" />
-                    <Binding Path="FormatDateFinDiscussion" />
-                </MultiBinding>
-            </Label.Text>
+            HorizontalTextAlignment="Start"
+            x:Name="labelDate">
         </Label>
         
     </VerticalStackLayout>

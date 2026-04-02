@@ -1,4 +1,5 @@
 using com.democratia.Models;
+using com.democratia.view.Resources.Localization;
 using com.democratia.ViewModels.groupe;
 
 namespace com.democratia.Views.Component
@@ -10,6 +11,8 @@ namespace com.democratia.Views.Component
             BindingContext = viewModel;
             InitializeComponent();
             labelTitre.BindingContext = proposition;
+            labelDate.BindingContext = proposition;
+            labelDate.Text = $"{AppResources.finDiscussion} {proposition.FormatDateFinDiscussion}";
         }
     }
 
