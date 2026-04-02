@@ -16,7 +16,7 @@ namespace com.democratia
             CreerGroupeRoute.RouteCreationGroup();
             GestionCompteRoute.RouteGestionCompte();
             DecideurBaseRoute.RouteBase();
-            Routing.RegisterRoute(nameof(GroupePage), typeof(GroupePage));
+            GroupeRoute.Routes();
         }
     }
 }

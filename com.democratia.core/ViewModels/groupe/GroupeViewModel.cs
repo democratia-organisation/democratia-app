@@ -31,6 +31,7 @@ namespace com.democratia.ViewModels.groupe
         public async Task ChargerProposition()
         {
             var propositionClient = ServiceHelper.GetService<IPropositionClient>();
+            Groupe = groupe ?? await RetrouverModele<Groupe>()!;
             string response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(Groupe!.IdGroupe);
             List<Proposition> propositions = RecuprerInformationConnexion<Proposition>(response)!;
             propositions.ForEach(p => {

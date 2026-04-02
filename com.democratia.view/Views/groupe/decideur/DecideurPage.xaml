@@ -1,21 +1,19 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="com.democratia.Views.groupe.decideur.DecideurPage"
-             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
-             xmlns:viewModelDecideur="clr-namespace:com.democratia.ViewModels.groupe.decideur;assembly=com.democratia.core"
-             Title="HomePage"
-             x:DataType="viewModelDecideur:DecideurViewModel">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.democratia.Views.groupe.decideur.DecideurPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:component="clr-namespace:com.democratia.Views.Component"
+    xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
+    xmlns:viewModelDecideur="clr-namespace:com.democratia.ViewModels.groupe.decideur;assembly=com.democratia.core"
+    x:DataType="viewModelDecideur:DecideurViewModel">
     <VerticalStackLayout>
-        <!--TODO : mettre le reste de la partie décideur-->
-        <ScrollView
-            Scrolled="ScrollView_Scrolled">
-            <VerticalStackLayout
-                x:DataType="viewModel:GroupeViewModel"
-                BindableLayout.ItemsSource="{Binding Propositions}">
+        <!--  TODO : mettre le reste de la partie décideur  -->
+        <ScrollView Scrolled="ScrollView_Scrolled">
+            <VerticalStackLayout x:DataType="viewModel:GroupeViewModel" BindableLayout.ItemsSource="{Binding Propositions}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <!--TODO : faire le composant proposition avec les fonctionnalités décideur-->
+                        <!--  TODO : faire le composant proposition avec les fonctionnalités décideur  -->
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>

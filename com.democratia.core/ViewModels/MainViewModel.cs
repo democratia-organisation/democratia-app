@@ -4,7 +4,6 @@ using com.democratia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
-using System.Text.Json;
 using Microsoft.Maui.Storage;
 
 namespace com.democratia.ViewModels.internaute
@@ -21,7 +20,6 @@ namespace com.democratia.ViewModels.internaute
 
         [ObservableProperty]
         private string? errorMessage;
-        public bool autoConnectSuccess { get; private set; }
         private readonly INavigationService? navigationService;
 
         public MainViewModel(INavigationService navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization)
@@ -39,7 +37,7 @@ namespace com.democratia.ViewModels.internaute
             if (commande == "/HomePage")
             {
                 try {
-                    modele = await ConnecterInternaute(false);
+                    modele = await ConnecterInternaute();
                 }
                 catch (Exception ex) {
 #if DEBUG
@@ -56,11 +54,11 @@ namespace com.democratia.ViewModels.internaute
             
         }
 
-        internal async Task<Internaute?> ConnecterInternaute(bool autoConnect)
+        internal async Task<Internaute?> ConnecterInternaute()
         {
 
             if (string.IsNullOrWhiteSpace(AdresseMail)) throw new EmptyEmailFieldException();
-            else if (string.IsNullOrWhiteSpace(MotDePasse) && !autoConnect) throw new EmptyPassWordFieldException();
+            else if (string.IsNullOrWhiteSpace(MotDePasse)) throw new EmptyPassWordFieldException();
             try
             {
                 await SecureStorage.Default.SetAsync("id_internaute", AdresseMail);
@@ -70,19 +68,13 @@ namespace com.democratia.ViewModels.internaute
                 var internaute = listeInformation![0];
                 string motDePasseHash = internaute?.hashageMDP!;
                 bool estAuthetifie;
-                
-
 #if DEBUG
                 if (MotDePasse != "root")
                 // les mots de passe avec le mot root ne vont pas dans tempMDP pour éviter une erreur
                 {
                     internaute!.tempMDP = MotDePasse; // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
-                    if (!autoConnect)
-                    {
-                        bool hashedPasswordIsNotEqual = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
-                        estAuthetifie = motDePasseHash != internaute!.tempMDP || hashedPasswordIsNotEqual;
-                    }
-                    else estAuthetifie = true;
+                    bool hashedPasswordIsNotEqual = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
+                    estAuthetifie = motDePasseHash != internaute!.tempMDP || hashedPasswordIsNotEqual;
                 }
                 else
                     estAuthetifie = true;
@@ -99,21 +91,6 @@ namespace com.democratia.ViewModels.internaute
             }
             catch (Exception)
             { throw; }
-        }
-
-        public async Task AutoConnect(HomeViewModel viewModel)
-        {
-            string? mail = await SecureStorage.Default.GetAsync("id_internaute") ;
-            if (mail == null) return;
-            string reponse = await client!.GetModelAsync(mail, "relogin");
-            autoConnectSuccess = bool.Parse(JsonSerializer.Deserialize<Dictionary<string, object>>(reponse)!["success"].ToString()!); ;
-            if (autoConnectSuccess)
-            {
-                AdresseMail = mail;
-                var internaute = await ConnecterInternaute(true)!;
-                viewModel.InitializeAsync();
-                modele = internaute;
-            }
         }
     }
 }

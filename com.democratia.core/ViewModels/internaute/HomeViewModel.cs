@@ -11,9 +11,9 @@ namespace com.democratia.ViewModels.internaute
 {
     public partial class HomeViewModel : ConnectableViewModel , IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel
     {
-        private Internaute? internaute;
+        public Internaute? internaute;
         private readonly INavigationService? navigationService;
-        private readonly TaskCompletionSource<bool> _internautePret = new(false);
+        public readonly TaskCompletionSource<bool> _internautePret = new(false);
         public ObservableCollection<Groupe> Groupes { get; private set; } = [];
         public readonly List<Groupe> listeRecu = [];
         public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService)
@@ -33,7 +33,6 @@ namespace com.democratia.ViewModels.internaute
         public async void InitializeAsync()
         {
             
-            await _internautePret.Task; 
             // instruction pour résoudre un race condition parce que ApplyQueryAttributes
             // renvoie un void donc la fonction ne peut pas être attendu
             var jsonString = string.Empty;

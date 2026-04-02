@@ -106,7 +106,7 @@ namespace com.democratia.Services
 #endif
                 if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Conflict)
                     return response;
-                else if ((int)response.StatusCode == 412 && request.RequestUri!.Query == $"?request=relogin&parameters=[%22{await SecureStorage.Default.GetAsync("id_internaute")}%22]")
+                else if (response.StatusCode == HttpStatusCode.PreconditionFailed && request.RequestUri!.Query == $"?request=relogin&parameters=[%22{await SecureStorage.Default.GetAsync("id_internaute")}%22]")
                 {
                     SecureStorage.Default.RemoveAll();
                     return response;

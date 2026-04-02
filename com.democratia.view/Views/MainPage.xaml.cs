@@ -10,14 +10,6 @@ namespace com.democratia.Views
             InitializeComponent();
             BindingContext = viewModel!;
         }
-
-        protected async override void OnAppearing()
-        {
-            base.OnAppearing();
-            var viewModel = (MainViewModel)BindingContext;
-            // TODO : corriger l'implémentation notamment le fait de récupérer une instance d'un Internaute
-            //await viewModel.AutoConnect();
-        }
     }
 
 }

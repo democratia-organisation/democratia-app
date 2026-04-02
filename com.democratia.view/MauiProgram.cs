@@ -5,7 +5,6 @@ using com.democratia.Views.groupe;
 using com.democratia.Views.groupe.decideur;
 using com.democratia.Views.internaute;
 using com.democratia.Views.internaute.CreerGroupe;
-using com.democratia.Views.internaute.gestionCompte;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;

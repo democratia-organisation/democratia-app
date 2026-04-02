@@ -56,7 +56,7 @@ namespace com.democratia.Views.groupe
             {
                 Source = "groupe.png",
                 Command = viewModel.NavigateTappedCommand,
-                CommandParameter = $"{typeof(Membre)}",
+                CommandParameter = $"{nameof(Membre)}",
                 HorizontalOptions = LayoutOptions.Start,
                 HeightRequest = 100,
                 WidthRequest = 100
@@ -76,17 +76,17 @@ namespace com.democratia.Views.groupe
                     {
                         Source = "rouage.png",
                         Command = viewModel.NavigateTappedCommand,
-                        CommandParameter = $"{typeof(Parametre)}",
+                        CommandParameter = $"{nameof(Parametre)}",
                         HeightRequest = 50,
                         WidthRequest = 50
 
                     },
-                    new BoxView { WidthRequest = 20 },
+                    new BoxView { WidthRequest = 10 },
                     new ImageButton
                     {
                         Source = "loupe.png",
                         Command = viewModel.NavigateTappedCommand,
-                        CommandParameter = $"{typeof(DecideurPage)}",
+                        CommandParameter = $"{nameof(DecideurPage)}",
                         HeightRequest = 50,
                         WidthRequest = 50
 
@@ -116,11 +116,13 @@ namespace com.democratia.Views.groupe
                     },
                     new BoxView { HeightRequest = 20 },
                     grille,
+                    new BoxView { HeightRequest = 20 },
                     scroll,
+                    new BoxView { HeightRequest = 20 },
                     new Button
                     {
                         Command = viewModel.NavigateTappedCommand,
-                        CommandParameter =$"{typeof(NouvelleProposition)}",
+                        CommandParameter =$"{nameof(NouvelleProposition)}",
                         Text = AppResources.nouvellProp,
                         Style = (Style)Application.Current!.Resources["ButtonStyle"],
                         VerticalOptions = LayoutOptions.End

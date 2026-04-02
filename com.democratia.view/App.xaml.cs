@@ -3,9 +3,7 @@ using com.democratia.Platforms.Android;
 using AndroidX.Core.View;
 using Microsoft.Maui.Handlers;
 #endif
-using com.democratia.ViewModels.internaute;
-using com.democratia.Views;
-using com.democratia.Views.internaute;
+
 
 namespace com.democratia
 {
@@ -63,23 +61,5 @@ namespace com.democratia
         }
 #endif
         protected override Window CreateWindow(IActivationState? activationState) => new(new AppShell());
-
-        protected async override void OnStart()
-        {
-            base.OnStart();
-            var homeViewModel = ServiceHelper.GetService<HomeViewModel>()!;
-            var viewModel = ServiceHelper.GetService<MainViewModel>();
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await viewModel!.AutoConnect(homeViewModel);
-                if (viewModel.autoConnectSuccess)
-                {
-                    homeViewModel.internaute = viewModel.modele;
-                    Windows[0].Page = new HomePage(homeViewModel);
-                }
-                else
-                    Windows[0].Page = new MainPage(viewModel);
-            });
-        }
     }
 }
