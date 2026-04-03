@@ -51,7 +51,7 @@ namespace com.democratia.Views.groupe
         {
             base.OnAppearing();
             var viewModel = (GroupeViewModel)BindingContext;
-            await viewModel.ChargerProposition();
+            await viewModel.ChargerElements();
             var button = new ImageButton
             {
                 Source = "groupe.png",
@@ -128,7 +128,6 @@ namespace com.democratia.Views.groupe
                         VerticalOptions = LayoutOptions.End
 
                     }
-
                 }
             };
         }

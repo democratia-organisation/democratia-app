@@ -8,7 +8,6 @@ namespace com.democratia.Utils
         {
             // Ensure parameters is not null by initializing it if necessary
             parameters ??= [];
-
             return Shell.Current.GoToAsync(route, parameters);
         }
     }

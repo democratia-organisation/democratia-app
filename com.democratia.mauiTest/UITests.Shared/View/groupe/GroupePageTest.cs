@@ -8,17 +8,11 @@ namespace UITests.View.groupe.decideur
 {
     [Collection("UITests")]
     [DisplayName("Page d'accueil de la partie décideur")]
-    public class HomePageTest : BaseTest
+    public class GroupePageTest : BaseTest
     {
-        public HomePageTest() : base()
-        {   
-            AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
-            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
-            foreach (var entry in entries!) entry.Clear();
-            var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
-            adresseMailEntry?.SendKeys("vincent.leclerc@example.com");
-            motDePasseEntry?.SendKeys("root");
-            seConecterButton?.Click();
+        public GroupePageTest() : base()
+        {
+            
         }
 
         [Fact]  
@@ -34,6 +28,7 @@ namespace UITests.View.groupe.decideur
         [InlineData("like")]
         public void TrierProposition(string nomCritere)
         {
+            SeConnecter("claire.benoit@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -51,8 +46,21 @@ namespace UITests.View.groupe.decideur
         }
 
         [Fact]
+        public void NePasTrierPropositionSiNonDecideur()
+        {
+            SeConnecter("sophie.lemoine@example.com", "root");
+            AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
+            Assert.NotNull(groupe);
+            groupe.Click();
+            AppiumElement? bouttonTrie = FindUIElement("trieur");
+            Assert.Null(bouttonTrie);
+
+        }
+
+        [Fact]
         public void ModifierProposition() 
         {
+            SeConnecter("claire.benoit@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -79,6 +87,7 @@ namespace UITests.View.groupe.decideur
         [Fact]
         public void GroupeSansProposition() 
         {
+            SeConnecter("claire.benoit@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -89,6 +98,7 @@ namespace UITests.View.groupe.decideur
         [Fact]
         public void ThematiqueSansProposition() 
         {
+            SeConnecter("claire.benoit@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -106,7 +116,8 @@ namespace UITests.View.groupe.decideur
         [InlineData("like")]
         public void PropositionSansDonneDeCriteres(string nomCritere) 
         {
-            AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
+            SeConnecter("claire.benoit@example.com", "root");
+            AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
             groupe.Click();
             ReadOnlyCollection<AppiumElement> propositions = FindUIElements("propositions")!;

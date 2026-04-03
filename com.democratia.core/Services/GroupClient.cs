@@ -52,14 +52,21 @@ namespace com.democratia.Services
         public async Task<string> GetJointureThemeEtGroupeAsync(Guid? idGroupe)
         {
             var requete = $"""
-                ?request=SELECT *  FROM theme_groupe WHERE idGroupe=?;
+                ?request=SELECT budget_thematique,
+                    BIN_TO_UUID(tg.id_groupe) AS id_groupe,
+                    tg.id_thematique,
+                    nom_thematique,
+                    g.budget
+                FROM theme_groupe tg
+                    INNER JOIN thematique t ON tg.id_thematique = t.id_thematique
+                    INNER JOIN groupe g ON g.id_groupe = tg.id_groupe  WHERE tg.id_groupe=UUID_TO_BIN(?,1)
                 &parameters=["{idGroupe}"]
                 """;
 
             HttpResponseMessage? response;
             try
             {
-                response = await client!.PostAsync(requete, null);
+                response = await client!.GetAsync(requete);
             }
             catch (HttpRequestException ex)
             {

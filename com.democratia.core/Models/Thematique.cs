@@ -3,24 +3,21 @@ using System.Text.Json.Serialization;
 
 namespace com.democratia.Models
 {
-    public class Thematique : IModel
+    [method: JsonConstructor]
+    public class Thematique(int? id_thematique, string? nom_thematique, float? budget, float? budget_groupe) : IModel
     {
-        public int? id_thematique { get; set; }
-        public string? nom_thematique { get; set; }
-        public float? budget { get; set; }
+        public int? id_thematique { get; set; } = id_thematique;
+        public string? nom_thematique { get; set; } = nom_thematique;
 
+        [JsonPropertyName("budget_thematique")]
+        public float? budget { get; set; } = budget;
+        [JsonPropertyName("budget")]
+        public float ? budget_groupe { get; set; } = budget_groupe;
+        public readonly float ratio = budget / budget_groupe ?? 0;
 
-        [JsonConstructor]
-        public Thematique(int? id_thematique, string? nom_thematique, float? budget)
-        {
-            this.id_thematique = id_thematique;
-            this.nom_thematique = nom_thematique;
-            this.budget = budget;
-        }
+        public Thematique(string? nom_thematique) : this(null, nom_thematique, null, null) { }
 
-        public Thematique(string? nom_thematique) : this(null, nom_thematique, null) { }
-
-        public Thematique() : this(null, null, null) { }
+        public Thematique() : this(null, null, null, null) { }
 
         public override string ToString() => nom_thematique ?? string.Empty;
         

@@ -148,6 +148,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <MauiXaml Update="Views\Component\DecideurThematique.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\Component\PropositionCard.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

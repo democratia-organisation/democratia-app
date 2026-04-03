@@ -4,16 +4,21 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:component="clr-namespace:com.democratia.Views.Component"
+    xmlns:models="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
     xmlns:viewModelDecideur="clr-namespace:com.democratia.ViewModels.groupe.decideur;assembly=com.democratia.core"
-    x:DataType="viewModelDecideur:DecideurViewModel">
+    x:DataType="viewModelDecideur:DecideurViewModel"
+    Style="{DynamicResource fondEcran}">
     <VerticalStackLayout>
-        <!--  TODO : mettre le reste de la partie décideur  -->
+        <component:Header />
+        <BoxView HeightRequest="50" />
+        <Label Style="{DynamicResource SubHeadlineStyle}" Text="{Binding Groupe.NomGroupe}" />
+        <ProgressBar Progress="{Binding Groupe.Budget}" Style="{DynamicResource GroupeProgressBarStyle}" />
         <ScrollView Scrolled="ScrollView_Scrolled">
-            <VerticalStackLayout x:DataType="viewModel:GroupeViewModel" BindableLayout.ItemsSource="{Binding Propositions}">
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Thematiques}">
                 <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <!--  TODO : faire le composant proposition avec les fonctionnalités décideur  -->
+                    <DataTemplate x:DataType="models:Thematique">
+                        <component:DecideurThematique />
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>

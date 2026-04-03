@@ -1,5 +1,4 @@
 ﻿using com.democratia.view.Resources.Localization;
-using com.democratia.ViewModels.groupe;
 using com.democratia.ViewModels.internaute;
 using com.democratia.Views.Component;
 using com.democratia.Views.internaute.CreerGroupe;
@@ -21,12 +20,7 @@ namespace com.democratia.Views.internaute
             object  light, dark;
             Color lightCouleur = new(), darkCouleur = new();
 
-            if (Application.Current!.Resources.TryGetValue("Light-background", out light) && Application.Current!.Resources.TryGetValue("Dark-background", out dark))
-            {
-                lightCouleur = (Color)light;
-                darkCouleur = (Color)dark;
-                this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
-            }
+            Style = (Style)Application.Current!.Resources["fondEcran"];
             var profileIcone = new Border  // bordure car sur iOS, les images sont davantages cropés, donc la bordure empeche le cropage de l'image
             { 
                 MaximumWidthRequest = 60,
@@ -55,7 +49,7 @@ namespace com.democratia.Views.internaute
                 profileIcone.SetAppThemeColor(Border.StrokeProperty, lightCouleur, darkCouleur);
             }
 
-            this._stackLayout = new VerticalStackLayout
+            _stackLayout = new VerticalStackLayout
             {
                 Children =
                 {
@@ -73,7 +67,7 @@ namespace com.democratia.Views.internaute
                 }
             };
 
-            this._ownGroupeLabel = new Label
+            _ownGroupeLabel = new Label
             {
                 Text = $"{AppResources.groupe}",
                 Style = (Style?)Application.Current?.Resources["HeadlineStyle"],
@@ -81,9 +75,9 @@ namespace com.democratia.Views.internaute
                 Margin = new Thickness(0, 20),
                 AutomationId = "MyGroupsLabel",
             };
-            AutomationProperties.SetName(this._ownGroupeLabel, "MyGroupsLabel");
+            AutomationProperties.SetName(_ownGroupeLabel, "MyGroupsLabel");
             
-            this._collectionView = new CollectionView
+            _collectionView = new CollectionView
             {
                 VerticalOptions = LayoutOptions.Fill,
                 HorizontalOptions = LayoutOptions.Fill,
@@ -93,11 +87,12 @@ namespace com.democratia.Views.internaute
                 {
                     HorizontalItemSpacing = 10,
                     VerticalItemSpacing = 10
-                }
+                },
+                HeightRequest = 400
             };
-            this._collectionView.HeightRequest = 400;
+            
 
-            this._createGroupButton = new Button
+            _createGroupButton = new Button
             {
                 Text = $"{AppResources.NewGroupe}",
                 Style = (Style?)Application.Current?.Resources["ButtonStyle"],
@@ -107,7 +102,7 @@ namespace com.democratia.Views.internaute
                 Margin = new Thickness(20),
                 AutomationId = "CreateGroupButton",
             };
-            AutomationProperties.SetName(this._createGroupButton, "CreateGroupButton");
+            AutomationProperties.SetName(_createGroupButton, "CreateGroupButton");
 
             var grillePrincipale = new Grid
             {
@@ -120,22 +115,22 @@ namespace com.democratia.Views.internaute
                  },
                 Children =
                 {
-                    this._stackLayout,
-                    this._ownGroupeLabel,
-                    this._collectionView,
-                    this._createGroupButton
+                    _stackLayout,
+                    _ownGroupeLabel,
+                    _collectionView,
+                    _createGroupButton
                 }
             };
 
-            Grid.SetRow(this._stackLayout, 0);
-            Grid.SetRow(this._ownGroupeLabel, 1);
-            Grid.SetRow(this._collectionView, 2);
-            Grid.SetRow(this._createGroupButton, 3);
+            Grid.SetRow(_stackLayout, 0);
+            Grid.SetRow(_ownGroupeLabel, 1);
+            Grid.SetRow(_collectionView, 2);
+            Grid.SetRow(_createGroupButton, 3);
 
             Content = grillePrincipale;
         }
 
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 

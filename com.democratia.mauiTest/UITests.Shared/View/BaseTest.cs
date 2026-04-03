@@ -61,6 +61,17 @@ namespace UITests.View
 
         protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
          => App.FindElements(MobileBy.AccessibilityId(id)).Count > 0 ? App.FindElements(MobileBy.AccessibilityId(id)) : null;
+
+        protected void SeConnecter(string identifiant,string motDePasse)
+        {
+            AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
+            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
+            foreach (var entry in entries!) entry.Clear();
+            var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
+            adresseMailEntry?.SendKeys(identifiant);
+            motDePasseEntry?.SendKeys(motDePasse);
+            seConecterButton?.Click();
+        }
         
 
 

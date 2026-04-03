@@ -33,16 +33,8 @@ namespace com.democratia.Views.Component
                 LineBreakMode = LineBreakMode.WordWrap
 
             };
-            if (Application.Current!.Resources.TryGetValue("Light-onPrimaryContainer", out var lightP) && Application.Current!.Resources.TryGetValue("Dark-onPrimaryContainer", out var darkP))
-            {
-                Color lightCouleur = (Color)lightP, darkCouleur = (Color)darkP;
-                label.SetAppThemeColor(Label.TextColorProperty, lightCouleur, darkCouleur);
-            }
-            if (Application.Current!.Resources.TryGetValue("Light-primaryContainer", out var light) && Application.Current!.Resources.TryGetValue("Dark-primaryContainer", out var dark))
-            {
-                Color lightCouleur = (Color)light, darkCouleur = (Color)dark;
-                this.SetAppThemeColor(BackgroundColorProperty, lightCouleur, darkCouleur);
-            }
+            
+            Style = (Style)Application.Current!.Resources["ContenViewStyle"];
             Content = new Border
             {
                 Content = new VerticalStackLayout

@@ -14,7 +14,9 @@ namespace com.democratia.ViewModels.groupe
         [ObservableProperty] private ImageSource? image;
         [ObservableProperty] private Groupe? groupe;
         [ObservableProperty] private ObservableCollection<Proposition> propositions = [];
+        [ObservableProperty] private ObservableCollection<Thematique> thematiques = [];
         private readonly INavigationService navigationService;
+        
 
         public GroupeViewModel(IEnumerable<IClient> clients, INavigationService navigationService, ILocalizationService localizationService) : base(clients.OfType<IGroupeClient>().FirstOrDefault(), localizationService)
         {
@@ -25,19 +27,26 @@ namespace com.democratia.ViewModels.groupe
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            await navigationService?.GoToAsync(commande)!;
+            ShellNavigationQueryParameters? parameters = commande == "DecideurPage" ?
+                new ShellNavigationQueryParameters { { "thematiques", Thematiques }, { "groupe" , Groupe! } } : null;
+            await navigationService?.GoToAsync(commande, parameters)!;
         }
 
-        public async Task ChargerProposition()
+        public async Task ChargerElements()
         {
             var propositionClient = ServiceHelper.GetService<IPropositionClient>();
+            var thematiqueClient = ServiceHelper.GetService<IThematiqueClient>();
             Groupe = groupe ?? await RetrouverModele<Groupe>()!;
             string response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(Groupe!.IdGroupe);
             List<Proposition> propositions = RecuprerInformationConnexion<Proposition>(response)!;
+            response = await ((GroupClient)client!).GetJointureThemeEtGroupeAsync(Groupe!.IdGroupe)!;
+            List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(response)!;
             propositions.ForEach(p => {
                 p.JourDiscussion = (int)Groupe.NombreDeJourDiscuss!;
                 Propositions.Add(p);
             });
+            thematiques.ForEach(t => Thematiques.Add(t) );
+
         }
 
         public async void GetImageAsync(string? url) => Image = await client!.GetImageAsync(url);

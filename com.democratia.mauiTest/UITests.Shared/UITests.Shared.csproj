@@ -28,4 +28,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\groupe\decideur\" />
+  </ItemGroup>
 </Project>
