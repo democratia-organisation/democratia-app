@@ -14,21 +14,6 @@ namespace com.democratia.Views.groupe.decideur
         {
 
         }
-
-        protected override void OnNavigatingFrom(NavigatingFromEventArgs args)
-        {
-            base.OnNavigatingFrom(args);
-        }
-
-        protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
-        {
-            base.OnNavigatedFrom(args);
-        }
-
-        protected override void OnNavigatedTo(NavigatedToEventArgs args)
-        {
-            base.OnNavigatedTo(args);
-        }
     }
 }
 
