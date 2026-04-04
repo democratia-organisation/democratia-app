@@ -15,6 +15,7 @@ namespace com.democratia.ViewModels.groupe
         [ObservableProperty] private Groupe? groupe;
         [ObservableProperty] private ObservableCollection<Proposition> propositions = [];
         [ObservableProperty] private ObservableCollection<Thematique> thematiques = [];
+        // TODO : savoir si c'est un décideur afin d'afficher certaines options en fonction
         [ObservableProperty]
         private ObservableCollection<Critere> criteres = [
                     Critere.PRIX,
