@@ -419,7 +419,7 @@
         x:Key="Icon"
         FontFamily="FontAwesomeSolid"
         Glyph="&#xf2b9;"
-        Size="20"
+        Size="{DynamicResource SpacingExtraLarge}"
         Color="{AppThemeBinding Light={DynamicResource Light-primary},
                                 Dark={DynamicResource Dark-primary}}" />
 

@@ -1,21 +1,32 @@
+using com.democratia.Models;
 using com.democratia.view.Resources.Localization;
 using com.democratia.ViewModels.groupe;
 using com.democratia.Views.Component;
 using com.democratia.Views.groupe.decideur;
+using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
+
+#if IOS
+using IOS = Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
+using IOSPicker = Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific.Picker;
+#endif
 
 namespace com.democratia.Views.groupe
 {
     public partial class GroupePage : ContentPage
     {
-        private readonly ScrollView scroll;
+        private readonly Microsoft.Maui.Controls.ScrollView scroll;
         private Grid grille;
+        private Microsoft.Maui.Controls.Application application;
         public GroupePage(GroupeViewModel viewModel)
         {
             BindingContext = viewModel;
+            application = Microsoft.Maui.Controls.Application.Current!;
             WeakReferenceMessenger.Default.Register<GroupePage, GroupeViewModel.EventEndScroll,string>(this, GroupeViewModel.TypeEventScroll.RechargeScoll.ToString(), RecharPage);
-            Style = (Style)Application.Current!.Resources["fondEcran"];
-            scroll = new ScrollView
+            Style = (Style)application.Resources["fondEcran"];
+            scroll = new Microsoft.Maui.Controls.ScrollView
             {
                 Content = new VerticalStackLayout
                 {
@@ -51,7 +62,25 @@ namespace com.democratia.Views.groupe
         {
             base.OnAppearing();
             var viewModel = (GroupeViewModel)BindingContext;
+            var smallSize = (double)application!.Resources["SpacingSmall"];
+            var carSize = (double)application.Resources["CardHeight"];
+            var extraLarge = (double)application.Resources["SpacingExtraLarge"];
             await viewModel.ChargerElements();
+            var picker = new Microsoft.Maui.Controls.Picker
+            {
+                Style = (Style)application.Resources["PickerStyle"],
+                ItemsSource = viewModel.Criteres,
+                Title = AppResources.critere,
+                WidthRequest = extraLarge,
+                SelectedItem = viewModel.Critere
+            };
+            picker.On<iOS>().SetUpdateMode(UpdateMode.WhenFinished);
+            picker.Behaviors.Add(new EventToCommandBehavior
+            {
+                EventName = "SelectedIndexChanged",
+                Command = viewModel.ClasserPropositionsCommand,
+                
+            });
             var button = new ImageButton
             {
                 Source = "groupe.png",
@@ -63,7 +92,7 @@ namespace com.democratia.Views.groupe
             };
             var label = new Label
             {
-                Style = (Style)Application.Current!.Resources["SubHeadlineStyle"],
+                Style = (Style)application!.Resources["SubHeadlineStyle"],
                 Text = viewModel.Groupe!.NomGroupe,
                 HorizontalOptions = LayoutOptions.Center,
             };
@@ -77,8 +106,8 @@ namespace com.democratia.Views.groupe
                         Source = "rouage.png",
                         Command = viewModel.NavigateTappedCommand,
                         CommandParameter = $"{nameof(Parametre)}",
-                        HeightRequest = 50,
-                        WidthRequest = 50
+                        HeightRequest = extraLarge,
+                        WidthRequest = extraLarge
 
                     },
                     new BoxView { WidthRequest = 10 },
@@ -87,13 +116,13 @@ namespace com.democratia.Views.groupe
                         Source = "loupe.png",
                         Command = viewModel.NavigateTappedCommand,
                         CommandParameter = $"{nameof(DecideurPage)}",
-                        HeightRequest = 50,
-                        WidthRequest = 50
+                        HeightRequest = extraLarge,
+                        WidthRequest = extraLarge
 
                     }
                 }
             };
-            if (Application.Current.Resources.TryGetValue("Light-surfaceContainer", out var light) && Application.Current.Resources.TryGetValue("Dark-surfaceContainer", out var dark))
+            if (application.Resources.TryGetValue("Light-surfaceContainer", out var light) && application.Resources.TryGetValue("Dark-surfaceContainer", out var dark))
                 grille.SetAppThemeColor(BackgroundColorProperty, (Color)light, (Color)dark);
 
             grille.Children.Add(button);
@@ -111,20 +140,22 @@ namespace com.democratia.Views.groupe
                     new Image
                     {
                         Source = viewModel.Image,
-                        HeightRequest = 200,
-                        WidthRequest = 200
+                        HeightRequest = carSize,
+                        WidthRequest = carSize
                     },
-                    new BoxView { HeightRequest = 20 },
+                    new BoxView { HeightRequest = smallSize },
                     grille,
-                    new BoxView { HeightRequest = 20 },
+                    new BoxView { HeightRequest = smallSize },
+                    picker,
+                    new BoxView { HeightRequest = smallSize },
                     scroll,
-                    new BoxView { HeightRequest = 20 },
+                    new BoxView { HeightRequest = smallSize },
                     new Button
                     {
                         Command = viewModel.NavigateTappedCommand,
                         CommandParameter =$"{nameof(NouvelleProposition)}",
                         Text = AppResources.nouvellProp,
-                        Style = (Style)Application.Current!.Resources["ButtonStyle"],
+                        Style = (Style)application!.Resources["ButtonStyle"],
                         VerticalOptions = LayoutOptions.End
 
                     }
@@ -133,7 +164,7 @@ namespace com.democratia.Views.groupe
         }
         private void Scroll_Scrolled(object? sender, ScrolledEventArgs e)
         {
-            if (sender is not ScrollView scrollView) return;
+            if (sender is not Microsoft.Maui.Controls.ScrollView scrollView) return;
 
             var scrollSpace = scrollView.ContentSize.Height - scrollView.Height;
 

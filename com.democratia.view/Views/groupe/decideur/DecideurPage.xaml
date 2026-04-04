@@ -11,7 +11,7 @@
     Style="{DynamicResource fondEcran}">
     <VerticalStackLayout>
         <component:Header />
-        <BoxView HeightRequest="50" />
+        <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
         <Label Style="{DynamicResource SubHeadlineStyle}" Text="{Binding Groupe.NomGroupe}" />
         <ProgressBar Progress="{Binding Groupe.Budget}" Style="{DynamicResource GroupeProgressBarStyle}" />
         <ScrollView Scrolled="ScrollView_Scrolled">

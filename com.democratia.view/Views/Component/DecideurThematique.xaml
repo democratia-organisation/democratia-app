@@ -9,7 +9,7 @@
     <VerticalStackLayout>
         <Label Style="{DynamicResource HeadlineStyle}" Text="{Binding nom_thematique}" />
         <ProgressBar
-            Margin="20"
+            Margin="{DynamicResource SpacingExtraLarge}"
             Progress="{Binding ratio}"
             Style="{DynamicResource ThematiqueProgressBarStyle}" />
     </VerticalStackLayout>

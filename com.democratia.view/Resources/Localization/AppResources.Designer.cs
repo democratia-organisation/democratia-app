@@ -241,6 +241,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à critère.
+        /// </summary>
+        public static string critere {
+            get {
+                return ResourceManager.GetString("critere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Enregistrer.
         /// </summary>
         public static string enregistrer {
@@ -583,6 +592,15 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à popularite.
+        /// </summary>
+        public static string Popularite {
+            get {
+                return ResourceManager.GetString("Popularite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Préférences.
         /// </summary>
         public static string preference {
@@ -601,11 +619,29 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à prix.
+        /// </summary>
+        public static string Prix {
+            get {
+                return ResourceManager.GetString("Prix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Quitter l&apos;application maintenant.
         /// </summary>
         public static string quitterApp {
             get {
                 return ResourceManager.GetString("quitterApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à réaction.
+        /// </summary>
+        public static string reaction {
+            get {
+                return ResourceManager.GetString("reaction", resourceCulture);
             }
         }
         

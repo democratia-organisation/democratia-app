@@ -1,93 +1,90 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="com.democratia.Views.internaute.CreerGroupe.TroisiemeCreationPage"
-             xmlns:Component="clr-namespace:com.democratia.Views.Component"
-             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
-             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
-             x:DataType="viewModel:TroisiemeCreationViewModel"
-             Title="TroisiemePage"
-             Style="{DynamicResource fondEcran}">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.democratia.Views.internaute.CreerGroupe.TroisiemeCreationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Component="clr-namespace:com.democratia.Views.Component"
+    xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+    xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
+    Title="TroisiemePage"
+    x:DataType="viewModel:TroisiemeCreationViewModel"
+    Style="{DynamicResource fondEcran}">
     <ScrollView>
         <VerticalStackLayout>
-            <Component:Header/>
-            <BoxView HeightRequest="30"/>
+            <Component:Header />
+            <BoxView HeightRequest="30" />
             <Label
-                Text="{x:Static lang:AppResources.selectImage}"
-                Style="{DynamicResource HeadlineStyle}"
                 x:Name="labelSelectImage"
                 AutomationId="labelSelectImage"
-                AutomationProperties.Name="labelSelectImage"/>
-            <BoxView HeightRequest="30"/>
+                AutomationProperties.Name="labelSelectImage"
+                Style="{DynamicResource HeadlineStyle}"
+                Text="{x:Static lang:AppResources.selectImage}" />
+            <BoxView HeightRequest="30" />
             <Button
-                Text="{x:Static lang:AppResources.select}"
-                Style="{DynamicResource ButtonStyle}"
-                AutomationId="buttonSelectImage"
                 x:Name="buttonSelectImage"
+                AutomationId="buttonSelectImage"
                 AutomationProperties.Name="buttonSelectImage"
                 Command="{Binding ChoisirImageCommand}"
-            />
-            <BoxView HeightRequest="30"/>
+                Style="{DynamicResource ButtonStyle}"
+                Text="{x:Static lang:AppResources.select}" />
+            <BoxView HeightRequest="30" />
             <Label
-                Text="{Binding ErrorMessage}"
-                Style="{DynamicResource ErrorLabelStyle}"
                 x:Name="labelErreur"
                 AutomationId="labelErreur"
-                AutomationProperties.Name="labelErreur"/>
-            <BoxView HeightRequest="30"/>
+                AutomationProperties.Name="labelErreur"
+                Style="{DynamicResource ErrorLabelStyle}"
+                Text="{Binding ErrorMessage}" />
+            <BoxView HeightRequest="30" />
             <HorizontalStackLayout
+                BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainerLowest},
+                                                  Light={DynamicResource Light-surfaceContainerLowest}}"
                 IsVisible="{Binding IsObservable}"
-                BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainerLowest}, Light={DynamicResource Light-surfaceContainerLowest}}"
                 VerticalOptions="End">
                 <VerticalStackLayout>
                     <ImageButton
-                        Source="galerie.png"
-                        Style="{DynamicResource ImageButtonStyle}"
-                        HeightRequest="50"
-                        WidthRequest="50"
-                        AutomationId="buttonSelectImageFromGallery"
                         x:Name="buttonSelectImageFromGallery"
+                        AutomationId="buttonSelectImageFromGallery"
                         AutomationProperties.Name="buttonSelectImageFromGallery"
                         Command="{Binding ChoisirGalerieCommand}"
-                    />
+                        HeightRequest="{StaticResource SpacingExtraLarge}"
+                        Source="galerie.png"
+                        Style="{DynamicResource ImageButtonStyle}"
+                        WidthRequest="{StaticResource SpacingExtraLarge}" />
                     <Label
-                        Text="{x:Static lang:AppResources.galerie}"
-                        Style="{DynamicResource BodyStyle}"
                         x:Name="labelgalerie"
                         AutomationId="labelgalerie"
-                        AutomationProperties.Name="labelgalerie"/>
+                        AutomationProperties.Name="labelgalerie"
+                        Style="{DynamicResource BodyStyle}"
+                        Text="{x:Static lang:AppResources.galerie}" />
                 </VerticalStackLayout>
                 <VerticalStackLayout>
                     <ImageButton
-                        Source="photo.png"
-                        Style="{DynamicResource ImageButtonStyle}"
-                        HeightRequest="50"
-                        WidthRequest="50"
-                        AutomationId="buttonSelectImageFromPhoto"
                         x:Name="buttonSelectImageFromPhoto"
+                        AutomationId="buttonSelectImageFromPhoto"
                         AutomationProperties.Name="buttonSelectImageFromPhoto"
                         Command="{Binding PrendrePhotoCommand}"
-                    />
+                        HeightRequest="{StaticResource SpacingExtraLarge}"
+                        Source="photo.png"
+                        Style="{DynamicResource ImageButtonStyle}"
+                        WidthRequest="{StaticResource SpacingExtraLarge}" />
                     <Label
-                        Text="{x:Static lang:AppResources.photo}"
-                        Style="{DynamicResource BodyStyle}"
                         x:Name="labelphoto"
                         AutomationId="labelphoto"
-                        AutomationProperties.Name="labelphoto"/>
+                        AutomationProperties.Name="labelphoto"
+                        Style="{DynamicResource BodyStyle}"
+                        Text="{x:Static lang:AppResources.photo}" />
                 </VerticalStackLayout>
             </HorizontalStackLayout>
-            <Image
-                Source="{Binding Image}"
-            />
+            <Image Source="{Binding Image}" />
             <Button
-                Text="{x:Static lang:AppResources.terminer}"
-                Style="{DynamicResource ButtonStyle}"
-                AutomationId="buttonNext"
                 x:Name="buttonNext"
+                AutomationId="buttonNext"
                 AutomationProperties.Name="buttonNext"
                 Command="{Binding NavigateTappedCommand}"
                 CommandParameter="/HomePage"
-                IsVisible="{Binding IsFinish}"/>
+                IsVisible="{Binding IsFinish}"
+                Style="{DynamicResource ButtonStyle}"
+                Text="{x:Static lang:AppResources.terminer}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

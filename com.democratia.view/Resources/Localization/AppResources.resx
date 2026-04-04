@@ -351,4 +351,16 @@
   <data name="nouvellProp" xml:space="preserve">
     <value>Soumettre une nouvelle proposition</value>
   </data>
+  <data name="Prix" xml:space="preserve">
+    <value>prix</value>
+  </data>
+  <data name="Popularite" xml:space="preserve">
+    <value>popularite</value>
+  </data>
+  <data name="reaction" xml:space="preserve">
+    <value>réaction</value>
+  </data>
+  <data name="critere" xml:space="preserve">
+    <value>critère</value>
+  </data>
 </root>

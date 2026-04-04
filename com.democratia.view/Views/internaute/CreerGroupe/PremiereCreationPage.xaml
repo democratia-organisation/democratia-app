@@ -1,120 +1,127 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="com.democratia.Views.internaute.CreerGroupe.PremiereCreationPage"
-             xmlns:Component="clr-namespace:com.democratia.Views.Component"
-             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
-             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
-             xmlns:modele="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
-             x:DataType="viewModel:PremiereCreationViewModel"
-             xmlns:communityToolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="PremierePage"
-             Style="{DynamicResource fondEcran}">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.democratia.Views.internaute.CreerGroupe.PremiereCreationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Component="clr-namespace:com.democratia.Views.Component"
+    xmlns:communityToolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+    xmlns:modele="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
+    xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
+    Title="PremierePage"
+    x:DataType="viewModel:PremiereCreationViewModel"
+    Style="{DynamicResource fondEcran}">
     <ScrollView>
         <VerticalStackLayout>
-            <Component:Header/>
-            <BoxView HeightRequest="30"/>
+            <Component:Header />
+            <BoxView HeightRequest="30" />
             <Label
-                Style="{DynamicResource HeadlineStyle}"
-                Text="{x:Static lang:AppResources.creaGroupe}"
-                AutomationId="labelCreaGroupe"
                 x:Name="labelCreaGroupe"
+                AutomationId="labelCreaGroupe"
                 AutomationProperties.Name="labelCreaGroupe"
-            />
-            <BoxView HeightRequest="50"/>
+                Style="{DynamicResource HeadlineStyle}"
+                Text="{x:Static lang:AppResources.creaGroupe}" />
+            <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
             <Label
-                Text="{Binding ErreurMessage}"
-                Style="{DynamicResource ErrorLabelStyle}"
-                HorizontalOptions="Center"
-                AutomationId="labelErreur"
                 x:Name="labelErreur"
-                AutomationProperties.Name="labelErreur"/>
-            <BoxView HeightRequest="50"/>
-            <Component:EntryComponent Title="{x:Static lang:AppResources.entrezNomGroupe}" ValeurDonne="{Binding Groupe.NomGroupe}" x:Name="nomGroupeEntry" />
+                AutomationId="labelErreur"
+                AutomationProperties.Name="labelErreur"
+                HorizontalOptions="Center"
+                Style="{DynamicResource ErrorLabelStyle}"
+                Text="{Binding ErreurMessage}" />
+            <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
+            <Component:EntryComponent
+                x:Name="nomGroupeEntry"
+                Title="{x:Static lang:AppResources.entrezNomGroupe}"
+                ValeurDonne="{Binding Groupe.NomGroupe}" />
 
-            <!--theme refait à la main pour avoir metttre un relai comande lors de la touche entrée-->
+            <!--  theme refait à la main pour avoir metttre un relai comande lors de la touche entrée  -->
             <Label
-                Text="{x:Static lang:AppResources.thematique}"
-                Style="{DynamicResource SubHeadlineStyle}"
-                AutomationId="labelThmes"
                 x:Name="labelTheme"
+                AutomationId="labelThmes"
                 AutomationProperties.Name="labelThem"
-                />
-            <BoxView HeightRequest="15"/>
+                Style="{DynamicResource SubHeadlineStyle}"
+                Text="{x:Static lang:AppResources.thematique}" />
+            <BoxView HeightRequest="15" />
             <Label
-                Text="{x:Static lang:AppResources.thematiqueInfo}"
-                Style="{DynamicResource LabelStyle}"
-                HorizontalOptions="Center"
-                AutomationId="labelThematiqueInfo"
                 x:Name="labelThematiqueInfo"
+                AutomationId="labelThematiqueInfo"
                 AutomationProperties.Name="labelThematiqueInfo"
-                />
-            <BoxView HeightRequest="10"/>
-            <Label
-                Text="{x:Static lang:AppResources.tapezBugetTheme}"
-                Style="{DynamicResource LabelStyle}"
                 HorizontalOptions="Center"
-                AutomationId="labelThematiqueBudget"
+                Style="{DynamicResource LabelStyle}"
+                Text="{x:Static lang:AppResources.thematiqueInfo}" />
+            <BoxView HeightRequest="10" />
+            <Label
                 x:Name="labelThematiqueBudget"
+                AutomationId="labelThematiqueBudget"
                 AutomationProperties.Name="labelThematiqueBudget"
-                />
-            <BoxView HeightRequest="30"/>
-            <Border Style="{DynamicResource BorderStyle}"
-                    StrokeShape="RoundRectangle 600,600,600,600">
+                HorizontalOptions="Center"
+                Style="{DynamicResource LabelStyle}"
+                Text="{x:Static lang:AppResources.tapezBugetTheme}" />
+            <BoxView HeightRequest="30" />
+            <Border StrokeShape="RoundRectangle 600,600,600,600" Style="{DynamicResource BorderStyle}">
                 <SearchBar
-                    Style="{DynamicResource SearchBarStyle}"
-                    HeightRequest="40"
-                    WidthRequest="300"
-                    HorizontalOptions="Center"
-                    AutomationId="searchTheme"
-                    Keyboard="Plain"
-                    AutomationProperties.Name="searchTheme"
                     x:Name="searchTheme"
+                    AutomationId="searchTheme"
+                    AutomationProperties.Name="searchTheme"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Keyboard="Plain"
+                    SearchCommand="{Binding PrendreThematiqueCommand}"
+                    Style="{DynamicResource SearchBarStyle}"
                     Text="{Binding Thematique}"
-                    SearchCommand="{Binding PrendreThematiqueCommand}">
+                    WidthRequest="300">
                     <SearchBar.Behaviors>
                         <communityToolkit:EventToCommandBehavior
-                            EventName="TextChanged"
                             x:Name="behavior"
-                            Command="{Binding AfficherThematiquesMatchCommand}"/>
+                            Command="{Binding AfficherThematiquesMatchCommand}"
+                            EventName="TextChanged" />
                     </SearchBar.Behaviors>
                 </SearchBar>
             </Border>
             <CollectionView
+                x:Name="collectionThematiqueSuggestion"
+                AutomationId="collectionThematiqueSuggestion"
+                AutomationProperties.Name="collectionThematiqueSuggestion"
                 IsVisible="{Binding AfficheCollectionView}"
                 ItemsSource="{Binding ThematiquesAffiches}"
-                SelectionMode="Single"
                 RemainingItemsThreshold="3"
-                Style="{DynamicResource ListViewStyle}"
-                WidthRequest="300"
                 SelectedItem="{Binding ThematiqueSelectionnee}"
                 SelectionChangedCommand="{Binding PrendreThematiqueSelectionneeCommand}"
-                AutomationId="collectionThematiqueSuggestion"
-                x:Name="collectionThematiqueSuggestion"
-                AutomationProperties.Name="collectionThematiqueSuggestion"/>
-            <BoxView HeightRequest="30"/>
-            <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourVote}" ValeurDonne="{Binding Groupe.NombreDeJourVote}" x:Name="nbJVoteEntry" />
-            <Component:EntryComponent Title="{x:Static lang:AppResources.nombreJourDiscus}" ValeurDonne="{Binding Groupe.NombreDeJourDiscuss}" x:Name="nbJDiscussionEntry"/>
-            <Component:EntryComponent Title="{x:Static lang:AppResources.budget}" ValeurDonne="{Binding Groupe.Budget}" x:Name="budgetEntry"/>
+                SelectionMode="Single"
+                Style="{DynamicResource ListViewStyle}"
+                WidthRequest="300" />
+            <BoxView HeightRequest="30" />
+            <Component:EntryComponent
+                x:Name="nbJVoteEntry"
+                Title="{x:Static lang:AppResources.nombreJourVote}"
+                ValeurDonne="{Binding Groupe.NombreDeJourVote}" />
+            <Component:EntryComponent
+                x:Name="nbJDiscussionEntry"
+                Title="{x:Static lang:AppResources.nombreJourDiscus}"
+                ValeurDonne="{Binding Groupe.NombreDeJourDiscuss}" />
+            <Component:EntryComponent
+                x:Name="budgetEntry"
+                Title="{x:Static lang:AppResources.budget}"
+                ValeurDonne="{Binding Groupe.Budget}" />
             <FlexLayout
-                Wrap="Wrap"
-                Direction="Row"
                 AlignItems="Center"
+                BindableLayout.ItemsSource="{Binding ThematiquesRetenues}"
+                Direction="Row"
                 JustifyContent="Start"
-                BindableLayout.ItemsSource="{Binding ThematiquesRetenues}">
+                Wrap="Wrap">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="modele:Thematique">
-                        <Component:LabelBudgetaire Title="{Binding nom_thematique}" Texte="{Binding budget}"/>
+                        <Component:LabelBudgetaire Title="{Binding nom_thematique}" Texte="{Binding budget}" />
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </FlexLayout>
             <Button
-                Style="{DynamicResource ButtonStyle}"
-                Text="{x:Static lang:AppResources.suivant}"
+                x:Name="nextFirstPageButton"
                 Command="{Binding NavigateTappedCommand}"
                 CommandParameter="DeuxiemeCreationPage"
-                x:Name="nextFirstPageButton"
-            />
+                Style="{DynamicResource ButtonStyle}"
+                Text="{x:Static lang:AppResources.suivant}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

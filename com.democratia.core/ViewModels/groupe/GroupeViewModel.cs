@@ -15,6 +15,13 @@ namespace com.democratia.ViewModels.groupe
         [ObservableProperty] private Groupe? groupe;
         [ObservableProperty] private ObservableCollection<Proposition> propositions = [];
         [ObservableProperty] private ObservableCollection<Thematique> thematiques = [];
+        [ObservableProperty]
+        private ObservableCollection<Critere> criteres = [
+                    Critere.PRIX,
+                    Critere.POPULARITE,
+                    Critere.REACTIONS
+        ];
+        [ObservableProperty] private Critere critere;
         private readonly INavigationService navigationService;
         
 
@@ -30,6 +37,12 @@ namespace com.democratia.ViewModels.groupe
             ShellNavigationQueryParameters? parameters = commande == "DecideurPage" ?
                 new ShellNavigationQueryParameters { { "thematiques", Thematiques }, { "groupe" , Groupe! } } : null;
             await navigationService?.GoToAsync(commande, parameters)!;
+        }
+
+        [RelayCommand]
+        private void ClasserPropositions() 
+        {
+            throw new NotImplementedException();
         }
 
         public async Task ChargerElements()
@@ -52,7 +65,7 @@ namespace com.democratia.ViewModels.groupe
         public async void GetImageAsync(string? url) => Image = await client!.GetImageAsync(url);
 
         [RelayCommand]
-        public async Task OpenGroup(string nomGroupe)
+        private async Task OpenGroup(string nomGroupe)
         {
             var parameters = new ShellNavigationQueryParameters { { "nomGroupe", nomGroupe }, { "modele", Groupe! }, { "Image", Image! } };
             await navigationService?.GoToAsync("GroupePage", parameters)!;

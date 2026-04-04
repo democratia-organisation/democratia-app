@@ -2,7 +2,7 @@
 
 namespace com.democratia.Models
 {
-    internal enum Critere
+    public enum Critere
     {
         POPULARITE,
         PRIX,

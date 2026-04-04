@@ -1,43 +1,65 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:com.democratia.Views"
-             xmlns:component="clr-namespace:com.democratia.Views.Component"
-             xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
-             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
-             x:Class="com.democratia.Views.internaute.gestionCompte.CreationPage"
-             x:DataType="viewModel:CreationViewModel"
-             Style="{DynamicResource fondEcran}"
-             >
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.democratia.Views.internaute.gestionCompte.CreationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:component="clr-namespace:com.democratia.Views.Component"
+    xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+    xmlns:local="clr-namespace:com.democratia.Views"
+    xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
+    x:DataType="viewModel:CreationViewModel"
+    Style="{DynamicResource fondEcran}">
 
-        <ScrollView>
+    <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-        <component:Header Grid.Row="0"/>
-        
-        <StackLayout Padding="10" Grid.Row="1" x:Name="stackLayout">
-            <BoxView HeightRequest="50"/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.Nom}" x:Name="nomDeFamilleComponent" ValeurDonne="{Binding Internaute.nom_internaute}"/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.prenom}" x:Name="prenomComponent" ValeurDonne="{Binding Internaute.prenom_internaute}"/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.adress}" x:Name="addresseComponent" ValeurDonne="{Binding Internaute.adresse_postale}"/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.mail}" x:Name="mailComponent" ValeurDonne="{Binding Email}"/>
-            <component:EntryComponent Title="{x:Static lang:AppResources.Mdp}" PassWord="True" x:Name="passwordComponent" ValeurDonne="{Binding Password}"/>
-            <Label Text="{Binding RetourMessage}" Style="{DynamicResource ErrorLabelStyle}" HorizontalOptions="Center" x:Name="retourMessageLabel" AutomationId="RetourMessage"/>
-                <BoxView HeightRequest="100"/>
+
+            <component:Header Grid.Row="0" />
+
+            <StackLayout
+                x:Name="stackLayout"
+                Grid.Row="1"
+                Padding="10">
+                <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
+                <component:EntryComponent
+                    x:Name="nomDeFamilleComponent"
+                    Title="{x:Static lang:AppResources.Nom}"
+                    ValeurDonne="{Binding Internaute.nom_internaute}" />
+                <component:EntryComponent
+                    x:Name="prenomComponent"
+                    Title="{x:Static lang:AppResources.prenom}"
+                    ValeurDonne="{Binding Internaute.prenom_internaute}" />
+                <component:EntryComponent
+                    x:Name="addresseComponent"
+                    Title="{x:Static lang:AppResources.adress}"
+                    ValeurDonne="{Binding Internaute.adresse_postale}" />
+                <component:EntryComponent
+                    x:Name="mailComponent"
+                    Title="{x:Static lang:AppResources.mail}"
+                    ValeurDonne="{Binding Email}" />
+                <component:EntryComponent
+                    x:Name="passwordComponent"
+                    Title="{x:Static lang:AppResources.Mdp}"
+                    PassWord="True"
+                    ValeurDonne="{Binding Password}" />
+                <Label
+                    x:Name="retourMessageLabel"
+                    AutomationId="RetourMessage"
+                    HorizontalOptions="Center"
+                    Style="{DynamicResource ErrorLabelStyle}"
+                    Text="{Binding RetourMessage}" />
+                <BoxView HeightRequest="100" />
                 <Button
-                    Text="{x:Static lang:AppResources.inscription}"
                     x:Name="inscriptionButton"
-                    Style="{DynamicResource ButtonStyle}"
-                    Command="{Binding CreerInternauteTappedCommand}"
                     AutomationId="M'inscrire"
                     AutomationProperties.Name="M'inscrire"
-                />
+                    Command="{Binding CreerInternauteTappedCommand}"
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="{x:Static lang:AppResources.inscription}" />
             </StackLayout>
         </Grid>
     </ScrollView>
 </ContentPage>
- 

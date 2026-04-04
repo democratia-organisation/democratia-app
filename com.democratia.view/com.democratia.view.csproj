@@ -148,6 +148,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <MauiXaml Update="Resources\Dimension\Dimension.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\Component\DecideurThematique.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
