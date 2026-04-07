@@ -10,12 +10,12 @@ namespace com.democratia.Views.groupe
 {
     public partial class GroupePage : ContentPage
     {
-        private Grid grille;
+        private Grid? grille;
         private Microsoft.Maui.Controls.Application application;
         private bool _isInitialized = false;
         private int cursor = 0;
-        private RefreshView? collectionView;
-        private Grid mailGrille;
+        private RefreshView? refreshView;
+        private Grid? mailGrille;
         private double smallSize;
 
         public GroupePage(GroupeViewModel viewModel)
@@ -24,13 +24,27 @@ namespace com.democratia.Views.groupe
             application = Microsoft.Maui.Controls.Application.Current!;
             Style = (Style)application.Resources["fondEcran"];
             smallSize = (double)application!.Resources["SpacingSmall"];
+        }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await ((GroupeViewModel)BindingContext).ChargerElements();
+            if (_isInitialized) return;
+            Building();
+            _isInitialized = true;
+        }
+
+        private void Building()
+        {
+            var viewModel = (GroupeViewModel)BindingContext;
             grille = new Grid
             {
-                ColumnDefinitions = 
-                { 
+                ColumnDefinitions =
+                {
                     new ColumnDefinition{ Width = GridLength.Auto},
                     new ColumnDefinition{ Width = GridLength.Star},
-                    new ColumnDefinition{ Width= GridLength.Auto},
+                    new ColumnDefinition{ Width = GridLength.Auto},
                 },
             };
             mailGrille = new Grid
@@ -40,34 +54,20 @@ namespace com.democratia.Views.groupe
                     new RowDefinition{Height = GridLength.Auto},
                     new RowDefinition{Height = GridLength.Auto},
                     new RowDefinition{Height = GridLength.Auto},
+                    new RowDefinition{Height = GridLength.Auto},
                     new RowDefinition{Height = GridLength.Star},
                     new RowDefinition{Height = GridLength.Auto}
                 },
                 RowSpacing = smallSize
             };
-        }
-
-        protected async override void OnAppearing()
-        {
-            base.OnAppearing();
-            await ((GroupeViewModel)BindingContext).ChargerElements();
-            if (_isInitialized) return;
-            Building();
-
-            _isInitialized = true;
-        }
-
-        private void Building()
-        {
-            var viewModel = (GroupeViewModel)BindingContext;
-            
             var carSize = (double)application.Resources["CardHeight"];
             var extraLarge = (double)application.Resources["SpacingLarge"];
             var image = new Image
             {
                 Source = viewModel.Image,
                 HeightRequest = carSize,
-                WidthRequest = carSize
+                WidthRequest = carSize,
+                AutomationId = $"{viewModel.Groupe!.NomGroupe}groupeImageButton"
             };
             var newbutton = new Button
             {
@@ -75,23 +75,21 @@ namespace com.democratia.Views.groupe
                 CommandParameter = $"{nameof(NouvelleProposition)}",
                 Text = AppResources.nouvellProp,
                 Style = (Style)application!.Resources["ButtonStyle"],
-                VerticalOptions = LayoutOptions.End
+                VerticalOptions = LayoutOptions.End,
+                AutomationId = "newButton"
 
             };
             var picker = new Microsoft.Maui.Controls.Picker
             {
-                Style = (Style)application.Resources["PickerStyle"],
                 ItemsSource = viewModel.Criteres,
                 Title = AppResources.critere,
                 WidthRequest = extraLarge,
                 SelectedItem = viewModel.Critere,
                 HorizontalOptions = LayoutOptions.Start,
+                AutomationId = "critere"
             };
-            picker.SetAppTheme(Microsoft.Maui.Controls.Picker.TextColorProperty,
-                (Color)application.Resources["Light-onBackground"], (Color)application.Resources["Dark-onBackground"]);
             picker.On<iOS>().SetUpdateMode(UpdateMode.WhenFinished);
-            picker.Behaviors.Add(new EventToCommandBehavior
-            {
+            picker.Behaviors.Add(new EventToCommandBehavior {
                 EventName = "SelectedIndexChanged",
                 Command = viewModel.ClasserPropositionsCommand,
 
@@ -103,21 +101,23 @@ namespace com.democratia.Views.groupe
                 CommandParameter = $"{nameof(Membre)}",
                 HorizontalOptions = LayoutOptions.Start,
                 HeightRequest = extraLarge + extraLarge,
-                WidthRequest = extraLarge + extraLarge
+                WidthRequest = extraLarge + extraLarge,
+                AutomationId = "groupeImageButton"
             };
             var label = new Label
             {
                 Style = (Style)application!.Resources["SubHeadlineStyle"],
                 Text = viewModel.Groupe!.NomGroupe,
                 HorizontalOptions = LayoutOptions.Center,
+
             };
-            collectionView = new RefreshView
+            refreshView = new RefreshView
             {
                 Content = new CollectionView
                 {
                     ItemsSource = viewModel.Propositions,
-                    ItemTemplate = new DataTemplate(() => new PropositionCell(viewModel)),
-                    ItemsLayout = new GridItemsLayout(3, ItemsLayoutOrientation.Horizontal)
+                    ItemTemplate = new(() => new PropositionCell(viewModel)),
+                    ItemsLayout = new GridItemsLayout(1, ItemsLayoutOrientation.Vertical)
                     {
                         HorizontalItemSpacing = smallSize,
                         VerticalItemSpacing = smallSize
@@ -126,12 +126,15 @@ namespace com.democratia.Views.groupe
                     RemainingItemsThreshold = 1,
                     RemainingItemsThresholdReachedCommand = viewModel.UpdateListCommand,
                     RemainingItemsThresholdReachedCommandParameter = cursor += 1,
+                    AutomationId = "propositionsCollectionView"
 
                 },
-                Command = viewModel.UpdateListCommand
+                Command = viewModel.UpdateListCommand,
+                AutomationId = "propositionsRefresh"
             };
             var horizontalLayout = new HorizontalStackLayout
             {
+                Spacing = smallSize,
                 Children =
                 {
 
@@ -141,17 +144,18 @@ namespace com.democratia.Views.groupe
                         Command = viewModel.NavigateTappedCommand,
                         CommandParameter = $"{nameof(Parametre)}",
                         HeightRequest = extraLarge,
-                        WidthRequest = extraLarge
+                        WidthRequest = extraLarge,
+                        AutomationId = "rouageImageButton"
 
                     },
-                    new BoxView { WidthRequest = smallSize },
                     new ImageButton
                     {
                         Source = "loupe.png",
                         Command = viewModel.NavigateTappedCommand,
                         CommandParameter = $"{nameof(DecideurPage)}",
                         HeightRequest = extraLarge,
-                        WidthRequest = extraLarge
+                        WidthRequest = extraLarge,
+                        AutomationId = "loupeImageButton"
 
                     }
                 }
@@ -161,22 +165,13 @@ namespace com.democratia.Views.groupe
                 grille.SetAppThemeColor(BackgroundColorProperty, (Color)light, (Color)dark);
             
             View[] optionsListe = [button, label, horizontalLayout];
-            View[] mainElements = [image, grille, picker, collectionView, newbutton];
+            View[] mainElements = [new Header(),image, grille, picker, refreshView, newbutton];
             foreach (var (index,item) in optionsListe.Index())
                 grille.Add(item, column: index);
             foreach (var (index,item) in mainElements.Index())
                 mailGrille.Add(item, row: index);
 
-            Content = new VerticalStackLayout
-            {
-                Spacing = smallSize,
-                Children =
-                {
-                    new Header(),
-                    mailGrille
-                    
-                }
-            };
+            Content = mailGrille;
         }
     }
 

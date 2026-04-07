@@ -10,7 +10,7 @@ namespace com.democratia.Views.internaute
     public partial class HomePage : ContentPage
     {
         private readonly VerticalStackLayout _stackLayout;
-        private readonly RefreshView collectionView;
+        private readonly RefreshView refreshView;
         private readonly Button _createGroupButton;
         private readonly Label _ownGroupeLabel;
         private int cursor = 0;
@@ -18,7 +18,6 @@ namespace com.democratia.Views.internaute
         public HomePage(HomeViewModel viewModel)
         {
             BindingContext = viewModel;
-            object  light, dark;
             Color lightCouleur = new(), darkCouleur = new();
 
             Style = (Style)Application.Current!.Resources["fondEcran"];
@@ -44,11 +43,10 @@ namespace com.democratia.Views.internaute
                     MaximumWidthRequest = large,
                     Command = viewModel.NavigateTappedCommand,
                     CommandParameter = $"{nameof(HomeGestionPage)}",
-                    AutomationId = "ProfileButton",
+                    AutomationId = "profileImageButton",
                 }
             };
-            AutomationProperties.SetName(profileIcone, "ProfileButton");
-            if (Application.Current!.Resources.TryGetValue("Light-onSurface", out light) && Application.Current!.Resources.TryGetValue("Dark-onSurface", out dark))
+            if (Application.Current!.Resources.TryGetValue("Light-onSurface", out object light) && Application.Current!.Resources.TryGetValue("Dark-onSurface", out object dark))
             {
                 lightCouleur = (Color)light;
                 darkCouleur = (Color)dark;
@@ -79,10 +77,9 @@ namespace com.democratia.Views.internaute
                 Style = (Style?)Application.Current?.Resources["HeadlineStyle"],
                 HorizontalOptions = LayoutOptions.Center,
                 Margin = new Thickness(0, medium),
-                AutomationId = "MyGroupsLabel",
+                AutomationId = "monGroupeLabel",
             };
-            AutomationProperties.SetName(_ownGroupeLabel, "MyGroupsLabel");
-            collectionView = new RefreshView
+            refreshView = new RefreshView
             {
                 Content = new CollectionView
                 {
@@ -98,13 +95,13 @@ namespace com.democratia.Views.internaute
                     HeightRequest = card,
                     RemainingItemsThreshold = 2,
                     RemainingItemsThresholdReachedCommand = viewModel.RefreshListGroupeCommand,
-                    RemainingItemsThresholdReachedCommandParameter = cursor += 1
+                    RemainingItemsThresholdReachedCommandParameter = cursor += 1,
+                    AutomationId = "groupesRefresh"
 
                 },
-                Command = viewModel.RefreshListGroupeCommand
+                Command = viewModel.RefreshListGroupeCommand,
+                AutomationId = "groupeCollectionView"
             };
-
-
 
             _createGroupButton = new Button
             {
@@ -114,10 +111,9 @@ namespace com.democratia.Views.internaute
                 CommandParameter = $"{nameof(PremiereCreationPage)}",
                 VerticalOptions = LayoutOptions.End,
                 Margin = new Thickness(20),
-                AutomationId = "CreateGroupButton",
+                AutomationId = "creationGroupButton",
             };
-            AutomationProperties.SetName(_createGroupButton, "CreateGroupButton");
-            View[] views = [_stackLayout,_ownGroupeLabel,collectionView,_createGroupButton];
+            View[] views = [_stackLayout,_ownGroupeLabel, refreshView, _createGroupButton];
             var grillePrincipale = new Grid
             {
                 RowDefinitions =
@@ -126,7 +122,7 @@ namespace com.democratia.Views.internaute
                     new RowDefinition { Height = GridLength.Auto },
                     new RowDefinition { Height = GridLength.Star },
                     new RowDefinition { Height = GridLength.Auto }                  
-                 }
+                }
             };
             foreach (var (index, item) in views.Index())
                 grillePrincipale.Add(item, row: index);

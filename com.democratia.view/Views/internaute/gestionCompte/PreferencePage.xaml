@@ -25,8 +25,7 @@
                 Title="{x:Static lang:AppResources.Langage}"
                 ios:Picker.UpdateMode="WhenFinished"
                 ItemsSource="{Binding Languages}"
-                SelectedItem="{Binding Language}"
-                Style="{DynamicResource PickerStyle}" />
+                SelectedItem="{Binding Language}" />
         </HorizontalStackLayout>
         <BoxView HeightRequest="{StaticResource SpacingLarge}" />
         <HorizontalStackLayout>
@@ -41,8 +40,7 @@
                 Title="{x:Static lang:AppResources.theme}"
                 ios:Picker.UpdateMode="Immediately"
                 ItemsSource="{Binding Themes}"
-                SelectedItem="{Binding Theme}"
-                Style="{DynamicResource PickerStyle}" />
+                SelectedItem="{Binding Theme}" />
         </HorizontalStackLayout>
         <BoxView HeightRequest="{StaticResource SpacingLarge}" />
         <Button

@@ -83,7 +83,7 @@
 
     <Style x:Key="DatePickerStyle" TargetType="DatePicker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-primaryContainer}, Dark={DynamicResource Dark-primaryContainer}}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-onPrimaryContainer}, Dark={DynamicResource Dark-onPrimaryContainer}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="MinimumHeightRequest" Value="44" />
@@ -229,22 +229,22 @@
         <Setter Property="HorizontalTextAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="PickerStyle" TargetType="Picker">
+    <Style TargetType="Picker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
-        <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
+        <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Light-onBackground}, Dark={DynamicResource Dark-onBackground}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="18" />
-        <Setter Property="HeightRequest" Value="{DynamicResource SpacingLarge}" />
-        <Setter Property="WidthRequest" Value="{DynamicResource SpacingLarge}" />
+        <Setter Property="MinimumHeightRequest" Value="{DynamicResource SpacingLarge}" />
+        <Setter Property="MinimumWidthRequest" Value="{DynamicResource SpacingLarge}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray300}, Dark={DynamicResource Gray600}}" />
-                            <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Gray300}, Dark={DynamicResource Gray600}}" />
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-secondaryFixed}, Dark={DynamicResource Dark-secondaryFixed}}" />
+                            <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Light-inverseOnSurface}, Dark={DynamicResource Dark-inverseOnSurface}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
