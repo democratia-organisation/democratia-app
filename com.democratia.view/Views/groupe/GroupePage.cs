@@ -130,6 +130,7 @@ namespace com.democratia.Views.groupe
 
                 },
                 Command = viewModel.UpdateListCommand,
+                CommandParameter = 0,
                 AutomationId = "propositionsRefresh"
             };
             var horizontalLayout = new HorizontalStackLayout

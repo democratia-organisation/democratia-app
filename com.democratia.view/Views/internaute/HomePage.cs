@@ -100,6 +100,7 @@ namespace com.democratia.Views.internaute
 
                 },
                 Command = viewModel.RefreshListGroupeCommand,
+                CommandParameter = 0,
                 AutomationId = "groupeCollectionView"
             };
 
