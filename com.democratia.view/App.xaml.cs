@@ -3,11 +3,14 @@ using com.democratia.Platforms.Android;
 using AndroidX.Core.View;
 using Microsoft.Maui.Handlers;
 #endif
+using com.democratia.Models;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 
 
 namespace com.democratia
 {
-
     public partial class App : Application
     {
         public App()

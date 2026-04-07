@@ -27,8 +27,8 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             this.navigationService = navigationService;
             languages = ["Français","English (American)"];
             themes = [localizationService.GetString("claire"), localizationService.GetString("sombre")]; // light, dark
-            languagesDict = new ();
-            themesDict = new();
+            languagesDict = [];
+            themesDict = [];
             languagesDict.Add(languages[0], "fr-FR");
             languagesDict.Add(languages[1], "en-US");
             themesDict.Add(themes[0], AppTheme.Light);
@@ -45,7 +45,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             Preferences.Default.Set("Language",langage);
             Preferences.Default.Set("Theme", (int)theme); // casting car Preferences ne supporte que les types primitif
             WeakReferenceMessenger.Default.Send<EventPreferecesSucess>();
-            await navigationService.GoToAsync(commande);
+            await navigationService.GoToAsync(commande, []);
         }
 
         public record EventPreferecesSucess() { }

@@ -47,7 +47,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                 if (string.IsNullOrWhiteSpace(imagePath)) throw new NoImageGiven();
                 await client.UploadImage(groupe!.IdGroupe, imagePath);
                 await ((GroupClient)client).AjouterCreateur(internaute!.id_internaute, groupe.IdGroupe);
-                await service.GoToAsync(commande);
+                await service.GoToAsync(commande, new ShellNavigationQueryParameters { {"modele" , internaute } });
             } catch (Exception ex)
             {
                 MapExceptionMessage.MappingException(ex, LocalizationService!);

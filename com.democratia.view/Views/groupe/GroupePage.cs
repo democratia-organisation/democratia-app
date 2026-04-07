@@ -4,44 +4,24 @@ using com.democratia.ViewModels.groupe;
 using com.democratia.Views.Component;
 using com.democratia.Views.groupe.decideur;
 using CommunityToolkit.Maui.Behaviors;
-using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Maui.Extensions;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
-
-#if IOS
-using IOS = Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
-using IOSPicker = Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific.Picker;
-#endif
 
 namespace com.democratia.Views.groupe
 {
     public partial class GroupePage : ContentPage
     {
-        private readonly Microsoft.Maui.Controls.ScrollView scroll;
         private Grid grille;
         private Microsoft.Maui.Controls.Application application;
+        private bool _isInitialized = false;
+        private int cursor = 0;
+        private CollectionView collectionView;
         public GroupePage(GroupeViewModel viewModel)
         {
             BindingContext = viewModel;
             application = Microsoft.Maui.Controls.Application.Current!;
-            WeakReferenceMessenger.Default.Register<GroupePage, GroupeViewModel.EventEndScroll,string>(this, GroupeViewModel.TypeEventScroll.RechargeScoll.ToString(), RecharPage);
             Style = (Style)application.Resources["fondEcran"];
-            scroll = new Microsoft.Maui.Controls.ScrollView
-            {
-                Content = new VerticalStackLayout
-                {
-                    Children =
-                    {
-                        new CollectionView
-                        {
-                            ItemsSource = viewModel.Propositions,
-                            ItemTemplate = new DataTemplate(()=> new PropositionCell(viewModel))
-
-                        }
-                    }
-                },
-            };
-            scroll.Scrolled += Scroll_Scrolled;
             grille = new Grid
             {
                 ColumnDefinitions = 
@@ -51,35 +31,45 @@ namespace com.democratia.Views.groupe
                     new ColumnDefinition{ Width= GridLength.Auto},
                 },
             };
-        }
+            collectionView = new CollectionView
+            {
+                ItemsSource = viewModel.Propositions,
+                ItemTemplate = new DataTemplate(() => new PropositionCell(viewModel))
 
-        private void RecharPage(GroupePage _, GroupeViewModel.EventEndScroll __)
-        {
-            throw new NotImplementedException();
+            };
         }
 
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            if (_isInitialized) return;
+            Building();
+            _isInitialized = true;
+        }
+
+        private void Building()
+        {
             var viewModel = (GroupeViewModel)BindingContext;
             var smallSize = (double)application!.Resources["SpacingSmall"];
             var carSize = (double)application.Resources["CardHeight"];
-            var extraLarge = (double)application.Resources["SpacingExtraLarge"];
-            await viewModel.ChargerElements();
+            var extraLarge = (double)application.Resources["SpacingLarge"];
             var picker = new Microsoft.Maui.Controls.Picker
             {
                 Style = (Style)application.Resources["PickerStyle"],
                 ItemsSource = viewModel.Criteres,
                 Title = AppResources.critere,
                 WidthRequest = extraLarge,
-                SelectedItem = viewModel.Critere
+                SelectedItem = viewModel.Critere,
+                HorizontalOptions = LayoutOptions.Start,
             };
+            picker.SetAppTheme(Microsoft.Maui.Controls.Picker.TextColorProperty,
+                (Color)application.Resources["Light-onBackground"], (Color)application.Resources["Dark-onBackground"]);
             picker.On<iOS>().SetUpdateMode(UpdateMode.WhenFinished);
             picker.Behaviors.Add(new EventToCommandBehavior
             {
                 EventName = "SelectedIndexChanged",
                 Command = viewModel.ClasserPropositionsCommand,
-                
+
             });
             var button = new ImageButton
             {
@@ -87,8 +77,8 @@ namespace com.democratia.Views.groupe
                 Command = viewModel.NavigateTappedCommand,
                 CommandParameter = $"{nameof(Membre)}",
                 HorizontalOptions = LayoutOptions.Start,
-                HeightRequest = 100,
-                WidthRequest = 100
+                HeightRequest = extraLarge + extraLarge,
+                WidthRequest = extraLarge + extraLarge
             };
             var label = new Label
             {
@@ -110,7 +100,7 @@ namespace com.democratia.Views.groupe
                         WidthRequest = extraLarge
 
                     },
-                    new BoxView { WidthRequest = 10 },
+                    new BoxView { WidthRequest = smallSize },
                     new ImageButton
                     {
                         Source = "loupe.png",
@@ -131,9 +121,10 @@ namespace com.democratia.Views.groupe
             grille.SetColumn(button, 0);
             grille.SetColumn(label, 1);
             grille.SetColumn(horizontalLayout, 2);
-            
+
             Content = new VerticalStackLayout
             {
+                Spacing = smallSize,
                 Children =
                 {
                     new Header(),
@@ -143,13 +134,15 @@ namespace com.democratia.Views.groupe
                         HeightRequest = carSize,
                         WidthRequest = carSize
                     },
-                    new BoxView { HeightRequest = smallSize },
+
                     grille,
-                    new BoxView { HeightRequest = smallSize },
                     picker,
-                    new BoxView { HeightRequest = smallSize },
-                    scroll,
-                    new BoxView { HeightRequest = smallSize },
+                    new RefreshView
+                    {
+                        Content =  collectionView,
+                        Command = viewModel.UpdateListCommand,
+                        CommandParameter = cursor+=1,
+                    },
                     new Button
                     {
                         Command = viewModel.NavigateTappedCommand,
@@ -161,16 +154,6 @@ namespace com.democratia.Views.groupe
                     }
                 }
             };
-        }
-        private void Scroll_Scrolled(object? sender, ScrolledEventArgs e)
-        {
-            if (sender is not Microsoft.Maui.Controls.ScrollView scrollView) return;
-
-            var scrollSpace = scrollView.ContentSize.Height - scrollView.Height;
-
-            if (scrollSpace > e.ScrollY) return;
-            // TODO : détecter si on a regardé toutes les propositions et charger la page ou non en fonction
-            WeakReferenceMessenger.Default.Send<GroupeViewModel.EventEndScroll,string>(GroupeViewModel.TypeEventScroll.EndScroll.ToString());
         }
     }
 

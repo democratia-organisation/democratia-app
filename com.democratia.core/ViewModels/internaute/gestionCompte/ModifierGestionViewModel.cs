@@ -30,7 +30,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         public async Task NavigateTapped(string commande)
         {
             
-            await NavigationService.GoToAsync(commande);
+            await NavigationService.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", internaute! } });
 
         }
 

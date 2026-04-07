@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Text.Json;
 using com.democratia.Models;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Maui.Controls;
 
 namespace com.democratia.ViewModels.internaute.gestionCompte
 {
@@ -28,7 +29,8 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         public CreationViewModel() : base(null, null) { }
 
         [RelayCommand]
-        public async Task NavigateTapped(string commande) => await navigationService?.GoToAsync(commande)!;
+        public async Task NavigateTapped(string commande) 
+            => await navigationService?.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", Internaute! } })!;
 
         [RelayCommand]
         public async Task CreerInternauteTapped()

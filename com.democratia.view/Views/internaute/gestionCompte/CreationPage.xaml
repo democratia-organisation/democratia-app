@@ -23,7 +23,7 @@
                 x:Name="stackLayout"
                 Grid.Row="1"
                 Padding="10">
-                <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
+                <BoxView HeightRequest="{StaticResource SpacingLarge}" />
                 <component:EntryComponent
                     x:Name="nomDeFamilleComponent"
                     Title="{x:Static lang:AppResources.Nom}"

@@ -70,6 +70,7 @@ namespace com.democratia.Utils
             /// <returns>Retourne la collection de services après l'ajout des services.</returns>
             public IServiceCollection AddServices()
             {
+                services.AddSingleton<Services.AppContext>();
                 services.AddSingleton<INavigationService, ShellNavigationService>();
                 services.AddClients();
                 services.AddClient();

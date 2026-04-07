@@ -46,10 +46,10 @@
                         AutomationId="buttonSelectImageFromGallery"
                         AutomationProperties.Name="buttonSelectImageFromGallery"
                         Command="{Binding ChoisirGalerieCommand}"
-                        HeightRequest="{StaticResource SpacingExtraLarge}"
+                        HeightRequest="{StaticResource SpacingLarge}"
                         Source="galerie.png"
                         Style="{DynamicResource ImageButtonStyle}"
-                        WidthRequest="{StaticResource SpacingExtraLarge}" />
+                        WidthRequest="{StaticResource SpacingLarge}" />
                     <Label
                         x:Name="labelgalerie"
                         AutomationId="labelgalerie"
@@ -63,10 +63,10 @@
                         AutomationId="buttonSelectImageFromPhoto"
                         AutomationProperties.Name="buttonSelectImageFromPhoto"
                         Command="{Binding PrendrePhotoCommand}"
-                        HeightRequest="{StaticResource SpacingExtraLarge}"
+                        HeightRequest="{StaticResource SpacingLarge}"
                         Source="photo.png"
                         Style="{DynamicResource ImageButtonStyle}"
-                        WidthRequest="{StaticResource SpacingExtraLarge}" />
+                        WidthRequest="{StaticResource SpacingLarge}" />
                     <Label
                         x:Name="labelphoto"
                         AutomationId="labelphoto"

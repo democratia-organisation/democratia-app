@@ -7,18 +7,17 @@ using System.ComponentModel;
 
 namespace com.democratia.ViewModels.groupe.decideur
 {
-    public partial class DecideurViewModel(ILocalizationService localizationService) 
-        : ObservableObject, INotifyPropertyChanged, IQueryAttributable
+    public partial class DecideurViewModel : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         [ObservableProperty] private ObservableCollection<Thematique>? thematiques;
         [ObservableProperty] private Groupe? groupe;
-        private ILocalizationService localization = localizationService;
+        [ObservableProperty] private float? ration;
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             Thematiques = (ObservableCollection<Thematique>)query["thematiques"];
             Groupe = (Groupe)query["groupe"];
-        }
 
+        }
     }
 }

@@ -22,10 +22,11 @@
         <Setter Property="StrokeShape" Value="RoundRectangle 200,200,200,200" />
         <Setter Property="StrokeThickness" Value="0" />
         <Setter Property="Padding" Value="0,0,0,0" />
+
     </Style>
     <Style x:Key="BorderStyleButton" TargetType="Border">
         <Setter Property="StrokeShape" Value="RoundRectangle 600,600,600,600" />
-        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeThickness" Value="5" />
         <Setter Property="Padding" Value="0,0,0,0" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-outline}, Dark={DynamicResource Dark-outline}}" />
     </Style>
@@ -234,8 +235,8 @@
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="18" />
-        <Setter Property="MinimumHeightRequest" Value="44" />
-        <Setter Property="MinimumWidthRequest" Value="44" />
+        <Setter Property="HeightRequest" Value="{DynamicResource SpacingLarge}" />
+        <Setter Property="WidthRequest" Value="{DynamicResource SpacingLarge}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -252,8 +253,7 @@
     </Style>
 
     <Style x:Key="ThematiqueProgressBarStyle" TargetType="ProgressBar">
-        <Setter Property="ProgressColor" Value="{AppThemeBinding Light={DynamicResource Light-onSecondary}, Dark={DynamicResource Dark-onSecondary}}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" />
+        <Setter Property="ProgressColor" Value="{AppThemeBinding Light={DynamicResource Light-onSurface}, Dark={DynamicResource Dark-onSurface}}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -306,7 +306,7 @@
     </Style>
 
     <Style x:Key="RefreshViewStyle" TargetType="RefreshView">
-        <Setter Property="RefreshColor" Value="{AppThemeBinding Light={DynamicResource Light-surfaceBright}, Dark={DynamicResource Dark-surfaceBright}}" />
+        <Setter Property="RefreshColor" Value="{AppThemeBinding Light={DynamicResource Light-tertiary}, Dark={DynamicResource Dark-tertiary}}" />
     </Style>
 
     <Style x:Key="SearchBarStyle" TargetType="SearchBar">
@@ -419,7 +419,7 @@
         x:Key="Icon"
         FontFamily="FontAwesomeSolid"
         Glyph="&#xf2b9;"
-        Size="{DynamicResource SpacingExtraLarge}"
+        Size="{DynamicResource SpacingLarge}"
         Color="{AppThemeBinding Light={DynamicResource Light-primary},
                                 Dark={DynamicResource Dark-primary}}" />
 

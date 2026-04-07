@@ -138,7 +138,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            internaute = query.TryGetValue("internaute", out var internauteObj) ? (Internaute)internauteObj : null;
+            internaute = query.TryGetValue("modele", out var internauteObj) ? (Internaute)internauteObj : null;
             internaute ??= await RetrouverModele<Internaute>();
         }
         

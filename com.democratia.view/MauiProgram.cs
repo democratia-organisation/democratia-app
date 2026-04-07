@@ -2,9 +2,6 @@
 using com.democratia.Utils;
 using com.democratia.Views;
 using com.democratia.Views.groupe;
-using com.democratia.Views.groupe.decideur;
-using com.democratia.Views.internaute;
-using com.democratia.Views.internaute.CreerGroupe;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -43,8 +40,6 @@ namespace com.democratia
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
                 LogErreur((e.ExceptionObject as Exception)!, "AppDomain.UnhandledException");
             
-
-            
             TaskScheduler.UnobservedTaskException += (sender, e) => 
                 LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
 
@@ -58,7 +53,7 @@ namespace com.democratia
         }
         private static void LogErreur(Exception ex, string source)
         {
-            var message = $"Source: {source} | Erreur: {ex?.Message}";
+            var message = $"Source: {source} | Erreur: {ex.Message} | StackTrace: {ex.StackTrace ?? ""}";
 
             Debug.WriteLine($"[GLOBAL ERROR] {message}");
             if (ex?.StackTrace != null)

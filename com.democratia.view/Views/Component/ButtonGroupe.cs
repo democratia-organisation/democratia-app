@@ -13,11 +13,12 @@ namespace com.democratia.Views.Component
             this.groupe = groupe;
             this.viewModel = viewModel;
             BindingContext = this.viewModel;
+            var card = (double)Application.Current!.Resources["CardHeight"];
             
             button = new ImageButton
             {
-                HeightRequest = 100,
-                WidthRequest = 100,
+                HeightRequest = card,
+                WidthRequest = card,
                 HorizontalOptions = LayoutOptions.Center,
                 Command = this.viewModel!.OpenGroupCommand,
                 CommandParameter = this.groupe.NomGroupe,
@@ -45,9 +46,9 @@ namespace com.democratia.Views.Component
                         label
                     }
                 },
-                Style = (Style?)Application.Current?.Resources["BorderStyleButton"],
-                MaximumHeightRequest = 300,
-                MaximumWidthRequest = 300
+                Style = (Style?)Application.Current?.Resources["BorderStyle"],
+                MaximumHeightRequest = card,
+                MaximumWidthRequest = card
             };
             this.viewModel!.GetImageAsync(this.groupe.Image!);
         }
@@ -63,7 +64,7 @@ namespace com.democratia.Views.Component
             {
                 var groupeViewModel = ServiceHelper.GetService<GroupeViewModel>();
                 groupeViewModel!.Groupe = groupe;
-                this.Content = new ButtonGroupe(groupe, groupeViewModel);
+                Content = new ButtonGroupe(groupe, groupeViewModel);
             }
         }
     }

@@ -1,6 +1,6 @@
-﻿using com.democratia.Utils;
-using com.democratia.Models;
+﻿using com.democratia.Models;
 using com.democratia.Services;
+using com.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
@@ -14,6 +14,7 @@ namespace com.democratia.ViewModels.internaute
         private string? adresseMail;
 
         public Internaute? modele { get; private set; }
+        private Services.AppContext? contexte;
 
         [ObservableProperty]
         private string? motDePasse;
@@ -22,10 +23,11 @@ namespace com.democratia.ViewModels.internaute
         private string? errorMessage;
         private readonly INavigationService? navigationService;
 
-        public MainViewModel(INavigationService navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization)
+        public MainViewModel(INavigationService navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization, Services.AppContext context)
             : base(clients!.OfType<InternauteClient>().FirstOrDefault(), localization)
         {
             this.navigationService = navigationService;
+            contexte = context;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
         }
 
@@ -34,24 +36,23 @@ namespace com.democratia.ViewModels.internaute
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            if (commande == "/HomePage")
+            try
             {
-                try {
-                    modele = await ConnecterInternaute();
-                }
-                catch (Exception ex) {
-#if DEBUG
-                    ErrorMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
-#elif !DEBUG
-                    ErrorMessage = LocalizationService?.GetString("erreurInattendu");    
-#endif
-                    return;
-                }
-                var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
-                await navigationService!.GoToAsync(commande, parameters);
+                modele = await ConnecterInternaute();
             }
-            else await navigationService!.GoToAsync(commande);
-            
+            catch (Exception ex)
+            {
+#if DEBUG
+                ErrorMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
+#elif !DEBUG
+                ErrorMessage = LocalizationService?.GetString("erreurInattendu");    
+#endif
+                return;
+            }
+            contexte!.Internaute = modele;
+            var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
+            await navigationService!.GoToAsync(commande, parameters);
+
         }
 
         internal async Task<Internaute?> ConnecterInternaute()

@@ -1,10 +1,11 @@
 ﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace com.democratia.Models
 {
     [method: JsonConstructor]
-    public class Thematique(int? id_thematique, string? nom_thematique, float? budget, float? budget_groupe) : IModel
+    public partial class Thematique(int? id_thematique, string? nom_thematique, float? budget, float? budget_groupe) : ObservableObject, IModel
     {
         public int? id_thematique { get; set; } = id_thematique;
         public string? nom_thematique { get; set; } = nom_thematique;
@@ -12,8 +13,9 @@ namespace com.democratia.Models
         [JsonPropertyName("budget_thematique")]
         public float? budget { get; set; } = budget;
         [JsonPropertyName("budget")]
-        public float ? budget_groupe { get; set; } = budget_groupe;
-        public readonly float ratio = budget / budget_groupe ?? 0;
+        public float? budget_groupe { get; set; } = budget_groupe;
+        [ObservableProperty]
+        private float ratio = (float)(budget / budget_groupe)!;
 
         public Thematique(string? nom_thematique) : this(null, nom_thematique, null, null) { }
 

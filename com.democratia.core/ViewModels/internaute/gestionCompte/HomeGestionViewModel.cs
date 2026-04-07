@@ -15,15 +15,17 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         [ObservableProperty] private string? retourMessage;
 
         public Internaute? internaute;
+        private Services.AppContext appContext;
         private bool _isNavigating = false;
         private readonly INavigationService navigationService1;
         private readonly WeakReferenceMessenger weakReferenceMessenger;
-        public HomeGestionViewModel(IEnumerable<IClient> clients, ILocalizationService? localizationService, INavigationService navigationService) 
+        public HomeGestionViewModel(IEnumerable<IClient> clients, ILocalizationService? localizationService, INavigationService navigationService, Services.AppContext context) 
             : base(clients.OfType<InternauteClient>().FirstOrDefault(), localizationService)
         {
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
             navigationService1 = navigationService;
             weakReferenceMessenger = WeakReferenceMessenger.Default;
+            appContext = context;
         }
 
         [RelayCommand]
@@ -41,10 +43,10 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
                 RetourMessage = LocalizationService?.GetString("connexionErreur");
         }
 
-        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             if (query.TryGetValue("modele", out var valeur)) internaute = (Internaute)valeur;
-            else internaute = await RetrouverModele<Internaute>();
+            else internaute = appContext.Internaute ;
         }
 
         [RelayCommand(AllowConcurrentExecutions = false)]
@@ -52,8 +54,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         {
             if (_isNavigating) return;
             _isNavigating = true;
-            var parameter = commande == "ModifierGestionPage" ?
-                new ShellNavigationQueryParameters { { "internaute", internaute! } } : null;
+            var parameter = new ShellNavigationQueryParameters { { "modele", internaute! } };
             try
             {
                 await navigationService1.GoToAsync(commande, parameter);

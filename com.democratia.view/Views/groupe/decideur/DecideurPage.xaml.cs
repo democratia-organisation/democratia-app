@@ -1,4 +1,5 @@
 using com.democratia.ViewModels.groupe.decideur;
+using static com.democratia.Views.Component.DecideurThematique;
 
 namespace com.democratia.Views.groupe.decideur
 {
@@ -8,11 +9,6 @@ namespace com.democratia.Views.groupe.decideur
         {
             InitializeComponent();
             BindingContext = viewModel;
-        }
-
-        private void ScrollView_Scrolled(object sender, ScrolledEventArgs e)
-        {
-
         }
     }
 }

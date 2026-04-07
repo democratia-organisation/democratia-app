@@ -3,7 +3,6 @@ using com.democratia.Services;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
-using System.Text.Json;
 using System.Collections.ObjectModel;
 using com.democratia.Utils;
 
@@ -13,28 +12,24 @@ namespace com.democratia.ViewModels.internaute
     {
         public Internaute? internaute;
         private readonly INavigationService? navigationService;
-        public readonly TaskCompletionSource<bool> _internautePret = new(false);
+        private readonly Services.AppContext context;
         public ObservableCollection<Groupe> Groupes { get; private set; } = [];
         public readonly List<Groupe> listeRecu = [];
-        public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService)
+        public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService, Services.AppContext context)
             : base(clients?.OfType<GroupClient>().FirstOrDefault(), localizationService)
         {
             this.navigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
+            this.context = context;
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            if(query.TryGetValue("modele", out var valeur)) internaute = (Internaute)valeur ;
-            else internaute = await RetrouverModele<Internaute>();
-            _internautePret.TrySetResult(true);
+            internaute = query.TryGetValue("modele", out var user) ? (Internaute)user : context.Internaute ;
         }
 
         public async void InitializeAsync()
         {
-            
-            // instruction pour résoudre un race condition parce que ApplyQueryAttributes
-            // renvoie un void donc la fonction ne peut pas être attendu
             var jsonString = string.Empty;
             try
             { jsonString = await client?.GetModelAsync(internaute!)!; }
@@ -47,8 +42,15 @@ namespace com.democratia.ViewModels.internaute
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) => 
-            await navigationService?.GoToAsync(commande, new ShellNavigationQueryParameters {{ "modele", internaute! }})!;
+            await navigationService?.GoToAsync(commande, new (){{ "modele", internaute! }})!;
 
-        
+        [RelayCommand]
+        private async Task RefreshListGroupe(int cursor)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
     }
 }

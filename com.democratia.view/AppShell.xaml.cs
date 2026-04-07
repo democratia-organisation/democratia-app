@@ -1,4 +1,4 @@
-﻿using com.democratia.view.Views;
+﻿using com.democratia.Views;
 using com.democratia.Views.groupe;
 using com.democratia.Views.groupe.decideur;
 using com.democratia.Views.internaute;
@@ -12,7 +12,7 @@ namespace com.democratia
         public AppShell()
         {
             InitializeComponent();
-            BasePageRoute.RouteBase();
+            Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             CreerGroupeRoute.RouteCreationGroup();
             GestionCompteRoute.RouteGestionCompte();
             DecideurBaseRoute.RouteBase();

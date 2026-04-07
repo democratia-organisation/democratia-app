@@ -21,7 +21,7 @@
                 AutomationProperties.Name="labelCreaGroupe"
                 Style="{DynamicResource HeadlineStyle}"
                 Text="{x:Static lang:AppResources.creaGroupe}" />
-            <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
+            <BoxView HeightRequest="{StaticResource SpacingLarge}" />
             <Label
                 x:Name="labelErreur"
                 AutomationId="labelErreur"
@@ -29,7 +29,7 @@
                 HorizontalOptions="Center"
                 Style="{DynamicResource ErrorLabelStyle}"
                 Text="{Binding ErreurMessage}" />
-            <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
+            <BoxView HeightRequest="{StaticResource SpacingLarge}" />
             <Component:EntryComponent
                 x:Name="nomGroupeEntry"
                 Title="{x:Static lang:AppResources.entrezNomGroupe}"

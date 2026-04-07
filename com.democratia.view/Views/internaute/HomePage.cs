@@ -10,9 +10,10 @@ namespace com.democratia.Views.internaute
     public partial class HomePage : ContentPage
     {
         private readonly VerticalStackLayout _stackLayout;
-        private readonly CollectionView _collectionView;
+        private readonly RefreshView refreshView;
         private readonly Button _createGroupButton;
         private readonly Label _ownGroupeLabel;
+        private int cursor = 0;
 
         public HomePage(HomeViewModel viewModel)
         {
@@ -21,21 +22,26 @@ namespace com.democratia.Views.internaute
             Color lightCouleur = new(), darkCouleur = new();
 
             Style = (Style)Application.Current!.Resources["fondEcran"];
-            var profileIcone = new Border  // bordure car sur iOS, les images sont davantages cropés, donc la bordure empeche le cropage de l'image
+            var large = (double)Application.Current.Resources["SpacingLarge"];
+            var card = (double)Application.Current.Resources["CardHeight"];
+            var small = (double)Application.Current.Resources["SpacingSmall"];
+            var medium = (double)Application.Current.Resources["SpacingMedium"];
+            // bordure car sur iOS, les images sont davantages cropés, donc la bordure empeche le cropage de l'image
+            var profileIcone = new Border  
             { 
-                MaximumWidthRequest = 60,
-                MaximumHeightRequest = 60,
+                MaximumWidthRequest = large,
+                MaximumHeightRequest = large,
                 HorizontalOptions = LayoutOptions.Center,
                 StrokeThickness = 1,
                 Padding = 0,
-                StrokeShape = new RoundRectangle { CornerRadius = 50 },
+                StrokeShape = new RoundRectangle { CornerRadius = (int)large },
                 Content = new ImageButton
                 {
                     Source = "profile_icon.jpeg",
                     Aspect = Aspect.AspectFill,
-                    CornerRadius = 50,
-                    MaximumHeightRequest = 60,
-                    MaximumWidthRequest = 60,
+                    CornerRadius = (int)large,
+                    MaximumHeightRequest = large,
+                    MaximumWidthRequest = large,
                     Command = viewModel.NavigateTappedCommand,
                     CommandParameter = $"{nameof(HomeGestionPage)}",
                     AutomationId = "ProfileButton",
@@ -56,11 +62,11 @@ namespace com.democratia.Views.internaute
                     new Header(),
                     new Grid
                     {
-                        HeightRequest = 80,
-                        WidthRequest = 200,
+                        HeightRequest = large,
+                        WidthRequest = card,
                         Children =
                         {
-                            new BoxView { WidthRequest = 700 },
+                            new BoxView { WidthRequest = card },
                             profileIcone
                         }
                     }
@@ -72,23 +78,28 @@ namespace com.democratia.Views.internaute
                 Text = $"{AppResources.groupe}",
                 Style = (Style?)Application.Current?.Resources["HeadlineStyle"],
                 HorizontalOptions = LayoutOptions.Center,
-                Margin = new Thickness(0, 20),
+                Margin = new Thickness(0, medium),
                 AutomationId = "MyGroupsLabel",
             };
             AutomationProperties.SetName(_ownGroupeLabel, "MyGroupsLabel");
             
-            _collectionView = new CollectionView
+            refreshView = new RefreshView
             {
-                VerticalOptions = LayoutOptions.Fill,
-                HorizontalOptions = LayoutOptions.Fill,
-                ItemsSource = viewModel.Groupes,
-                ItemTemplate = new(() => new ButtonGroupeCell()),
-                ItemsLayout = new GridItemsLayout(3, ItemsLayoutOrientation.Vertical)
+                Content = new CollectionView
                 {
-                    HorizontalItemSpacing = 10,
-                    VerticalItemSpacing = 10
+                    VerticalOptions = LayoutOptions.Fill,
+                    HorizontalOptions = LayoutOptions.Fill,
+                    ItemsSource = viewModel.Groupes,
+                    ItemTemplate = new(() => new ButtonGroupeCell()),
+                    ItemsLayout = new GridItemsLayout(3, ItemsLayoutOrientation.Vertical)
+                    {
+                        HorizontalItemSpacing = small,
+                        VerticalItemSpacing = small
+                    },
+                    HeightRequest = card
                 },
-                HeightRequest = 400
+                Command = viewModel.RefreshListGroupeCommand,
+                CommandParameter = cursor+=1
             };
             
 
@@ -117,14 +128,14 @@ namespace com.democratia.Views.internaute
                 {
                     _stackLayout,
                     _ownGroupeLabel,
-                    _collectionView,
+                    refreshView,
                     _createGroupButton
                 }
             };
 
             Grid.SetRow(_stackLayout, 0);
             Grid.SetRow(_ownGroupeLabel, 1);
-            Grid.SetRow(_collectionView, 2);
+            Grid.SetRow(refreshView, 2);
             Grid.SetRow(_createGroupButton, 3);
 
             Content = grillePrincipale;

@@ -30,7 +30,7 @@
                 x:Name="stackLayout"
                 Grid.Row="2"
                 Padding="10">
-                <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
+                <BoxView HeightRequest="{StaticResource SpacingLarge}" />
                 <Button
                     x:Name="modificationnButton"
                     AutomationId="modificationnButton"
@@ -39,7 +39,7 @@
                     CommandParameter="ModifierGestionPage"
                     Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.ModifCompte}" />
-                <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
+                <BoxView HeightRequest="{StaticResource SpacingLarge}" />
                 <Button
                     x:Name="suppresionButton"
                     AutomationId="suppresionButton"
@@ -47,7 +47,7 @@
                     Command="{Binding ActionInternauteCommand}"
                     Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.SuppCompte}" />
-                <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
+                <BoxView HeightRequest="{StaticResource SpacingLarge}" />
                 <Button
                     x:Name="preferenceButton"
                     AutomationId="preferencButton"

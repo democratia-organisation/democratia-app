@@ -11,13 +11,13 @@
     Style="{DynamicResource fondEcran}">
     <VerticalStackLayout>
         <component:Header />
-        <BoxView HeightRequest="{StaticResource SpacingExtraLarge}" />
+        <BoxView HeightRequest="{StaticResource SpacingLarge}" />
         <Label Style="{DynamicResource SubHeadlineStyle}" Text="{Binding Groupe.NomGroupe}" />
         <ProgressBar Progress="{Binding Groupe.Budget}" Style="{DynamicResource GroupeProgressBarStyle}" />
-        <ScrollView Scrolled="ScrollView_Scrolled">
-            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Thematiques}">
+        <ScrollView>
+            <VerticalStackLayout x:Name="layout" BindableLayout.ItemsSource="{Binding Thematiques}">
                 <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="models:Thematique">
+                    <DataTemplate>
                         <component:DecideurThematique />
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>

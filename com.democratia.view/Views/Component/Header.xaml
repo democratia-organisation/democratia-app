@@ -20,8 +20,8 @@
             AutomationId="BackButton"
             Clicked="OnClicked"
             HorizontalOptions="Start"
-            MaximumHeightRequest="{StaticResource SpacingExtraLarge}"
-            MaximumWidthRequest="{StaticResource SpacingExtraLarge}"
+            MaximumHeightRequest="{StaticResource SpacingLarge}"
+            MaximumWidthRequest="{StaticResource SpacingLarge}"
             Source="back.png"
             Style="{DynamicResource ImageButtonStyle}"
             VerticalOptions="Center" />
@@ -41,8 +41,8 @@
             AutomationId="SwitchImageButton"
             Clicked="OnClicked"
             HorizontalOptions="End"
-            MaximumHeightRequest="{StaticResource SpacingExtraLarge}"
-            MaximumWidthRequest="{StaticResource SpacingExtraLarge}"
+            MaximumHeightRequest="{StaticResource SpacingLarge}"
+            MaximumWidthRequest="{StaticResource SpacingLarge}"
             Source="light.png"
             Style="{DynamicResource ImageButtonStyle}"
             VerticalOptions="Center" />
