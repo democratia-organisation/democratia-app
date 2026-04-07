@@ -10,7 +10,7 @@ namespace com.democratia.Views.internaute
     public partial class HomePage : ContentPage
     {
         private readonly VerticalStackLayout _stackLayout;
-        private readonly RefreshView refreshView;
+        private readonly RefreshView collectionView;
         private readonly Button _createGroupButton;
         private readonly Label _ownGroupeLabel;
         private int cursor = 0;
@@ -82,8 +82,7 @@ namespace com.democratia.Views.internaute
                 AutomationId = "MyGroupsLabel",
             };
             AutomationProperties.SetName(_ownGroupeLabel, "MyGroupsLabel");
-            
-            refreshView = new RefreshView
+            collectionView = new RefreshView
             {
                 Content = new CollectionView
                 {
@@ -96,12 +95,16 @@ namespace com.democratia.Views.internaute
                         HorizontalItemSpacing = small,
                         VerticalItemSpacing = small
                     },
-                    HeightRequest = card
+                    HeightRequest = card,
+                    RemainingItemsThreshold = 2,
+                    RemainingItemsThresholdReachedCommand = viewModel.RefreshListGroupeCommand,
+                    RemainingItemsThresholdReachedCommandParameter = cursor += 1
+
                 },
-                Command = viewModel.RefreshListGroupeCommand,
-                CommandParameter = cursor+=1
+                Command = viewModel.RefreshListGroupeCommand
             };
-            
+
+
 
             _createGroupButton = new Button
             {
@@ -114,7 +117,7 @@ namespace com.democratia.Views.internaute
                 AutomationId = "CreateGroupButton",
             };
             AutomationProperties.SetName(_createGroupButton, "CreateGroupButton");
-
+            View[] views = [_stackLayout,_ownGroupeLabel,collectionView,_createGroupButton];
             var grillePrincipale = new Grid
             {
                 RowDefinitions =
@@ -123,21 +126,10 @@ namespace com.democratia.Views.internaute
                     new RowDefinition { Height = GridLength.Auto },
                     new RowDefinition { Height = GridLength.Star },
                     new RowDefinition { Height = GridLength.Auto }                  
-                 },
-                Children =
-                {
-                    _stackLayout,
-                    _ownGroupeLabel,
-                    refreshView,
-                    _createGroupButton
-                }
+                 }
             };
-
-            Grid.SetRow(_stackLayout, 0);
-            Grid.SetRow(_ownGroupeLabel, 1);
-            Grid.SetRow(refreshView, 2);
-            Grid.SetRow(_createGroupButton, 3);
-
+            foreach (var (index, item) in views.Index())
+                grillePrincipale.Add(item, row: index);
             Content = grillePrincipale;
         }
 

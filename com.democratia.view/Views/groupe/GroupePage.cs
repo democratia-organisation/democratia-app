@@ -1,8 +1,6 @@
-using com.democratia.Models;
 using com.democratia.view.Resources.Localization;
 using com.democratia.ViewModels.groupe;
 using com.democratia.Views.Component;
-using com.democratia.Views.groupe.decideur;
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Extensions;
 using Microsoft.Maui.Controls.PlatformConfiguration;
@@ -16,12 +14,16 @@ namespace com.democratia.Views.groupe
         private Microsoft.Maui.Controls.Application application;
         private bool _isInitialized = false;
         private int cursor = 0;
-        private CollectionView collectionView;
+        private RefreshView? collectionView;
+        private Grid mailGrille;
+        private double smallSize;
+
         public GroupePage(GroupeViewModel viewModel)
         {
             BindingContext = viewModel;
             application = Microsoft.Maui.Controls.Application.Current!;
             Style = (Style)application.Resources["fondEcran"];
+            smallSize = (double)application!.Resources["SpacingSmall"];
             grille = new Grid
             {
                 ColumnDefinitions = 
@@ -31,28 +33,51 @@ namespace com.democratia.Views.groupe
                     new ColumnDefinition{ Width= GridLength.Auto},
                 },
             };
-            collectionView = new CollectionView
+            mailGrille = new Grid
             {
-                ItemsSource = viewModel.Propositions,
-                ItemTemplate = new DataTemplate(() => new PropositionCell(viewModel))
-
+                RowDefinitions =
+                {
+                    new RowDefinition{Height = GridLength.Auto},
+                    new RowDefinition{Height = GridLength.Auto},
+                    new RowDefinition{Height = GridLength.Auto},
+                    new RowDefinition{Height = GridLength.Star},
+                    new RowDefinition{Height = GridLength.Auto}
+                },
+                RowSpacing = smallSize
             };
         }
 
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            await ((GroupeViewModel)BindingContext).ChargerElements();
             if (_isInitialized) return;
             Building();
+
             _isInitialized = true;
         }
 
         private void Building()
         {
             var viewModel = (GroupeViewModel)BindingContext;
-            var smallSize = (double)application!.Resources["SpacingSmall"];
+            
             var carSize = (double)application.Resources["CardHeight"];
             var extraLarge = (double)application.Resources["SpacingLarge"];
+            var image = new Image
+            {
+                Source = viewModel.Image,
+                HeightRequest = carSize,
+                WidthRequest = carSize
+            };
+            var newbutton = new Button
+            {
+                Command = viewModel.NavigateTappedCommand,
+                CommandParameter = $"{nameof(NouvelleProposition)}",
+                Text = AppResources.nouvellProp,
+                Style = (Style)application!.Resources["ButtonStyle"],
+                VerticalOptions = LayoutOptions.End
+
+            };
             var picker = new Microsoft.Maui.Controls.Picker
             {
                 Style = (Style)application.Resources["PickerStyle"],
@@ -86,6 +111,25 @@ namespace com.democratia.Views.groupe
                 Text = viewModel.Groupe!.NomGroupe,
                 HorizontalOptions = LayoutOptions.Center,
             };
+            collectionView = new RefreshView
+            {
+                Content = new CollectionView
+                {
+                    ItemsSource = viewModel.Propositions,
+                    ItemTemplate = new DataTemplate(() => new PropositionCell(viewModel)),
+                    ItemsLayout = new GridItemsLayout(3, ItemsLayoutOrientation.Horizontal)
+                    {
+                        HorizontalItemSpacing = smallSize,
+                        VerticalItemSpacing = smallSize
+                    },
+                    HorizontalOptions = LayoutOptions.Center,
+                    RemainingItemsThreshold = 1,
+                    RemainingItemsThresholdReachedCommand = viewModel.UpdateListCommand,
+                    RemainingItemsThresholdReachedCommandParameter = cursor += 1,
+
+                },
+                Command = viewModel.UpdateListCommand
+            };
             var horizontalLayout = new HorizontalStackLayout
             {
                 Children =
@@ -112,15 +156,16 @@ namespace com.democratia.Views.groupe
                     }
                 }
             };
+
             if (application.Resources.TryGetValue("Light-surfaceContainer", out var light) && application.Resources.TryGetValue("Dark-surfaceContainer", out var dark))
                 grille.SetAppThemeColor(BackgroundColorProperty, (Color)light, (Color)dark);
-
-            grille.Children.Add(button);
-            grille.Children.Add(label);
-            grille.Children.Add(horizontalLayout);
-            grille.SetColumn(button, 0);
-            grille.SetColumn(label, 1);
-            grille.SetColumn(horizontalLayout, 2);
+            
+            View[] optionsListe = [button, label, horizontalLayout];
+            View[] mainElements = [image, grille, picker, collectionView, newbutton];
+            foreach (var (index,item) in optionsListe.Index())
+                grille.Add(item, column: index);
+            foreach (var (index,item) in mainElements.Index())
+                mailGrille.Add(item, row: index);
 
             Content = new VerticalStackLayout
             {
@@ -128,30 +173,8 @@ namespace com.democratia.Views.groupe
                 Children =
                 {
                     new Header(),
-                    new Image
-                    {
-                        Source = viewModel.Image,
-                        HeightRequest = carSize,
-                        WidthRequest = carSize
-                    },
-
-                    grille,
-                    picker,
-                    new RefreshView
-                    {
-                        Content =  collectionView,
-                        Command = viewModel.UpdateListCommand,
-                        CommandParameter = cursor+=1,
-                    },
-                    new Button
-                    {
-                        Command = viewModel.NavigateTappedCommand,
-                        CommandParameter =$"{nameof(NouvelleProposition)}",
-                        Text = AppResources.nouvellProp,
-                        Style = (Style)application!.Resources["ButtonStyle"],
-                        VerticalOptions = LayoutOptions.End
-
-                    }
+                    mailGrille
+                    
                 }
             };
         }

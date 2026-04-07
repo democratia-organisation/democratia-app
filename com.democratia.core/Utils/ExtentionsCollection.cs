@@ -1,6 +1,5 @@
 ﻿using com.democratia.Services;
 using com.democratia.ViewModels.groupe;
-using com.democratia.ViewModels.groupe.decideur;
 using com.democratia.ViewModels.internaute;
 using com.democratia.ViewModels.internaute.CreerGroupe;
 using com.democratia.ViewModels.internaute.gestionCompte;
@@ -55,8 +54,8 @@ namespace com.democratia.Utils
         {
             public IHttpClientBuilder AddAllHttpHander()
             {
-                builder.AddHttpMessageHandler<DebutRequete>()
-                    .AddHttpMessageHandler<AuthentificationHandler>()
+                builder.AddHttpMessageHandler<AuthentificationHandler>()
+                    .AddHttpMessageHandler<DebutRequete>()
                     .AddHttpMessageHandler<FinRequete>();
                 return builder;
             }

@@ -8,14 +8,12 @@ namespace com.democratia.Models
     public partial class Thematique(int? id_thematique, string? nom_thematique, float? budget, float? budget_groupe) : ObservableObject, IModel
     {
         public int? id_thematique { get; set; } = id_thematique;
-        public string? nom_thematique { get; set; } = nom_thematique;
-
-        [JsonPropertyName("budget_thematique")]
+        public string? nom_thematique { get; set; } = nom_thematique;        [JsonPropertyName("budget_thematique")]
         public float? budget { get; set; } = budget;
         [JsonPropertyName("budget")]
         public float? budget_groupe { get; set; } = budget_groupe;
         [ObservableProperty]
-        private float ratio = (float)(budget / budget_groupe)!;
+        private float ratio = (budget / budget_groupe) ?? 0;
 
         public Thematique(string? nom_thematique) : this(null, nom_thematique, null, null) { }
 

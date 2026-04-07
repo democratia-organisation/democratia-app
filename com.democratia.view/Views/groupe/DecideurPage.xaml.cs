@@ -1,7 +1,6 @@
-using com.democratia.ViewModels.groupe.decideur;
-using static com.democratia.Views.Component.DecideurThematique;
+using com.democratia.ViewModels.groupe;
 
-namespace com.democratia.Views.groupe.decideur
+namespace com.democratia.Views.groupe
 {
     public partial class DecideurPage : ContentPage
     {

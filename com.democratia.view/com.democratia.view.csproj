@@ -110,7 +110,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\groupe\decideur\DecideurPage.xaml.cs">
+    <Compile Update="Views\groupe\DecideurPage.xaml.cs">
       <DependentUpon>DecideurPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\groupe\Membre.xaml.cs">
@@ -157,7 +157,7 @@
     <MauiXaml Update="Views\Component\PropositionCard.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\groupe\decideur\DecideurPage.xaml">
+    <MauiXaml Update="Views\groupe\DecideurPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\groupe\Membre.xaml">

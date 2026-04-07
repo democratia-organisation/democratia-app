@@ -1,34 +1,33 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="com.democratia.Views.Component.PropositionCard"
-             Style="{DynamicResource ContenViewStyle}"
-             xmlns:models="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
-             xmlns:viewModels="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
-             xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
-             x:DataType="viewModels:GroupeViewModel">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="com.democratia.Views.Component.PropositionCard"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
+    xmlns:models="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
+    xmlns:viewModels="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
+    x:DataType="viewModels:GroupeViewModel"
+    Style="{DynamicResource ContenViewStyle}">
     <VerticalStackLayout>
-        <HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="{DynamicResource SpacingLarge}">
             <Label
-                x:DataType="models:Proposition"
-                Text="{Binding Titre}"
-                Style="{DynamicResource LabelStyle}"
-                HorizontalTextAlignment="Center"
-                HorizontalOptions="Center"
                 x:Name="labelTitre"
-            />
+                x:DataType="models:Proposition"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Style="{DynamicResource LabelStyle}"
+                Text="{Binding Titre}" />
             <Image
                 HeightRequest="30"
-                WidthRequest="30"
-                VerticalOptions="End"
+                HorizontalOptions="End"
                 Source="loupe.png"
-            />
+                VerticalOptions="End"
+                WidthRequest="30" />
         </HorizontalStackLayout>
         <Label
+            x:Name="labelDate"
             x:DataType="models:Proposition"
-            HorizontalTextAlignment="Start"
-            x:Name="labelDate">
-        </Label>
-        
+            HorizontalTextAlignment="Start" />
+
     </VerticalStackLayout>
 </ContentView>

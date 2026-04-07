@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="com.democratia.Views.groupe.decideur.DecideurPage"
+    x:Class="com.democratia.Views.groupe.DecideurPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:component="clr-namespace:com.democratia.Views.Component"
     xmlns:models="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
-    xmlns:viewModelDecideur="clr-namespace:com.democratia.ViewModels.groupe.decideur;assembly=com.democratia.core"
+    xmlns:viewModelDecideur="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
     x:DataType="viewModelDecideur:DecideurViewModel"
     Style="{DynamicResource fondEcran}">
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
         <component:Header />
-        <BoxView HeightRequest="{StaticResource SpacingLarge}" />
         <Label Style="{DynamicResource SubHeadlineStyle}" Text="{Binding Groupe.NomGroupe}" />
         <ProgressBar Progress="{Binding Groupe.Budget}" Style="{DynamicResource GroupeProgressBarStyle}" />
         <ScrollView>

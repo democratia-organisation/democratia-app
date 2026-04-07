@@ -19,6 +19,7 @@ namespace com.democratia.ViewModels.groupe
         [ObservableProperty] private Groupe? groupe;
         [ObservableProperty] private ObservableCollection<Proposition> propositions = [];
         [ObservableProperty] private ObservableCollection<Thematique> thematiques = [];
+       
         private Internaute? internaute;
         private Services.AppContext context = context;
         // TODO : savoir si c'est un décideur afin d'afficher certaines options en fonction
@@ -51,7 +52,7 @@ namespace com.democratia.ViewModels.groupe
             var thematiqueClient = ServiceHelper.GetService<IThematiqueClient>();
             string response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(Groupe!.IdGroupe);
             List<Proposition> propositions = RecuprerInformationConnexion<Proposition>(response)!;
-            response = await ((GroupClient)client!).GetJointureThemeEtGroupeAsync(Groupe!.IdGroupe)!;
+            response = await ((GroupClient)client!).GetJointureThemeEtGroupeAsync(Groupe!.IdGroupe)!;          
             List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(response)!;
             Propositions.Clear();
             Thematiques.Clear();
@@ -73,18 +74,17 @@ namespace com.democratia.ViewModels.groupe
             await navigationService?.GoToAsync("GroupePage", parameters)!;
         }
 
-        [RelayCommand]
+        [RelayCommand(AllowConcurrentExecutions = false)]
         private async Task UpdateList(int cursor)
         {
             throw new NotImplementedException();
         }
 
-        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             Groupe = query.TryGetValue("groupe", out var groupe) ? (Groupe)groupe : context.Groupe;
             Image = query.TryGetValue("Image", out var image) ? (ImageSource)image : null;
             internaute = query.TryGetValue("modele", out var user) ? (Internaute)user : context.Internaute;
-            await ChargerElements();
         }
 
     }

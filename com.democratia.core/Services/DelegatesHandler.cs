@@ -7,30 +7,6 @@ using System.Text.Json;
 
 namespace com.democratia.Services
 {
-    public class DebutRequete : DelegatingHandler
-    {
-        private static readonly string API_KEY = "API_KEY";
-        private static readonly string REFRESH = "REFRESH";
-        private static readonly string IS_FRESH = "is_refresh_key_fresh";
-        protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            request.Headers.Clear();
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            bool isParsed = bool.TryParse(await SecureStorage.Default.GetAsync(IS_FRESH), out bool isFresh);
-            if (!isParsed)
-                return await base.SendAsync(request, cancellationToken);
-            
-            if (isFresh && await SecureStorage.Default.GetAsync(REFRESH) is string refresh)
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", refresh);
-            
-            else if(await SecureStorage.Default.GetAsync(API_KEY) is string apiKey)
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-            
-            return await base.SendAsync(request, cancellationToken);
-        }
-    }
-
-
     public class AuthentificationHandler(IHttpClientFactory factory) : DelegatingHandler
     {
         private static readonly string API_KEY = "API_KEY";
@@ -94,6 +70,29 @@ namespace com.democratia.Services
                 return response;
         }
     }
+    public class DebutRequete : DelegatingHandler
+    {
+        private static readonly string API_KEY = "API_KEY";
+        private static readonly string REFRESH = "REFRESH";
+        private static readonly string IS_FRESH = "is_refresh_key_fresh";
+        protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            request.Headers.Clear();
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            bool isParsed = bool.TryParse(await SecureStorage.Default.GetAsync(IS_FRESH), out bool isFresh);
+            if (!isParsed)
+                return await base.SendAsync(request, cancellationToken);
+            
+            if (isFresh && await SecureStorage.Default.GetAsync(REFRESH) is string refresh)
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", refresh);
+            
+            else if(await SecureStorage.Default.GetAsync(API_KEY) is string apiKey)
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+            
+            return await base.SendAsync(request, cancellationToken);
+        }
+    }
+
     public class FinRequete : DelegatingHandler
     {
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
