@@ -363,4 +363,10 @@
   <data name="critere" xml:space="preserve">
     <value>criteria</value>
   </data>
+  <data name="budgetAttente" xml:space="preserve">
+    <value>waiting budget</value>
+  </data>
+  <data name="budgetUtilise" xml:space="preserve">
+    <value>used budget</value>
+  </data>
 </root>

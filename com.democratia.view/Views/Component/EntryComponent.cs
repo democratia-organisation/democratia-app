@@ -9,12 +9,12 @@ namespace com.democratia.Views.Component
         private Entry entryComponent { get; }
 
         public static readonly BindableProperty ValeurDonneProperty = BindableProperty.Create(
-        nameof(ValeurDonne),
-        typeof(string),
-        typeof(EntryComponent),
-        default(string),
-        BindingMode.TwoWay
-    );
+            nameof(ValeurDonne),
+            typeof(string),
+            typeof(EntryComponent),
+            default(string),
+            BindingMode.TwoWay
+        );
 
         public string ValeurDonne
         {

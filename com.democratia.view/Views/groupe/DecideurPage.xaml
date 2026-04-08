@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:component="clr-namespace:com.democratia.Views.Component"
+    xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
     xmlns:models="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
     xmlns:viewModelDecideur="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
@@ -12,15 +13,31 @@
     <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
         <component:Header />
         <Label Style="{DynamicResource SubHeadlineStyle}" Text="{Binding Groupe.NomGroupe}" />
-        <ProgressBar Progress="{Binding Groupe.Budget}" Style="{DynamicResource GroupeProgressBarStyle}" />
-        <ScrollView>
-            <VerticalStackLayout x:Name="layout" BindableLayout.ItemsSource="{Binding Thematiques}">
-                <BindableLayout.ItemTemplate>
+        <ProgressBar Progress="{Binding Groupe.Ratio_utilise}" Style="{DynamicResource UtiliseProgressBarStyle}" />
+        <ProgressBar Progress="{Binding Groupe.Ratio_attente}" Style="{DynamicResource AttenteProgressBarStyle}" />
+        <RefreshView Command="{Binding ChargerThematiquesCommand}">
+            <CollectionView
+                x:Name="layout"
+                ItemsSource="{Binding Thematiques}"
+                RemainingItemsThreshold="1"
+                RemainingItemsThresholdReachedCommand="{Binding RechargeThematiquesCommand}">
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <component:DecideurThematique />
                     </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </VerticalStackLayout>
-        </ScrollView>
+                </CollectionView.ItemTemplate>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Orientation="Vertical"
+                        Span="1"
+                        VerticalItemSpacing="{DynamicResource SpacingSmall}" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+        </RefreshView>
+        <BoxView HeightRequest="{DynamicResource SpacingMedium}" />
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="{DynamicResource SpacingLarge}">
+            <component:DecideurIndicator CouleurCercle="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" Texte="{x:Static lang:AppResources.budgetUtilise}" />
+            <component:DecideurIndicator CouleurCercle="{AppThemeBinding Light={DynamicResource Light-tertiary}, Dark={DynamicResource Dark-tertiary}}" Texte="{x:Static lang:AppResources.budgetAttente}" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

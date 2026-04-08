@@ -23,7 +23,7 @@ namespace com.democratia.Views.internaute
 
             Style = (Style)Application.Current!.Resources["fondEcran"];
             var large = (double)Application.Current.Resources["SpacingLarge"];
-            var card = (double)Application.Current.Resources["CardHeight"];
+            var card = (double)Application.Current.Resources["SpacingUltraLarge"];
             var small = (double)Application.Current.Resources["SpacingSmall"];
             var medium = (double)Application.Current.Resources["SpacingMedium"];
             // bordure car sur iOS, les images sont davantages cropés, donc la bordure empeche le cropage de l'image

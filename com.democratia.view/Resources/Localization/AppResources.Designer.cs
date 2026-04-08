@@ -106,11 +106,29 @@ namespace com.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Budget en attente.
+        /// </summary>
+        public static string budgetAttente {
+            get {
+                return ResourceManager.GetString("budgetAttente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à La somme des budget de chaque thème est inférieur au budget total donné.
         /// </summary>
         public static string budgetInsuffisant {
             get {
                 return ResourceManager.GetString("budgetInsuffisant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à budget utilisé.
+        /// </summary>
+        public static string budgetUtilise {
+            get {
+                return ResourceManager.GetString("budgetUtilise", resourceCulture);
             }
         }
         

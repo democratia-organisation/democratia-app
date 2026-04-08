@@ -13,7 +13,7 @@ namespace com.democratia.Views.Component
             this.groupe = groupe;
             this.viewModel = viewModel;
             BindingContext = this.viewModel;
-            var card = (double)Application.Current!.Resources["CardHeight"];
+            var card = (double)Application.Current!.Resources["SpacingUltraLarge"];
             
             button = new ImageButton
             {

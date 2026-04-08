@@ -60,7 +60,7 @@ namespace com.democratia.Views.groupe
                 },
                 RowSpacing = smallSize
             };
-            var carSize = (double)application.Resources["CardHeight"];
+            var carSize = (double)application.Resources["SpacingUltraLarge"];
             var extraLarge = (double)application.Resources["SpacingLarge"];
             var image = new Image
             {
