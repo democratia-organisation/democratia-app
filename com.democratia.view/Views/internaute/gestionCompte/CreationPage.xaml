@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:com.democratia.Views"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
     x:DataType="viewModel:CreationViewModel"
+    AutomationId="creationPage     "
     Style="{DynamicResource fondEcran}">
 
     <ScrollView>

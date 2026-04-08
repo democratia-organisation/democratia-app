@@ -17,6 +17,7 @@ namespace com.democratia.Views.internaute
 
         public HomePage(HomeViewModel viewModel)
         {
+            AutomationId = "homePage";
             BindingContext = viewModel;
             Color lightCouleur = new(), darkCouleur = new();
 
