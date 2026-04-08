@@ -19,7 +19,8 @@ namespace com.democratia.ViewModels.groupe
         [ObservableProperty] private Groupe? groupe;
         [ObservableProperty] private ObservableCollection<Proposition> propositions = [];
         [ObservableProperty] private ObservableCollection<Thematique> thematiques = [];
-       
+        private int cursor = 0;
+
         private Internaute? internaute;
         private Services.AppContext context = context;
         // TODO : savoir si c'est un décideur afin d'afficher certaines options en fonction
@@ -46,8 +47,10 @@ namespace com.democratia.ViewModels.groupe
             throw new NotImplementedException();
         }
 
-        public async Task ChargerElements()
+        [RelayCommand]
+        private async Task ChargerElements()
         {
+            // TODO : paginer la récupération de propositions
             var propositionClient = ServiceHelper.GetService<IPropositionClient>();
             var thematiqueClient = ServiceHelper.GetService<IThematiqueClient>();
             string response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(Groupe!.IdGroupe);
@@ -74,9 +77,10 @@ namespace com.democratia.ViewModels.groupe
             await navigationService?.GoToAsync("GroupePage", parameters)!;
         }
 
-        [RelayCommand(AllowConcurrentExecutions = false)]
-        private async Task UpdateList(int cursor)
+        [RelayCommand]
+        private async Task UpdateList()
         {
+            cursor += 1;
             throw new NotImplementedException();
         }
 

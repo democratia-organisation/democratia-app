@@ -46,7 +46,7 @@ namespace com.democratia.Views.Component
                         label
                     }
                 },
-                Style = (Style?)Application.Current?.Resources["BorderStyle"],
+                Style = (Style?)Application.Current?.Resources["BorderStyleButton"],
                 MaximumHeightRequest = card,
                 MaximumWidthRequest = card
             };

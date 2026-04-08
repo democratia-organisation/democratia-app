@@ -13,7 +13,6 @@ namespace com.democratia.Views.groupe
         private Grid? grille;
         private Microsoft.Maui.Controls.Application application;
         private bool _isInitialized = false;
-        private int cursor = 0;
         private RefreshView? refreshView;
         private Grid? mailGrille;
         private double smallSize;
@@ -29,7 +28,7 @@ namespace com.democratia.Views.groupe
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            await ((GroupeViewModel)BindingContext).ChargerElements();
+            await ((GroupeViewModel)BindingContext).ChargerElementsCommand.ExecuteAsync(null);
             if (_isInitialized) return;
             Building();
             _isInitialized = true;
@@ -125,12 +124,10 @@ namespace com.democratia.Views.groupe
                     HorizontalOptions = LayoutOptions.Center,
                     RemainingItemsThreshold = 1,
                     RemainingItemsThresholdReachedCommand = viewModel.UpdateListCommand,
-                    RemainingItemsThresholdReachedCommandParameter = cursor += 1,
                     AutomationId = "propositionsCollectionView"
 
                 },
-                Command = viewModel.UpdateListCommand,
-                CommandParameter = 0,
+                Command = viewModel.ChargerElementsCommand,
                 AutomationId = "propositionsRefresh"
             };
             var horizontalLayout = new HorizontalStackLayout

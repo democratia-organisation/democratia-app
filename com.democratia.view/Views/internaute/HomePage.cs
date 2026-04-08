@@ -13,7 +13,7 @@ namespace com.democratia.Views.internaute
         private readonly RefreshView refreshView;
         private readonly Button _createGroupButton;
         private readonly Label _ownGroupeLabel;
-        private int cursor = 0;
+
 
         public HomePage(HomeViewModel viewModel)
         {
@@ -94,14 +94,12 @@ namespace com.democratia.Views.internaute
                         VerticalItemSpacing = small
                     },
                     HeightRequest = card,
-                    RemainingItemsThreshold = 2,
+                    RemainingItemsThreshold = 3,
                     RemainingItemsThresholdReachedCommand = viewModel.RefreshListGroupeCommand,
-                    RemainingItemsThresholdReachedCommandParameter = cursor += 1,
                     AutomationId = "groupesRefresh"
 
                 },
-                Command = viewModel.RefreshListGroupeCommand,
-                CommandParameter = 0,
+                Command = viewModel.InitializeCommand,
                 AutomationId = "groupeCollectionView"
             };
 
@@ -131,14 +129,12 @@ namespace com.democratia.Views.internaute
             Content = grillePrincipale;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
             if (BindingContext is HomeViewModel vm)
-            {
-                vm.InitializeAsync();
-            }
+                await vm.InitializeCommand.ExecuteAsync(null);
         }
     }
 }

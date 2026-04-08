@@ -13,6 +13,7 @@ namespace com.democratia.ViewModels.internaute
         public Internaute? internaute;
         private readonly INavigationService? navigationService;
         private readonly Services.AppContext context;
+        private int cursor = 0;
         public ObservableCollection<Groupe> Groupes { get; private set; } = [];
         public readonly List<Groupe> listeRecu = [];
         public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService, Services.AppContext context)
@@ -28,7 +29,9 @@ namespace com.democratia.ViewModels.internaute
             internaute = query.TryGetValue("modele", out var user) ? (Internaute)user : context.Internaute ;
         }
 
-        public async void InitializeAsync()
+
+        [RelayCommand]
+        private async Task InitializeAsync()
         {
             var jsonString = string.Empty;
             try
@@ -45,8 +48,9 @@ namespace com.democratia.ViewModels.internaute
             await navigationService?.GoToAsync(commande, new (){{ "modele", internaute! }})!;
 
         [RelayCommand]
-        private async Task RefreshListGroupe(int cursor)
+        private async Task RefreshListGroupe()
         {
+            cursor += 1;
             throw new NotImplementedException();
         }
 
