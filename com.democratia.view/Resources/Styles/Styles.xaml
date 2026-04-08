@@ -18,12 +18,12 @@
     </Style>
 
     <Style x:Key="BorderStyle" TargetType="Border">
-        <Setter Property="StrokeShape" Value="RoundRectangle 200,200,200,200" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 200" />
         <Setter Property="StrokeThickness" Value="0" />
         <Setter Property="Padding" Value="0,0,0,0" />
     </Style>
     <Style x:Key="BorderStyleButton" TargetType="Border">
-        <Setter Property="StrokeShape" Value="RoundRectangle 600,600,600,600" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 600" />
         <Setter Property="StrokeThickness" Value="5" />
         <Setter Property="Padding" Value="0,0,0,0" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-outline}, Dark={DynamicResource Dark-outline}}" />

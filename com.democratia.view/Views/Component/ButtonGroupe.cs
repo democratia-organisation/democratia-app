@@ -22,10 +22,9 @@ namespace com.democratia.Views.Component
                 HorizontalOptions = LayoutOptions.Center,
                 Command = this.viewModel!.OpenGroupCommand,
                 CommandParameter = this.groupe.NomGroupe,
-                AutomationId = "ButtonGroupe_" + this.groupe.NomGroupe
+                AutomationId = this.groupe.NomGroupe + "button"
             };
-            AutomationProperties.SetName(button, "ButtonGroupe_" + this.groupe.NomGroupe);
-            button.SetBinding(ImageButton.SourceProperty, "Image");
+            button.SetBinding(ImageButton.SourceProperty, nameof(viewModel.Image));
             var label = new Label
             {
                 HorizontalOptions = LayoutOptions.Center,

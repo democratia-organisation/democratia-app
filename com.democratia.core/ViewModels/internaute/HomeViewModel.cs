@@ -15,7 +15,7 @@ namespace com.democratia.ViewModels.internaute
         private readonly Services.AppContext context;
         private int cursor = 0;
         public ObservableCollection<Groupe> Groupes { get; private set; } = [];
-        public readonly List<Groupe> listeRecu = [];
+
         public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService, Services.AppContext context)
             : base(clients?.OfType<GroupClient>().FirstOrDefault(), localizationService)
         {
