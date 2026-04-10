@@ -23,14 +23,14 @@ namespace com.democratia.ViewModels.groupe
         [RelayCommand]
         private void ChargerThematiques()
         {
-            throw new NotImplementedException();
+            
         }
 
         [RelayCommand]
         private void RechargeThematiques()
         {
             Cursor += 1;
-            throw new NotImplementedException();
+            
         }
     }
 }

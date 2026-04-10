@@ -51,7 +51,6 @@ namespace com.democratia.ViewModels.internaute
         private async Task RefreshListGroupe()
         {
             cursor += 1;
-            throw new NotImplementedException();
         }
 
 

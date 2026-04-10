@@ -81,7 +81,6 @@ namespace com.democratia.ViewModels.groupe
         private async Task UpdateList()
         {
             cursor += 1;
-            throw new NotImplementedException();
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
