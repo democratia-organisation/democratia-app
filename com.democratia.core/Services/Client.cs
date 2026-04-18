@@ -30,13 +30,6 @@ namespace com.democratia.Services
             ;
         }
 
-        protected async Task<string> GetMethode()
-        {
-            
-            HttpResponseMessage response = await client!.GetAsync("?request=getMethode");
-            return await response.Content.ReadAsStringAsync();
-        }
-
         /// <summary>
         /// fonction qui permet de changer le port de l'API.
         /// Utilisée pour les tests unitaires afin de simuler une erreur de connexion internet.
@@ -119,7 +112,11 @@ namespace com.democratia.Services
             return await response.Content.ReadAsStringAsync();
         }
 
-        public void Dispose() => client!.Dispose();
+        public void Dispose()
+        {
+            client!.Dispose();
+            GC.SuppressFinalize(this);
+        }
         
     }
 }

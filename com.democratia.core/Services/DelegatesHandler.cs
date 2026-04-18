@@ -7,12 +7,14 @@ using System.Text.Json;
 
 namespace com.democratia.Services
 {
+    public enum SecureStorageKeys
+    {
+        API_KEY,
+        REFRESH,
+        is_refresh_key_fresh
+    }
     public class AuthentificationHandler(IHttpClientFactory factory) : DelegatingHandler
     {
-        private static readonly string API_KEY = "API_KEY";
-        private static readonly string REFRESH = "REFRESH";
-        private static readonly string IS_FRESH = "is_refresh_key_fresh";
-
         private readonly IHttpClientFactory _factory = factory;
 
         private async Task<HttpResponseMessage> RefreshKeys(CancellationToken ct)
@@ -31,8 +33,8 @@ namespace com.democratia.Services
                 if (response.StatusCode == HttpStatusCode.Conflict)
                 {
                     var authorisation = response.RequestMessage!.Headers.Authorization!;
-                    if (authorisation.Equals(await SecureStorage.Default.GetAsync(REFRESH)))
-                        await SecureStorage.Default.SetAsync(IS_FRESH, $"{false}");
+                    if (authorisation.Equals(await SecureStorage.Default.GetAsync(SecureStorageKeys.REFRESH.ToString())))
+                        await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{false}");
                     else
                         response.StatusCode = HttpStatusCode.Unauthorized;
                     return await base.SendAsync(clone, cancellationToken);
@@ -53,11 +55,11 @@ namespace com.democratia.Services
                     else
                     {
                         var réponse = await responseToken.Content.ReadFromJsonAsync<Dictionary<string, object>>();
-                        string key = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![API_KEY];
-                        string refresh = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![REFRESH];
-                        await SecureStorage.Default.SetAsync(API_KEY, key);
-                        await SecureStorage.Default.SetAsync(REFRESH, refresh);
-                        await SecureStorage.Default.SetAsync(IS_FRESH, $"{true}");
+                        string key = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![SecureStorageKeys.API_KEY.ToString()];
+                        string refresh = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![SecureStorageKeys.REFRESH.ToString()];
+                        await SecureStorage.Default.SetAsync(SecureStorageKeys.API_KEY.ToString(), key);
+                        await SecureStorage.Default.SetAsync(SecureStorageKeys.REFRESH.ToString(), refresh);
+                        await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{true}");
 
                         return await base.SendAsync(clone, cancellationToken);
                     }
@@ -72,21 +74,18 @@ namespace com.democratia.Services
     }
     public class DebutRequete : DelegatingHandler
     {
-        private static readonly string API_KEY = "API_KEY";
-        private static readonly string REFRESH = "REFRESH";
-        private static readonly string IS_FRESH = "is_refresh_key_fresh";
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             request.Headers.Clear();
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            bool isParsed = bool.TryParse(await SecureStorage.Default.GetAsync(IS_FRESH), out bool isFresh);
+            bool isParsed = bool.TryParse(await SecureStorage.Default.GetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString()), out bool isFresh);
             if (!isParsed)
                 return await base.SendAsync(request, cancellationToken);
             
-            if (isFresh && await SecureStorage.Default.GetAsync(REFRESH) is string refresh)
+            if (isFresh && await SecureStorage.Default.GetAsync(SecureStorageKeys.REFRESH.ToString()) is string refresh)
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", refresh);
             
-            else if(await SecureStorage.Default.GetAsync(API_KEY) is string apiKey)
+            else if(await SecureStorage.Default.GetAsync(SecureStorageKeys.API_KEY.ToString()) is string apiKey)
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
             
             return await base.SendAsync(request, cancellationToken);

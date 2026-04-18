@@ -2,12 +2,8 @@
 
 namespace com.democratia.Services
 {
-    internal class GroupClient : Client, IGroupeClient
+    internal class GroupClient(HttpClient client) : Client(client), IGroupeClient
     {
-        public GroupClient(HttpClient client) : base(client)
-        {
-        }
-
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
             Groupe groupe = (Groupe)parameters![0]!;
