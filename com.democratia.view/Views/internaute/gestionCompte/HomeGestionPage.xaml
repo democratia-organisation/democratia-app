@@ -38,7 +38,6 @@
                     CommandParameter="ModifierGestionPage"
                     Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.ModifCompte}" />
-                S
                 <Button
                     x:Name="supressionButton"
                     AutomationId="supressionButton"
