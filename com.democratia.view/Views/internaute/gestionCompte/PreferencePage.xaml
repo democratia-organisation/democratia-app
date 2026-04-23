@@ -10,43 +10,44 @@
     Title="PreferencePage"
     x:DataType="viewModel:PreferenceViewModel"
     Style="{DynamicResource fondEcran}">
-    <VerticalStackLayout>
-        <component:Header />
-        <BoxView HeightRequest="{DynamicResource SpacingLarge}" />
-        <HorizontalStackLayout>
+    <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
+        <component:Header x:Name="header" AutomationId="header" />
+        <HorizontalStackLayout x:Name="langueHorizontalLayout" Spacing="{DynamicResource SpacingLarge}">
             <Label
+                x:Name="selectionLangueLabel"
+                AutomationId="selectionLangueLabel"
                 HorizontalOptions="Center"
                 Style="{DynamicResource SubHeadlineStyle}"
                 Text="{x:Static lang:AppResources.selectionLangue}"
                 VerticalOptions="Center" />
             <BoxView WidthRequest="{DynamicResource SpacingLarge}" />
             <Picker
-                x:Name="pickerLangage"
+                x:Name="languePicker"
                 Title="{x:Static lang:AppResources.Langage}"
                 ios:Picker.UpdateMode="WhenFinished"
+                AutomationId="languePicker"
                 ItemsSource="{Binding Languages}"
                 SelectedItem="{Binding Language}" />
         </HorizontalStackLayout>
-        <BoxView HeightRequest="{StaticResource SpacingLarge}" />
-        <HorizontalStackLayout>
+        <HorizontalStackLayout x:Name="themeHorizontalLayout" Spacing="{DynamicResource SpacingLarge}">
             <Label
+                x:Name="themeLable"
+                AutomationId="themeLabel"
                 HorizontalOptions="Center"
                 Style="{DynamicResource SubHeadlineStyle}"
                 Text="{x:Static lang:AppResources.selectionTheme}"
                 VerticalOptions="Center" />
-            <BoxView WidthRequest="{DynamicResource SpacingLarge}" />
             <Picker
-                x:Name="pickerTheme"
+                x:Name="themePicker"
                 Title="{x:Static lang:AppResources.theme}"
                 ios:Picker.UpdateMode="Immediately"
+                AutomationId="themePicker"
                 ItemsSource="{Binding Themes}"
                 SelectedItem="{Binding Theme}" />
         </HorizontalStackLayout>
-        <BoxView HeightRequest="{StaticResource SpacingLarge}" />
         <Button
             x:Name="terminerButton"
             AutomationId="terminerButton"
-            AutomationProperties.Name="terminerButton"
             Command="{Binding NavigateTappedCommand}"
             CommandParameter="HomePage"
             Style="{DynamicResource ButtonStyle}"

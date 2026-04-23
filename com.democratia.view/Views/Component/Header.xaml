@@ -26,9 +26,9 @@
             Style="{DynamicResource ImageButtonStyle}"
             VerticalOptions="Center" />
         <ImageButton
-            x:Name="logoImage"
+            x:Name="logoImageButton"
             Grid.Column="1"
-            AutomationId="LogoImage"
+            AutomationId="LogoImageButton"
             Clicked="OnClicked"
             HorizontalOptions="Center"
             MaximumHeightRequest="60"

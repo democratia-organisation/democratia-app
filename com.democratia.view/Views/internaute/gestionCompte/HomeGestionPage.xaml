@@ -20,38 +20,34 @@
 
             <component:Header Grid.Row="0" />
             <Label
+                x:Name="errorMessageLabel"
                 Grid.Row="1"
-                AutomationId="actionLabelNon"
-                AutomationProperties.Name="actionLabelNon"
+                AutomationId="errorMessageLabel"
                 Style="{DynamicResource ErrorLabelStyle}"
                 Text="{Binding RetourMessage}" />
 
             <StackLayout
                 x:Name="stackLayout"
                 Grid.Row="2"
-                Padding="10">
-                <BoxView HeightRequest="{StaticResource SpacingLarge}" />
+                AutomationId="stackLayout"
+                Spacing="{DynamicResource SpacingLarge}">
                 <Button
-                    x:Name="modificationnButton"
-                    AutomationId="modificationnButton"
-                    AutomationProperties.Name="modificationnButton"
+                    x:Name="modificationButton"
+                    AutomationId="modificationButton"
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="ModifierGestionPage"
                     Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.ModifCompte}" />
-                <BoxView HeightRequest="{StaticResource SpacingLarge}" />
+                S
                 <Button
-                    x:Name="suppresionButton"
-                    AutomationId="suppresionButton"
-                    AutomationProperties.Name="suppresionButton"
+                    x:Name="supressionButton"
+                    AutomationId="supressionButton"
                     Command="{Binding ActionInternauteCommand}"
                     Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.SuppCompte}" />
-                <BoxView HeightRequest="{StaticResource SpacingLarge}" />
                 <Button
                     x:Name="preferenceButton"
                     AutomationId="preferencButton"
-                    AutomationProperties.Name="preferencButton"
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="PreferencePage"
                     Style="{DynamicResource ButtonStyle}"
