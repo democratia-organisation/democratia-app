@@ -12,9 +12,9 @@ namespace com.democratia.Views.Component
         }
 
 
-        private async void OnClicked(object sender, EventArgs e)
+        private async void OnClicked(object? sender, EventArgs e)
         {
-            var button = (ImageButton)sender;
+            var button = (ImageButton)sender!;
             if (button == switchImageButton)
             {
                 if (Application.Current?.RequestedTheme == AppTheme.Dark)

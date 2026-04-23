@@ -38,7 +38,7 @@ namespace com.democratia.Views.internaute.gestionCompte
                         LabelText = labelText,
                         ButtonText = buttonText,
                         Command = command,
-                        CommandParameter = parameter
+                        CommandParameter = parameter!
                     }
                 }
             };

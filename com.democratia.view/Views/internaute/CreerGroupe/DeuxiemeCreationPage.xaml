@@ -17,14 +17,12 @@
             <Label
                 x:Name="labelAjoutMembres"
                 AutomationId="labelAjoutMembres"
-                AutomationProperties.Name="labelAjoutMembres"
                 Style="{DynamicResource HeadlineStyle}"
                 Text="{x:Static lang:AppResources.creaGroupe}" />
             <BoxView HeightRequest="{StaticResource SpacingLarge}" />
             <Label
                 x:Name="labelCouleurRepresentative"
                 AutomationId="labelCouleurRepresentative"
-                AutomationProperties.Name="labelCouleurRepresentative"
                 Style="{DynamicResource SubHeadlineStyle}"
                 Text="{x:Static lang:AppResources.CouleurRepre}" />
             <BoxView HeightRequest="{StaticResource SpacingLarge}" />

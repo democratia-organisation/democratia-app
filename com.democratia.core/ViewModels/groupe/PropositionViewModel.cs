@@ -6,15 +6,9 @@ using Microsoft.Maui.Controls;
 
 namespace com.democratia.ViewModels.groupe
 {
-    public partial class PropositionViewModel : ConnectableViewModel, IQueryAttributable
+    public partial class PropositionViewModel(IEnumerable<IClient?> clients, ILocalizationService? localizationService) : ConnectableViewModel(clients.OfType<PropositionClient>().FirstOrDefault(), localizationService), IQueryAttributable
     {
         private readonly Groupe? groupe;
-        public PropositionViewModel(IEnumerable<IClient?> clients, ILocalizationService? localizationService) 
-            : base(clients.OfType<PropositionClient>().FirstOrDefault(), localizationService)
-        {
-            
-        }
-
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             throw new NotImplementedException();

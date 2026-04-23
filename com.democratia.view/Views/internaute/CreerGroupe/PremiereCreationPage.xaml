@@ -38,7 +38,6 @@
             <Label
                 x:Name="themeLabel"
                 AutomationId="themeLabel"
-                AutomationProperties.Name="labelThem"
                 Style="{DynamicResource SubHeadlineStyle}"
                 Text="{x:Static lang:AppResources.thematique}" />
             <Label

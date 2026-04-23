@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.democratia.Views.groupe.GroupePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comp="clr-namespace:com.democratia.Views.Component"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:res="clr-namespace:com.democratia.view.Resources.Localization"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
+    Title="{Binding Groupe.NomGroupe}"
+    x:DataType="viewModel:GroupeViewModel"
+    Style="{DynamicResource fondEcran}">
+
+    <Grid
+        x:Name="mainGrille"
+        Padding="10"
+        RowDefinitions="Auto, Auto, Auto, Auto, *, Auto"
+        RowSpacing="{DynamicResource SpacingSmall}">
+
+        <comp:Header Grid.Row="0" />
+
+        <Image
+            x:Name="specificGroupeImageButton"
+            Grid.Row="1"
+            AutomationId="specificGroupeImageButton"
+            HeightRequest="{DynamicResource SpacingUltraLarge}"
+            Source="{Binding Image}"
+            WidthRequest="{DynamicResource SpacingUltraLarge}" />
+
+        <Grid
+            Grid.Row="2"
+            BackgroundColor="{AppThemeBinding Light={DynamicResource Light-surfaceContainer},
+                                              Dark={DynamicResource Dark-surfaceContainer}}"
+            ColumnDefinitions="Auto, *, Auto">
+
+            <ImageButton
+                x:Name="groupeImageButton"
+                Grid.Column="0"
+                AutomationId="groupeImageButton"
+                Command="{Binding NavigateTappedCommand}"
+                CommandParameter="Membre"
+                HeightRequest="{DynamicResource SpacingLarge}"
+                HorizontalOptions="Start"
+                Source="groupe.png"
+                WidthRequest="{DynamicResource SpacingLarge}" />
+
+            <Label
+                x:Name="nomGroupeLabel"
+                Grid.Column="1"
+                AutomationId="nomGroupeLabel"
+                HorizontalOptions="Center"
+                Style="{DynamicResource SubHeadlineStyle}"
+                Text="{Binding Groupe.NomGroupe}"
+                VerticalOptions="Center" />
+
+            <HorizontalStackLayout Grid.Column="2" Spacing="{DynamicResource SpacingSmall}">
+                <ImageButton
+                    x:Name="rouageImageButton"
+                    AutomationId="rouageImageButton"
+                    Command="{Binding NavigateTappedCommand}"
+                    CommandParameter="Parametre"
+                    HeightRequest="{DynamicResource SpacingLarge}"
+                    Source="rouage.png"
+                    WidthRequest="{DynamicResource SpacingLarge}" />
+                <ImageButton
+                    x:Name="loupeImageButton"
+                    AutomationId="loupeImageButton"
+                    Command="{Binding NavigateTappedCommand}"
+                    CommandParameter="DecideurPage"
+                    HeightRequest="{DynamicResource SpacingLarge}"
+                    Source="loupe.png"
+                    WidthRequest="{DynamicResource SpacingLarge}" />
+            </HorizontalStackLayout>
+        </Grid>
+
+        <Picker
+            x:Name="criterePicker"
+            Title="{x:Static res:AppResources.critere}"
+            Grid.Row="3"
+            ios:Picker.UpdateMode="WhenFinished"
+            AutomationId="criterePicker"
+            HorizontalOptions="Start"
+            ItemsSource="{Binding Criteres}"
+            SelectedItem="{Binding Critere}"
+            WidthRequest="{DynamicResource SpacingLarge}">
+            <Picker.Behaviors>
+                <toolkit:EventToCommandBehavior Command="{Binding ClasserPropositionsCommand}" EventName="SelectedIndexChanged" />
+            </Picker.Behaviors>
+        </Picker>
+
+        <RefreshView
+            x:Name="propositionsRefresh"
+            Grid.Row="4"
+            AutomationId="propositionsRefresh"
+            Command="{Binding ChargerElementsCommand}">
+            <CollectionView
+                x:Name="propositionsCollectionView"
+                AutomationId="propositionsCollectionView"
+                HorizontalOptions="Center"
+                ItemsSource="{Binding Propositions}"
+                RemainingItemsThreshold="1"
+                RemainingItemsThresholdReachedCommand="{Binding UpdateListCommand}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <comp:PropositionCard AutomationId="propositionCard" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="{DynamicResource SpacingSmall}" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+        </RefreshView>
+
+        <Button
+            x:Name="newPropositionButton"
+            Grid.Row="5"
+            AutomationId="newPropositionButton"
+            Command="{Binding NavigateTappedCommand}"
+            CommandParameter="NouvelleProposition"
+            Style="{DynamicResource ButtonStyle}"
+            Text="{x:Static res:AppResources.nouvellProp}"
+            VerticalOptions="End" />
+    </Grid>
+</ContentPage>

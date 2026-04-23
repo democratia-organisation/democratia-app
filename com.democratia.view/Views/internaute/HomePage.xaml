@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.democratia.Views.internaute.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comp="clr-namespace:com.democratia.Views.Component"
+    xmlns:res="clr-namespace:com.democratia.view.Resources.Localization"
+    xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute;assembly=com.democratia.core"
+    x:DataType="viewModel:HomeViewModel"
+    AutomationId="homePage"
+    Style="{StaticResource fondEcran}">
+
+    <Grid x:Name="mainGrille" RowDefinitions="Auto, Auto, Auto, *, Auto">
+        <comp:Header Grid.Row="0" />
+        <VerticalStackLayout Grid.Row="1">
+
+
+            <Grid
+                HeightRequest="{StaticResource SpacingLarge}"
+                RowSpacing="{DynamicResource SpacingLarge}"
+                WidthRequest="{StaticResource SpacingUltraLarge}">
+
+                <Border
+                    Padding="0"
+                    HorizontalOptions="Center"
+                    MaximumHeightRequest="{StaticResource SpacingLarge}"
+                    MaximumWidthRequest="{StaticResource SpacingLarge}"
+                    Stroke="{AppThemeBinding Light={StaticResource Light-onSurface},
+                                             Dark={StaticResource Dark-onSurface}}"
+                    StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="{StaticResource SpacingLarge}" />
+                    </Border.StrokeShape>
+
+                    <ImageButton
+                        x:Name="profileImageButton"
+                        Aspect="AspectFill"
+                        AutomationId="profileImageButton"
+                        Command="{Binding NavigateTappedCommand}"
+                        CommandParameter="HomeGestionPage"
+                        Source="profile_icon.jpeg" />
+                </Border>
+            </Grid>
+        </VerticalStackLayout>
+
+        <Label
+            x:Name="monGroupeLabel"
+            Grid.Row="2"
+            Margin="{Binding Source={StaticResource SpacingMedium}, Converter={StaticResource DoubleToThicknessConverter}, ConverterParameter='0,1,0,1'}"
+            AutomationId="monGroupeLabel"
+            HorizontalOptions="Center"
+            Style="{StaticResource HeadlineStyle}"
+            Text="{x:Static res:AppResources.groupe}" />
+
+        <RefreshView
+            x:Name="groupeRefreshView"
+            Grid.Row="3"
+            AutomationId="groupeRefreshView"
+            Command="{Binding InitializeCommand}">
+            <CollectionView
+                x:Name="groupesCollectionView"
+                AutomationId="groupesCollectionView"
+                ItemsSource="{Binding Groupes}"
+                RemainingItemsThreshold="3"
+                RemainingItemsThresholdReachedCommand="{Binding RefreshListGroupeCommand}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="{StaticResource SpacingSmall}"
+                        Orientation="Vertical"
+                        Span="3"
+                        VerticalItemSpacing="{StaticResource SpacingSmall}" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <comp:ButtonGroupe AutomationId="buttonGroupe" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <Button
+            x:Name="creationGroupButton"
+            Grid.Row="4"
+            Margin="20"
+            AutomationId="creationGroupButton"
+            Command="{Binding NavigateTappedCommand}"
+            CommandParameter="PremiereCreationPage"
+            Style="{StaticResource ButtonStyle}"
+            Text="{x:Static res:AppResources.NewGroupe}"
+            VerticalOptions="End" />
+    </Grid>
+</ContentPage>

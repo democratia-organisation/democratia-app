@@ -110,6 +110,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\Component\EntryComponent.xaml.cs">
+      <DependentUpon>EntryComponent.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\groupe\DecideurPage.xaml.cs">
       <DependentUpon>DecideurPage.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\Component\DecideurThematique.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Component\EntryComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\Component\PropositionCard.xaml">

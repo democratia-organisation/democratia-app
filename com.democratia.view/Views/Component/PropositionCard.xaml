@@ -6,12 +6,12 @@
     xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
     xmlns:models="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
     xmlns:viewModels="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
-    x:DataType="viewModels:GroupeViewModel"
+    x:DataType="models:Proposition"
     Style="{DynamicResource ContenViewStyle}">
     <VerticalStackLayout>
         <HorizontalStackLayout Spacing="{DynamicResource SpacingLarge}">
             <Label
-                x:Name="labelTitre"
+                x:Name="titreLabel"
                 x:DataType="models:Proposition"
                 HorizontalOptions="Center"
                 HorizontalTextAlignment="Center"
@@ -24,10 +24,7 @@
                 VerticalOptions="End"
                 WidthRequest="30" />
         </HorizontalStackLayout>
-        <Label
-            x:Name="labelDate"
-            x:DataType="models:Proposition"
-            HorizontalTextAlignment="Start" />
+        <Label x:Name="dateLabel" HorizontalTextAlignment="Start" />
 
     </VerticalStackLayout>
 </ContentView>
