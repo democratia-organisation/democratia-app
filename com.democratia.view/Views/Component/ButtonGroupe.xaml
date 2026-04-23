@@ -3,9 +3,7 @@
     x:Class="com.democratia.Views.Component.ButtonGroupe"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
     x:Name="this"
-    x:DataType="viewModel:GroupeViewModel"
     Style="{StaticResource ContenViewStyle}">
 
     <Border
@@ -15,12 +13,13 @@
 
         <VerticalStackLayout>
             <ImageButton
-                AutomationId="{Binding Groupe.NomGroupe, Source={x:Reference this}, StringFormat='{0}button'}"
-                Command="{Binding OpenGroupCommand}"
-                CommandParameter="{Binding Groupe.NomGroupe}"
+                x:Name="enterGroupeImageButton"
+                AutomationId="enterGroupeImageButton"
+                Command="{Binding OpenGroupeCommand, Source={x:Reference this}}"
+                CommandParameter="{Binding .}"
                 HeightRequest="{StaticResource SpacingUltraLarge}"
                 HorizontalOptions="Center"
-                Source="{Binding Image}"
+                Source="{Binding Image, Source={x:Reference this}}"
                 WidthRequest="{StaticResource SpacingUltraLarge}" />
 
             <Label

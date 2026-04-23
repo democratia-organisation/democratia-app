@@ -5,6 +5,8 @@ using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using com.democratia.Utils;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows.Input;
 
 namespace com.democratia.ViewModels.internaute
 {
@@ -14,7 +16,9 @@ namespace com.democratia.ViewModels.internaute
         private readonly INavigationService? navigationService;
         private readonly Services.AppContext context;
         private int cursor = 0;
-        public ObservableCollection<Groupe> Groupes { get; private set; } = [];
+
+        [ObservableProperty]
+        private ObservableCollection<Tuple<Groupe, ImageSource, ICommand>> groupes = [];
 
         public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService, Services.AppContext context)
             : base(clients?.OfType<GroupClient>().FirstOrDefault(), localizationService)
@@ -40,8 +44,23 @@ namespace com.democratia.ViewModels.internaute
             { throw new ConnexionErrorException(); }
             List<Groupe> listeInformation = RecuprerInformationConnexion<Groupe>(jsonString);
             Groupes.Clear();
-            listeInformation.ForEach(groupe => Groupes.Add(groupe));
+            foreach (var groupe in listeInformation)
+            {
+                ImageSource image = await GetImageAsync(groupe.Image);
+                Groupes.Add(new Tuple<Groupe, ImageSource, ICommand>(groupe, image, OpenGroupCommand));
+            }
         }
+
+        [RelayCommand]
+        private async Task OpenGroup(Tuple<Groupe, ImageSource, ICommand> tuple)
+        {
+            var parameters = new ShellNavigationQueryParameters { { "groupe", tuple.Item1! }, { "Image", tuple.Item2! }, { "modele", internaute! } };
+            context.Groupe = tuple.Item1;
+            await navigationService?.GoToAsync("GroupePage", parameters)!;
+        }
+
+
+        private async Task<ImageSource> GetImageAsync(string? url) => (await client!.GetImageAsync(url))!;
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) => 

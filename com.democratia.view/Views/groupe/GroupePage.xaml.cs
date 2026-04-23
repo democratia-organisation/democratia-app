@@ -7,6 +7,7 @@ public partial class GroupePage : ContentPage
     public GroupePage(GroupeViewModel viewModel)
     {
         InitializeComponent();
+        BindingContext = viewModel;
     }
 
 

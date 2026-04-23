@@ -67,16 +67,7 @@ namespace com.democratia.ViewModels.groupe
 
         }
 
-        public async void GetImageAsync(string? url) => Image = await client!.GetImageAsync(url);
-
-        [RelayCommand]
-        private async Task OpenGroup(string nomGroupe)
-        {
-            var parameters = new ShellNavigationQueryParameters { { "groupe", Groupe! }, { "Image", Image! }, { "modele", internaute! } };
-            context.Groupe = Groupe;
-            await navigationService?.GoToAsync("GroupePage", parameters)!;
-        }
-
+        
         [RelayCommand]
         private async Task UpdateList()
         {

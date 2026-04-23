@@ -1,12 +1,30 @@
-using com.democratia.ViewModels.groupe;
+using System.Windows.Input;
 
 namespace com.democratia.Views.Component;
 
 public partial class ButtonGroupe : ContentView
 {
-    public static readonly BindableProperty GroupeProperty = BindableProperty.Create(
-        nameof(Groupe), typeof(Models.Groupe), typeof(ButtonGroupe), null,
-        propertyChanged: OnGroupeChanged);
+    public static readonly BindableProperty ImageProperty = BindableProperty.Create(
+        nameof(Image), typeof(ImageSource), typeof(ButtonGroupe));
+
+    public ImageSource Image
+    {
+        get => (ImageSource)GetValue(ImageProperty);
+        set => SetValue(ImageProperty, value);
+    }
+
+    public static readonly BindableProperty OpenGroupeCommandProperty = BindableProperty.Create(
+        nameof(OpenGroupeCommand), typeof(ICommand), typeof(ButtonGroupe));
+
+    public ICommand OpenGroupeCommand
+    {
+        get => (ICommand)GetValue(OpenGroupeCommandProperty);
+        set => SetValue(OpenGroupeCommandProperty, value);
+    }
+
+    public static readonly BindableProperty GroupeProperty =
+        BindableProperty.Create(
+            nameof(Groupe), typeof(Models.Groupe), typeof(ButtonGroupe));
 
     public Models.Groupe Groupe
     {
@@ -14,23 +32,30 @@ public partial class ButtonGroupe : ContentView
         set => SetValue(GroupeProperty, value);
     }
 
+    public static readonly BindableProperty MyCommandParameterProperty =
+        BindableProperty.Create(
+            nameof(MyCommandParameter), typeof(object), typeof(ButtonGroupe));
+
+    public object MyCommandParameter
+    {
+        get => GetValue(MyCommandParameterProperty);
+        set => SetValue(MyCommandParameterProperty, value);
+    }
+
     public ButtonGroupe()
     {
         InitializeComponent();
     }
 
-    private static async void OnGroupeChanged(BindableObject bindable, object oldValue, object newValue)
+    protected async override void OnBindingContextChanged()
     {
-        var control = (ButtonGroupe)bindable;
-        if (newValue is Models.Groupe groupe)
+        base.OnBindingContextChanged();
+        if (BindingContext is Tuple<Models.Groupe,ImageSource,ICommand> tuple)
         {
-            var vm = ServiceHelper.GetService<GroupeViewModel>();
-            if (vm != null)
-            {
-                vm.Groupe = groupe;
-                control.BindingContext = vm;
-                vm.GetImageAsync(groupe.Image!);
-            }
+            Image = tuple.Item2;
+            OpenGroupeCommand = tuple.Item3;
+            Groupe = tuple.Item1;
+
         }
     }
 }
