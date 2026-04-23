@@ -11,13 +11,7 @@
     Style="{DynamicResource fondEcran}">
 
     <ScrollView>
-        <Grid x:Name="grille">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
+        <Grid x:Name="grille" RowDefinitions="Auto,Auto,*">
             <component:Header Grid.Row="0" />
             <Label
                 x:Name="errorMessageLabel"
