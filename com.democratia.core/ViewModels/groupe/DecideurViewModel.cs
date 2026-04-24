@@ -9,15 +9,19 @@ namespace com.democratia.ViewModels.groupe
 {
     public partial class DecideurViewModel : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
-        [ObservableProperty] private ObservableCollection<Thematique>? thematiques;
-        [ObservableProperty] private Groupe? groupe;
-        [ObservableProperty] private float? ration;
-        [ObservableProperty] private int? cursor = 0;
+        [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
+
+        [ObservableProperty] public partial ObservableCollection<Thematique>? thematiques { get; set; }
+        [ObservableProperty] public partial Groupe? groupe { get; set; }
+        [ObservableProperty] public partial float? ration { get; set; }
+        [ObservableProperty] public partial int? cursor { get; set; } = 0;
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            Thematiques = (ObservableCollection<Thematique>)query["thematiques"];
-            Groupe = (Groupe)query["groupe"];
+            thematiques = (ObservableCollection<Thematique>)query["thematiques"];
+            groupe = (Groupe)query["groupe"];
+        }
+
         [RelayCommand]
         private async Task InitialisationListe()
         {
@@ -38,7 +42,7 @@ namespace com.democratia.ViewModels.groupe
         [RelayCommand]
         private void RechargeThematiques()
         {
-            Cursor += 1;
+            cursor += 1;
             
         }
     }

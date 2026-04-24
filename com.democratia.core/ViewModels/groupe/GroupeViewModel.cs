@@ -9,35 +9,33 @@ using System.Collections.ObjectModel;
 namespace com.democratia.ViewModels.groupe
 {
     public partial class GroupeViewModel(
-        IEnumerable<IClient> clients, 
-        INavigationService navigationService, 
+        IEnumerable<IClient> clients,
+        INavigationService navigationService,
         ILocalizationService localizationService,
         Services.AppContext context
     ) : ConnectableViewModel(clients.OfType<IGroupeClient>().FirstOrDefault(), localizationService), INavigeablleViewModel, IQueryAttributable
     {
-        [ObservableProperty] private ImageSource? image;
-        [ObservableProperty] private Groupe? groupe;
-        [ObservableProperty] private ObservableCollection<Proposition> propositions = [];
-        [ObservableProperty] private ObservableCollection<Thematique> thematiques = [];
+        [ObservableProperty] public partial ImageSource? image { get; set;}
+        [ObservableProperty] public partial Groupe? groupe { get; set; }
+        [ObservableProperty] public partial ObservableCollection<Proposition> propositions { get; set; } = [];
+        [ObservableProperty] public partial ObservableCollection<Thematique> thematiques { get; set; } = [];
         private int cursor = 0;
 
         private Internaute? internaute;
         private Services.AppContext context = context;
         // TODO : savoir si c'est un décideur afin d'afficher certaines options en fonction
         [ObservableProperty]
-        private ObservableCollection<Critere> criteres = [
-                    Critere.PRIX,
-                    Critere.POPULARITE,
-                    Critere.REACTIONS
-        ];
-        [ObservableProperty] private Critere critere;
+        public partial ObservableCollection<Critere> criteres { get; set; } = [Critere.PRIX,Critere.POPULARITE,Critere.REACTIONS];
+        [ObservableProperty] public partial Critere critere { get; set; }
         private readonly INavigationService navigationService = navigationService;
 
+        [ObservableProperty]
+        public partial bool isRefreshing { get; set; } = false;
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            ShellNavigationQueryParameters parameters = new() { { "thematiques", Thematiques }, { "groupe" , Groupe! } };
+            ShellNavigationQueryParameters parameters = new() { { "thematiques", thematiques }, { "groupe" , groupe! } };
             await navigationService?.GoToAsync(commande, parameters)!;
         }
 
@@ -64,17 +62,17 @@ namespace com.democratia.ViewModels.groupe
             // TODO : paginer la récupération de propositions
             var propositionClient = ServiceHelper.GetService<IPropositionClient>();
             var thematiqueClient = ServiceHelper.GetService<IThematiqueClient>();
-            string response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(Groupe!.IdGroupe);
-            List<Proposition> propositions = RecuprerInformationConnexion<Proposition>(response)!;
-            response = await ((GroupClient)client!).GetJointureThemeEtGroupeAsync(Groupe!.IdGroupe)!;          
-            List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(response)!;
-            Propositions.Clear();
-            Thematiques.Clear();
-            propositions.ForEach(p => {
-                p.JourDiscussion = (int)Groupe.NombreDeJourDiscuss!;
-                Propositions.Add(p);
+            string response = await ((PropositionClient)propositionClient!).GetAllPropositionsAsync(groupe!.IdGroupe);
+            List<Proposition> propositionsListe = RecuprerInformationConnexion<Proposition>(response)!;
+            response = await ((GroupClient)client!).GetJointureThemeEtGroupeAsync(groupe!.IdGroupe)!;          
+            List<Thematique> thematiquesListe = RecuprerInformationConnexion<Thematique>(response)!;
+            propositions.Clear();
+            thematiques.Clear();
+            propositionsListe.ForEach(p => {
+                p.JourDiscussion = (int)groupe.NombreDeJourDiscuss!;
+                propositions.Add(p);
             });
-            thematiques.ForEach(t => Thematiques.Add(t) );
+            thematiquesListe.ForEach(t => thematiques.Add(t) );
 
         }
 
@@ -87,8 +85,8 @@ namespace com.democratia.ViewModels.groupe
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            Groupe = query.TryGetValue("groupe", out var groupe) ? (Groupe)groupe : context.Groupe;
-            Image = query.TryGetValue("Image", out var image) ? (ImageSource)image : null;
+            this.groupe = query.TryGetValue("groupe", out var groupe) ? (Groupe)groupe : context.Groupe;
+            this.image = query.TryGetValue("Image", out var image) ? (ImageSource)image : null;
             internaute = query.TryGetValue("modele", out var user) ? (Internaute)user : context.Internaute;
         }
 

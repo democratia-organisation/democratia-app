@@ -18,7 +18,10 @@ namespace com.democratia.ViewModels.internaute
         private int cursor = 0;
 
         [ObservableProperty]
-        private ObservableCollection<Tuple<Groupe, ImageSource, ICommand>> groupes = [];
+        public partial ObservableCollection<Tuple<Groupe, ImageSource, ICommand>> groupes { get; set; } = [];
+
+        [ObservableProperty]
+        public partial bool isRefreshing { get; set; } = false;
 
         public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService, Services.AppContext context)
             : base(clients?.OfType<GroupClient>().FirstOrDefault(), localizationService)
@@ -54,11 +57,11 @@ namespace com.democratia.ViewModels.internaute
             catch (Exception)
             { throw new ConnexionErrorException(); }
             List<Groupe> listeInformation = RecuprerInformationConnexion<Groupe>(jsonString);
-            Groupes.Clear();
+            groupes.Clear();
             foreach (var groupe in listeInformation)
             {
                 ImageSource image = await GetImageAsync(groupe.Image);
-                Groupes.Add(new Tuple<Groupe, ImageSource, ICommand>(groupe, image, OpenGroupCommand));
+                groupes.Add(new Tuple<Groupe, ImageSource, ICommand>(groupe, image, OpenGroupCommand));
             }
         }
 
