@@ -8,28 +8,29 @@
     xmlns:res="clr-namespace:com.democratia.view.Resources.Localization"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
-    Title="{Binding Groupe.NomGroupe}"
+    Title="{Binding groupe.NomGroupe}"
     x:DataType="viewModel:GroupeViewModel"
+    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
 
     <Grid
         x:Name="mainGrille"
         Padding="10"
-        RowDefinitions="Auto, Auto, Auto, Auto, *, Auto"
+        RowDefinitions="Auto, Auto, Auto, *, Auto"
         RowSpacing="{DynamicResource SpacingSmall}">
 
-        <comp:Header Grid.Row="0" />
 
         <Image
             x:Name="specificGroupeImageButton"
-            Grid.Row="1"
+            Grid.Row="0"
             AutomationId="specificGroupeImageButton"
             HeightRequest="{DynamicResource SpacingUltraLarge}"
-            Source="{Binding Image}"
+            Source="{Binding image}"
             WidthRequest="{DynamicResource SpacingUltraLarge}" />
 
         <Grid
-            Grid.Row="2"
+            x:Name="parametingGrille"
+            Grid.Row="1"
             BackgroundColor="{AppThemeBinding Light={DynamicResource Light-surfaceContainer},
                                               Dark={DynamicResource Dark-surfaceContainer}}"
             ColumnDefinitions="Auto, *, Auto">
@@ -51,7 +52,7 @@
                 AutomationId="nomGroupeLabel"
                 HorizontalOptions="Center"
                 Style="{DynamicResource SubHeadlineStyle}"
-                Text="{Binding Groupe.NomGroupe}"
+                Text="{Binding groupe.NomGroupe}"
                 VerticalOptions="Center" />
 
             <HorizontalStackLayout Grid.Column="2" Spacing="{DynamicResource SpacingSmall}">
@@ -77,44 +78,34 @@
         <Picker
             x:Name="criterePicker"
             Title="{x:Static res:AppResources.critere}"
-            Grid.Row="3"
+            Grid.Row="2"
             ios:Picker.UpdateMode="WhenFinished"
             AutomationId="criterePicker"
             HorizontalOptions="Start"
-            ItemsSource="{Binding Criteres}"
-            SelectedItem="{Binding Critere}"
+            ItemsSource="{Binding criteres}"
+            SelectedItem="{Binding critere}"
             WidthRequest="{DynamicResource SpacingLarge}">
             <Picker.Behaviors>
                 <toolkit:EventToCommandBehavior Command="{Binding ClasserPropositionsCommand}" EventName="SelectedIndexChanged" />
             </Picker.Behaviors>
         </Picker>
 
-        <RefreshView
-            x:Name="propositionsRefresh"
-            Grid.Row="4"
-            AutomationId="propositionsRefresh"
-            Command="{Binding ChargerElementsCommand}">
-            <CollectionView
-                x:Name="propositionsCollectionView"
-                AutomationId="propositionsCollectionView"
-                HorizontalOptions="Center"
-                ItemsSource="{Binding Propositions}"
-                RemainingItemsThreshold="1"
-                RemainingItemsThresholdReachedCommand="{Binding UpdateListCommand}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <comp:PropositionCard AutomationId="propositionCard" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="{DynamicResource SpacingSmall}" Orientation="Vertical" />
-                </CollectionView.ItemsLayout>
-            </CollectionView>
-        </RefreshView>
+        <comp:RefreshView
+            Grid.Row="3"
+            ChargerElementsCommand="{Binding InitialisationElementsCommand}"
+            Elements="{Binding propositions}"
+            IsRefreshing="{Binding isRefreshing}"
+            UpdateElementsCommand="{Binding UpdateListCommand}">
+            <comp:RefreshView.ItemTemplate>
+                <DataTemplate>
+                    <comp:PropositionCard />
+                </DataTemplate>
+            </comp:RefreshView.ItemTemplate>
+        </comp:RefreshView>
 
         <Button
             x:Name="newPropositionButton"
-            Grid.Row="5"
+            Grid.Row="4"
             AutomationId="newPropositionButton"
             Command="{Binding NavigateTappedCommand}"
             CommandParameter="NouvelleProposition"

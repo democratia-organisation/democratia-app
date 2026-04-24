@@ -8,13 +8,11 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute;assembly=com.democratia.core"
     x:DataType="viewModel:HomeViewModel"
     AutomationId="homePage"
+    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{StaticResource fondEcran}">
 
-    <Grid x:Name="mainGrille" RowDefinitions="Auto, Auto, Auto, *, Auto">
-        <comp:Header Grid.Row="0" />
-        <VerticalStackLayout Grid.Row="1">
-
-
+    <Grid x:Name="mainGrille" RowDefinitions="Auto, Auto, *, Auto">
+        <VerticalStackLayout Grid.Row="0">
             <Grid
                 HeightRequest="{StaticResource SpacingLarge}"
                 RowSpacing="{DynamicResource SpacingLarge}"
@@ -45,42 +43,28 @@
 
         <Label
             x:Name="monGroupeLabel"
-            Grid.Row="2"
+            Grid.Row="1"
             Margin="{Binding Source={StaticResource SpacingMedium}, Converter={StaticResource DoubleToThicknessConverter}, ConverterParameter='0,1,0,1'}"
             AutomationId="monGroupeLabel"
             HorizontalOptions="Center"
             Style="{StaticResource HeadlineStyle}"
             Text="{x:Static res:AppResources.groupe}" />
 
-        <RefreshView
-            x:Name="groupeRefreshView"
-            Grid.Row="3"
-            AutomationId="groupeRefreshView"
-            Command="{Binding InitializeCommand}">
-            <CollectionView
-                x:Name="groupesCollectionView"
-                AutomationId="groupesCollectionView"
-                ItemsSource="{Binding Groupes}"
-                RemainingItemsThreshold="3"
-                RemainingItemsThresholdReachedCommand="{Binding RefreshListGroupeCommand}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout
-                        HorizontalItemSpacing="{StaticResource SpacingSmall}"
-                        Orientation="Vertical"
-                        Span="3"
-                        VerticalItemSpacing="{StaticResource SpacingSmall}" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <comp:ButtonGroupe AutomationId="buttonGroupe" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
-
+        <comp:RefreshView
+            Grid.Row="2"
+            ChargerElementsCommand="{Binding InitialisationListeCommand}"
+            Elements="{Binding groupes}"
+            IsRefreshing="{Binding isRefreshing}"
+            UpdateElementsCommand="{Binding RefreshListGroupeCommand}">
+            <comp:RefreshView.ItemTemplate>
+                <DataTemplate>
+                    <comp:ButtonGroupe AutomationId="buttonGroupe" />
+                </DataTemplate>
+            </comp:RefreshView.ItemTemplate>
+        </comp:RefreshView>
         <Button
             x:Name="creationGroupButton"
-            Grid.Row="4"
+            Grid.Row="3"
             Margin="20"
             AutomationId="creationGroupButton"
             Command="{Binding NavigateTappedCommand}"

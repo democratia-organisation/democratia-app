@@ -18,10 +18,19 @@ namespace com.democratia.ViewModels.groupe
         {
             Thematiques = (ObservableCollection<Thematique>)query["thematiques"];
             Groupe = (Groupe)query["groupe"];
+        [RelayCommand]
+        private async Task InitialisationListe()
+        {
+            if (isRefreshing)
+            {
+                await ChargerThematiquesAsync();
+                isRefreshing = false;
+            }
+            else return;
         }
 
         [RelayCommand]
-        private void ChargerThematiques()
+        private async Task ChargerThematiquesAsync()
         {
             
         }

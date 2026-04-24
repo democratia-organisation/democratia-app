@@ -33,6 +33,17 @@ namespace com.democratia.ViewModels.internaute
             internaute = query.TryGetValue("modele", out var user) ? (Internaute)user : context.Internaute ;
         }
 
+        [RelayCommand]
+        private async Task InitialisationListe()
+        {
+            if (isRefreshing)
+            {
+                await InitializeAsync();
+                isRefreshing = false;
+            }
+            else return;
+        }
+
 
         [RelayCommand]
         private async Task InitializeAsync()

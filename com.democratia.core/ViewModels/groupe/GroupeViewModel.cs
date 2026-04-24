@@ -48,7 +48,18 @@ namespace com.democratia.ViewModels.groupe
         }
 
         [RelayCommand]
-        private async Task ChargerElements()
+        private async Task InitialisationElementsAsync()
+        {
+            if (isRefreshing)
+            {
+                await ChargerElementsAsync();
+                isRefreshing = false;
+            }
+            else return;
+        }
+
+        [RelayCommand]
+        private async Task ChargerElementsAsync()
         {
             // TODO : paginer la récupération de propositions
             var propositionClient = ServiceHelper.GetService<IPropositionClient>();
