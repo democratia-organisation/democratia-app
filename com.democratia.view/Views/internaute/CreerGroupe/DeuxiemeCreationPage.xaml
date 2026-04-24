@@ -10,7 +10,6 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
     Title="DeuxiemePage"
     x:DataType="viewModel:DeuxiemePageViewModel"
-    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
     <ScrollView>
         <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">

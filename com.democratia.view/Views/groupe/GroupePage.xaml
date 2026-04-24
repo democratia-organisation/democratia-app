@@ -10,7 +10,6 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
     Title="{Binding groupe.NomGroupe}"
     x:DataType="viewModel:GroupeViewModel"
-    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
 
     <Grid

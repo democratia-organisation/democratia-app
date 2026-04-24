@@ -8,7 +8,6 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
     Title="ModifierGestionPage"
     x:DataType="viewModel:ModifierGestionViewModel"
-    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
 
     <StackLayout x:Name="mainStackLayout" Padding="10">

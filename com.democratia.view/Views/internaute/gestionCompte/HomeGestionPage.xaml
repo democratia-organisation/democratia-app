@@ -7,9 +7,7 @@
     xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
     xmlns:local="clr-namespace:com.democratia.Views"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
-    x:DataType="viewModel:HomeGestionViewModel"
-    ControlTemplate="{DynamicResource PageTemplate}"
-    Style="{DynamicResource fondEcran}">
+    x:DataType="viewModel:HomeGestionViewModel">
 
     <ScrollView>
         <Grid x:Name="grille" RowDefinitions="Auto,*">

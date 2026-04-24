@@ -8,7 +8,6 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute;assembly=com.democratia.core"
     x:DataType="viewModel:HomeViewModel"
     AutomationId="homePage"
-    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{StaticResource fondEcran}">
 
     <Grid x:Name="mainGrille" RowDefinitions="Auto, Auto, *, Auto">

@@ -9,7 +9,6 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
     x:DataType="viewModel:CreationViewModel"
     AutomationId="creationPage"
-    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
 
     <StackLayout
