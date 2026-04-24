@@ -8,30 +8,27 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
     Title="TroisiemePage"
     x:DataType="viewModel:TroisiemeCreationViewModel"
+    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
             <Component:Header />
-            <BoxView HeightRequest="30" />
             <Label
-                x:Name="labelSelectImage"
-                AutomationId="labelSelectImage"
+                x:Name="selectImageLabel"
+                AutomationId="selectImageLabel"
                 Style="{DynamicResource HeadlineStyle}"
                 Text="{x:Static lang:AppResources.selectImage}" />
-            <BoxView HeightRequest="30" />
             <Button
                 x:Name="buttonSelectImage"
                 AutomationId="buttonSelectImage"
                 Command="{Binding ChoisirImageCommand}"
                 Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.select}" />
-            <BoxView HeightRequest="30" />
             <Label
-                x:Name="labelErreur"
-                AutomationId="labelErreur"
+                x:Name="errorMessageLabel"
+                AutomationId="errorMessageLabel"
                 Style="{DynamicResource ErrorLabelStyle}"
                 Text="{Binding ErrorMessage}" />
-            <BoxView HeightRequest="30" />
             <HorizontalStackLayout
                 BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainerLowest},
                                                   Light={DynamicResource Light-surfaceContainerLowest}}"
@@ -39,39 +36,39 @@
                 VerticalOptions="End">
                 <VerticalStackLayout>
                     <ImageButton
-                        x:Name="buttonSelectImageFromGallery"
-                        AutomationId="buttonSelectImageFromGallery"
+                        x:Name="selectImageFromGalleryButton"
+                        AutomationId="selectImageFromGalleryButton"
                         Command="{Binding ChoisirGalerieCommand}"
                         HeightRequest="{StaticResource SpacingLarge}"
                         Source="galerie.png"
                         Style="{DynamicResource ImageButtonStyle}"
                         WidthRequest="{StaticResource SpacingLarge}" />
                     <Label
-                        x:Name="labelgalerie"
-                        AutomationId="labelgalerie"
+                        x:Name="galerieLabel"
+                        AutomationId="galerieLabel"
                         Style="{DynamicResource BodyStyle}"
                         Text="{x:Static lang:AppResources.galerie}" />
                 </VerticalStackLayout>
                 <VerticalStackLayout>
                     <ImageButton
-                        x:Name="buttonSelectImageFromPhoto"
-                        AutomationId="buttonSelectImageFromPhoto"
+                        x:Name="buttonSelectImageFromPhotoImageButton"
+                        AutomationId="buttonSelectImageFromPhotoImageButton"
                         Command="{Binding PrendrePhotoCommand}"
                         HeightRequest="{StaticResource SpacingLarge}"
                         Source="photo.png"
                         Style="{DynamicResource ImageButtonStyle}"
                         WidthRequest="{StaticResource SpacingLarge}" />
                     <Label
-                        x:Name="labelphoto"
-                        AutomationId="labelphoto"
+                        x:Name="photoLabel"
+                        AutomationId="photoLabel"
                         Style="{DynamicResource BodyStyle}"
                         Text="{x:Static lang:AppResources.photo}" />
                 </VerticalStackLayout>
             </HorizontalStackLayout>
             <Image Source="{Binding Image}" />
             <Button
-                x:Name="buttonNext"
-                AutomationId="buttonNext"
+                x:Name="buttonNextButton"
+                AutomationId="buttonNextButton"
                 Command="{Binding NavigateTappedCommand}"
                 CommandParameter="/HomePage"
                 IsVisible="{Binding IsFinish}"

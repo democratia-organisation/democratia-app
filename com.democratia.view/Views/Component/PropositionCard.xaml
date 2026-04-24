@@ -8,23 +8,28 @@
     xmlns:viewModels="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
     x:DataType="models:Proposition"
     Style="{DynamicResource ContenViewStyle}">
-    <VerticalStackLayout>
-        <HorizontalStackLayout Spacing="{DynamicResource SpacingLarge}">
+    <VerticalStackLayout x:Name="mainLayout">
+        <HorizontalStackLayout x:Name="groupeLayout" Spacing="{DynamicResource SpacingLarge}">
             <Label
                 x:Name="titreLabel"
-                x:DataType="models:Proposition"
+                AutomationId="titreLabel"
                 HorizontalOptions="Center"
                 HorizontalTextAlignment="Center"
                 Style="{DynamicResource LabelStyle}"
                 Text="{Binding Titre}" />
             <Image
+                x:Name="loupeImage"
+                AutomationId="loupeImage"
                 HeightRequest="30"
                 HorizontalOptions="End"
                 Source="loupe.png"
                 VerticalOptions="End"
                 WidthRequest="30" />
         </HorizontalStackLayout>
-        <Label x:Name="dateLabel" HorizontalTextAlignment="Start" />
+        <Label
+            x:Name="dateLabel"
+            AutomationId="dateLabel"
+            HorizontalTextAlignment="Start" />
 
     </VerticalStackLayout>
 </ContentView>

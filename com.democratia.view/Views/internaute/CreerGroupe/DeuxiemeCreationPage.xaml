@@ -10,51 +10,49 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
     Title="DeuxiemePage"
     x:DataType="viewModel:DeuxiemePageViewModel"
+    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
     <ScrollView>
-        <VerticalStackLayout>
-            <Component:Header />
+        <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
             <Label
-                x:Name="labelAjoutMembres"
-                AutomationId="labelAjoutMembres"
+                x:Name="ajoutMembresLabel"
+                AutomationId="ajoutMembresLabel"
                 Style="{DynamicResource HeadlineStyle}"
                 Text="{x:Static lang:AppResources.creaGroupe}" />
-            <BoxView HeightRequest="{StaticResource SpacingLarge}" />
             <Label
-                x:Name="labelCouleurRepresentative"
-                AutomationId="labelCouleurRepresentative"
+                x:Name="couleurRepresentativeLabel"
+                AutomationId="couleurRepresentativeLabel"
                 Style="{DynamicResource SubHeadlineStyle}"
                 Text="{x:Static lang:AppResources.CouleurRepre}" />
-            <BoxView HeightRequest="{StaticResource SpacingLarge}" />
             <Grid
+                x:Name="colorlPickerGrille"
                 BackgroundColor="Grey"
+                ColumnDefinitions="*"
                 MaximumWidthRequest="500"
-                MinimumHeightRequest="500">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+                MinimumHeightRequest="500"
+                RowDefinitions="*">
                 <controls:ColorPicker
-                    x:Name="ColorPicker"
+                    x:Name="groupeColorColorPicker"
                     Grid.Row="0"
                     Grid.Column="0"
+                    AutomationId="groupeColorColorPicker"
                     ColorFlowDirection="Horizontal"
                     ColorSpectrumStyle="ShadeToHueStyle"
                     HorizontalOptions="Fill"
                     PickedColor="{Binding Color, Mode=OneWayToSource}"
                     VerticalOptions="Fill" />
             </Grid>
-            <BoxView HeightRequest="{StaticResource SpacingLarge}" />
             <Rectangle
+                x:Name="selectedColorRectangle"
+                AutomationId="selectedColorRectangle"
                 Fill="{Binding Color}"
                 HeightRequest="{StaticResource SpacingLarge}"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 WidthRequest="{StaticResource SpacingLarge}" />
-            <BoxView HeightRequest="{StaticResource SpacingLarge}" />
             <Button
+                x:Name="navigationButton"
+                AutomationId="navigationButton"
                 Command="{Binding NavigateTappedCommand}"
                 CommandParameter="TroisiemeCreationPage"
                 Style="{DynamicResource ButtonStyle}"

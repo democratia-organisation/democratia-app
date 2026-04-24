@@ -163,6 +163,9 @@
     <MauiXaml Update="Views\Component\PropositionCard.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\Component\RefreshView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\groupe\DecideurPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

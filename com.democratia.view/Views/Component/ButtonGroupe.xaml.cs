@@ -32,16 +32,6 @@ public partial class ButtonGroupe : ContentView
         set => SetValue(GroupeProperty, value);
     }
 
-    public static readonly BindableProperty MyCommandParameterProperty =
-        BindableProperty.Create(
-            nameof(MyCommandParameter), typeof(object), typeof(ButtonGroupe));
-
-    public object MyCommandParameter
-    {
-        get => GetValue(MyCommandParameterProperty);
-        set => SetValue(MyCommandParameterProperty, value);
-    }
-
     public ButtonGroupe()
     {
         InitializeComponent();

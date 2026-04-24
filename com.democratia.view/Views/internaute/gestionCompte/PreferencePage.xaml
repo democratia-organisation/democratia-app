@@ -9,9 +9,9 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
     Title="PreferencePage"
     x:DataType="viewModel:PreferenceViewModel"
+    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
     <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
-        <component:Header x:Name="header" AutomationId="header" />
         <HorizontalStackLayout x:Name="langueHorizontalLayout" Spacing="{DynamicResource SpacingLarge}">
             <Label
                 x:Name="selectionLangueLabel"

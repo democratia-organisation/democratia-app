@@ -9,9 +9,9 @@
     <Border
         MaximumHeightRequest="{StaticResource SpacingUltraLarge}"
         MaximumWidthRequest="{StaticResource SpacingUltraLarge}"
-        Style="{StaticResource BorderStyleButton}">
+        Style="{StaticResource BorderStyle}">
 
-        <VerticalStackLayout>
+        <VerticalStackLayout x:Name="layout">
             <ImageButton
                 x:Name="enterGroupeImageButton"
                 AutomationId="enterGroupeImageButton"
@@ -23,6 +23,8 @@
                 WidthRequest="{StaticResource SpacingUltraLarge}" />
 
             <Label
+                x:Name="nomGroupeLabel"
+                AutomationId="nomGroupeLabel"
                 HorizontalOptions="Center"
                 LineBreakMode="WordWrap"
                 Style="{StaticResource SubHeadlineStyle}"

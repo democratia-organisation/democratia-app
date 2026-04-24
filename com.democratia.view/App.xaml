@@ -3,6 +3,7 @@
     x:Class="com.democratia.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:component="clr-namespace:com.democratia.Views.Component"
     xmlns:local="clr-namespace:com.democratia">
     <Application.Resources>
         <ResourceDictionary>
@@ -13,6 +14,13 @@
                 <ResourceDictionary Source="/Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="/Resources/Dimension/Dimension.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <ControlTemplate x:Key="PageTemplate">
+                <Grid RowDefinitions="Auto, *">
+                    <component:Header Grid.Row="0" />
+
+                    <ContentPresenter Grid.Row="1" />
+                </Grid>
+            </ControlTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

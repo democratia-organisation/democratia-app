@@ -8,21 +8,21 @@
     xmlns:local="clr-namespace:com.democratia.Views"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
     x:DataType="viewModel:HomeGestionViewModel"
+    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
 
     <ScrollView>
-        <Grid x:Name="grille" RowDefinitions="Auto,Auto,*">
-            <component:Header Grid.Row="0" />
+        <Grid x:Name="grille" RowDefinitions="Auto,*">
             <Label
                 x:Name="errorMessageLabel"
-                Grid.Row="1"
+                Grid.Row="0"
                 AutomationId="errorMessageLabel"
                 Style="{DynamicResource ErrorLabelStyle}"
                 Text="{Binding RetourMessage}" />
 
             <StackLayout
                 x:Name="stackLayout"
-                Grid.Row="2"
+                Grid.Row="1"
                 AutomationId="stackLayout"
                 Spacing="{DynamicResource SpacingLarge}">
                 <Button

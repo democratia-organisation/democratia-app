@@ -10,6 +10,7 @@
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.CreerGroupe;assembly=com.democratia.core"
     Title="PremierePage"
     x:DataType="viewModel:PremiereCreationViewModel"
+    ControlTemplate="{DynamicResource PageTemplate}"
     Style="{DynamicResource fondEcran}">
     <ScrollView>
         <VerticalStackLayout
