@@ -8,8 +8,9 @@
     xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
     Title="PreferencePage"
-    x:DataType="viewModel:PreferenceViewModel">
+    x:DataType="viewModel:PreferenceViewModel"
     Style="{DynamicResource fondEcran}">
+
     <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
         <HorizontalStackLayout x:Name="langueHorizontalLayout" Spacing="{DynamicResource SpacingLarge}">
             <Label
