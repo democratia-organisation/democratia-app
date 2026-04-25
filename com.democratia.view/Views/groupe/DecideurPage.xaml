@@ -11,7 +11,6 @@
     x:DataType="viewModelDecideur:DecideurViewModel"
     Style="{DynamicResource fondEcran}">
     <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
-        <component:Header />
         <Label
             x:Name="nomGroupeLabel"
             AutomationId="nomGroupeLabel"

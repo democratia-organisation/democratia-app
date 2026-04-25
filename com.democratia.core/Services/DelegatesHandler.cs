@@ -16,11 +16,18 @@ namespace com.democratia.Services
     public class AuthentificationHandler(IHttpClientFactory factory) : DelegatingHandler
     {
         private readonly IHttpClientFactory _factory = factory;
+        private int _maxRetryAttempts = 0;
+        private readonly static int MAX_RETRY_ATTEMPTS = 3;
 
         private async Task<HttpResponseMessage> RefreshKeys(CancellationToken ct)
         {
             string email = await SecureStorage.Default.GetAsync("id_internaute") ?? string.Empty;
             var brutClient = _factory.CreateClient("ClientBrut");
+#if DEBUG
+            brutClient.Timeout = TimeSpan.FromSeconds(60*5);
+#elif !DEBUG
+            brutClient.Timeout = TimeSpan.FromSeconds(10);
+#endif
             var resp = await brutClient.GetAsync($"""?request=login&parameters=["{email}"]""", ct);
             return resp;
         }
@@ -30,42 +37,62 @@ namespace com.democratia.Services
             if (!response.IsSuccessStatusCode)
             {
                 HttpRequestMessage clone = await request.CloneRequest();
-                if (response.StatusCode == HttpStatusCode.Conflict)
+                if (response.StatusCode == HttpStatusCode.TooManyRequests )
                 {
-                    var authorisation = response.RequestMessage!.Headers.Authorization!;
-                    if (authorisation.Equals(await SecureStorage.Default.GetAsync(SecureStorageKeys.REFRESH.ToString())))
-                        await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{false}");
+                    if (_maxRetryAttempts < MAX_RETRY_ATTEMPTS)
+                    {
+                        Thread.Sleep((int)response.Headers.RetryAfter!.Delta!.Value.TotalMilliseconds);
+                        _maxRetryAttempts++;
+                        return await base.SendAsync(clone, cancellationToken);
+                    }
                     else
-                        response.StatusCode = HttpStatusCode.Unauthorized;
-                    return await base.SendAsync(clone, cancellationToken);
+                    {
+                        throw new ConnexionErrorException();
+                    }
 
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-
-                    HttpResponseMessage responseToken = await RefreshKeys(cancellationToken);
-                    if (!responseToken.IsSuccessStatusCode)
+                    string reponse = await response.Content.ReadAsStringAsync(cancellationToken);
+                    string message = JsonSerializer.Deserialize<Dictionary<string, object>>(reponse)!["message"].ToString()!;
+                    if (message == "Token expiré")
                     {
-#if DEBUG
-                        string contente = await response.Content.ReadAsStringAsync();
-#endif
-                        throw new ConnexionErrorException();
+                        string authorisation = response.RequestMessage!.Headers.Authorization!.Parameter!;
+                        if (authorisation.Equals(await SecureStorage.Default.GetAsync(SecureStorageKeys.REFRESH.ToString())))
+                            await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{false}");
+                        else
+                            response.StatusCode = HttpStatusCode.Unauthorized;
+                        return await base.SendAsync(clone,cancellationToken);
                     }
 
+                    else if (message == "Entête incorrect" || message == "Utilisateur incorérent")
+                    {
+                        HttpResponseMessage responseToken = await RefreshKeys(cancellationToken);
+                        if (!responseToken.IsSuccessStatusCode)
+                        {
+#if DEBUG
+                            string contente = await response.Content.ReadAsStringAsync(cancellationToken);
+#endif
+                            throw new ConnexionErrorException();
+                        }
+
+                        else
+                        {
+                            var réponse = await responseToken.Content.ReadFromJsonAsync<Dictionary<string, object>>(cancellationToken);
+                            string key = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![SecureStorageKeys.API_KEY.ToString()];
+                            string refresh = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![SecureStorageKeys.REFRESH.ToString()];
+                            await SecureStorage.Default.SetAsync(SecureStorageKeys.API_KEY.ToString(), key);
+                            await SecureStorage.Default.SetAsync(SecureStorageKeys.REFRESH.ToString(), refresh);
+                            await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{true}");
+
+                            return await base.SendAsync(clone, cancellationToken);
+                        }
+                    }
                     else
                     {
-                        var réponse = await responseToken.Content.ReadFromJsonAsync<Dictionary<string, object>>();
-                        string key = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![SecureStorageKeys.API_KEY.ToString()];
-                        string refresh = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![SecureStorageKeys.REFRESH.ToString()];
-                        await SecureStorage.Default.SetAsync(SecureStorageKeys.API_KEY.ToString(), key);
-                        await SecureStorage.Default.SetAsync(SecureStorageKeys.REFRESH.ToString(), refresh);
-                        await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{true}");
-
-                        return await base.SendAsync(clone, cancellationToken);
+                        throw new ConnexionErrorException();
                     }
                 }
-                else if ((int)response.StatusCode == 412 && request.RequestUri!.Query == $"?request=relogin&parameters=[%22{await SecureStorage.Default.GetAsync("id_internaute")}%22]")
-                    return response;
                 else throw new ConnexionErrorException();
             }
             else
@@ -100,21 +127,14 @@ namespace com.democratia.Services
             if (!response.IsSuccessStatusCode)
             {
 #if DEBUG
-                string content = await response.Content.ReadAsStringAsync();
+                string content = await response.Content.ReadAsStringAsync(cancellationToken);
 #endif
-                if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Conflict)
+                if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.TooManyRequests)
                     return response;
-                else if (response.StatusCode == HttpStatusCode.PreconditionFailed && request.RequestUri!.Query == $"?request=relogin&parameters=[%22{await SecureStorage.Default.GetAsync("id_internaute")}%22]")
-                {
-                    SecureStorage.Default.RemoveAll();
-                    return response;
-                }
-
                 else
                     throw new ConnexionErrorException();
             }
-            else
-                return response;
+            else return response;
         }
     }
 }

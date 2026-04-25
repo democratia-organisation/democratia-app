@@ -10,34 +10,31 @@
     AutomationId="homePage"
     Style="{StaticResource fondEcran}">
 
-    <Grid x:Name="mainGrille" RowDefinitions="Auto, Auto, *, Auto">
+    <Grid
+        x:Name="mainGrille"
+        RowDefinitions="Auto, Auto, *, Auto"
+        RowSpacing="{DynamicResource SpacingMedium}">
         <VerticalStackLayout Grid.Row="0">
-            <Grid
-                HeightRequest="{StaticResource SpacingLarge}"
-                RowSpacing="{DynamicResource SpacingLarge}"
-                WidthRequest="{StaticResource SpacingUltraLarge}">
+            <Border
+                Padding="0"
+                HorizontalOptions="Center"
+                MaximumHeightRequest="{StaticResource SpacingLarge}"
+                MaximumWidthRequest="{StaticResource SpacingLarge}"
+                Stroke="{AppThemeBinding Light={StaticResource Light-onSurface},
+                                         Dark={StaticResource Dark-onSurface}}"
+                StrokeThickness="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{StaticResource SpacingLarge}" />
+                </Border.StrokeShape>
 
-                <Border
-                    Padding="0"
-                    HorizontalOptions="Center"
-                    MaximumHeightRequest="{StaticResource SpacingLarge}"
-                    MaximumWidthRequest="{StaticResource SpacingLarge}"
-                    Stroke="{AppThemeBinding Light={StaticResource Light-onSurface},
-                                             Dark={StaticResource Dark-onSurface}}"
-                    StrokeThickness="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="{StaticResource SpacingLarge}" />
-                    </Border.StrokeShape>
-
-                    <ImageButton
-                        x:Name="profileImageButton"
-                        Aspect="AspectFill"
-                        AutomationId="profileImageButton"
-                        Command="{Binding NavigateTappedCommand}"
-                        CommandParameter="HomeGestionPage"
-                        Source="profile_icon.jpeg" />
-                </Border>
-            </Grid>
+                <ImageButton
+                    x:Name="profileImageButton"
+                    Aspect="AspectFill"
+                    AutomationId="profileImageButton"
+                    Command="{Binding NavigateTappedCommand}"
+                    CommandParameter="HomeGestionPage"
+                    Source="profile_icon.jpeg" />
+            </Border>
         </VerticalStackLayout>
 
         <Label

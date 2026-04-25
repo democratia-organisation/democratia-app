@@ -3,15 +3,12 @@
     x:Class="com.democratia.Views.Component.ButtonGroupe"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Name="this"
-    Style="{StaticResource ContenViewStyle}">
-
-    <Border
-        MaximumHeightRequest="{StaticResource SpacingUltraLarge}"
-        MaximumWidthRequest="{StaticResource SpacingUltraLarge}"
-        Style="{StaticResource BorderStyle}">
-
-        <VerticalStackLayout x:Name="layout">
+    x:Name="this">
+    <VerticalStackLayout Spacing="{DynamicResource SpacingUltraSmall}">
+        <Border
+            MaximumHeightRequest="{StaticResource SpacingUltraLarge}"
+            MaximumWidthRequest="{StaticResource SpacingUltraLarge}"
+            Style="{StaticResource BorderStyle}">
             <ImageButton
                 x:Name="enterGroupeImageButton"
                 AutomationId="enterGroupeImageButton"
@@ -21,15 +18,13 @@
                 HorizontalOptions="Center"
                 Source="{Binding Image, Source={x:Reference this}}"
                 WidthRequest="{StaticResource SpacingUltraLarge}" />
-
-            <Label
-                x:Name="nomGroupeLabel"
-                AutomationId="nomGroupeLabel"
-                HorizontalOptions="Center"
-                LineBreakMode="WordWrap"
-                Style="{StaticResource SubHeadlineStyle}"
-                Text="{Binding Groupe.NomGroupe, Source={x:Reference this}}" />
-        </VerticalStackLayout>
-
-    </Border>
+        </Border>
+        <Label
+            x:Name="nomGroupeLabel"
+            AutomationId="nomGroupeLabel"
+            HorizontalOptions="Center"
+            LineBreakMode="WordWrap"
+            Style="{StaticResource SubHeadlineStyle}"
+            Text="{Binding Groupe.NomGroupe, Source={x:Reference this}}" />
+    </VerticalStackLayout>
 </ContentView>

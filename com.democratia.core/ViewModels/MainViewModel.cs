@@ -11,16 +11,16 @@ namespace com.democratia.ViewModels.internaute
     public partial class MainViewModel : ConnectableViewModel, INavigeablleViewModel
     {
         [ObservableProperty]
-        private string? adresseMail;
+        public partial string? adresseMail { get; set; }
 
         public Internaute? modele { get; private set; }
         private Services.AppContext? contexte;
 
         [ObservableProperty]
-        private string? motDePasse;
+        public partial string? motDePasse { get; set; }
 
         [ObservableProperty]
-        private string? errorMessage;
+        public partial string? errorMessage { get; set; }
         private readonly INavigationService? navigationService;
 
         public MainViewModel(INavigationService navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization, Services.AppContext context)
@@ -43,9 +43,9 @@ namespace com.democratia.ViewModels.internaute
             catch (Exception ex)
             {
 #if DEBUG
-                ErrorMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
+                errorMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
 #elif !DEBUG
-                ErrorMessage = LocalizationService?.GetString("erreurInattendu");    
+                errorMessage = LocalizationService?.GetString("erreurInattendu");    
 #endif
                 return;
             }
@@ -58,30 +58,30 @@ namespace com.democratia.ViewModels.internaute
         internal async Task<Internaute?> ConnecterInternaute()
         {
 
-            if (string.IsNullOrWhiteSpace(AdresseMail)) throw new EmptyEmailFieldException();
-            else if (string.IsNullOrWhiteSpace(MotDePasse)) throw new EmptyPassWordFieldException();
+            if (string.IsNullOrWhiteSpace(adresseMail)) throw new EmptyEmailFieldException();
+            else if (string.IsNullOrWhiteSpace(motDePasse)) throw new EmptyPassWordFieldException();
             try
             {
-                await SecureStorage.Default.SetAsync("id_internaute", AdresseMail);
-                string jsonString = await client?.GetModelAsync(AdresseMail)!;
+                await SecureStorage.Default.SetAsync("id_internaute", adresseMail);
+                string jsonString = await client?.GetModelAsync(adresseMail)!;
                 List<Internaute> listeInformation = RecuprerInformationConnexion<Internaute>(jsonString);
                 if (listeInformation.Count == 0) throw new NoUserException();
                 var internaute = listeInformation![0];
                 string motDePasseHash = internaute?.hashageMDP!;
                 bool estAuthetifie;
 #if DEBUG
-                if (MotDePasse != "root")
+                if (motDePasse != "root")
                 // les mots de passe avec le mot root ne vont pas dans tempMDP pour éviter une erreur
                 {
-                    internaute!.tempMDP = MotDePasse; // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
+                    internaute!.tempMDP = motDePasse; // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
                     bool hashedPasswordIsNotEqual = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
                     estAuthetifie = motDePasseHash != internaute!.tempMDP || hashedPasswordIsNotEqual;
                 }
                 else
                     estAuthetifie = true;
 #elif !DEBUG
-                internaute!.tempMDP = MotDePasse;
-                estAuthetifie = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);;
+                internaute!.tempMDP = motDePasse;
+                estAuthetifie = !await Verification.VerifiermotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);;
 #endif
                 if (!estAuthetifie) throw new BadPasswordException();
                 else

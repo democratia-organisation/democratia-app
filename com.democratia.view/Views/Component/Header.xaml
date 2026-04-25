@@ -6,12 +6,8 @@
     xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
     xmlns:local="clr-namespace:com.democratia.Views.Component"
     Style="{DynamicResource ContenViewStyle}">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    <Grid ColumnDefinitions="Auto,*,Auto">
+
 
         <!--  En haut à gauche  -->
         <ImageButton

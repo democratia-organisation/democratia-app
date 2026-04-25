@@ -50,6 +50,7 @@
                 Grid.Column="1"
                 AutomationId="nomGroupeLabel"
                 HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
                 Style="{DynamicResource SubHeadlineStyle}"
                 Text="{Binding groupe.NomGroupe}"
                 VerticalOptions="Center" />
@@ -82,8 +83,7 @@
             AutomationId="criterePicker"
             HorizontalOptions="Start"
             ItemsSource="{Binding criteres}"
-            SelectedItem="{Binding critere}"
-            WidthRequest="{DynamicResource SpacingLarge}">
+            SelectedItem="{Binding critere}">
             <Picker.Behaviors>
                 <toolkit:EventToCommandBehavior Command="{Binding ClasserPropositionsCommand}" EventName="SelectedIndexChanged" />
             </Picker.Behaviors>

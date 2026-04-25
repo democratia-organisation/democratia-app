@@ -9,8 +9,8 @@ namespace com.democratia.Models
     {
         [JsonPropertyName("id")]
         public Guid? IdGroupe { get; set; }
-        [JsonPropertyName("nom_groupe")]
-        public string? NomGroupe { get; set; }
+        [JsonPropertyName("nom_groupe"), ObservableProperty]
+        public partial string? NomGroupe { get; set; }
         [JsonPropertyName("couleur_groupe")]
         public string? CouleurGroupe { get; set; }
         [JsonPropertyName("image")]
