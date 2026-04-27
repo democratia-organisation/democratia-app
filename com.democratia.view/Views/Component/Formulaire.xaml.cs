@@ -56,6 +56,18 @@ public partial class Formulaire : ContentView
         typeof(Formulaire),
         defaultBindingMode: BindingMode.TwoWay);
 
+    public static readonly BindableProperty TextActionProperty = BindableProperty.Create(
+        nameof(TextAction),
+        typeof(string),
+        typeof(Formulaire),
+        defaultBindingMode: BindingMode.OneWay);
+
+    public string TextAction
+    {
+        get => (string)GetValue(TextActionProperty);
+        set => SetValue(TextActionProperty, value);
+    }
+
     public ICommand ActionTappedCommand
     {
         get => (ICommand)GetValue(ActionTappedCommandProperty);

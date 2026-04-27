@@ -40,10 +40,10 @@
             Style="{DynamicResource ErrorLabelStyle}"
             Text="{Binding retourMessage, Source={x:Reference this}}" />
         <Button
-            x:Name="inscriptionButton"
-            AutomationId="inscriptionButton"
+            x:Name="actionButton"
+            AutomationId="actionButton"
             Command="{Binding ActionTappedCommand, Source={x:Reference this}}"
             Style="{DynamicResource ButtonStyle}"
-            Text="{x:Static lang:AppResources.inscription}" />
+            Text="{Binding TextAction, Source={x:Reference this}}" />
     </VerticalStackLayout>
 </ContentView>
