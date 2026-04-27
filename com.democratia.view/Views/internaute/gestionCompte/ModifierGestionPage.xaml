@@ -10,46 +10,12 @@
     x:DataType="viewModel:ModifierGestionViewModel"
     Style="{DynamicResource fondEcran}">
 
-    <StackLayout x:Name="mainStackLayout" Padding="10">
-        <BoxView HeightRequest="{StaticResource SpacingLarge}" />
-        <component:EntryComponent
-            x:Name="nomDeFamilleEntryComponent"
-            Title="{x:Static lang:AppResources.Nom}"
-            AutomationId="nomDeFamilleEntryComponent"
-            ValeurDonne="{Binding TempInternaute.nom_internaute}" />
-        <component:EntryComponent
-            x:Name="prenomComponent"
-            Title="{x:Static lang:AppResources.prenom}"
-            AutomationId="prenomEntryComponent"
-            ValeurDonne="{Binding TempInternaute.prenom_internaute}" />
-        <component:EntryComponent
-            x:Name="addresseEntryComponent"
-            Title="{x:Static lang:AppResources.adress}"
-            AutomationId="addresseEntryComponent"
-            ValeurDonne="{Binding TempInternaute.adresse_postale}" />
-        <component:EntryComponent
-            x:Name="mailEntryComponent"
-            Title="{x:Static lang:AppResources.mail}"
-            AutomationId="mailEntryComponent"
-            ValeurDonne="{Binding Email}" />
-        <component:EntryComponent
-            x:Name="passwordEntryComponent"
-            Title="{x:Static lang:AppResources.Mdp}"
-            AutomationId="passwordEntryComponent"
-            PassWord="True"
-            ValeurDonne="{Binding Password}" />
-        <Label
-            x:Name="retourMessageLabel"
-            AutomationId="retourMessageLabel"
-            HorizontalOptions="Center"
-            Style="{DynamicResource ErrorLabelStyle}"
-            Text="{Binding RetourMessage}" />
-        <BoxView HeightRequest="{DynamicResource SpacingExtraLarge}" />
-        <Button
-            x:Name="inscriptionButton"
-            AutomationId="inscriptionButton"
-            Command="{Binding ModifierInternauteCommand}"
-            Style="{DynamicResource ButtonStyle}"
-            Text="{x:Static lang:AppResources.enregistrer}" />
-    </StackLayout>
+    <component:Formulaire
+        x:Name="formulaireComponent"
+        ActionTappedCommand="{Binding ModifierInternauteCommand}"
+        AutomationId="formulaireComponent"
+        email="{Binding email}"
+        internaute="{Binding tempInternaute}"
+        password="{Binding password}"
+        retourMessage="{Binding retourMessage}" />
 </ContentPage>
