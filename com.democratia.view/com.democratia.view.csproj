@@ -113,6 +113,9 @@
     <Compile Update="Views\Component\EntryComponent.xaml.cs">
       <DependentUpon>EntryComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Component\Formulaire.xaml.cs">
+      <DependentUpon>Formulaire.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\groupe\DecideurPage.xaml.cs">
       <DependentUpon>DecideurPage.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\Component\EntryComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Component\Formulaire.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\Component\PropositionCard.xaml">

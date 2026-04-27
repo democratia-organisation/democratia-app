@@ -14,10 +14,10 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
 {
     public partial class PreferenceViewModel : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel
     {
-        [ObservableProperty] private string? language;
-        [ObservableProperty] private string? theme;
-        [ObservableProperty] private ObservableCollection<string> languages;
-        [ObservableProperty] private ObservableCollection<string> themes;
+        [ObservableProperty] public partial string? language {get; set;}
+        [ObservableProperty] public partial string? theme {get; set;}
+        [ObservableProperty] public partial ObservableCollection<string> languages {get; set;}
+        [ObservableProperty] public partial ObservableCollection<string> themes {get; set;}
         private Dictionary<string,string> languagesDict;
         private Dictionary<string, AppTheme> themesDict;
         private INavigationService navigationService;
@@ -38,8 +38,8 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            var langueChoisi = Language ?? Preferences.Default.Get("Language", CultureInfo.CurrentCulture.Name);
-            var themeChoisi = Theme ?? Themes!.First(value => themesDict[value] == Application.Current!.UserAppTheme);
+            var langueChoisi = language ?? Preferences.Default.Get("Language", CultureInfo.CurrentCulture.Name);
+            var themeChoisi = this.theme ?? themes!.First(value => themesDict[value] == Application.Current!.UserAppTheme);
             var langage = languagesDict[langueChoisi];
             AppTheme theme = themesDict[themeChoisi];
             Preferences.Default.Set("Language",langage);

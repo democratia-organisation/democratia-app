@@ -26,8 +26,8 @@
                 Title="{x:Static lang:AppResources.Langage}"
                 ios:Picker.UpdateMode="WhenFinished"
                 AutomationId="languePicker"
-                ItemsSource="{Binding Languages}"
-                SelectedItem="{Binding Language}" />
+                ItemsSource="{Binding languages}"
+                SelectedItem="{Binding languages}" />
         </HorizontalStackLayout>
         <HorizontalStackLayout x:Name="themeHorizontalLayout" Spacing="{DynamicResource SpacingLarge}">
             <Label
@@ -42,8 +42,8 @@
                 Title="{x:Static lang:AppResources.theme}"
                 ios:Picker.UpdateMode="Immediately"
                 AutomationId="themePicker"
-                ItemsSource="{Binding Themes}"
-                SelectedItem="{Binding Theme}" />
+                ItemsSource="{Binding themes}"
+                SelectedItem="{Binding theme}" />
         </HorizontalStackLayout>
         <Button
             x:Name="terminerButton"

@@ -12,10 +12,10 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
     public partial class CreationViewModel : ConnectableViewModel, INavigeablleViewModel
     {
 
-        [ObservableProperty] private Internaute? _internaute = new();
-        [ObservableProperty] private string? retourMessage;
-        [ObservableProperty] private string? password; // passowrd tempon afin d'éviter le set à chaque écriture dans la varible
-        [ObservableProperty] private string? email;
+        [ObservableProperty] public partial Internaute? internaute { get; set; } = new();
+        [ObservableProperty] public partial string? retourMessage { get; set; }
+        [ObservableProperty] public partial string? password { get; set; } // passowrd tempon afin d'éviter le set à chaque écriture dans la varible
+        [ObservableProperty] public partial string? email { get; set; }
         private readonly INavigationService? navigationService;
         
 
@@ -30,10 +30,10 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) 
-            => await navigationService?.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", Internaute! } })!;
+            => await navigationService?.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", internaute! } })!;
 
         [RelayCommand]
-        public async Task CreerInternauteTapped()
+        private async Task CreerInternauteTapped()
         {
             try
             {
@@ -43,7 +43,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             catch (Exception ex)
             {
 #if DEBUG
-                RetourMessage = ex.Message;
+                retourMessage = ex.Message;
 #elif !DEBUG
                 RetourMessage = localizationService?.GetString("erreurInattendu");    
 #endif
@@ -56,12 +56,12 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         {
             try
             {
-                Internaute!.tempMDP = Password;
-                Internaute.courriel = Email;
+                internaute!.tempMDP = password;
+                internaute!.courriel = email;
                 if (await VerifierToutesLesConditions())
                 {
-                    await Verification.HasherMotDePasse(Internaute!);
-                    string reponse = await client?.CreateModelAsync(Internaute!.nom_internaute, Internaute!.prenom_internaute, Internaute!.courriel, Internaute!.adresse_postale, Internaute.hashageMDP )!;
+                    await Verification.HasherMotDePasse(internaute!);
+                    string reponse = await client?.CreateModelAsync(internaute!.nom_internaute, internaute!.prenom_internaute, internaute!.courriel, internaute!.adresse_postale, internaute!.hashageMDP )!;
                     List<object> values = RecuprerInformationConnexion<object>(reponse);
                 }
             }
@@ -73,18 +73,18 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
 
         private bool VerifierChampComplet()
         {
-            if (!(!string.IsNullOrWhiteSpace(Internaute!.adresse_postale) &&
-              !string.IsNullOrWhiteSpace(Internaute!.nom_internaute) &&
-              !string.IsNullOrWhiteSpace(Internaute!.prenom_internaute) &&
-              !string.IsNullOrWhiteSpace(Internaute!.tempMDP) &&
-              !string.IsNullOrWhiteSpace(Internaute!.courriel)))
+            if (!(!string.IsNullOrWhiteSpace(internaute!.adresse_postale) &&
+              !string.IsNullOrWhiteSpace(internaute!.nom_internaute) &&
+              !string.IsNullOrWhiteSpace(internaute!.prenom_internaute) &&
+              !string.IsNullOrWhiteSpace(internaute!.tempMDP) &&
+              !string.IsNullOrWhiteSpace(internaute!.courriel)))
                 throw new EmptyRequiredFieldException();
             else return true;
         }
         
         private async Task<bool> VerifierMailDoublon()
         {
-            string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(Internaute!.courriel!)!;
+            string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(internaute!.courriel!)!;
             List<Dictionary<string, int>>? listeInformation = RecuprerInformationConnexion<Dictionary<string, int>>(retourJson);
             int? nombreMail = listeInformation![0].TryGetValue("COUNT(courriel)", out var value) ? value : null;
             return nombreMail == 0 ? true : throw new CompteExistantException();

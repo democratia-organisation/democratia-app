@@ -14,15 +14,18 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
     {
         private INavigationService NavigationService { get; set; }
         private Internaute? internaute;
-        [ObservableProperty] private string? retourMessage;
-        [ObservableProperty] private Internaute? tempInternaute = new();
-        [ObservableProperty] private string? password;
-        [ObservableProperty] private string? email;
+        [ObservableProperty] public partial string? retourMessage {get; set; }
+        [ObservableProperty] public partial Internaute? tempInternaute { get; set; } = new();
+        [ObservableProperty] public partial string? password {get; set; }
+        [ObservableProperty] public partial string? email {get; set; }
+        private Services.AppContext appContext;
 
-        public ModifierGestionViewModel(INavigationService navigationService, ILocalizationService localizationService, IEnumerable<IClient> clients) 
+        public ModifierGestionViewModel(INavigationService navigationService, ILocalizationService localizationService, 
+            IEnumerable<IClient> clients, Services.AppContext appContext) 
             : base(clients.OfType<InternauteClient>().FirstOrDefault(),localizationService)
         {
             this.NavigationService = navigationService;
+            this.appContext = appContext;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
         }
 
@@ -38,7 +41,7 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
         private async Task ModifierInternaute()
         {
             RecupererInformations();
-            if(!string.IsNullOrWhiteSpace(Password)) await Verification.HasherMotDePasse(internaute!);
+            if(!string.IsNullOrWhiteSpace(password)) await Verification.HasherMotDePasse(internaute!);
             await client?.UpdateModelAsync(internaute)!;
             EnregistrerModele(internaute!);
             WeakReferenceMessenger.Default.Send<EventModificationSuccessSender>();
@@ -48,27 +51,27 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
 
         private void RecupererInformations()
         {
-            internaute!.prenom_internaute = Merge(internaute.prenom_internaute, TempInternaute!.prenom_internaute);
-            internaute!.nom_internaute = Merge(internaute.nom_internaute, TempInternaute!.nom_internaute);
-            internaute!.adresse_postale = Merge(internaute.adresse_postale, TempInternaute!.adresse_postale);
+            internaute!.prenom_internaute = Merge(internaute.prenom_internaute, tempInternaute!.prenom_internaute);
+            internaute!.nom_internaute = Merge(internaute.nom_internaute, tempInternaute!.nom_internaute);
+            internaute!.adresse_postale = Merge(internaute.adresse_postale, tempInternaute!.adresse_postale);
             try
             {
-                internaute!.courriel = Merge(internaute.courriel, Email);
-                if(!string.IsNullOrWhiteSpace(Password)) internaute!.tempMDP = Merge(internaute.tempMDP, Password);
+                internaute!.courriel = Merge(internaute.courriel, email);
+                if(!string.IsNullOrWhiteSpace(password)) internaute!.tempMDP = Merge(internaute.tempMDP, password);
             }
             catch (Exception ex) {
 
-                RetourMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
+                retourMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
             }
         }
 
         private static string? Merge(string? baseValue, string? newValue) =>
             string.IsNullOrWhiteSpace(newValue) ? baseValue : newValue;
 
-        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            internaute = query.TryGetValue("internaute", out var value) ? 
-                (Internaute)value : await RetrouverModele<Internaute>();
+            internaute = query.TryGetValue("internaute", out var value) ?
+                (Internaute)value : appContext.Internaute;
         }
 
         public record EventModificationSuccessSender() { }
