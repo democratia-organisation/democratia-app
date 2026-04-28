@@ -29,6 +29,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\groupe\decideur\" />
+    <Folder Include="UI\groupe\decideur\" />
+    <Folder Include="UI\internaute\CreerGroupe\" />
   </ItemGroup>
 </Project>

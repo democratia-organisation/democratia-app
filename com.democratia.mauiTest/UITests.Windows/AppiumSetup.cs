@@ -1,6 +1,6 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
-using UITests.View;
+using UITests.UI;
 
 namespace UITests
 {

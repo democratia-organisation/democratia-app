@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using Xunit;
 
-namespace UITests.View
+namespace UITests.UI
 {
     // Add a CollectionDefinition together with a ICollectionFixture
     // to ensure that the setup only runs once
@@ -38,6 +38,7 @@ namespace UITests.View
     public abstract class BaseTest : IDisposable
     {
         protected AppiumDriver App => AppiumSetup.App;
+        protected Func<string,By> funcResearrch => AppiumSetup.device == "android" ? id => MobileBy.XPath($"""//*[@resource-id="com.democratia:id/{id}"]""") : id => MobileBy.AccessibilityId(id);
 
         public virtual void Dispose()
         {
@@ -51,7 +52,7 @@ namespace UITests.View
             
             try
             {
-                return App.FindElement(MobileBy.AccessibilityId(id));
+                return App.FindElement(funcResearrch(id));
             }
             catch (NoSuchElementException)
             {
@@ -60,17 +61,23 @@ namespace UITests.View
         }
 
         protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
-         => App.FindElements(MobileBy.AccessibilityId(id)).Count > 0 ? App.FindElements(MobileBy.AccessibilityId(id)) : null;
+         => App.FindElements(funcResearrch(id)).Count > 0 ? App.FindElements(funcResearrch(id)) : null;
 
-        protected void SeConnecter(string identifiant,string motDePasse)
+        protected bool SeConnecter(string identifiant, string motDePasse)
         {
-            AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
+            AppiumElement? seConecterButton = FindUIElement("seConnecterButton");
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             foreach (var entry in entries!) entry.Clear();
             var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
             adresseMailEntry?.SendKeys(identifiant);
             motDePasseEntry?.SendKeys(motDePasse);
             seConecterButton?.Click();
+            return FindUIElement("homePage") != null;   
+        }
+
+        protected void AssertConnexion(string identifiant, string motDePasse)
+        {
+            Assert.True(SeConnecter(identifiant, motDePasse));
         }
         
 

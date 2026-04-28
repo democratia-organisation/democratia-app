@@ -2,7 +2,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using System.Diagnostics;
-using UITests.View;
+using UITests.UI;
 
 namespace UITests
 {
@@ -25,16 +25,14 @@ namespace UITests
             {
                 AutomationName = "UIAutomator2",
                 PlatformName = "Android",
-#if !DEBUG
-                // App = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-android/com.democratia-Signed.apk")),
-# endif
+                App = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-android/com.democratia-Signed.apk")),
+
             };
 #if DEBUG
             androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.NoReset, "true");
             string activity = ResolveAppActivity("com.democratia");
             androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
             androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.democratia");
-            androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-android/com.democratia-Signed.apk")));
 # endif
             try
             {

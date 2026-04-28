@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using Xunit;
 
-namespace UITests.View
+namespace UITests.UI.internaute.GestionCompte
 {
     [Collection("UITest")]
     [DisplayName("Création de compte")]

@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Xunit;
-using UITests.Localization;
+using com.democratia.Test.Localization;
 
-namespace UITests.View.groupe.decideur
+namespace UITests.UI.groupe.decideur
 {
     [Collection("UITests")]
     [DisplayName("Page d'accueil de la partie décideur")]
@@ -28,7 +28,7 @@ namespace UITests.View.groupe.decideur
         [InlineData("like")]
         public void TrierProposition(string nomCritere)
         {
-            SeConnecter("claire.benoit@example.com", "root");
+            AssertConnexion("claire.benoit@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -48,7 +48,7 @@ namespace UITests.View.groupe.decideur
         [Fact]
         public void NePasTrierPropositionSiNonDecideur()
         {
-            SeConnecter("sophie.lemoine@example.com", "root");
+            AssertConnexion("sophie.lemoine@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -60,7 +60,7 @@ namespace UITests.View.groupe.decideur
         [Fact]
         public void ModifierProposition() 
         {
-            SeConnecter("claire.benoit@example.com", "root");
+            AssertConnexion("claire.benoit@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -87,7 +87,7 @@ namespace UITests.View.groupe.decideur
         [Fact]
         public void GroupeSansProposition() 
         {
-            SeConnecter("claire.benoit@example.com", "root");
+            AssertConnexion("claire.benoit@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -98,7 +98,7 @@ namespace UITests.View.groupe.decideur
         [Fact]
         public void ThematiqueSansProposition() 
         {
-            SeConnecter("claire.benoit@example.com", "root");
+            AssertConnexion("claire.benoit@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -116,7 +116,7 @@ namespace UITests.View.groupe.decideur
         [InlineData("like")]
         public void PropositionSansDonneDeCriteres(string nomCritere) 
         {
-            SeConnecter("claire.benoit@example.com", "root");
+            AssertConnexion("claire.benoit@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
             groupe.Click();

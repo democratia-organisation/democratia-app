@@ -9,7 +9,7 @@ using Xunit;
 // code files. This has to do with how we initialize the AppiumDriver
 // through the AppiumSetup.cs files and NUnit SetUpFixture attributes.
 // Also see: https://docs.nunit.org/articles/nunit/writing-tests/attributes/setupfixture.html
-namespace UITests.View
+namespace UITests.UI
 {
     // This is an example of tests that do not need anything platform specific.
     // Typically you will want all your tests to be in the shared project so they are ran across all platforms.
@@ -25,37 +25,18 @@ namespace UITests.View
         [Fact(DisplayName = "Test de la présence des éléments dans la page")]
         public void PresenceDesEntriesTest()
         {
-
-            
-            Debug.WriteLine(App.PageSource);
-            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
-            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
-            var nombresEntrees = 2;
-
-            var nombresLabels = labels?.Count;
-            var nombresEntries = entries?.Count;
-
-            Assert.Equal(nombresEntrees, nombresLabels);
-            Assert.Equal(nombresEntrees, nombresEntries);
+            Assert.NotNull(FindUIElement("connexionLabel")!);
+            Assert.NotNull(FindUIElement("mailEntryComponent")!);
+            Assert.NotNull(FindUIElement("passwordEntryComponent")!);
+            Assert.NotNull(FindUIElement("pasDeCompteLabel")!);
+            Assert.NotNull(FindUIElement("creerCompteLabel")!);
+            Assert.NotNull(FindUIElement("seConnecterButton")!);
         }
 
         [Fact(DisplayName = "Test de la navigation vers la page home")]
         public void NavigationPageTest()
         {
-
-
-            
-            AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
-            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
-            foreach (var entry in entries!) entry.Clear();
-            var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
-            adresseMailEntry?.Clear();
-            motDePasseEntry?.Clear();
-            adresseMailEntry?.SendKeys("vincent.leclerc@example.com");
-            motDePasseEntry?.SendKeys("root");
-            seConecterButton?.Click();
-
-            Assert.NotNull(FindUIElement("ProfileButton"));
+            AssertConnexion("sophie.lemoine@example.com", "root");
         }
 
 
@@ -66,21 +47,8 @@ namespace UITests.View
         [InlineData("dadadzadzada", "")]
         public void NavigationPageErrorTest(string adresseMail, string motDePasse)
         {
-
-            
-            AppiumElement? seConecterButton = FindUIElement("Se connecter Button");
-            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
-            foreach (var entry in entries!) entry.Clear();
-            var (adresseMailEntry, motDePasseEntry) = (entries?[0], entries?[1]);
-            adresseMailEntry?.Clear();
-            motDePasseEntry?.Clear();
-
-            adresseMailEntry?.SendKeys(adresseMail);
-            motDePasseEntry?.SendKeys(motDePasse);
-            seConecterButton?.Click();
-
+            Assert.False(SeConnecter(adresseMail, motDePasse));
             Assert.NotNull(FindUIElement("Error message"));
-
         }
     }
 }
