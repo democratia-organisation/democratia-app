@@ -1,4 +1,5 @@
 ﻿using com.democratia.Models;
+using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -13,7 +14,7 @@ namespace com.democratia.Services
             set
             {
                 internaute = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(internaute));
             }
         }
 
@@ -24,7 +25,18 @@ namespace com.democratia.Services
             set
             {
                 groupe = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(groupe));
+            }
+        }
+
+        private ImageSource? imageSourceGroupe;
+        public ImageSource? ImageSourceGroupe
+        {
+            get => imageSourceGroupe;
+            set
+            {
+                imageSourceGroupe = value;
+                OnPropertyChanged(nameof(imageSourceGroupe));
             }
         }
 

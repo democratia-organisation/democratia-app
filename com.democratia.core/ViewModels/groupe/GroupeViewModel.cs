@@ -85,9 +85,9 @@ namespace com.democratia.ViewModels.groupe
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            this.groupe = query.TryGetValue("groupe", out var groupe) ? (Groupe)groupe : context.Groupe;
-            this.image = query.TryGetValue("Image", out var image) ? (ImageSource)image : null;
-            internaute = query.TryGetValue("modele", out var user) ? (Internaute)user : context.Internaute;
+            groupe = (Groupe)query["groupe"] ?? context.Groupe;
+            image = (ImageSource)query["Image"] ?? context.ImageSourceGroupe;
+            internaute = (Internaute)query["modele"] ?? context.Internaute;
         }
 
     }

@@ -70,6 +70,7 @@ namespace com.democratia.ViewModels.internaute
         {
             var parameters = new ShellNavigationQueryParameters { { "groupe", tuple.Item1! }, { "Image", tuple.Item2! }, { "modele", internaute! } };
             context.Groupe = tuple.Item1;
+            context.ImageSourceGroupe = tuple.Item2;
             await navigationService?.GoToAsync("GroupePage", parameters)!;
         }
 
