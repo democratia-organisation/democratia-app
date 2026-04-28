@@ -14,9 +14,9 @@
         x:Name="formulaireComponent"
         ActionTappedCommand="{Binding ModifierInternauteCommand}"
         AutomationId="formulaireComponent"
-        TextAction="{x:Static lang:AppResources.enregistrer}"
-        email="{Binding email}"
-        internaute="{Binding tempInternaute}"
-        password="{Binding password}"
-        retourMessage="{Binding retourMessage}" />
+        Email="{Binding email}"
+        Internaute="{Binding tempInternaute}"
+        Password="{Binding password}"
+        RetourMessage="{Binding retourMessage}"
+        TextAction="{x:Static lang:AppResources.enregistrer}" />
 </ContentPage>

@@ -6,45 +6,45 @@ namespace com.democratia.Views.Component;
 public partial class Formulaire : ContentView
 {
 	public static readonly BindableProperty InteranuteProperty = BindableProperty.Create(
-        nameof(internaute),
+        nameof(Internaute),
         typeof(Internaute),
         typeof(Formulaire),
-        defaultBindingMode: BindingMode.OneWayToSource);
-    public Internaute internaute
+        defaultBindingMode: BindingMode.TwoWay);
+    public Internaute Internaute
     {
         get => (Internaute)GetValue(InteranuteProperty);
         set => SetValue(InteranuteProperty, value);
     }
 
     public static readonly BindableProperty EmailProperty = BindableProperty.Create(
-        nameof(email),
+        nameof(Email),
         typeof(string),
         typeof(Formulaire),
-        defaultBindingMode: BindingMode.OneWayToSource);
-    public string email
+        defaultBindingMode: BindingMode.TwoWay);
+    public string Email
     {
         get => (string)GetValue(EmailProperty);
         set => SetValue(EmailProperty, value);
     }
 
     public static readonly BindableProperty PasswordProperty = BindableProperty.Create(
-        nameof(password),
+        nameof(Password),
         typeof(string),
         typeof(Formulaire),
-        defaultBindingMode: BindingMode.OneWayToSource);
-    public string password
+        defaultBindingMode: BindingMode.TwoWay);
+    public string Password
     {
         get => (string)GetValue(PasswordProperty);
         set => SetValue(PasswordProperty, value);
     }
 
     public static readonly BindableProperty RetourMessageProperty = BindableProperty.Create(
-        nameof(retourMessage),
+        nameof(RetourMessage),
         typeof(string),
         typeof(Formulaire),
-        defaultBindingMode: BindingMode.OneWayToSource);
+        defaultBindingMode: BindingMode.TwoWay);
 
-    public string retourMessage
+    public string RetourMessage
     {
         get => (string)GetValue(RetourMessageProperty);
         set => SetValue(RetourMessageProperty, value);
