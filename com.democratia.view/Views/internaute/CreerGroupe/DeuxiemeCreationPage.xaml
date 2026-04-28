@@ -38,13 +38,13 @@
                     ColorFlowDirection="Horizontal"
                     ColorSpectrumStyle="ShadeToHueStyle"
                     HorizontalOptions="Fill"
-                    PickedColor="{Binding Color, Mode=OneWayToSource}"
+                    PickedColor="{Binding couleur, Mode=OneWayToSource}"
                     VerticalOptions="Fill" />
             </Grid>
             <Rectangle
                 x:Name="selectedColorRectangle"
                 AutomationId="selectedColorRectangle"
-                Fill="{Binding Color}"
+                Fill="{Binding couleur}"
                 HeightRequest="{StaticResource SpacingLarge}"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"

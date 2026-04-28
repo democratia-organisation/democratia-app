@@ -14,13 +14,13 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
     public partial class PremiereCreationViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable, INotifyPropertyChanged
     {
-        [ObservableProperty] private string? thematique;
-        [ObservableProperty] private string? erreurMessage;
-        [ObservableProperty] private ObservableCollection<Thematique>? thematiquesAffiches;
-        [ObservableProperty] private Thematique? thematiqueSelectionnee;
-        [ObservableProperty] private ObservableCollection<Thematique>? thematiquesRetenues;
-        [ObservableProperty] private Groupe groupe = new();
-        [ObservableProperty] private bool afficheCollectionView = false;
+        [ObservableProperty] public partial string? thematique { get; set; }
+        [ObservableProperty] public partial string? erreurMessage { get; set; }
+        [ObservableProperty] public partial ObservableCollection<Thematique>? thematiquesAffiches { get; set; }
+        [ObservableProperty] public partial Thematique? thematiqueSelectionnee { get; set; }
+        [ObservableProperty] public partial ObservableCollection<Thematique>? thematiquesRetenues { get; set; }
+        [ObservableProperty] public partial Groupe groupe { get; set; } = new();
+        [ObservableProperty] public partial bool afficheCollectionView { get; set; } = false;
         private List<Thematique>? thematiquesExistantes;
         private Internaute? internaute;
 
@@ -39,41 +39,41 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            if (string.IsNullOrWhiteSpace(Groupe?.NomGroupe))
+            if (string.IsNullOrWhiteSpace(groupe?.NomGroupe))
             {
-                ErreurMessage = LocalizationService?.GetString("nomGroupeRequis");
+                erreurMessage = LocalizationService?.GetString("nomGroupeRequis");
                 return;
             }
-            else if (ThematiquesRetenues!.Count == 0)
+            else if (thematiquesRetenues!.Count == 0)
             {
-                ErreurMessage = LocalizationService?.GetString("thematiqueRequise");
+                erreurMessage = LocalizationService?.GetString("thematiqueRequise");
                 return;
             }
             else
             {
                 try
                 {
-                    var themeBudget = ThematiquesRetenues.Sum(t =>
+                    var themeBudget = thematiquesRetenues.Sum(t =>
                     {
                         if (!t.budget.HasValue) throw new EmptyRequiredFieldException(nameof(t));
                         return t.budget;
                     });
-                    if (Groupe.Budget < themeBudget)
+                    if (groupe.Budget < themeBudget)
                     {
-                        ErreurMessage = LocalizationService?.GetString("budgetInsuffisant");
+                        erreurMessage = LocalizationService?.GetString("budgetInsuffisant");
                         return;
                     }
                 }
                 catch (EmptyRequiredFieldException ex)
                 {
-                    ErreurMessage = MapExceptionMessage.MappingException(ex, LocalizationService!, ex.Message);
+                    erreurMessage = MapExceptionMessage.MappingException(ex, LocalizationService!, ex.Message);
                     return;
                 }
                 catch (Exception ex) {
-                    ErreurMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
+                    erreurMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
                 
                 }
-                thematiquesNouvelles = [.. ThematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];
+                thematiquesNouvelles = [.. thematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];
                 foreach (Thematique item in thematiquesNouvelles)
                 {
                     await client!.CreateModelAsync(item);
@@ -83,25 +83,25 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
 
                 await navigationService.GoToAsync(commande, new()
                 { 
-                    { "groupe",  Groupe},
-                    { "thematique", ThematiquesRetenues },
+                    { "groupe",  groupe},
+                    { "thematique", thematiquesRetenues },
                     { "internaute",internaute! }
                 });
             }
         }
 
         [RelayCommand]
-        private void PrendreThematique() => AjoutThematique(new Thematique(Thematique));
+        private void PrendreThematique() => AjoutThematique(new Thematique(thematique));
 
         [RelayCommand]
         private void PrendreThematiqueSelectionnee()
         {
-            if(ThematiqueSelectionnee  is not null ) // quand ThematiquesAffiches est modifié, CollectionView.SelectedItem est mis à null, donc ThematiqueSelectionnee est null
+            if(thematiqueSelectionnee  is not null ) // quand ThematiquesAffiches est modifié, CollectionView.SelectedItem est mis à null, donc ThematiqueSelectionnee est null
             {
-                AjoutThematique(ThematiqueSelectionnee);
-                thematiquesExistantes!.Remove(ThematiqueSelectionnee);
-                ThematiquesAffiches!.Clear();
-                thematiquesExistantes.ForEach(t => ThematiquesAffiches.Add(t));
+                AjoutThematique(thematiqueSelectionnee);
+                thematiquesExistantes!.Remove(thematiqueSelectionnee);
+                thematiquesAffiches!.Clear();
+                thematiquesExistantes.ForEach(t => thematiquesAffiches.Add(t));
             }
         }
 
@@ -109,12 +109,12 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         private void AfficherThematiquesMatch() 
         {
 
-            if(!string.IsNullOrWhiteSpace(Thematique) && !AfficheCollectionView) AfficheCollectionView = true;
-            else if (string.IsNullOrWhiteSpace(Thematique) && AfficheCollectionView) AfficheCollectionView = false;
-            string texteRecherche = Thematique?.ToLower() ?? string.Empty;
+            if(!string.IsNullOrWhiteSpace(thematique) && !afficheCollectionView) afficheCollectionView = true;
+            else if (string.IsNullOrWhiteSpace(thematique) && afficheCollectionView) afficheCollectionView = false;
+            string texteRecherche = thematique?.ToLower() ?? string.Empty;
             var thematiquesFiltrees = thematiquesExistantes!.Where(t => (bool)t.nom_thematique?.ToLower()?.Contains(texteRecherche)!).ToList();
-            ThematiquesAffiches!.Clear();
-            thematiquesFiltrees.ForEach(t => ThematiquesAffiches.Add(t));
+            thematiquesAffiches!.Clear();
+            thematiquesFiltrees.ForEach(t => thematiquesAffiches.Add(t));
 
         }
 
@@ -122,10 +122,10 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
 
         private void AjoutThematique(Thematique thematiqueItem)
         {
-            if (!ThematiquesRetenues!.Contains(thematiqueItem, new ThematiqueEqualityComparer()))
-                ThematiquesRetenues!.Add(thematiqueItem);
+            if (!thematiquesRetenues!.Contains(thematiqueItem, new ThematiqueEqualityComparer()))
+                thematiquesRetenues!.Add(thematiqueItem);
 
-            Thematique = string.Empty;
+            thematique = string.Empty;
         }
 
         public async Task RemplirThematique()
@@ -133,7 +133,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             string listeRequete = await client!.GetModelAsync();
             List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(listeRequete);
             thematiques.ForEach(t => thematiquesExistantes!.Add(t));
-            ThematiquesAffiches = [..thematiquesExistantes!];
+            thematiquesAffiches = [..thematiquesExistantes!];
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)

@@ -9,30 +9,28 @@ using System.ComponentModel;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
-    public partial class DeuxiemePageViewModel : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel, IQueryAttributable
+    public partial class DeuxiemePageViewModel(INavigationService service, Services.AppContext context) 
+        : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel, IQueryAttributable
     {
-        private INavigationService service;
+        private INavigationService service = service;
         private Groupe? groupe;
-        [ObservableProperty] public Color? color;
+        private Services.AppContext context = context;
+        [ObservableProperty] public partial Color? couleur { get; set; } = Colors.Transparent;
         private Internaute? internaute;
         private List<Thematique>? thematiques { get; set; }
-        public DeuxiemePageViewModel(INavigationService service)
-        {
-            this.service = service;
-            color = Colors.Transparent;
-        }
+        
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"];
             thematiques = [..(query["thematique"] as ObservableCollection<Thematique>)!];
-            internaute = (Internaute)query["internaute"];
+            internaute = (Internaute)query["internaute"] ?? context.Internaute;
         }
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            groupe?.CouleurGroupe = Color?.ToHex();
+            groupe?.CouleurGroupe = couleur?.ToHex();
             await service.GoToAsync(commande, new ()
                 {
                     { "groupe", groupe! },

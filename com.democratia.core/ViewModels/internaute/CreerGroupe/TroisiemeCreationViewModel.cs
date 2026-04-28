@@ -9,30 +9,27 @@ using Microsoft.Maui.Storage;
 
 namespace com.democratia.ViewModels.internaute.CreerGroupe
 {
-    public partial class TroisiemeCreationViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable
+    public partial class TroisiemeCreationViewModel(IEnumerable<IClient?>? clients, ILocalizationService? LocalizationService, 
+        INavigationService service, Services.AppContext context) : ConnectableViewModel(clients?.OfType<GroupClient>().FirstOrDefault(), 
+            LocalizationService), INavigeablleViewModel , IQueryAttributable
     {
 
-        private INavigationService service;
+        private readonly INavigationService service = service;
         private Groupe? groupe;
-        private string imagePath;
+        private string imagePath = string.Empty;
         private Internaute? internaute;
-        [ObservableProperty] private ImageSource? _image;
-        [ObservableProperty] private bool? _isObservable = false;
-        [ObservableProperty] private string? _errorMessage;
-        [ObservableProperty] private bool _isFinish = false;
+        private Services.AppContext context = context;
+        [ObservableProperty] public partial ImageSource? image { get; set; }
+        [ObservableProperty] public partial bool? isObservable { get; set; } = false;
+        [ObservableProperty] public partial string? errorMessage { get; set; }
+        [ObservableProperty] public partial bool isFinish { get; set; } = false;
         private List<Thematique>? thematiques { get; set; }
-        public TroisiemeCreationViewModel(IEnumerable<IClient?>? clients, ILocalizationService? LocalizationService, INavigationService service) 
-            : base(clients?.OfType<GroupClient>().FirstOrDefault(), LocalizationService)
-        {
-            this.service = service;
-            imagePath = string.Empty;
-        }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"];
             thematiques = (List<Thematique>)query["thematique"];
-            internaute = (Internaute)query["internaute"];
+            internaute = (Internaute)query["internaute"] ?? context.Internaute;
         }
 
         [RelayCommand]
@@ -46,7 +43,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                     await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.IdGroupe, item.id_thematique, item.budget);
                 if (string.IsNullOrWhiteSpace(imagePath)) throw new NoImageGiven();
                 await client.UploadImage(groupe!.IdGroupe, imagePath);
-                await ((GroupClient)client).AjouterCreateur(internaute!.id_internaute, groupe.IdGroupe);
+                await ((GroupClient)client).AjouterCreateur(internaute!.id_internaute, groupe.IdGroupe);                
                 await service.GoToAsync(commande, new ShellNavigationQueryParameters { {"modele" , internaute } });
             } catch (Exception ex)
             {
@@ -55,7 +52,7 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
         }
 
         [RelayCommand]
-        public void ChoisirImage() => IsObservable = true;
+        public void ChoisirImage() => isObservable = true;
 
         [RelayCommand]
         private async Task PrendrePhoto()
@@ -63,22 +60,22 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 FileResult? photo = await MediaPicker.Default.CapturePhotoAsync();
-                AfiichageImage(photo!);
+                await AfiichageImage(photo!);
             }
-            IsObservable = false;
-            IsFinish = true;
+            isObservable = false;
+            isFinish = true;
         }
 
         [RelayCommand]
         private async Task ChoisirGalerie()
         {
             List<FileResult> result = await MediaPicker.Default.PickPhotosAsync();
-            AfiichageImage(result.FirstOrDefault()!);
-            IsObservable = false;
-            IsFinish = true;
+            await AfiichageImage(result.FirstOrDefault()!);
+            isObservable = false;
+            isFinish = true;
         }
 
-        private async void AfiichageImage(FileResult photo)
+        private async Task AfiichageImage(FileResult photo)
         {
             try // bloque try catch au cas où l'utilisateur annule la sélection de la photo
             {
@@ -87,14 +84,14 @@ namespace com.democratia.ViewModels.internaute.CreerGroupe
                 var memoryStream = new MemoryStream();
                 await sourceStream.CopyToAsync(memoryStream);
                 memoryStream.Position = 0;
-                Image = ImageSource.FromStream(() => memoryStream);
+                image = ImageSource.FromStream(() => memoryStream);
             }
             catch (Exception ex)
             {
 #if DEBUG
-                ErrorMessage = MapExceptionMessage.MappingException(ex,LocalizationService!);
+                errorMessage = MapExceptionMessage.MappingException(ex,LocalizationService!);
 #elif !DEBUG
-                ErrorMessage = LocalizationService?.GetString("erreurInattendu");
+                errorMessage = LocalizationService?.GetString("erreurInattendu");
 #endif
             }
         }

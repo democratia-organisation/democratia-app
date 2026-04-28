@@ -16,7 +16,6 @@
             x:Name="mainLayout"
             AutomationId="mainLayout"
             Spacing="{DynamicResource SpacingMedium}">
-            <Component:Header />
             <Label
                 x:Name="creationGroupeLabel"
                 AutomationId="creationGroupeLabel"
@@ -27,12 +26,12 @@
                 AutomationId="errorMessageLabel"
                 HorizontalOptions="Center"
                 Style="{DynamicResource ErrorLabelStyle}"
-                Text="{Binding ErreurMessage}" />
+                Text="{Binding erreurMessage}" />
             <Component:EntryComponent
                 x:Name="nomGroupeEntryComponent"
                 Title="{x:Static lang:AppResources.entrezNomGroupe}"
                 AutomationId="nomGroupeEntryComponent"
-                ValeurDonne="{Binding Groupe.NomGroupe}" />
+                ValeurDonne="{Binding groupe.NomGroupe}" />
 
             <!--  theme refait à la main pour avoir metttre un relai comande lors de la touche entrée  -->
             <Label
@@ -61,7 +60,7 @@
                     Keyboard="Plain"
                     SearchCommand="{Binding PrendreThematiqueCommand}"
                     Style="{DynamicResource SearchBarStyle}"
-                    Text="{Binding Thematique}"
+                    Text="{Binding thematique}"
                     WidthRequest="{DynamicResource SpacingUltraLarge}">
                     <SearchBar.Behaviors>
                         <communityToolkit:EventToCommandBehavior
@@ -75,9 +74,9 @@
                 x:Name="thematiqueSuggestioncollectionView"
                 AutomationId="thematiqueSuggestioncollectionView"
                 IsVisible="{Binding AfficheCollectionView}"
-                ItemsSource="{Binding ThematiquesAffiches}"
+                ItemsSource="{Binding thematiquesAffiches}"
                 RemainingItemsThreshold="3"
-                SelectedItem="{Binding ThematiqueSelectionnee}"
+                SelectedItem="{Binding thematiqueSelectionnee}"
                 SelectionChangedCommand="{Binding PrendreThematiqueSelectionneeCommand}"
                 SelectionMode="Single"
                 Style="{DynamicResource ListViewStyle}"
@@ -86,20 +85,20 @@
                 x:Name="nbJVoteEntryComponent"
                 Title="{x:Static lang:AppResources.nombreJourVote}"
                 AutomationId="nbJVoteEntryComponent"
-                ValeurDonne="{Binding Groupe.NombreDeJourVote}" />
+                ValeurDonne="{Binding groupe.NombreDeJourVote}" />
             <Component:EntryComponent
                 x:Name="nbJDiscussionEntryComponent"
                 Title="{x:Static lang:AppResources.nombreJourDiscus}"
                 AutomationId="nbJDiscussionEntryComponent"
-                ValeurDonne="{Binding Groupe.NombreDeJourDiscuss}" />
+                ValeurDonne="{Binding groupe.NombreDeJourDiscuss}" />
             <Component:EntryComponent
                 x:Name="budgetEntryComponent"
                 Title="{x:Static lang:AppResources.budget}"
                 AutomationId="budgetEntryComponent"
-                ValeurDonne="{Binding Groupe.Budget}" />
+                ValeurDonne="{Binding groupe.Budget}" />
             <FlexLayout
                 AlignItems="Center"
-                BindableLayout.ItemsSource="{Binding ThematiquesRetenues}"
+                BindableLayout.ItemsSource="{Binding thematiquesRetenues}"
                 Direction="Row"
                 JustifyContent="Start"
                 Wrap="Wrap">

@@ -11,7 +11,6 @@
     Style="{DynamicResource fondEcran}">
     <ScrollView>
         <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
-            <Component:Header />
             <Label
                 x:Name="selectImageLabel"
                 AutomationId="selectImageLabel"
@@ -27,11 +26,11 @@
                 x:Name="errorMessageLabel"
                 AutomationId="errorMessageLabel"
                 Style="{DynamicResource ErrorLabelStyle}"
-                Text="{Binding ErrorMessage}" />
+                Text="{Binding errorMessage}" />
             <HorizontalStackLayout
                 BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainerLowest},
                                                   Light={DynamicResource Light-surfaceContainerLowest}}"
-                IsVisible="{Binding IsObservable}"
+                IsVisible="{Binding isObservable}"
                 VerticalOptions="End">
                 <VerticalStackLayout>
                     <ImageButton
@@ -64,13 +63,13 @@
                         Text="{x:Static lang:AppResources.photo}" />
                 </VerticalStackLayout>
             </HorizontalStackLayout>
-            <Image Source="{Binding Image}" />
+            <Image Source="{Binding image}" />
             <Button
                 x:Name="buttonNextButton"
                 AutomationId="buttonNextButton"
                 Command="{Binding NavigateTappedCommand}"
                 CommandParameter="/HomePage"
-                IsVisible="{Binding IsFinish}"
+                IsVisible="{Binding isFinish}"
                 Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.terminer}" />
         </VerticalStackLayout>
