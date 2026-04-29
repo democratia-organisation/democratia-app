@@ -73,7 +73,7 @@
             <CollectionView
                 x:Name="thematiqueSuggestioncollectionView"
                 AutomationId="thematiqueSuggestioncollectionView"
-                IsVisible="{Binding AfficheCollectionView}"
+                IsVisible="{Binding afficheCollectionView}"
                 ItemsSource="{Binding thematiquesAffiches}"
                 RemainingItemsThreshold="3"
                 SelectedItem="{Binding thematiqueSelectionnee}"

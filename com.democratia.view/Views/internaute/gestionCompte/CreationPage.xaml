@@ -16,8 +16,8 @@
         ActionTappedCommand="{Binding CreerInternauteTappedCommand}"
         AutomationId="formulaireComponent"
         Email="{Binding email}"
-        Internaute="{Binding internaute}"
         Password="{Binding password}"
         RetourMessage="{Binding retourMessage}"
-        TextAction="{x:Static lang:AppResources.inscription}" />
+        TextAction="{x:Static lang:AppResources.inscription}"
+        User="{Binding internaute}" />
 </ContentPage>

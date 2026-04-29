@@ -15,8 +15,8 @@
         ActionTappedCommand="{Binding ModifierInternauteCommand}"
         AutomationId="formulaireComponent"
         Email="{Binding email}"
-        Internaute="{Binding tempInternaute}"
         Password="{Binding password}"
         RetourMessage="{Binding retourMessage}"
-        TextAction="{x:Static lang:AppResources.enregistrer}" />
+        TextAction="{x:Static lang:AppResources.enregistrer}"
+        User="{Binding tempInternaute}" />
 </ContentPage>

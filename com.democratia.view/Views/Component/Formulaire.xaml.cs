@@ -5,15 +5,15 @@ namespace com.democratia.Views.Component;
 
 public partial class Formulaire : ContentView
 {
-	public static readonly BindableProperty InteranuteProperty = BindableProperty.Create(
-        nameof(Internaute),
+	public static readonly BindableProperty UserProperty = BindableProperty.Create(
+        nameof(User),
         typeof(Internaute),
         typeof(Formulaire),
         defaultBindingMode: BindingMode.TwoWay);
-    public Internaute Internaute
+    public Internaute User
     {
-        get => (Internaute)GetValue(InteranuteProperty);
-        set => SetValue(InteranuteProperty, value);
+        get => (Internaute)GetValue(UserProperty);
+        set => SetValue(UserProperty, value);
     }
 
     public static readonly BindableProperty EmailProperty = BindableProperty.Create(
