@@ -1,5 +1,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using Xunit;
@@ -31,12 +32,33 @@ namespace UITests.UI
         public static bool SSHHost() => (AppiumSetup.device == "ios" || AppiumSetup.device == "macos") && SystemInfo.GetHostOS() == "Windows";
     }
 
+    public static class WebDriverExtensions
+    {
+        private static WebDriverWait? wait;
+        extension(IWebDriver driver)
+        {
+            
+            public IWebElement WaitAndFind(By by, int timeoutInSeconds = 15)
+            {
+                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                return wait.Until(drv => drv.FindElement(by));
+            }
+
+            public ReadOnlyCollection<IWebElement> WaitAndFinds(By by, int timeoutInSeconds = 15)
+            {
+                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                return wait.Until(drv => drv.FindElements(by));
+            }
+        }
+    }
+
 
 
     // Add all tests to the same collection as above so that the Appium server is only setup once
     [Collection("UITests")]
     public abstract class BaseTest : IDisposable
     {
+        private static readonly int timeout = 60;
         protected AppiumDriver App => AppiumSetup.App;
         protected Func<string,By> funcResearrch => AppiumSetup.device == "android" ? id => MobileBy.XPath($"""//*[@resource-id="com.democratia:id/{id}"]""") : id => MobileBy.AccessibilityId(id);
 
@@ -52,7 +74,7 @@ namespace UITests.UI
             
             try
             {
-                return App.FindElement(funcResearrch(id));
+                return App.WaitAndFind(funcResearrch(id),timeout) as AppiumElement;
             }
             catch (NoSuchElementException)
             {
@@ -61,7 +83,18 @@ namespace UITests.UI
         }
 
         protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
-         => App.FindElements(funcResearrch(id)).Count > 0 ? App.FindElements(funcResearrch(id)) : null;
+        {
+            ReadOnlyCollection<IWebElement> elements;
+            try
+            {
+                elements = App.WaitAndFinds(funcResearrch(id), timeout);
+            }
+            catch (NoSuchElementException)
+            {
+                return null;
+            }
+            return elements.Cast<AppiumElement>().ToList().AsReadOnly().Count > 0 ? elements.Cast<AppiumElement>().ToList().AsReadOnly() : null;
+        }
 
         protected bool SeConnecter(string identifiant, string motDePasse)
         {
@@ -79,8 +112,5 @@ namespace UITests.UI
         {
             Assert.True(SeConnecter(identifiant, motDePasse));
         }
-        
-
-
     }
 }

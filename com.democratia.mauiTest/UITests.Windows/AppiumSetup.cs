@@ -21,31 +21,20 @@ namespace UITests
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var windowsOptions = new AppiumOptions
             {
-                // Specify windows as the driver, typically don't need to change this
                 AutomationName = "windows",
-                // Always Windows for Windows
                 PlatformName = "Windows",
-
-                // The identifier of the deployed application to test
                 App = Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe"))
-            };
+            }; 
             windowsOptions.AddAdditionalAppiumOption("unicodeKeyboard", true);
             windowsOptions.AddAdditionalAppiumOption("resetKeyboard", true);
-
-
-            // Note there are many more options that you can use to influence the app under test according to your needs
-
-            driver = new WindowsDriver(new Uri("http://127.0.0.1:4724/"), windowsOptions);
+            driver = new WindowsDriver(new Uri("http://127.0.0.1:4723/"), windowsOptions);
         }
 
         public void Dispose()
         {
             driver?.Quit();
             GC.SuppressFinalize(this);
-            // If an Appium server was started locally above, make sure we clean it up here
             AppiumServerHelper.DisposeAppiumLocalServer();
         }
-
-        public static string RunAppiumIOSOverSSH(string macIp, string macUser, string macProjectDir) { return ""; }
     }
 }
