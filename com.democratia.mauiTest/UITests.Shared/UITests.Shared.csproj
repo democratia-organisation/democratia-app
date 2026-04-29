@@ -32,4 +32,9 @@
     <Folder Include="UI\groupe\decideur\" />
     <Folder Include="UI\internaute\CreerGroupe\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
 </Project>
