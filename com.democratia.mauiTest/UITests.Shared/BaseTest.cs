@@ -16,6 +16,8 @@ namespace UITests.UI
 
     }
 
+    
+
     public class SystemInfo
     {
         public static string GetHostOS()
@@ -32,40 +34,16 @@ namespace UITests.UI
         public static bool SSHHost() => (AppiumSetup.device == "ios" || AppiumSetup.device == "macos") && SystemInfo.GetHostOS() == "Windows";
     }
 
-    public static class WebDriverExtensions
-    {
-        private static WebDriverWait? wait;
-        extension(IWebDriver driver)
-        {
-            
-            public IWebElement WaitAndFind(By by, int timeoutInSeconds = 15)
-            {
-                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-                return wait.Until(drv => drv.FindElement(by));
-            }
-
-            public ReadOnlyCollection<IWebElement> WaitAndFinds(By by, int timeoutInSeconds = 15)
-            {
-                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-                return wait.Until(drv => drv.FindElements(by));
-            }
-        }
-    }
-
-
-
     // Add all tests to the same collection as above so that the Appium server is only setup once
     [Collection("UITests")]
     public abstract class BaseTest : IDisposable
     {
-        private static readonly int timeout = 60;
+        private static readonly int timeout = 15;
         protected AppiumDriver App => AppiumSetup.App;
         protected Func<string,By> funcResearrch => AppiumSetup.device == "android" ? id => MobileBy.XPath($"""//*[@resource-id="com.democratia:id/{id}"]""") : id => MobileBy.AccessibilityId(id);
 
-        public virtual void Dispose()
+        protected BaseTest() 
         {
-            App?.Dispose();
-            GC.SuppressFinalize(this);
         }
 
         // This could also be an extension method to AppiumDriver if you prefer
@@ -74,7 +52,7 @@ namespace UITests.UI
             
             try
             {
-                return App.WaitAndFind(funcResearrch(id),timeout) as AppiumElement;
+                return App.FindElement(funcResearrch(id));
             }
             catch (NoSuchElementException)
             {
@@ -84,16 +62,16 @@ namespace UITests.UI
 
         protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
         {
-            ReadOnlyCollection<IWebElement> elements;
+            ReadOnlyCollection<AppiumElement> elements;
             try
             {
-                elements = App.WaitAndFinds(funcResearrch(id), timeout);
+                elements = App.FindElements(funcResearrch(id));
             }
             catch (NoSuchElementException)
             {
                 return null;
             }
-            return elements.Cast<AppiumElement>().ToList().AsReadOnly().Count > 0 ? elements.Cast<AppiumElement>().ToList().AsReadOnly() : null;
+            return elements.Count > 0 ? elements : null;
         }
 
         protected bool SeConnecter(string identifiant, string motDePasse)
@@ -105,12 +83,18 @@ namespace UITests.UI
             adresseMailEntry?.SendKeys(identifiant);
             motDePasseEntry?.SendKeys(motDePasse);
             seConecterButton?.Click();
-            return FindUIElement("homePage") != null;   
+            return FindUIElement("monGroupeLabel") != null;
         }
 
         protected void AssertConnexion(string identifiant, string motDePasse)
         {
             Assert.True(SeConnecter(identifiant, motDePasse));
+        }
+
+        public void Dispose()
+        {
+            App.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

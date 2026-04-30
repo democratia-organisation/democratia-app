@@ -39,4 +39,23 @@
 <ItemGroup>
   <Using Remove="nfloat" />
 </ItemGroup>
+<ItemGroup>
+  <Compile Update="Localization\AppResources.Designer.cs">
+    <DependentUpon>AppResources.resx</DependentUpon>
+    <DesignTime>True</DesignTime>
+    <AutoGen>True</AutoGen>
+  </Compile>
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Update="Localization\AppResources.en-US.resx">
+    <SubType>Designer</SubType>
+    <ManifestResourceName>UITests.UI.Localization.AppResources.en-US</ManifestResourceName>
+  </EmbeddedResource>
+  <EmbeddedResource Update="Localization\AppResources.resx">
+    <SubType>Designer</SubType>
+    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    <ManifestResourceName>UITests.UI.Localization.AppResources</ManifestResourceName>
+    <Generator>PublicResXFileCodeGenerator</Generator>
+  </EmbeddedResource>
+</ItemGroup>
 </Project>

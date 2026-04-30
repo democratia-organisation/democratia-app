@@ -9,6 +9,7 @@ namespace UITests
         private static AppiumDriver? driver;
 
         public readonly static string device = "windows";
+        public readonly static string appId = "com.democratia";
 
         public readonly static string sshSortie = string.Empty;
 
@@ -17,7 +18,7 @@ namespace UITests
         public AppiumSetup()
         {
             
-            AppiumServerHelper.StartAppiumLocalServer();
+            //AppiumServerHelper.StartAppiumLocalServer();
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var windowsOptions = new AppiumOptions
             {
@@ -27,6 +28,7 @@ namespace UITests
             }; 
             windowsOptions.AddAdditionalAppiumOption("unicodeKeyboard", true);
             windowsOptions.AddAdditionalAppiumOption("resetKeyboard", true);
+            windowsOptions.AddAdditionalAppiumOption("appium:newCommandTimeout", 300);
             driver = new WindowsDriver(new Uri("http://127.0.0.1:4723/"), windowsOptions);
         }
 
@@ -34,7 +36,7 @@ namespace UITests
         {
             driver?.Quit();
             GC.SuppressFinalize(this);
-            AppiumServerHelper.DisposeAppiumLocalServer();
+            //AppiumServerHelper.DisposeAppiumLocalServer();
         }
     }
 }

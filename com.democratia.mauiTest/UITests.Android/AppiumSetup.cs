@@ -10,6 +10,7 @@ namespace UITests
     {
         private static AppiumDriver? driver;
 
+        public readonly static string appId = "com.democratia";
         public readonly static string device = "android";
 
         public readonly static string sshSortie = string.Empty;

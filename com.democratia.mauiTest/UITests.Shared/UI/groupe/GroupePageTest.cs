@@ -2,7 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Xunit;
-using com.democratia.Test.Localization;
+using UITests.UI.Localization;
+using System.Diagnostics;
 
 namespace UITests.UI.groupe.decideur
 {
@@ -12,7 +13,6 @@ namespace UITests.UI.groupe.decideur
     {
         public GroupePageTest() : base()
         {
-            
         }
 
         [Fact]  
@@ -28,8 +28,8 @@ namespace UITests.UI.groupe.decideur
         [InlineData("like")]
         public void TrierProposition(string nomCritere)
         {
-            AssertConnexion("claire.benoit@example.com", "root");
-            AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
+            AssertConnexion("sophie.lemoine@example.com", "root");
+            AppiumElement? groupe = RentrerDanUnGroupe("Groupe AéroParis");
             Assert.NotNull(groupe);
             groupe.Click();
             ReadOnlyCollection<AppiumElement> propositions = FindUIElements("propositions")!;
@@ -49,7 +49,8 @@ namespace UITests.UI.groupe.decideur
         public void NePasTrierPropositionSiNonDecideur()
         {
             AssertConnexion("sophie.lemoine@example.com", "root");
-            AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
+            Debug.WriteLine(App.PageSource);
+            AppiumElement? groupe = RentrerDanUnGroupe("Groupe AéroParis");
             Assert.NotNull(groupe);
             groupe.Click();
             AppiumElement? bouttonTrie = FindUIElement("trieur");
@@ -60,8 +61,8 @@ namespace UITests.UI.groupe.decideur
         [Fact]
         public void ModifierProposition() 
         {
-            AssertConnexion("claire.benoit@example.com", "root");
-            AppiumElement? groupe = RentrerDanUnGroupe("AeroParis");
+            AssertConnexion("sophie.lemoine@example.com", "root");
+            AppiumElement? groupe = RentrerDanUnGroupe("Groupe AéroParis");
             Assert.NotNull(groupe);
             groupe.Click();
             AppiumElement proposition = FindUIElements("propositions")![0];
@@ -87,7 +88,7 @@ namespace UITests.UI.groupe.decideur
         [Fact]
         public void GroupeSansProposition() 
         {
-            AssertConnexion("claire.benoit@example.com", "root");
+            AssertConnexion("sophie.lemoine@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -98,7 +99,7 @@ namespace UITests.UI.groupe.decideur
         [Fact]
         public void ThematiqueSansProposition() 
         {
-            AssertConnexion("claire.benoit@example.com", "root");
+            AssertConnexion("sophie.lemoine@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -116,7 +117,7 @@ namespace UITests.UI.groupe.decideur
         [InlineData("like")]
         public void PropositionSansDonneDeCriteres(string nomCritere) 
         {
-            AssertConnexion("claire.benoit@example.com", "root");
+            AssertConnexion("sophie.lemoine@example.com", "root");
             AppiumElement? groupe = RentrerDanUnGroupe("theme");
             Assert.NotNull(groupe);
             groupe.Click();
@@ -124,7 +125,6 @@ namespace UITests.UI.groupe.decideur
             AppiumElement bouttonTrie = FindUIElement("trieur")!;
             Assert.NotNull(propositions);
             Assert.NotNull(bouttonTrie);
-            var proposition = propositions[0];
             bouttonTrie.Click();
             AppiumElement critere = FindUIElement($"critere-{nomCritere}")!;
             Assert.NotNull(critere);
@@ -132,7 +132,7 @@ namespace UITests.UI.groupe.decideur
         }
 
         private AppiumElement? RentrerDanUnGroupe(string nomGroupe)
-        => FindUIElement($"Groupe{nomGroupe}");
+        => FindUIElement($"Groupe {nomGroupe}");
         
     }
 }

@@ -1,7 +1,8 @@
-using com.democratia.Test.Localization;
 using OpenQA.Selenium.Appium;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using UITests.UI.Localization;
 using Xunit;
 
 
@@ -42,14 +43,36 @@ namespace UITests.UI
 
 
         [Theory(DisplayName = "Test de la page en cas d'entrée incorrecte")]
-        [InlineData("fezfzfzefz", "Djonodo20050207/", "")]
-        [InlineData("example@gmail.com", "Djonodo20050207/erreur", "")]
-        [InlineData("", "", "")]
-        [InlineData("dadadzadzada", "", "")]
+        [ClassData(typeof(ParameterDataNaviation))]
         public void NavigationPageErrorTest(string adresseMail, string motDePasse, string errorMessage)
         {
             Assert.False(SeConnecter(adresseMail, motDePasse));
             Assert.Equal(errorMessage,FindUIElement("errorMessageLabel")!.Text);
         }
     }
+
+    public class ParameterNaviagation<T1, T2,T3> : TheoryData
+    {
+        public void Add(string adresseMail, string motDePasse, string errorMessage)
+        {
+            AddRow(adresseMail, motDePasse, errorMessage);
+        }
+    }
+
+    public class ParameterDataNaviation : ParameterNaviagation<string, string, string>
+    {
+        public ParameterDataNaviation()
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("en-US");
+            CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+            CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture("en-US");
+            Add("sophie.lemoine@example.com", "Djonodo20050207/", AppResources.mauvaisMdp);
+            Add("example@gmail.com", "Djonodo20050207/erreur", AppResources.noUser);
+            Add("", "", AppResources.errorMailMessage);
+            Add("dadadzadzada", "", AppResources.errorPasswordMessage);
+        }
+    }
+
+
 }

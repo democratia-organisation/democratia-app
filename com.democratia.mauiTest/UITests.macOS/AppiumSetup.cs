@@ -9,6 +9,7 @@ namespace UITests
         private static AppiumDriver? driver;
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver est null.");
         public static string device = "macos";
+        public readonly static string appId = "com.companyname.com.democratia.view";
 
         // Configuration du Mac Scaleway
         private const string MacIp = "51.159.121.26";
