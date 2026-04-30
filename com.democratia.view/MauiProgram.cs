@@ -42,6 +42,7 @@ namespace com.democratia
             
             TaskScheduler.UnobservedTaskException += (sender, e) => 
                 LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
+           
 
             var app = builder.Build();
             Directory.CreateDirectory(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));

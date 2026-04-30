@@ -29,8 +29,8 @@
         {
             return e switch
             {
-                EmptyEmailFieldException => localizationService?.GetString("errorPasswordMessage"),
-                EmptyPassWordFieldException => localizationService?.GetString("errorMailMessage"),
+                EmptyEmailFieldException => localizationService?.GetString("errorMailMessage"),
+                EmptyPassWordFieldException => localizationService?.GetString("errorPasswordMessage"),
                 EmptyRequiredFieldException when args.Length > 0 => localizationService?.GetString("errorEmptyFieldMessage", args[0]),
                 EmptyRequiredFieldException => localizationService?.GetString("errorUnknowEmptyFieldMessage"),
                 MailException => localizationService?.GetString("errorMailMessage"),

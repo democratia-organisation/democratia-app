@@ -12,6 +12,7 @@
 
     <Grid
         x:Name="mainGrille"
+        AutomationId="mainGrille"
         RowDefinitions="Auto, Auto, *, Auto"
         RowSpacing="{DynamicResource SpacingMedium}">
         <VerticalStackLayout Grid.Row="0">
@@ -40,7 +41,6 @@
         <Label
             x:Name="monGroupeLabel"
             Grid.Row="1"
-            Margin="{Binding Source={StaticResource SpacingMedium}, Converter={StaticResource DoubleToThicknessConverter}, ConverterParameter='0,1,0,1'}"
             AutomationId="monGroupeLabel"
             HorizontalOptions="Center"
             Style="{StaticResource HeadlineStyle}"

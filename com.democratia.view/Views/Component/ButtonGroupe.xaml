@@ -11,7 +11,7 @@
             Style="{StaticResource BorderStyle}">
             <ImageButton
                 x:Name="enterGroupeImageButton"
-                AutomationId="enterGroupeImageButton"
+                AutomationId="{Binding Path=Groupe.NomGroupe, Source={x:Reference this}, StringFormat='Groupe {0}'}"
                 Command="{Binding OpenGroupeCommand, Source={x:Reference this}}"
                 CommandParameter="{Binding .}"
                 HeightRequest="{StaticResource SpacingUltraLarge}"
@@ -21,7 +21,7 @@
         </Border>
         <Label
             x:Name="nomGroupeLabel"
-            AutomationId="nomGroupeLabel"
+            AutomationId="{Binding Path=Groupe.NomGroupe, Source={x:Reference this}, StringFormat='Label {0}'}"
             HorizontalOptions="Center"
             LineBreakMode="WordWrap"
             Style="{StaticResource SubHeadlineStyle}"

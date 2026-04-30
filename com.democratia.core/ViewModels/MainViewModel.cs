@@ -70,15 +70,15 @@ namespace com.democratia.ViewModels.internaute
                 string motDePasseHash = internaute?.hashageMDP!;
                 bool estAuthetifie;
 #if DEBUG
-                if (motDePasse != "root")
+                if (motDePasseHash != "root")
                 // les mots de passe avec le mot root ne vont pas dans tempMDP pour éviter une erreur
                 {
                     internaute!.tempMDP = motDePasse; // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
                     bool hashedPasswordIsNotEqual = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
-                    estAuthetifie = motDePasseHash != internaute!.tempMDP || hashedPasswordIsNotEqual;
+                    estAuthetifie = hashedPasswordIsNotEqual;
                 }
                 else
-                    estAuthetifie = true;
+                    estAuthetifie = motDePasseHash == motDePasse;
 #elif !DEBUG
                 internaute!.tempMDP = motDePasse;
                 estAuthetifie = !await Verification.VerifiermotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);;
