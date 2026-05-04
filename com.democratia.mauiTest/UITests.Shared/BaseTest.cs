@@ -44,7 +44,11 @@ namespace UITests.UI
 
         protected BaseTest() 
         {
+
         }
+
+        [Fact(DisplayName = "Test de la présence des éléments dans la page")]
+        protected abstract void PresenceElements();
 
         // This could also be an extension method to AppiumDriver if you prefer
         protected AppiumElement? FindUIElement(string id)

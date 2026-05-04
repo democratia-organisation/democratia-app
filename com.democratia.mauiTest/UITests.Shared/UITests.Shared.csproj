@@ -34,7 +34,6 @@
 	</ItemGroup>
   <ItemGroup>
     <Folder Include="UI\groupe\decideur\" />
-    <Folder Include="UI\internaute\CreerGroupe\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />

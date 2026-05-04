@@ -17,13 +17,13 @@ namespace UITests.UI
         // /!\ on ne teste que la présence d'un élément UI car la présence du comtenu du texte est déjà
         // testé dans les test du vue modèle
 
-        [Fact(DisplayName = "Test de la présence des éléments dans la page")]
-        public void PresenceDesEntriesTest()
+        
+        protected override void PresenceElements()
         {
             ReadOnlyCollection<AppiumElement> appiumElements = FindUIElements("Entry")!;
             ReadOnlyCollection<AppiumElement> labelElements = FindUIElements("Label")!;
-            
-            
+
+
             Assert.NotNull(FindUIElement("connexionLabel")!);
             Assert.NotNull(appiumElements);
             Assert.NotNull(labelElements);
@@ -49,6 +49,8 @@ namespace UITests.UI
             Assert.False(SeConnecter(adresseMail, motDePasse));
             Assert.Equal(errorMessage,FindUIElement("errorMessageLabel")!.Text);
         }
+
+        
     }
 
     public class ParameterNaviagation<T1, T2,T3> : TheoryData

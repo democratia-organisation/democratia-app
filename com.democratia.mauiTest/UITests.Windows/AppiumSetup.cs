@@ -1,6 +1,5 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
-using UITests.UI;
 
 namespace UITests
 {
@@ -18,7 +17,7 @@ namespace UITests
         public AppiumSetup()
         {
             
-            //AppiumServerHelper.StartAppiumLocalServer();
+            AppiumServerHelper.StartAppiumLocalServer();
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var windowsOptions = new AppiumOptions
             {
@@ -36,7 +35,7 @@ namespace UITests
         {
             driver?.Quit();
             GC.SuppressFinalize(this);
-            //AppiumServerHelper.DisposeAppiumLocalServer();
+            AppiumServerHelper.DisposeAppiumLocalServer();
         }
     }
 }

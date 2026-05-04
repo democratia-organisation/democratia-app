@@ -10,24 +10,7 @@ namespace UITests.UI.internaute.GestionCompte
     [DisplayName("Création de compte")]
     public class CreationPageTest : BaseTest
     {
-        [Fact(DisplayName = "Test de la présence des éléments dans la page")]
-        public void PresenceDesEntriesTest()
-        {
-
-            
-            Debug.WriteLine(App.PageSource);
-            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
-            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
-            AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
-            var nombresEntrees = 5;
-
-            var nombresLabels = labels?.Count;
-            var nombresEntries = entries?.Count;
-
-            Assert.Equal(nombresEntrees, nombresLabels);
-            Assert.Equal(nombresEntrees, nombresEntries);
-            Assert.NotNull(mInscrireButton);
-        }
+        
         public CreationPageTest() : base()
         {
             
@@ -99,6 +82,21 @@ namespace UITests.UI.internaute.GestionCompte
             Assert.Equal(nombreElements, entries?.Count);
             Assert.NotNull(FindUIElement("RetourMessage"));
 
+        }
+
+        protected override void PresenceElements()
+        {
+            ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
+            ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
+            AppiumElement? mInscrireButton = FindUIElement("M'inscrire");
+            var nombresEntrees = 5;
+
+            var nombresLabels = labels?.Count;
+            var nombresEntries = entries?.Count;
+
+            Assert.Equal(nombresEntrees, nombresLabels);
+            Assert.Equal(nombresEntrees, nombresEntries);
+            Assert.NotNull(mInscrireButton);
         }
     }
 }

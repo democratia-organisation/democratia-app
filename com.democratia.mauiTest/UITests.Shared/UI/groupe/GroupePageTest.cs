@@ -42,7 +42,7 @@ namespace UITests.UI.groupe.decideur
             Assert.NotNull(critere);
             critere.Click();
             int finalPosition = propositions.IndexOf(proposition);
-            Assert.False(finalPosition != 0);
+            Assert.NotEqual(0, finalPosition);
         }
 
         [Fact]
@@ -133,6 +133,10 @@ namespace UITests.UI.groupe.decideur
 
         private AppiumElement? RentrerDanUnGroupe(string nomGroupe)
         => FindUIElement($"Groupe {nomGroupe}");
-        
+
+        protected override void PresenceElements()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
