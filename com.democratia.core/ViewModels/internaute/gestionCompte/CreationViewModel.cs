@@ -38,7 +38,6 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
             try
             {
                 await CreerInternaute();
-                WeakReferenceMessenger.Default.Send<EventCreationSucess>();
             }
             catch (Exception ex)
             {
@@ -47,8 +46,8 @@ namespace com.democratia.ViewModels.internaute.gestionCompte
 #elif !DEBUG
                 RetourMessage = localizationService?.GetString("erreurInattendu");    
 #endif
-
             }
+            WeakReferenceMessenger.Default.Send<EventCreationSucess>();
         }
 
 

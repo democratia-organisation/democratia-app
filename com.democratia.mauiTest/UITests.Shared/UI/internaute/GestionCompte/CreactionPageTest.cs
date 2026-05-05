@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using UITests.UI.Localization;
 using Xunit;
 
 namespace UITests.UI.internaute.GestionCompte
@@ -39,7 +40,7 @@ namespace UITests.UI.internaute.GestionCompte
             adresseMail?.SendKeys("example@gmail.com");
             motDePass?.SendKeys("MotDePasse123/");
             mInscrireButton?.Click();
-            AppiumElement? bouttonRetourHome = FindUIElement("BienvenueLabel");
+            AppiumElement? bouttonRetourHome = FindUIElement("suiteActionButton");
 
             Assert.NotNull(mInscrireButton);
             Assert.Equal(nombreElements, entries?.Count);
@@ -54,18 +55,17 @@ namespace UITests.UI.internaute.GestionCompte
         }
 
         [Theory(DisplayName = "Différents cas d'erreurs")]
-        [InlineData("", "", "", "", "")] // champs vide
-        [InlineData("hello", "bonjour", "132 rue de Lyon", "dzadazda", "Djonodo8/")] // mauvais format de mail
-        [InlineData("hello", "bonjour", "132 rue de Lyon", "email@example.com", "Djonodo/")] // mot de passe pas assez long
-        [InlineData("hello", "bonjour", "132 rue de Lyon", "modadary56@gmail.com", "Djonodo8/")] // email déjà utilisé
-        public void CreationCompteTestError(string nom, string prenom, string adressePostale, string adresseMail, string motDePasse)
+        [ClassData(typeof(ParameterDataCreation))]
+        public void CreationCompteTestError(string nom, string prenom, string adressePostale, string adresseMail, string motDePasse, string errorMessage)
         {
             
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             AppiumElement? mInscrireButton = FindUIElement("actionButton");
+            AppiumElement? errorMessageLabel = FindUIElement("errorMessageLabel");
             Assert.NotNull(entries);
             Assert.NotNull(labels);
+            Assert.NotNull(errorMessageLabel);
             var nombreElements = 5;
             var (nomElement, prenomElement, adressePostaleElement, adresseMailElement, motDePasseElement) =
                 (entries[0], entries[1], entries[2], entries[3], entries[4]);
@@ -80,7 +80,8 @@ namespace UITests.UI.internaute.GestionCompte
             Assert.NotNull(mInscrireButton);
             Assert.Equal(nombreElements, entries?.Count);
             Assert.Equal(nombreElements, entries?.Count);
-            Assert.NotNull(FindUIElement("RetourMessage"));
+            Assert.NotNull(errorMessageLabel);
+            Assert.Equal(errorMessage, errorMessageLabel?.Text);
 
         }
 
@@ -97,6 +98,26 @@ namespace UITests.UI.internaute.GestionCompte
             Assert.Equal(nombresEntrees, nombresLabels);
             Assert.Equal(nombresEntrees, nombresEntries);
             Assert.NotNull(mInscrireButton);
+        }
+    }
+    public class ParameterCreation<T1, T2, T3, T4, T5, T6> : TheoryData
+    {
+        public void Add(string prenom, string nom, string adresse, string adresseMail, string motDePasse, string errorMessage)
+        {
+            AddRow(prenom, nom, adresse, adresseMail, motDePasse, errorMessage);
+        }
+    }
+
+    public class ParameterDataCreation: ParameterCreation<string, string, string, string,string,string>
+    {
+        public ParameterDataCreation()
+        {
+            BaseTest.ChangerLanguage("en-US");
+            Add("", "", "", "", "", AppResources.errorUnknowEmptyFieldMessage);
+            Add("hello", "bonjour", "132 rue de Lyon", "dzadazda", "Djonodo8/", AppResources.formatEmail);
+            Add("hello", "bonjour", "132 rue de Lyon", "email@example.com", "Djonodo/", AppResources.formatMotDePasse);
+            Add("hello", "bonjour", "132 rue de Lyon", "modadary56@gmail.com", "Djonodo8/", AppResources.compteExistantErreur);
+
         }
     }
 }

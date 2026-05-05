@@ -16,28 +16,6 @@ public partial class Formulaire : ContentView
         set => SetValue(UserProperty, value);
     }
 
-    public static readonly BindableProperty EmailProperty = BindableProperty.Create(
-        nameof(Email),
-        typeof(string),
-        typeof(Formulaire),
-        defaultBindingMode: BindingMode.TwoWay);
-    public string Email
-    {
-        get => (string)GetValue(EmailProperty);
-        set => SetValue(EmailProperty, value);
-    }
-
-    public static readonly BindableProperty PasswordProperty = BindableProperty.Create(
-        nameof(Password),
-        typeof(string),
-        typeof(Formulaire),
-        defaultBindingMode: BindingMode.TwoWay);
-    public string Password
-    {
-        get => (string)GetValue(PasswordProperty);
-        set => SetValue(PasswordProperty, value);
-    }
-
     public static readonly BindableProperty RetourMessageProperty = BindableProperty.Create(
         nameof(RetourMessage),
         typeof(string),

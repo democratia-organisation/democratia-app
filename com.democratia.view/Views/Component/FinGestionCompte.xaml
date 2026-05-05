@@ -7,15 +7,15 @@
 
     <StackLayout Spacing="{DynamicResource SpacingLarge}">
         <Label
-            x:Name="supprimerLabel"
+            x:Name="suiteActionLabel"
             AutomationId="supprimerLabel"
             HorizontalOptions="Center"
             Style="{StaticResource SubHeadlineStyle}"
             Text="{Binding LabelText, Source={x:Reference this}}"
             VerticalOptions="Center" />
         <Button
-            x:Name="suppressionBoutton"
-            AutomationId="suppressionBoutton"
+            x:Name="suiteActionButton"
+            AutomationId="suiteActionButton"
             Command="{Binding Command, Source={x:Reference this}}"
             CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"
             HorizontalOptions="Center"
