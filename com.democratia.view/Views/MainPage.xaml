@@ -58,8 +58,8 @@
                 Text="{x:Static lang:AppResources.pasCompte}" />
 
             <Label
-                x:Name="creerCompteLabel"
-                AutomationId="creerCompteLabel"
+                x:Name="creationCompteLabelButton"
+                AutomationId="creationCompteLabelButton"
                 HorizontalOptions="Center"
                 Style="{DynamicResource LabelStyle}"
                 Text="{x:Static lang:AppResources.NewCompte}"

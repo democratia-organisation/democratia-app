@@ -76,6 +76,12 @@ namespace com.democratia.ViewModels.groupe
 
         }
 
+        [RelayCommand]
+        private async Task OuvrirPropositionAsync(Proposition proposition)
+        {
+            throw new NotImplementedException();
+        }
+
         
         [RelayCommand]
         private async Task UpdateList()

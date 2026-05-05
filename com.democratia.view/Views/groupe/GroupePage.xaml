@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:com.democratia.Views.Component"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:models="clr-namespace:com.democratia.Models;assembly=com.democratia.core"
     xmlns:res="clr-namespace:com.democratia.view.Resources.Localization"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.groupe;assembly=com.democratia.core"
@@ -20,9 +21,9 @@
 
 
         <Image
-            x:Name="specificGroupeImageButton"
+            x:Name="groupeImage"
             Grid.Row="0"
-            AutomationId="specificGroupeImageButton"
+            AutomationId="groupeImage"
             HeightRequest="{DynamicResource SpacingUltraLarge}"
             Source="{Binding image}"
             WidthRequest="{DynamicResource SpacingUltraLarge}" />
@@ -97,15 +98,15 @@
             UpdateElementsCommand="{Binding UpdateListCommand}">
             <comp:RefreshView.ItemTemplate>
                 <DataTemplate>
-                    <comp:PropositionCard />
+                    <comp:PropositionCard OpenCommand="{Binding OuvrirPropositionCommand}" />
                 </DataTemplate>
             </comp:RefreshView.ItemTemplate>
         </comp:RefreshView>
 
         <Button
-            x:Name="newPropositionButton"
+            x:Name="nouvellePropositionButton"
             Grid.Row="4"
-            AutomationId="newPropositionButton"
+            AutomationId="nouvellePropositionButton"
             Command="{Binding NavigateTappedCommand}"
             CommandParameter="NouvelleProposition"
             Style="{DynamicResource ButtonStyle}"

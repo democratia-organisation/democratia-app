@@ -29,9 +29,9 @@
                 </Border.StrokeShape>
 
                 <ImageButton
-                    x:Name="profileImageButton"
+                    x:Name="profileIconImageButton"
                     Aspect="AspectFill"
-                    AutomationId="profileImageButton"
+                    AutomationId="profileIconImageButton"
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="HomeGestionPage"
                     Source="profile_icon.jpeg" />
