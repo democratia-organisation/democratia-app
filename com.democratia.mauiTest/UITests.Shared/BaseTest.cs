@@ -2,6 +2,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using Xunit;
 
@@ -16,7 +17,45 @@ namespace UITests.UI
 
     }
 
-    
+    public static class WebDriverExtensions
+    {
+        private static WebDriverWait? wait;
+        extension(IWebDriver driver)
+        {
+
+            public IWebElement WaitAndFind(By by, int timeoutInSeconds = 15)
+            {
+                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                return wait.Until(drv =>
+                {
+                    try
+                    {
+                        return drv.FindElement(by);
+                    } catch (Exception)
+                    {
+                        throw;
+                    }
+
+                });
+            }
+
+            public ReadOnlyCollection<IWebElement> WaitAndFinds(By by, int timeoutInSeconds = 15)
+            {
+                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                return wait.Until(drv => {
+                    try
+                    {
+                        return drv.FindElements(by);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                });
+            }
+        }
+    }
 
     public class SystemInfo
     {
@@ -38,13 +77,23 @@ namespace UITests.UI
     [Collection("UITests")]
     public abstract class BaseTest : IDisposable
     {
-        private static readonly int timeout = 15;
-        protected AppiumDriver App => AppiumSetup.App;
+        private static readonly int timeout = 8;
+        protected AppiumDriver App { get; set; }
         protected Func<string,By> funcResearrch => AppiumSetup.device == "android" ? id => MobileBy.XPath($"""//*[@resource-id="com.democratia:id/{id}"]""") : id => MobileBy.AccessibilityId(id);
 
         protected BaseTest() 
         {
+            var setup = new AppiumSetup();
+            App = setup.CreatePage();
 
+        }
+
+        public static void ChangerLanguage(string language)
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);
+            CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);
         }
 
         [Fact(DisplayName = "Test de la présence des éléments dans la page")]
@@ -56,9 +105,10 @@ namespace UITests.UI
             
             try
             {
-                return App.FindElement(funcResearrch(id));
+                
+                return App.WaitAndFind(funcResearrch(id), timeout) as AppiumElement;
             }
-            catch (NoSuchElementException)
+            catch (Exception)
             {
                 return null;
             }
@@ -66,16 +116,16 @@ namespace UITests.UI
 
         protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
         {
-            ReadOnlyCollection<AppiumElement> elements;
+            ReadOnlyCollection<IWebElement> elements;
             try
             {
-                elements = App.FindElements(funcResearrch(id));
+                elements = App.WaitAndFinds(funcResearrch(id), timeout);
             }
-            catch (NoSuchElementException)
+            catch (Exception)
             {
                 return null;
             }
-            return elements.Count > 0 ? elements : null;
+            return elements.Count > 0 ? elements.Cast<AppiumElement>().ToList().AsReadOnly() : null;
         }
 
         protected bool SeConnecter(string identifiant, string motDePasse)

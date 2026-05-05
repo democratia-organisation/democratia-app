@@ -6,6 +6,7 @@ using UITests.UI.Localization;
 using Xunit;
 
 
+
 namespace UITests.UI
 {
     [Collection("UITests")]
@@ -65,10 +66,7 @@ namespace UITests.UI
     {
         public ParameterDataNaviation()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("en-US");
-            CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
-            CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture("en-US");
+            BaseTest.ChangerLanguage("en-US");
             Add("sophie.lemoine@example.com", "Djonodo20050207/", AppResources.mauvaisMdp);
             Add("example@gmail.com", "Djonodo20050207/erreur", AppResources.noUser);
             Add("", "", AppResources.errorMailMessage);

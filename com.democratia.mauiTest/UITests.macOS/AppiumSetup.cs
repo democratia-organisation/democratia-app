@@ -1,5 +1,6 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Mac;
+using OpenQA.Selenium.Appium.Windows;
 using System.Diagnostics;
 
 namespace UITests
@@ -17,6 +18,7 @@ namespace UITests
         // Le chemin vers votre app macOS (.app Catalyst ou native)
         private const string MacAppPath = "./bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app";
         private const string MacProjectDir = "./com.democratia.mauiTest/UITests.macOS/";
+        public AppiumOptions? options;
 
         public AppiumSetup()
         {
@@ -36,7 +38,7 @@ namespace UITests
         private void InitLocalMacDriver()
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var options = new AppiumOptions
+            options = new AppiumOptions
             {
                 AutomationName = "mac2",
                 PlatformName = "macOS",
@@ -51,9 +53,10 @@ namespace UITests
             options.AddAdditionalAppiumOption("appium:arguments", new List<string>());
             options.AddAdditionalAppiumOption("appium:waitForAppLaunch", "30");
 
-            
-
-            driver = new MacDriver(new Uri("http://127.0.0.1:4724/"), options, TimeSpan.FromSeconds(120));
+        }
+        public AppiumDriver CreatePage()
+        {
+            return new MacDriver(new Uri("http://127.0.0.1:4724/"), options, TimeSpan.FromSeconds(120));
         }
 
 

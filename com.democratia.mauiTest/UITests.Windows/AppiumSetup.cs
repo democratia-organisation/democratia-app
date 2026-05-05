@@ -13,22 +13,27 @@ namespace UITests
         public readonly static string sshSortie = string.Empty;
 
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
+        public AppiumOptions options;
 
         public AppiumSetup()
         {
             
             AppiumServerHelper.StartAppiumLocalServer();
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var windowsOptions = new AppiumOptions
+            options = new AppiumOptions
             {
                 AutomationName = "windows",
                 PlatformName = "Windows",
                 App = Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe"))
-            }; 
-            windowsOptions.AddAdditionalAppiumOption("unicodeKeyboard", true);
-            windowsOptions.AddAdditionalAppiumOption("resetKeyboard", true);
-            windowsOptions.AddAdditionalAppiumOption("appium:newCommandTimeout", 300);
-            driver = new WindowsDriver(new Uri("http://127.0.0.1:4723/"), windowsOptions);
+            };
+            options.AddAdditionalAppiumOption("unicodeKeyboard", true);
+            options.AddAdditionalAppiumOption("resetKeyboard", true);
+            options.AddAdditionalAppiumOption("appium:newCommandTimeout", 300);
+        }
+
+        public AppiumDriver CreatePage()
+        {
+            return new WindowsDriver(new Uri("http://127.0.0.1:4723/"), options);
         }
 
         public void Dispose()

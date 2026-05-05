@@ -14,6 +14,7 @@ namespace UITests
         public readonly static string device = "android";
 
         public readonly static string sshSortie = string.Empty;
+        public AppiumOptions options;
 
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
 
@@ -22,7 +23,7 @@ namespace UITests
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             if (SystemInfo.SSHHost()) Environment.Exit(0);
             AppiumServerHelper.StartAppiumLocalServer();
-            var androidOptions = new AppiumOptions
+            options = new AppiumOptions
             {
                 AutomationName = "UIAutomator2",
                 PlatformName = "Android",
@@ -30,14 +31,18 @@ namespace UITests
 
             };
 #if DEBUG
-            androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.NoReset, "true");
+            options.AddAdditionalAppiumOption(MobileCapabilityType.NoReset, "true");
             string activity = ResolveAppActivity("com.democratia");
-            androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
-            androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.democratia");
+            options.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
+            options.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.democratia");
 # endif
+        }
+
+        public AppiumDriver CreatePage()
+        {
             try
             {
-                driver = new AndroidDriver(androidOptions);
+                return new AndroidDriver(options);
             }
             catch (Exception ex)
             {
