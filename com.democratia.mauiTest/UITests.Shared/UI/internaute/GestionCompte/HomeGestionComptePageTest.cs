@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UITests.UI.internaute.GestionCompte
+﻿namespace UITests.UI.internaute.GestionCompte
 {
-    internal class HomeGestionComptePageTest
+    internal class HomeGestionComptePageTest : BaseTest
     {
+        protected override void PresenceElements()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

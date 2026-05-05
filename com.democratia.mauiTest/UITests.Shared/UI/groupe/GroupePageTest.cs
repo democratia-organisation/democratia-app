@@ -4,13 +4,13 @@ using System.ComponentModel;
 using UITests.UI.Localization;
 using Xunit;
 
-namespace UITests.UI.groupe.decideur
+namespace UITests.UI.groupe
 {
     [Collection("UITests")]
     [DisplayName("Page d'accueil de la partie décideur")]
     public class GroupePageTest : BaseTest
     {
-        public GroupePageTest() : base()
+        public GroupePageTest()
         {
         }
 

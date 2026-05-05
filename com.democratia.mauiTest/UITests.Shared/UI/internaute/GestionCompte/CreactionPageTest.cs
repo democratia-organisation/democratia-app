@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium.Appium;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using Xunit;
 
 namespace UITests.UI.internaute.GestionCompte
@@ -10,7 +11,7 @@ namespace UITests.UI.internaute.GestionCompte
     public class CreationPageTest : BaseTest
     {
         
-        public CreationPageTest() : base()
+        public CreationPageTest()
         {
             AppiumElement? creationPage = FindUIElement("creationCompteLabelButton");
             creationPage?.Click();
@@ -24,7 +25,7 @@ namespace UITests.UI.internaute.GestionCompte
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
             Assert.NotNull(entries);
             Assert.NotNull(labels);
-            AppiumElement? mInscrireButton = FindUIElement("inscriptionButton");
+            AppiumElement? mInscrireButton = FindUIElement("actionButton");
             var nombreElements = 5;
             foreach (var entry in entries) entry.Clear();
 
@@ -46,7 +47,7 @@ namespace UITests.UI.internaute.GestionCompte
             Assert.NotNull(bouttonRetourHome);
             Assert.Null(FindUIElements("Entry"));
             Assert.Null(FindUIElements("Labels"));
-            Assert.Null(FindUIElement("inscriptionButton"));
+            Assert.Null(FindUIElement("actionButton"));
 
             bouttonRetourHome?.Click();
 
@@ -62,7 +63,7 @@ namespace UITests.UI.internaute.GestionCompte
             
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
-            AppiumElement? mInscrireButton = FindUIElement("inscriptionButton");
+            AppiumElement? mInscrireButton = FindUIElement("actionButton");
             Assert.NotNull(entries);
             Assert.NotNull(labels);
             var nombreElements = 5;
@@ -87,7 +88,7 @@ namespace UITests.UI.internaute.GestionCompte
         {
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
-            AppiumElement? mInscrireButton = FindUIElement("inscriptionButton");
+            AppiumElement? mInscrireButton = FindUIElement("actionButton");
             var nombresEntrees = 5;
 
             var nombresLabels = labels?.Count;

@@ -20,7 +20,6 @@ namespace com.democratia.Views.internaute.gestionCompte
                 {
                     Children =
                     {
-                        new Header(),
                         new FinGestionCompte
                         {
                             LabelText = AppResources.BonneNouvelle,

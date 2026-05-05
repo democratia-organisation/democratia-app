@@ -36,22 +36,30 @@ namespace com.democratia.ViewModels.internaute
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            try
+            if (commande == "CreationPage")
             {
-                modele = await ConnecterInternaute();
+                await navigationService!.GoToAsync(commande);
             }
-            catch (Exception ex)
+            else
             {
+                try
+                {
+                    modele = await ConnecterInternaute();
+                }
+                catch (Exception ex)
+                {
 #if DEBUG
-                errorMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
+                    errorMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
 #elif !DEBUG
-                errorMessage = LocalizationService?.GetString("erreurInattendu");    
+                    errorMessage = LocalizationService?.GetString("erreurInattendu");    
 #endif
-                return;
+                    return;
+                }
+
+                contexte!.Internaute = modele;
+                var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
+                await navigationService!.GoToAsync(commande, parameters);
             }
-            contexte!.Internaute = modele;
-            var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
-            await navigationService!.GoToAsync(commande, parameters);
 
         }
 
