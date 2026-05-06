@@ -3,6 +3,7 @@ using Xunit;
 
 namespace UITests.UI.internaute.GestionCompte
 {
+    [CollectionPriority(4)]
     public class HomeGestionComptePageTest : BaseTest
     {
         public HomeGestionComptePageTest() 

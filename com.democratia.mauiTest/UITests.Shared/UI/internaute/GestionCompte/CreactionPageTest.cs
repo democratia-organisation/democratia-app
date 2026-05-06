@@ -1,14 +1,12 @@
 ﻿using OpenQA.Selenium.Appium;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using UITests.Localization;
 using Xunit;
 
 namespace UITests.UI.internaute.GestionCompte
 {
-    [Collection("UITest")]
-    [DisplayName("Création de compte")]
+    [DisplayName("Création de compte"), Collection("UITest"), CollectionPriority(3)]
     public class CreationPageTest : BaseTest
     {
         

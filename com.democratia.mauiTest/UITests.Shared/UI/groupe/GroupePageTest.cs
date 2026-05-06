@@ -6,8 +6,7 @@ using Xunit;
 
 namespace UITests.UI.groupe
 {
-    [Collection("UITests")]
-    [DisplayName("Page d'accueil de la partie décideur")]
+    [Collection("UITests"), DisplayName("Page d'accueil de la partie décideur"), CollectionPriority(3)]
     public class GroupePageTest : BaseTest
     {
         public GroupePageTest()

@@ -2,6 +2,7 @@
 
 namespace UITests.UI.internaute.GestionCompte
 {
+    [CollectionPriority(3)]
     public class PreferencePageTest : BaseTest
     {
         public PreferencePageTest()

@@ -1,7 +1,6 @@
 using OpenQA.Selenium.Appium;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using UITests.Localization;
 using Xunit;
 
@@ -9,8 +8,7 @@ using Xunit;
 
 namespace UITests.UI
 {
-    [Collection("UITests")]
-    [DisplayName("Page d'accueil")]
+    [DisplayName("Page d'accueil"), Collection("UITests"), CollectionPriority(1)]
     public class MainPageTest : BaseTest
     {
         // /!\ écrire les paramètres de SendKeys en qwerti, afin que les caractères utf-8 interprétés

@@ -3,6 +3,7 @@ using Xunit;
 
 namespace UITests.UI.internaute
 {
+    [CollectionPriority(2)]
     public class HomePageTest : BaseTest
     {
         public HomePageTest() 

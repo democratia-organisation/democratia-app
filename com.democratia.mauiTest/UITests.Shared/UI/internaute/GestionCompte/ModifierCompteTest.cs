@@ -5,6 +5,7 @@ using Xunit;
 
 namespace UITests.UI.internaute.GestionCompte
 {
+    [CollectionPriority(3)]
     public class ModifierCompteTest : BaseTest
     {
         public ModifierCompteTest() 
