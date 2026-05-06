@@ -1,6 +1,4 @@
 ﻿using com.koyok.democratia.Models;
-using com.koyok.democratia.Services;
-using com.koyok.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
@@ -8,6 +6,10 @@ using Microsoft.Maui.Graphics;
 using System.ComponentModel;
 using System.Text.Json;
 using System.Collections.ObjectModel;
+using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.core.Domain.Utils;
+using com.koyok.democratia.core.Domain.Repository;
+using com.koyok.democratia.core.Data.Repository;
 
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
@@ -16,18 +18,18 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
     {
         [ObservableProperty] public partial string? thematique { get; set; }
         [ObservableProperty] public partial string? erreurMessage { get; set; }
-        [ObservableProperty] public partial ObservableCollection<Thematique>? thematiquesAffiches { get; set; }
-        [ObservableProperty] public partial Thematique? thematiqueSelectionnee { get; set; }
-        [ObservableProperty] public partial ObservableCollection<Thematique>? thematiquesRetenues { get; set; }
+        [ObservableProperty] public partial ObservableCollection<ThematiqueRemoteSource>? thematiquesAffiches { get; set; }
+        [ObservableProperty] public partial ThematiqueRemoteSource? thematiqueSelectionnee { get; set; }
+        [ObservableProperty] public partial ObservableCollection<ThematiqueRemoteSource>? thematiquesRetenues { get; set; }
         [ObservableProperty] public partial Groupe groupe { get; set; } = new();
         [ObservableProperty] public partial bool afficheCollectionView { get; set; } = false;
-        private List<Thematique>? thematiquesExistantes;
-        private Internaute? internaute;
+        private List<ThematiqueRemoteSource>? thematiquesExistantes;
+        private InternauteRemoteSource? internaute;
 
         
-        private List<Thematique> thematiquesNouvelles { get; set; } = []; 
+        private List<ThematiqueRemoteSource> thematiquesNouvelles { get; set; } = []; 
         private INavigationService navigationService;
-        public PremiereCreationViewModel(INavigationService navigation, IEnumerable<IClient?>? clients, ILocalizationService? LocalizationService)
+        public PremiereCreationViewModel(INavigationService navigation, IEnumerable<IRepository?>? clients, ILocalizationService? LocalizationService)
             : base(clients!.OfType<ThematiqueClient>().FirstOrDefault(), LocalizationService)
         {
             navigationService = navigation;
@@ -74,10 +76,10 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
                 
                 }
                 thematiquesNouvelles = [.. thematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];
-                foreach (Thematique item in thematiquesNouvelles)
+                foreach (ThematiqueRemoteSource item in thematiquesNouvelles)
                 {
                     await client!.CreateModelAsync(item);
-                    List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(await client.GetModelAsync());
+                    List<ThematiqueRemoteSource> thematiques = RecuprerInformationConnexion<ThematiqueRemoteSource>(await client.GetModelAsync());
                     item.id_thematique = thematiques.Last().id_thematique;
                 }
 
@@ -120,7 +122,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
 
 
 
-        private void AjoutThematique(Thematique thematiqueItem)
+        private void AjoutThematique(ThematiqueRemoteSource thematiqueItem)
         {
             if (!thematiquesRetenues!.Contains(thematiqueItem, new ThematiqueEqualityComparer()))
                 thematiquesRetenues!.Add(thematiqueItem);
@@ -131,15 +133,15 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
         public async Task RemplirThematique()
         {
             string listeRequete = await client!.GetModelAsync();
-            List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(listeRequete);
+            List<ThematiqueRemoteSource> thematiques = RecuprerInformationConnexion<ThematiqueRemoteSource>(listeRequete);
             thematiques.ForEach(t => thematiquesExistantes!.Add(t));
             thematiquesAffiches = [..thematiquesExistantes!];
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            internaute = query.TryGetValue("modele", out var internauteObj) ? (Internaute)internauteObj : null;
-            internaute ??= await RetrouverModele<Internaute>();
+            internaute = query.TryGetValue("modele", out var internauteObj) ? (InternauteRemoteSource)internauteObj : null;
+            internaute ??= await RetrouverModele<InternauteRemoteSource>();
         }
         
     }

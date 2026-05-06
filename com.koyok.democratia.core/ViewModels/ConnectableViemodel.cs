@@ -1,5 +1,6 @@
-﻿using com.koyok.democratia.Models;
-using com.koyok.democratia.Services;
+﻿using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.core.Domain.Repository;
+using com.koyok.democratia.core.Domain.Utils;
 using com.koyok.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Maui.Storage;
@@ -11,10 +12,10 @@ namespace com.koyok.democratia.UI
     /// <summary>
     /// Classe abstraite qui représente tout viewModel qui peut se connecter à l'API
     /// </summary>
-    public abstract class ConnectableViewModel(IClient? client, ILocalizationService? localizationService) : ObservableObject, INotifyPropertyChanged
+    public abstract class ConnectableViewModel(IRepository? client, ILocalizationService? localizationService) : ObservableObject, INotifyPropertyChanged
     {
-        protected IClient? client = client;
-        public IClient? Client => client;
+        protected IRepository? client = client;
+        public IRepository? Client => client;
         
         protected readonly ILocalizationService? LocalizationService = localizationService;
 

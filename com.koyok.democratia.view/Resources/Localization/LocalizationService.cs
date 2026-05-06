@@ -1,4 +1,4 @@
-﻿using com.koyok.democratia.Utils;
+﻿using com.koyok.democratia.core.Domain.Utils;
 using com.koyok.democratia.view.Resources.Localization;
 
 namespace com.koyok.democratia.Resources.Localization

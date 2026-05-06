@@ -1,6 +1,8 @@
-﻿using com.koyok.democratia.Models;
-using com.koyok.democratia.Services;
-using com.koyok.democratia.Utils;
+﻿using com.koyok.democratia.core.Data.Services;
+using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.core.Domain.Repository;
+using com.koyok.democratia.core.Domain.Utils;
+using com.koyok.democratia.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
@@ -9,27 +11,27 @@ using Microsoft.Maui.Storage;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class TroisiemeCreationViewModel(IEnumerable<IClient?>? clients, ILocalizationService? LocalizationService, 
-        INavigationService service, Services.AppContext context) : ConnectableViewModel(clients?.OfType<GroupClient>().FirstOrDefault(), 
+    public partial class TroisiemeCreationViewModel(IEnumerable<IRepository?>? clients, ILocalizationService? LocalizationService, 
+        INavigationService service, core.Domain.Service.AppContext context) : ConnectableViewModel(clients?.OfType<GroupClient>().FirstOrDefault(), 
             LocalizationService), INavigeablleViewModel , IQueryAttributable
     {
 
         private readonly INavigationService service = service;
         private Groupe? groupe;
         private string imagePath = string.Empty;
-        private Internaute? internaute;
-        private Services.AppContext context = context;
+        private InternauteRemoteSource? internaute;
+        private core.Domain.Service.AppContext context = context;
         [ObservableProperty] public partial ImageSource? image { get; set; }
         [ObservableProperty] public partial bool? isObservable { get; set; } = false;
         [ObservableProperty] public partial string? errorMessage { get; set; }
         [ObservableProperty] public partial bool isFinish { get; set; } = false;
-        private List<Thematique>? thematiques { get; set; }
+        private List<ThematiqueRemoteSource>? thematiques { get; set; }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"];
-            thematiques = (List<Thematique>)query["thematique"];
-            internaute = (Internaute)query["internaute"] ?? context.Internaute;
+            thematiques = (List<ThematiqueRemoteSource>)query["thematique"];
+            internaute = (InternauteRemoteSource)query["internaute"] ?? context.Internaute;
         }
 
         [RelayCommand]
@@ -39,7 +41,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
             {
                 groupe!.IdGroupe = Guid.CreateVersion7();
                 await client!.CreateModelAsync(groupe!);
-                foreach (Thematique item in thematiques!)
+                foreach (ThematiqueRemoteSource item in thematiques!)
                     await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.IdGroupe, item.id_thematique, item.budget);
                 if (string.IsNullOrWhiteSpace(imagePath)) throw new NoImageGiven();
                 await client.UploadImage(groupe!.IdGroupe, imagePath);

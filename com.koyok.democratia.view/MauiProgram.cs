@@ -1,5 +1,4 @@
 ﻿using com.koyok.democratia.Resources.Localization;
-using com.koyok.democratia.Utils;
 using com.koyok.democratia.UI;
 using com.koyok.democratia.UI.groupe;
 using CommunityToolkit.Maui;
@@ -7,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Diagnostics;
 using System.Text;
+using com.koyok.democratia.core.Domain.Utils;
+using com.koyok.democratia.core.Domain.Extension;
 
 namespace com.koyok.democratia
 {
@@ -47,7 +48,7 @@ namespace com.koyok.democratia
             var app = builder.Build();
             Directory.CreateDirectory(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
             ServiceHelper.Initialize(app.Services);
-            Utils.ServiceHelper.Initialize(app.Services);
+            core.Domain.Utils.ServiceHelper.Initialize(app.Services);
 
             return app;
 

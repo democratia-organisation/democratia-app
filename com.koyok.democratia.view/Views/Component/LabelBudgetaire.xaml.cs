@@ -42,7 +42,7 @@ public partial class LabelBudgetaire : ContentView
 
     private void UpdateModel(string value)
     {
-        if (BindingContext is Thematique thematique)
+        if (BindingContext is ThematiqueRemoteSource thematique)
             thematique.budget = float.TryParse(value, out float result) ? result : 0;
     }
 }

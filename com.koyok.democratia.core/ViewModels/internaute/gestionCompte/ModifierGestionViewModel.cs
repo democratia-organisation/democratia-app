@@ -1,6 +1,7 @@
-﻿using com.koyok.democratia.Models;
-using com.koyok.democratia.Services;
-using com.koyok.democratia.Utils;
+﻿using com.koyok.democratia.core.Data.Repository;
+using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.core.Domain.Repository;
+using com.koyok.democratia.core.Domain.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -13,16 +14,16 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
     public partial class ModifierGestionViewModel : ConnectableViewModel, INavigeablleViewModel, INotifyPropertyChanged, IQueryAttributable
     {
         private INavigationService NavigationService { get; set; }
-        private Internaute? internaute;
+        private InternauteRemoteSource? internaute;
         [ObservableProperty] public partial string? retourMessage {get; set; }
-        [ObservableProperty] public partial Internaute? tempInternaute { get; set; } = new();
+        [ObservableProperty] public partial InternauteRemoteSource? tempInternaute { get; set; } = new();
         [ObservableProperty] public partial string? password {get; set; }
         [ObservableProperty] public partial string? email {get; set; }
-        private Services.AppContext appContext;
+        private core.Domain.Service.AppContext appContext;
 
         public ModifierGestionViewModel(INavigationService navigationService, ILocalizationService localizationService, 
-            IEnumerable<IClient> clients, Services.AppContext appContext) 
-            : base(clients.OfType<InternauteClient>().FirstOrDefault(),localizationService)
+            IEnumerable<IRepository> clients, core.Domain.Service.AppContext appContext) 
+            : base(clients.OfType<InternauteRepository>().FirstOrDefault(),localizationService)
         {
             this.NavigationService = navigationService;
             this.appContext = appContext;
@@ -71,7 +72,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             internaute = query.TryGetValue("internaute", out var value) ?
-                (Internaute)value : appContext.Internaute;
+                (InternauteRemoteSource)value : appContext.Internaute;
         }
 
         public record EventModificationSuccessSender() { }

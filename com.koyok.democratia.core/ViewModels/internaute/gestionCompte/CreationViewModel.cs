@@ -1,26 +1,27 @@
-﻿using com.koyok.democratia.Utils;
-using com.koyok.democratia.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.Json;
-using com.koyok.democratia.Models;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
+using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.core.Domain.Utils;
+using com.koyok.democratia.core.Domain.Repository;
+using com.koyok.democratia.core.Data.Repository;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
     public partial class CreationViewModel : ConnectableViewModel, INavigeablleViewModel
     {
 
-        [ObservableProperty] public partial Internaute? internaute { get; set; } = new();
+        [ObservableProperty] public partial InternauteRemoteSource? internaute { get; set; } = new();
         [ObservableProperty] public partial string? retourMessage { get; set; }
         [ObservableProperty] public partial string? password { get; set; } // passowrd tempon afin d'éviter le set à chaque écriture dans la varible
         [ObservableProperty] public partial string? email { get; set; }
         private readonly INavigationService? navigationService;
         
 
-        public CreationViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService service)
-            : base(clients?.OfType<InternauteClient>().FirstOrDefault(), service)
+        public CreationViewModel(INavigationService? navigationService, IEnumerable<IRepository?>? clients, ILocalizationService service)
+            : base(clients?.OfType<InternauteRepository>().FirstOrDefault(), service)
         {
             this.navigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
@@ -83,7 +84,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         
         private async Task<bool> VerifierMailDoublon()
         {
-            string retourJson = await ((InternauteClient?)client)?.DoublonEmailAsync(internaute!.courriel!)!;
+            string retourJson = await ((InternauteRepository?)client)?.DoublonEmailAsync(internaute!.courriel!)!;
             List<Dictionary<string, int>>? listeInformation = RecuprerInformationConnexion<Dictionary<string, int>>(retourJson);
             int? nombreMail = listeInformation![0].TryGetValue("COUNT(courriel)", out var value) ? value : null;
             return nombreMail == 0 ? true : throw new CompteExistantException();

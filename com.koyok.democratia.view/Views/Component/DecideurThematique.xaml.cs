@@ -13,7 +13,7 @@ public partial class DecideurThematique : ContentView
     protected override void OnBindingContextChanged()
     {
         base.OnBindingContextChanged();
-        if(BindingContext is Thematique thematique)
+        if(BindingContext is ThematiqueRemoteSource thematique)
             ratioLabel.Text = $"{thematique.Somme_utilise}€ / {thematique.budget}€";
     }
 }

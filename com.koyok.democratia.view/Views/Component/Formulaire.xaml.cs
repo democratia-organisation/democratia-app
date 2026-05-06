@@ -1,4 +1,4 @@
-using com.koyok.democratia.Models;
+using com.koyok.democratia.core.Domain.Models;
 using System.Windows.Input;
 
 namespace com.koyok.democratia.UI.Component;
@@ -7,12 +7,12 @@ public partial class Formulaire : ContentView
 {
 	public static readonly BindableProperty UserProperty = BindableProperty.Create(
         nameof(User),
-        typeof(Internaute),
+        typeof(InternauteRemoteSource),
         typeof(Formulaire),
         defaultBindingMode: BindingMode.TwoWay);
-    public Internaute User
+    public InternauteRemoteSource User
     {
-        get => (Internaute)GetValue(UserProperty);
+        get => (InternauteRemoteSource)GetValue(UserProperty);
         set => SetValue(UserProperty, value);
     }
 

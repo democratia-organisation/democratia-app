@@ -1,11 +1,12 @@
-﻿using com.koyok.democratia.Utils;
-using com.koyok.democratia.Models;
-using com.koyok.democratia.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.core.Domain.Utils;
+using com.koyok.democratia.core.Domain.Repository;
+using com.koyok.democratia.core.Data.Repository;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
@@ -14,13 +15,13 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
     {
         [ObservableProperty] private string? retourMessage;
 
-        public Internaute? internaute;
-        private Services.AppContext appContext;
+        public InternauteRemoteSource? internaute;
+        private core.Domain.Service.AppContext appContext;
         private bool _isNavigating = false;
         private readonly INavigationService navigationService1;
         private readonly WeakReferenceMessenger weakReferenceMessenger;
-        public HomeGestionViewModel(IEnumerable<IClient> clients, ILocalizationService? localizationService, INavigationService navigationService, Services.AppContext context) 
-            : base(clients.OfType<InternauteClient>().FirstOrDefault(), localizationService)
+        public HomeGestionViewModel(IEnumerable<IRepository> clients, ILocalizationService? localizationService, INavigationService navigationService, core.Domain.Service.AppContext context) 
+            : base(clients.OfType<InternauteRepository>().FirstOrDefault(), localizationService)
         {
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
             navigationService1 = navigationService;
@@ -37,7 +38,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         private async Task SupprimerCompte()
         {
             await client?.DeleteModelAsync(internaute)!;
-            if (((InternauteClient)client!).succes)
+            if (((InternauteRepository)client!).succes)
                 weakReferenceMessenger.Send<EventSuppression, string>(TypeEventSuppression.Sucess.ToString());
             else
                 RetourMessage = LocalizationService?.GetString("connexionErreur");
@@ -45,7 +46,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            if (query.TryGetValue("modele", out var valeur)) internaute = (Internaute)valeur;
+            if (query.TryGetValue("modele", out var valeur)) internaute = (InternauteRemoteSource)valeur;
             else internaute = appContext.Internaute ;
         }
 

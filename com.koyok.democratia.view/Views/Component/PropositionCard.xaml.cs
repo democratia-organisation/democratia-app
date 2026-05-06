@@ -1,4 +1,4 @@
-using com.koyok.democratia.Models;
+using com.koyok.democratia.core.Domain.Models;
 using com.koyok.democratia.view.Resources.Localization;
 using System.Windows.Input;
 
@@ -20,7 +20,7 @@ namespace com.koyok.democratia.UI.Component
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            dateLabel.Text = $"{AppResources.finDiscussion} {((Proposition)BindingContext).FormatDateFinDiscussion}";
+            dateLabel.Text = $"{AppResources.finDiscussion} {((PropositionRemoteSource)BindingContext).FormatDateFinDiscussion}";
 
         }
     }

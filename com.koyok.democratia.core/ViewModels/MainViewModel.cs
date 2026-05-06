@@ -1,6 +1,7 @@
-﻿using com.koyok.democratia.Models;
-using com.koyok.democratia.Services;
-using com.koyok.democratia.Utils;
+﻿using com.koyok.democratia.core.Data.Repository;
+using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.core.Domain.Repository;
+using com.koyok.democratia.core.Domain.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
@@ -13,8 +14,8 @@ namespace com.koyok.democratia.UI
         [ObservableProperty]
         public partial string? adresseMail { get; set; }
 
-        public Internaute? modele { get; private set; }
-        private Services.AppContext? contexte;
+        public InternauteRemoteSource? modele { get; private set; }
+        private core.Domain.Service.AppContext? contexte;
 
         [ObservableProperty]
         public partial string? motDePasse { get; set; }
@@ -23,8 +24,8 @@ namespace com.koyok.democratia.UI
         public partial string? errorMessage { get; set; }
         private readonly INavigationService? navigationService;
 
-        public MainViewModel(INavigationService navigationService, IEnumerable<IClient?>? clients, ILocalizationService localization, Services.AppContext context)
-            : base(clients!.OfType<InternauteClient>().FirstOrDefault(), localization)
+        public MainViewModel(INavigationService navigationService, IEnumerable<IRepository?>? clients, ILocalizationService localization, core.Domain.Service.AppContext context)
+            : base(clients!.OfType<InternauteRepository>().FirstOrDefault(), localization)
         {
             this.navigationService = navigationService;
             contexte = context;
@@ -63,7 +64,7 @@ namespace com.koyok.democratia.UI
 
         }
 
-        internal async Task<Internaute?> ConnecterInternaute()
+        internal async Task<InternauteRemoteSource?> ConnecterInternaute()
         {
 
             if (string.IsNullOrWhiteSpace(adresseMail)) throw new EmptyEmailFieldException();
@@ -72,7 +73,7 @@ namespace com.koyok.democratia.UI
             {
                 await SecureStorage.Default.SetAsync("id_internaute", adresseMail);
                 string jsonString = await client?.GetModelAsync(adresseMail)!;
-                List<Internaute> listeInformation = RecuprerInformationConnexion<Internaute>(jsonString);
+                List<InternauteRemoteSource> listeInformation = RecuprerInformationConnexion<InternauteRemoteSource>(jsonString);
                 if (listeInformation.Count == 0) throw new NoUserException();
                 var internaute = listeInformation![0];
                 string motDePasseHash = internaute?.hashageMDP!;

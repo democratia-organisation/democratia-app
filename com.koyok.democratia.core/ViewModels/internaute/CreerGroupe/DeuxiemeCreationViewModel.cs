@@ -1,5 +1,6 @@
-﻿using com.koyok.democratia.Models;
-using com.koyok.democratia.Utils;
+﻿using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.core.Domain.Utils;
+using com.koyok.democratia.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
@@ -9,22 +10,22 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class DeuxiemePageViewModel(INavigationService service, Services.AppContext context) 
+    public partial class DeuxiemePageViewModel(INavigationService service, core.Domain.Service.AppContext context) 
         : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel, IQueryAttributable
     {
         private INavigationService service = service;
         private Groupe? groupe;
-        private Services.AppContext context = context;
+        private core.Domain.Service.AppContext context = context;
         [ObservableProperty] public partial Color? couleur { get; set; } = Colors.Transparent;
-        private Internaute? internaute;
-        private List<Thematique>? thematiques { get; set; }
+        private InternauteRemoteSource? internaute;
+        private List<ThematiqueRemoteSource>? thematiques { get; set; }
         
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"];
-            thematiques = [..(query["thematique"] as ObservableCollection<Thematique>)!];
-            internaute = (Internaute)query["internaute"] ?? context.Internaute;
+            thematiques = [..(query["thematique"] as ObservableCollection<ThematiqueRemoteSource>)!];
+            internaute = (InternauteRemoteSource)query["internaute"] ?? context.Internaute;
         }
 
         [RelayCommand]

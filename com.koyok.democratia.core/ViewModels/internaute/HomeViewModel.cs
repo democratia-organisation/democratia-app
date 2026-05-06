@@ -1,5 +1,4 @@
 ﻿using com.koyok.democratia.Models;
-using com.koyok.democratia.Services;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
@@ -7,14 +6,18 @@ using System.Collections.ObjectModel;
 using com.koyok.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Input;
+using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.core.Domain.Utils;
+using com.koyok.democratia.core.Domain.Repository;
+using com.koyok.democratia.core.Data.Repository;
 
 namespace com.koyok.democratia.UI.internaute
 {
     public partial class HomeViewModel : ConnectableViewModel , IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel
     {
-        public Internaute? internaute;
+        public InternauteRemoteSource? internaute;
         private readonly INavigationService? navigationService;
-        private readonly Services.AppContext context;
+        private readonly core.Domain.Service.AppContext context;
         private int cursor = 0;
 
         [ObservableProperty]
@@ -23,8 +26,8 @@ namespace com.koyok.democratia.UI.internaute
         [ObservableProperty]
         public partial bool isRefreshing { get; set; } = false;
 
-        public HomeViewModel(INavigationService? navigationService, IEnumerable<IClient?>? clients, ILocalizationService? localizationService, Services.AppContext context)
-            : base(clients?.OfType<GroupClient>().FirstOrDefault(), localizationService)
+        public HomeViewModel(INavigationService? navigationService, IEnumerable<IRepository?>? clients, ILocalizationService? localizationService, core.Domain.Service.AppContext context)
+            : base(clients?.OfType<GroupRepository>().FirstOrDefault(), localizationService)
         {
             this.navigationService = navigationService;
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();
@@ -33,7 +36,7 @@ namespace com.koyok.democratia.UI.internaute
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            internaute = query.TryGetValue("modele", out var user) ? (Internaute)user : context.Internaute ;
+            internaute = query.TryGetValue("modele", out var user) ? (InternauteRemoteSource)user : context.Internaute ;
         }
 
         [RelayCommand]

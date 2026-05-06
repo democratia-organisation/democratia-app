@@ -7,19 +7,19 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.groupe
 {
-    public partial class DecideurViewModel(Services.AppContext appContext) : ObservableObject, INotifyPropertyChanged, IQueryAttributable
+    public partial class DecideurViewModel(core.Domain.Service.AppContext appContext) : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
 
-        [ObservableProperty] public partial ObservableCollection<Thematique>? thematiques { get; set; }
+        [ObservableProperty] public partial ObservableCollection<ThematiqueRemoteSource>? thematiques { get; set; }
         [ObservableProperty] public partial Groupe? groupe { get; set; }
         [ObservableProperty] public partial float? ration { get; set; }
         [ObservableProperty] public partial int? cursor { get; set; } = 0;
-        Services.AppContext appContext = appContext;
+        core.Domain.Service.AppContext appContext = appContext;
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            thematiques = (ObservableCollection<Thematique>)query["thematiques"];
+            thematiques = (ObservableCollection<ThematiqueRemoteSource>)query["thematiques"];
             groupe = (Groupe)query["groupe"] ?? appContext.Groupe;
         }
 
