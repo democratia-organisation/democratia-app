@@ -1,7 +1,7 @@
 ﻿using com.koyok.democratia.Resources.Localization;
 using com.koyok.democratia.Utils;
-using com.koyok.democratia.Views;
-using com.koyok.democratia.Views.groupe;
+using com.koyok.democratia.UI;
+using com.koyok.democratia.UI.groupe;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;

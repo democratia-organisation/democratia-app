@@ -1,4 +1,4 @@
-namespace com.koyok.democratia.Views.Component;
+namespace com.koyok.democratia.UI.Component;
 
 public partial class EntryComponent : ContentView
 {

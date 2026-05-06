@@ -3,7 +3,7 @@ using com.koyok.democratia.ViewModels.internaute.gestionCompte;
 using CommunityToolkit.Mvvm.Messaging;
 
 
-namespace com.koyok.democratia.Views.internaute.gestionCompte
+namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
     public partial class PreferencePage : ContentPage
     {

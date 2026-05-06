@@ -1,6 +1,6 @@
 ﻿using com.koyok.democratia.ViewModels.internaute;
 
-namespace com.koyok.democratia.Views
+namespace com.koyok.democratia.UI
 {
     public partial class MainPage : ContentPage
     {

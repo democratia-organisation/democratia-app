@@ -2,9 +2,9 @@ using com.koyok.democratia.view.Resources.Localization;
 using com.koyok.democratia.ViewModels.internaute.gestionCompte;
 using com.koyok.democratia.ViewModels;
 using CommunityToolkit.Mvvm.Messaging;
-using com.koyok.democratia.Views.Component;
+using com.koyok.democratia.UI.Component;
 
-namespace com.koyok.democratia.Views.internaute.gestionCompte
+namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
     public partial class CreationPage : ContentPage
     {

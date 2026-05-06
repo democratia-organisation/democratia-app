@@ -1,4 +1,4 @@
-﻿namespace com.koyok.democratia.Views.internaute.CreerGroupe
+﻿namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
     public static class CreerGroupeRoute
     {

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="com.koyok.democratia.Views.groupe.GroupePage"
+    x:Class="com.koyok.democratia.UI.groupe.GroupePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:comp="clr-namespace:com.koyok.democratia.Views.Component"
+    xmlns:comp="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:models="clr-namespace:com.koyok.democratia.Models;assembly=com.koyok.democratia.core"
     xmlns:res="clr-namespace:com.koyok.democratia.view.Resources.Localization"

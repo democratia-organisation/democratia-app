@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 using com.koyok.democratia.Utils;
-using com.koyok.democratia.Views;
+using com.koyok.democratia.UI;
 using System.Globalization;
 
 namespace com.koyok.democratia

@@ -1,7 +1,7 @@
 using com.koyok.democratia.view.Resources.Localization;
-using com.koyok.democratia.Views.internaute;
+using com.koyok.democratia.UI.internaute;
 
-namespace com.koyok.democratia.Views.Component
+namespace com.koyok.democratia.UI.Component
 {
     public partial class Header : ContentView
     {

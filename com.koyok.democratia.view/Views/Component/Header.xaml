@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView
-    x:Class="com.koyok.democratia.Views.Component.Header"
+    x:Class="com.koyok.democratia.UI.Component.Header"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
-    xmlns:local="clr-namespace:com.koyok.democratia.Views.Component"
+    xmlns:local="clr-namespace:com.koyok.democratia.UI.Component"
     Style="{DynamicResource ContenViewStyle}">
     <Grid ColumnDefinitions="Auto,*,Auto">
 

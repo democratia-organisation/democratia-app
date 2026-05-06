@@ -1,8 +1,8 @@
-﻿using com.koyok.democratia.Views;
-using com.koyok.democratia.Views.groupe;
-using com.koyok.democratia.Views.internaute;
-using com.koyok.democratia.Views.internaute.CreerGroupe;
-using com.koyok.democratia.Views.internaute.gestionCompte;
+﻿using com.koyok.democratia.UI;
+using com.koyok.democratia.UI.groupe;
+using com.koyok.democratia.UI.internaute;
+using com.koyok.democratia.UI.internaute.CreerGroupe;
+using com.koyok.democratia.UI.internaute.gestionCompte;
 
 namespace com.koyok.democratia
 {

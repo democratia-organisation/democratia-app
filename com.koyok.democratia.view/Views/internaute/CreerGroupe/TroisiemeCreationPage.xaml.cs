@@ -1,6 +1,6 @@
 using com.koyok.democratia.ViewModels.internaute.CreerGroupe;
 
-namespace com.koyok.democratia.Views.internaute.CreerGroupe
+namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
     public partial class TroisiemeCreationPage : ContentPage
     {

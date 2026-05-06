@@ -1,6 +1,6 @@
 using com.koyok.democratia.Models;
 
-namespace com.koyok.democratia.Views.Component;
+namespace com.koyok.democratia.UI.Component;
 
 public partial class LabelBudgetaire : ContentView
 {

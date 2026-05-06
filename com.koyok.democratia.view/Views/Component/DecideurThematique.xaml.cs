@@ -1,7 +1,7 @@
 using com.koyok.democratia.Models;
 using com.koyok.democratia.view.Resources.Localization;
 
-namespace com.koyok.democratia.Views.Component;
+namespace com.koyok.democratia.UI.Component;
 
 public partial class DecideurThematique : ContentView
 {

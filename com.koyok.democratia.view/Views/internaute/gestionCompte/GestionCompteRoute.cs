@@ -1,5 +1,5 @@
 ﻿
-namespace com.koyok.democratia.Views.internaute.gestionCompte
+namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
     internal static class GestionCompteRoute
     {

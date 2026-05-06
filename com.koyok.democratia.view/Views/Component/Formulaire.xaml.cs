@@ -1,7 +1,7 @@
 using com.koyok.democratia.Models;
 using System.Windows.Input;
 
-namespace com.koyok.democratia.Views.Component;
+namespace com.koyok.democratia.UI.Component;
 
 public partial class Formulaire : ContentView
 {

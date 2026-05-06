@@ -1,6 +1,6 @@
 ﻿using Foundation;
 using System.Globalization;
-using com.koyok.democratia.Views;
+using com.koyok.democratia.UI;
 
 namespace com.koyok.democratia
 {

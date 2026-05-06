@@ -1,4 +1,4 @@
-namespace com.koyok.democratia.Views.groupe;
+namespace com.koyok.democratia.UI.groupe;
 
 public partial class NouvelleProposition : ContentPage
 {

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="com.koyok.democratia.Views.MainPage"
+    x:Class="com.koyok.democratia.UI.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:component="clr-namespace:com.koyok.democratia.Views.Component"
+    xmlns:component="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:converters="clr-namespace:com.koyok.democratia.Utils;assembly=com.koyok.democratia.core"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
-    xmlns:local="clr-namespace:com.koyok.democratia.Views"
+    xmlns:local="clr-namespace:com.koyok.democratia.UI"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModels="clr-namespace:com.koyok.democratia.ViewModels.internaute;assembly=com.koyok.democratia.core"
     x:DataType="viewModels:MainViewModel"

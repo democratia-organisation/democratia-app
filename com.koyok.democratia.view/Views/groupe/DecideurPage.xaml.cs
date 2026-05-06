@@ -1,6 +1,6 @@
 using com.koyok.democratia.ViewModels.groupe;
 
-namespace com.koyok.democratia.Views.groupe
+namespace com.koyok.democratia.UI.groupe
 {
     public partial class DecideurPage : ContentPage
     {
