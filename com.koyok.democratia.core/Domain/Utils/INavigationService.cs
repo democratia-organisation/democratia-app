@@ -1,6 +1,6 @@
 using Microsoft.Maui.Controls;
 
-namespace com.koyok.democratia.core.Domain.Utils
+namespace com.koyok.democratia.Domain.Utils
 {
     public interface INavigationService
     {

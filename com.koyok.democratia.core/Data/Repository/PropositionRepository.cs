@@ -1,4 +1,4 @@
-﻿using com.koyok.democratia.core.Domain.Utils;
+﻿using com.koyok.democratia.Domain.Utils;
 using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository

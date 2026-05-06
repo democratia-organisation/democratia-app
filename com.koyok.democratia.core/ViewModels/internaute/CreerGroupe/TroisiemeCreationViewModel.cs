@@ -1,7 +1,7 @@
-﻿using com.koyok.democratia.core.Data.Services;
-using com.koyok.democratia.core.Domain.Models;
-using com.koyok.democratia.core.Domain.Repository;
-using com.koyok.democratia.core.Domain.Utils;
+﻿using com.koyok.democratia.Data.Services;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.Utils;
 using com.koyok.democratia.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,7 +12,7 @@ using Microsoft.Maui.Storage;
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
     public partial class TroisiemeCreationViewModel(IEnumerable<IRepository?>? clients, ILocalizationService? LocalizationService, 
-        INavigationService service, core.Domain.Service.AppContext context) : ConnectableViewModel(clients?.OfType<GroupClient>().FirstOrDefault(), 
+        INavigationService service,.Domain.Service.AppContext context) : ConnectableViewModel(clients?.OfType<GroupClient>().FirstOrDefault(), 
             LocalizationService), INavigeablleViewModel , IQueryAttributable
     {
 
@@ -20,7 +20,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
         private Groupe? groupe;
         private string imagePath = string.Empty;
         private InternauteRemoteSource? internaute;
-        private core.Domain.Service.AppContext context = context;
+        private.Domain.Service.AppContext context = context;
         [ObservableProperty] public partial ImageSource? image { get; set; }
         [ObservableProperty] public partial bool? isObservable { get; set; } = false;
         [ObservableProperty] public partial string? errorMessage { get; set; }

@@ -3,10 +3,10 @@ using CommunityToolkit.Mvvm.Input;
 using System.Text.Json;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
-using com.koyok.democratia.core.Domain.Models;
-using com.koyok.democratia.core.Domain.Utils;
-using com.koyok.democratia.core.Domain.Repository;
-using com.koyok.democratia.core.Data.Repository;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Utils;
+using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Data.Repository;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {

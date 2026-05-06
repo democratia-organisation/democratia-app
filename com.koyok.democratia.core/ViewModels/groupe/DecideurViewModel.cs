@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.groupe
 {
-    public partial class DecideurViewModel(core.Domain.Service.AppContext appContext) : ObservableObject, INotifyPropertyChanged, IQueryAttributable
+    public partial class DecideurViewModel.Domain.Service.AppContext appContext) : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
 
@@ -15,7 +15,7 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty] public partial Groupe? groupe { get; set; }
         [ObservableProperty] public partial float? ration { get; set; }
         [ObservableProperty] public partial int? cursor { get; set; } = 0;
-        core.Domain.Service.AppContext appContext = appContext;
+       .Domain.Service.AppContext appContext = appContext;
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {

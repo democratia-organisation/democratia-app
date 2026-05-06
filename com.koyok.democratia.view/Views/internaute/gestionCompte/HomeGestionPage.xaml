@@ -6,7 +6,7 @@
     xmlns:component="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:local="clr-namespace:com.koyok.democratia.UI"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.gestionCompte;assembly=com.koyok.democratia.core"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.gestionCompte;assembly=com.koyok.democratia"
     x:DataType="viewModel:HomeGestionViewModel"
     Style="{DynamicResource fondEcran}">
 

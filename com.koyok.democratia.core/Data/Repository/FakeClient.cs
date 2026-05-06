@@ -1,6 +1,6 @@
-﻿using com.koyok.democratia.core.Domain.Repository;
+﻿using com.koyok.democratia.Domain.Repository;
 
-namespace com.koyok.democratia.core.Data.Repository
+namespace com.koyok.democratia.Data.Repository
 {
     /// <summary>
     /// Classe utilisée pour simuler un client comportant des erreurs dans les tests unitaires.

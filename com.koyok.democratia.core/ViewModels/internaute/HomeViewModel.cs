@@ -6,10 +6,10 @@ using System.Collections.ObjectModel;
 using com.koyok.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Input;
-using com.koyok.democratia.core.Domain.Models;
-using com.koyok.democratia.core.Domain.Utils;
-using com.koyok.democratia.core.Domain.Repository;
-using com.koyok.democratia.core.Data.Repository;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Utils;
+using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Data.Repository;
 
 namespace com.koyok.democratia.UI.internaute
 {
@@ -17,7 +17,7 @@ namespace com.koyok.democratia.UI.internaute
     {
         public InternauteRemoteSource? internaute;
         private readonly INavigationService? navigationService;
-        private readonly core.Domain.Service.AppContext context;
+        private readonly.Domain.Service.AppContext context;
         private int cursor = 0;
 
         [ObservableProperty]
@@ -26,7 +26,7 @@ namespace com.koyok.democratia.UI.internaute
         [ObservableProperty]
         public partial bool isRefreshing { get; set; } = false;
 
-        public HomeViewModel(INavigationService? navigationService, IEnumerable<IRepository?>? clients, ILocalizationService? localizationService, core.Domain.Service.AppContext context)
+        public HomeViewModel(INavigationService? navigationService, IEnumerable<IRepository?>? clients, ILocalizationService? localizationService,.Domain.Service.AppContext context)
             : base(clients?.OfType<GroupRepository>().FirstOrDefault(), localizationService)
         {
             this.navigationService = navigationService;

@@ -1,4 +1,4 @@
-﻿namespace com.koyok.democratia.core.Domain.Utils
+﻿namespace com.koyok.democratia.Domain.Utils
 {
     internal class MailException : Exception { }
 

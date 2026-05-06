@@ -1,7 +1,7 @@
-﻿using com.koyok.democratia.core.Domain.Utils;
+﻿using com.koyok.democratia.Domain.Utils;
 using System.Text.Json.Serialization;
 
-namespace com.koyok.democratia.core.Domain.Models
+namespace com.koyok.democratia.Domain.Models
 {
 
     public class InternauteRemoteSource : IModel

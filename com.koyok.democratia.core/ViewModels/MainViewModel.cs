@@ -1,7 +1,7 @@
-﻿using com.koyok.democratia.core.Data.Repository;
-using com.koyok.democratia.core.Domain.Models;
-using com.koyok.democratia.core.Domain.Repository;
-using com.koyok.democratia.core.Domain.Utils;
+﻿using com.koyok.democratia.Data.Repository;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
@@ -15,7 +15,7 @@ namespace com.koyok.democratia.UI
         public partial string? adresseMail { get; set; }
 
         public InternauteRemoteSource? modele { get; private set; }
-        private core.Domain.Service.AppContext? contexte;
+        private.Domain.Service.AppContext? contexte;
 
         [ObservableProperty]
         public partial string? motDePasse { get; set; }
@@ -24,7 +24,7 @@ namespace com.koyok.democratia.UI
         public partial string? errorMessage { get; set; }
         private readonly INavigationService? navigationService;
 
-        public MainViewModel(INavigationService navigationService, IEnumerable<IRepository?>? clients, ILocalizationService localization, core.Domain.Service.AppContext context)
+        public MainViewModel(INavigationService navigationService, IEnumerable<IRepository?>? clients, ILocalizationService localization,.Domain.Service.AppContext context)
             : base(clients!.OfType<InternauteRepository>().FirstOrDefault(), localization)
         {
             this.navigationService = navigationService;

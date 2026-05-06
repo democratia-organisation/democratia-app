@@ -1,9 +1,9 @@
-﻿using com.koyok.democratia.core.Domain.Models;
+﻿using com.koyok.democratia.Domain.Models;
 using System.Text.RegularExpressions;
 using Crypt = BCrypt.Net.BCrypt;
 
 
-namespace com.koyok.democratia.core.Domain.Utils
+namespace com.koyok.democratia.Domain.Utils
 {
     public static class Verification
     {

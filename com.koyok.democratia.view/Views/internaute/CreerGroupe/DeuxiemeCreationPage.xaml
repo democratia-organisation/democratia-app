@@ -7,7 +7,7 @@
     xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.CreerGroupe;assembly=com.koyok.democratia.core"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.CreerGroupe;assembly=com.koyok.democratia"
     Title="DeuxiemePage"
     x:DataType="viewModel:DeuxiemePageViewModel"
     Style="{DynamicResource fondEcran}">

@@ -1,7 +1,7 @@
-﻿using com.koyok.democratia.core.Data.Repository;
-using com.koyok.democratia.core.Domain.Models;
-using com.koyok.democratia.core.Domain.Repository;
-using com.koyok.democratia.core.Domain.Utils;
+﻿using com.koyok.democratia.Data.Repository;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -19,10 +19,10 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [ObservableProperty] public partial InternauteRemoteSource? tempInternaute { get; set; } = new();
         [ObservableProperty] public partial string? password {get; set; }
         [ObservableProperty] public partial string? email {get; set; }
-        private core.Domain.Service.AppContext appContext;
+        private.Domain.Service.AppContext appContext;
 
         public ModifierGestionViewModel(INavigationService navigationService, ILocalizationService localizationService, 
-            IEnumerable<IRepository> clients, core.Domain.Service.AppContext appContext) 
+            IEnumerable<IRepository> clients,.Domain.Service.AppContext appContext) 
             : base(clients.OfType<InternauteRepository>().FirstOrDefault(),localizationService)
         {
             this.NavigationService = navigationService;

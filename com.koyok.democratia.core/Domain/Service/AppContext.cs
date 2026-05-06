@@ -1,4 +1,4 @@
-﻿using com.koyok.democratia.core.Domain.Models;
+﻿using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Models;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;

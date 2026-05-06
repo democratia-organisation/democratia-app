@@ -5,10 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-    xmlns:models="clr-namespace:com.koyok.democratia.Models;assembly=com.koyok.democratia.core"
+    xmlns:models="clr-namespace:com.koyok.democratia.Models;assembly=com.koyok.democratia"
     xmlns:res="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia.core"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia"
     Title="{Binding groupe.NomGroupe}"
     x:DataType="viewModel:GroupeViewModel"
     Style="{DynamicResource fondEcran}">

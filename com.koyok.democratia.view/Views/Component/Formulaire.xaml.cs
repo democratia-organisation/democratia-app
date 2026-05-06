@@ -1,4 +1,4 @@
-using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.Domain.Models;
 using System.Windows.Input;
 
 namespace com.koyok.democratia.UI.Component;

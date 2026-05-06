@@ -1,5 +1,5 @@
 ﻿
-using com.koyok.democratia.core.Domain.Utils;
+using com.koyok.democratia.Domain.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;

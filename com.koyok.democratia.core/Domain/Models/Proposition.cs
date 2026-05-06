@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace com.koyok.democratia.core.Domain.Models
+namespace com.koyok.democratia.Domain.Models
 {
     [method: JsonConstructor]
     public class PropositionRemoteSource(int? idProposition, string? titre, string? description, string? publication, float? budget, int? nombreSignalement, int? thematique, Guid? idGroupe) : IModel

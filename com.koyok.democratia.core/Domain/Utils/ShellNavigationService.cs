@@ -2,7 +2,7 @@ using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using System.Data;
 
-namespace com.koyok.democratia.core.Domain.Utils
+namespace com.koyok.democratia.Domain.Utils
 {
     public class ShellNavigationService : INavigationService
     {

@@ -1,4 +1,4 @@
-﻿using com.koyok.democratia.core.Domain.Models;
+﻿using com.koyok.democratia.Domain.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel;
 using System.Security.Cryptography;

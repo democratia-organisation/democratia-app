@@ -1,7 +1,7 @@
-﻿using com.koyok.democratia.core.Data.Repository;
-using com.koyok.democratia.core.Domain.Extension;
-using com.koyok.democratia.core.Domain.Service;
-using com.koyok.democratia.core.Domain.Utils;
+﻿using com.koyok.democratia.Data.Repository;
+using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Domain.Utils;
 using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.UI;

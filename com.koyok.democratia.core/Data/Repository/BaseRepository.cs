@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 using Xunit.Abstractions;
 using com.koyok.democratia.Domain.Extension;
-using com.koyok.democratia.core.Domain.Utils;
+using com.koyok.democratia.Domain.Utils;
 
 namespace com.koyok.democratia.Data.Repository
 {

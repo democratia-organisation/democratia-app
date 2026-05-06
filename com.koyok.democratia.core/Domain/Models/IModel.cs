@@ -1,4 +1,4 @@
-namespace com.koyok.democratia.core.Domain.Models
+namespace com.koyok.democratia.Domain.Models
 {
     public interface IModel
     {

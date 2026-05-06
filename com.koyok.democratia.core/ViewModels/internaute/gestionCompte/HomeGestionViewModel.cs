@@ -3,10 +3,10 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using com.koyok.democratia.core.Domain.Models;
-using com.koyok.democratia.core.Domain.Utils;
-using com.koyok.democratia.core.Domain.Repository;
-using com.koyok.democratia.core.Data.Repository;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Utils;
+using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Data.Repository;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
@@ -16,11 +16,11 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [ObservableProperty] private string? retourMessage;
 
         public InternauteRemoteSource? internaute;
-        private core.Domain.Service.AppContext appContext;
+        private.Domain.Service.AppContext appContext;
         private bool _isNavigating = false;
         private readonly INavigationService navigationService1;
         private readonly WeakReferenceMessenger weakReferenceMessenger;
-        public HomeGestionViewModel(IEnumerable<IRepository> clients, ILocalizationService? localizationService, INavigationService navigationService, core.Domain.Service.AppContext context) 
+        public HomeGestionViewModel(IEnumerable<IRepository> clients, ILocalizationService? localizationService, INavigationService navigationService,.Domain.Service.AppContext context) 
             : base(clients.OfType<InternauteRepository>().FirstOrDefault(), localizationService)
         {
             client ??= clients?.OfType<FakeClient>().FirstOrDefault();

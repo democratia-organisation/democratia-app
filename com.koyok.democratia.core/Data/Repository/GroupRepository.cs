@@ -1,7 +1,7 @@
 ﻿using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Models;
 
-namespace com.koyok.democratia.core.Data.Repository
+namespace com.koyok.democratia.Data.Repository
 {
     internal class GroupRepository(HttpClient client) : BaseRepository(client), IGroupeRepository
     {

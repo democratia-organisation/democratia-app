@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace com.koyok.democratia.core.Domain.Models
+namespace com.koyok.democratia.Domain.Models
 {
     public enum Critere
     {

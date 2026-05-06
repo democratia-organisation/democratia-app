@@ -1,4 +1,4 @@
-using com.koyok.democratia.core.Domain.Models;
+using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.view.Resources.Localization;
 using System.Windows.Input;
 
