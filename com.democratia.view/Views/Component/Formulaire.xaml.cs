@@ -38,7 +38,7 @@ public partial class Formulaire : ContentView
         nameof(TextAction),
         typeof(string),
         typeof(Formulaire),
-        defaultBindingMode: BindingMode.OneWay);
+        defaultBindingMode: BindingMode.TwoWay);
 
     public string TextAction
     {
