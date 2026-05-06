@@ -1,0 +1,58 @@
+﻿using com.koyok.democratia.Models;
+using com.koyok.democratia.Services;
+using com.koyok.democratia.Utils;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Maui.Storage;
+using System.ComponentModel;
+using System.Text.Json;
+
+namespace com.koyok.democratia.ViewModels
+{
+    /// <summary>
+    /// Classe abstraite qui représente tout viewModel qui peut se connecter à l'API
+    /// </summary>
+    public abstract class ConnectableViewModel(IClient? client, ILocalizationService? localizationService) : ObservableObject, INotifyPropertyChanged
+    {
+        protected IClient? client = client;
+        public IClient? Client => client;
+        
+        protected readonly ILocalizationService? LocalizationService = localizationService;
+
+
+        protected static List<T> RecuprerInformationConnexion<T>(string stringJson)
+        {
+            Dictionary<string, object> dictionnary;
+            var finalJson = stringJson.Trim();
+            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(finalJson)!; }
+            catch (Exception) { throw new FetchDataException(); }
+            var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new FetchDataException();
+            return JsonSerializer.Deserialize<List<T>>(rawElement!)!;
+
+        }
+        protected static async void EnregistrerModele<T>(T model) where T : class, IModel
+        {
+            string jsonInternaute = JsonSerializer.Serialize<T>(model);
+            string cacheDir = FileSystem.Current.CacheDirectory;
+            string filePath = Path.Combine(cacheDir, $"{model.GetType()}_cache.json");
+            if (!File.Exists(filePath)) await File.WriteAllTextAsync(filePath, jsonInternaute);
+            else
+            {
+                File.Delete(filePath);
+                await File.WriteAllTextAsync(filePath, jsonInternaute);
+            }
+        }
+
+        protected static async Task<T?> RetrouverModele<T>() where T : class, IModel
+        {
+            string cacheDir = FileSystem.Current.CacheDirectory;
+            string filePath = Path.Combine(cacheDir, $"{typeof(T)}_cache.json");
+            if (File.Exists(filePath))
+            {
+                string jsonInternaute = await File.ReadAllTextAsync(filePath);
+                return JsonSerializer.Deserialize<T>(jsonInternaute)!;
+            }
+            else return null;
+        }
+    }
+
+}

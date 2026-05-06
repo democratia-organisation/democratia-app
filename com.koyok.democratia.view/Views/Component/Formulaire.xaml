@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="com.koyok.democratia.Views.Component.Formulaire"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:component="clr-namespace:com.koyok.democratia.Views.Component"
+    xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
+    x:Name="this">
+    <VerticalStackLayout Spacing="{DynamicResource SpacingMedium}">
+        <component:EntryComponent
+            x:Name="nomDeFamilleEntryComponent"
+            Title="{x:Static lang:AppResources.Nom}"
+            AutomationId="nomDeFamilleEntryComponent"
+            ValeurDonne="{Binding User.nom_internaute, Source={x:Reference this}}" />
+        <component:EntryComponent
+            x:Name="prenomEntryComponent"
+            Title="{x:Static lang:AppResources.prenom}"
+            AutomationId="prenomEntryComponent"
+            ValeurDonne="{Binding User.prenom_internaute, Source={x:Reference this}}" />
+        <component:EntryComponent
+            x:Name="addresseEntryComponent"
+            Title="{x:Static lang:AppResources.adress}"
+            AutomationId="addresseEntryComponent"
+            ValeurDonne="{Binding User.adresse_postale, Source={x:Reference this}}" />
+        <component:EntryComponent
+            x:Name="mailEntryComponent"
+            Title="{x:Static lang:AppResources.mail}"
+            AutomationId="mailEntryComponent"
+            ValeurDonne="{Binding User.courriel, Source={x:Reference this}}" />
+        <component:EntryComponent
+            x:Name="passwordEntryComponent"
+            Title="{x:Static lang:AppResources.Mdp}"
+            AutomationId="passwordEntryComponent"
+            PassWord="True"
+            ValeurDonne="{Binding User.tempMDP, Source={x:Reference this}}" />
+        <Label
+            x:Name="errorMessageLabel"
+            AutomationId="errorMessageLabel"
+            HorizontalOptions="Center"
+            Style="{DynamicResource ErrorLabelStyle}"
+            Text="{Binding RetourMessage, Source={x:Reference this}}" />
+        <Button
+            x:Name="actionButton"
+            AutomationId="actionButton"
+            Command="{Binding ActionTappedCommand, Source={x:Reference this}}"
+            Style="{DynamicResource ButtonStyle}"
+            Text="{Binding TextAction, Source={x:Reference this}}" />
+    </VerticalStackLayout>
+</ContentView>

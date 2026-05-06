@@ -8,7 +8,7 @@ namespace UITests
         private static AppiumDriver? driver;
 
         public readonly static string device = "windows";
-        public readonly static string appId = "com.democratia";
+        public readonly static string appId = "com.koyok.democratia";
 
         public readonly static string sshSortie = string.Empty;
 
@@ -24,7 +24,7 @@ namespace UITests
             {
                 AutomationName = "windows",
                 PlatformName = "Windows",
-                App = Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.democratia.view.exe"))
+                App = Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\..\..\com.koyok.democratia.view\bin\Debug\net10.0-windows10.0.19041.0\win-x64\com.koyok.democratia.view.exe"))
             };
             options.AddAdditionalAppiumOption("unicodeKeyboard", true);
             options.AddAdditionalAppiumOption("resetKeyboard", true);

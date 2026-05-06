@@ -7,7 +7,7 @@ namespace UITests
     {
         private static AppiumDriver? driver;
         public readonly static string device = "ios";
-        public readonly static string appId = "com.companyname.com.democratia.view";
+        public readonly static string appId = "com.companyname.com.koyok.democratia.view";
         public AppiumOptions options;
 
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null. V�rifiez que le serveur Appium tourne sur le Mac.");

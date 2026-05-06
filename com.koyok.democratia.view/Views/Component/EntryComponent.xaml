@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="com.koyok.democratia.Views.Component.EntryComponent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="this">
+    <VerticalStackLayout Spacing="{DynamicResource SpacingMedium}">
+        <Label
+            AutomationId="Label"
+            HorizontalOptions="Center"
+            Style="{StaticResource SubHeadlineStyle}"
+            Text="{Binding Title, Source={x:Reference this}}" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Entry
+                x:Name="InternalEntry"
+                AutomationId="Entry"
+                IsPassword="{Binding PassWord, Source={x:Reference this}}"
+                Keyboard="Plain"
+                MaximumWidthRequest="300"
+                Style="{StaticResource EntryStyle}"
+                Text="{Binding ValeurDonne, Source={x:Reference this}, Mode=TwoWay}" />
+        </Border>
+    </VerticalStackLayout>
+</ContentView>

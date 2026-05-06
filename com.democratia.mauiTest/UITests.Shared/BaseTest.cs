@@ -79,7 +79,7 @@ namespace UITests.UI
     {
         private static readonly int timeout = 8;
         protected AppiumDriver App { get; set; }
-        protected Func<string,By> funcResearrch => AppiumSetup.device == "android" ? id => MobileBy.XPath($"""//*[@resource-id="com.democratia:id/{id}"]""") : id => MobileBy.AccessibilityId(id);
+        protected Func<string,By> funcResearrch => AppiumSetup.device == "android" ? id => MobileBy.XPath($"""//*[@resource-id="com.koyok.democratia:id/{id}"]""") : id => MobileBy.AccessibilityId(id);
 
         protected BaseTest() 
         {

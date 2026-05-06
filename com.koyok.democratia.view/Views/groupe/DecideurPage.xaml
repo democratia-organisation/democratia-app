@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.koyok.democratia.Views.groupe.DecideurPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:component="clr-namespace:com.koyok.democratia.Views.Component"
+    xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
+    xmlns:models="clr-namespace:com.koyok.democratia.Models;assembly=com.koyok.democratia.core"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.ViewModels.groupe;assembly=com.koyok.democratia.core"
+    xmlns:viewModelDecideur="clr-namespace:com.koyok.democratia.ViewModels.groupe;assembly=com.koyok.democratia.core"
+    x:DataType="viewModelDecideur:DecideurViewModel"
+    Style="{DynamicResource fondEcran}">
+    <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
+        <Label
+            x:Name="nomGroupeLabel"
+            AutomationId="nomGroupeLabel"
+            Style="{DynamicResource SubHeadlineStyle}"
+            Text="{Binding groupe.NomGroupe}" />
+        <ProgressBar
+            x:Name="ratioUtiliseProgressBar"
+            AutomationId="ratioUtiliseProgressBar"
+            Progress="{Binding groupe.Ratio_utilise}"
+            Style="{DynamicResource UtiliseProgressBarStyle}" />
+        <ProgressBar
+            x:Name="ratioAttenteProgressBar"
+            AutomationId="ratioAttenteProgressBar"
+            Progress="{Binding groupe.Ratio_attente}"
+            Style="{DynamicResource AttenteProgressBarStyle}" />
+        <component:RefreshView
+            ChargerElementsCommand="{Binding InitialisationListeCommand}"
+            Elements="{Binding thematiques}"
+            UpdateElementsCommand="{Binding RechargeThematiquesCommand}">
+            <component:RefreshView.ItemTemplate>
+                <DataTemplate x:Name="decideurThematiqueTemplate">
+                    <component:DecideurThematique AutomationId="decideurThematique" />
+                </DataTemplate>
+            </component:RefreshView.ItemTemplate>
+        </component:RefreshView>
+        <BoxView HeightRequest="{DynamicResource SpacingMedium}" />
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="{DynamicResource SpacingLarge}">
+            <component:DecideurIndicator
+                x:Name="budgetUtiliseDecideurIndicator"
+                AutomationId="budgetUtiliseDecideurIndicator"
+                CouleurCercle="{AppThemeBinding Light={DynamicResource Light-secondary},
+                                                Dark={DynamicResource Dark-secondary}}"
+                Texte="{x:Static lang:AppResources.budgetUtilise}" />
+            <component:DecideurIndicator
+                x:Name="budgetAttenteDecideurIndicator"
+                AutomationId="budgetAttenteDecideurIndicator"
+                CouleurCercle="{AppThemeBinding Light={DynamicResource Light-tertiary},
+                                                Dark={DynamicResource Dark-tertiary}}"
+                Texte="{x:Static lang:AppResources.budgetAttente}" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

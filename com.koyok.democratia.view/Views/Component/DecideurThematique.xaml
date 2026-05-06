@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="com.koyok.democratia.Views.Component.DecideurThematique"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:com.koyok.democratia.Models;assembly=com.koyok.democratia.core"
+    x:DataType="models:Thematique"
+    Style="{DynamicResource ContenViewStyle}">
+    <VerticalStackLayout x:Name="mainLayout" Spacing="{DynamicResource SpacingMedium}">
+        <Label
+            x:Name="nomThematiqueLabel"
+            AutomationId="nomThematiqueLabel"
+            Style="{DynamicResource SubHeadlineStyle}"
+            Text="{Binding nom_thematique}" />
+        <Label
+            x:Name="ratioLabel"
+            AutomationId="ratioLabel"
+            Style="{DynamicResource SubHeadlineStyle}"
+            VerticalOptions="End" />
+        <ProgressBar
+            x:Name="ratioUtiliseProgressBar"
+            AutomationId="ratioUtiliseProgressBar"
+            Progress="{Binding Ratio_utilise}"
+            ScaleY="{DynamicResource SpacingUltraSmall}"
+            Style="{DynamicResource UtiliseProgressBarStyle}" />
+        <ProgressBar
+            x:Name="ratioAttenteProgressBar"
+            AutomationId="ratioAttenteProgressBar"
+            Progress="{Binding Ratio_en_attente}"
+            ScaleY="{DynamicResource SpacingUltraSmall}"
+            Style="{DynamicResource AttenteProgressBarStyle}" />
+    </VerticalStackLayout>
+</ContentView>

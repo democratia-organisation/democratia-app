@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="Dark-medium-contrast-primary">#FFD2CD</Color>
+    <Color x:Key="Dark-medium-contrast-surfaceTint">#FFB4AC</Color>
+    <Color x:Key="Dark-medium-contrast-onPrimary">#481310</Color>
+    <Color x:Key="Dark-medium-contrast-primaryContainer">#CC7B73</Color>
+    <Color x:Key="Dark-medium-contrast-onPrimaryContainer">#000000</Color>
+    <Color x:Key="Dark-medium-contrast-secondary">#FED2CE</Color>
+    <Color x:Key="Dark-medium-contrast-onSecondary">#381F1C</Color>
+    <Color x:Key="Dark-medium-contrast-secondaryContainer">#AD8884</Color>
+    <Color x:Key="Dark-medium-contrast-onSecondaryContainer">#000000</Color>
+    <Color x:Key="Dark-medium-contrast-tertiary">#F7D8A0</Color>
+    <Color x:Key="Dark-medium-contrast-onTertiary">#332300</Color>
+    <Color x:Key="Dark-medium-contrast-tertiaryContainer">#A88D5B</Color>
+    <Color x:Key="Dark-medium-contrast-onTertiaryContainer">#000000</Color>
+    <Color x:Key="Dark-medium-contrast-error">#FFD2CC</Color>
+    <Color x:Key="Dark-medium-contrast-onError">#540003</Color>
+    <Color x:Key="Dark-medium-contrast-errorContainer">#FF5449</Color>
+    <Color x:Key="Dark-medium-contrast-onErrorContainer">#000000</Color>
+    <Color x:Key="Dark-medium-contrast-background">#1A1110</Color>
+    <Color x:Key="Dark-medium-contrast-onBackground">#F1DEDC</Color>
+    <Color x:Key="Dark-medium-contrast-surface">#1A1110</Color>
+    <Color x:Key="Dark-medium-contrast-onSurface">#FFFFFF</Color>
+    <Color x:Key="Dark-medium-contrast-surfaceVariant">#534341</Color>
+    <Color x:Key="Dark-medium-contrast-onSurfaceVariant">#EED7D5</Color>
+    <Color x:Key="Dark-medium-contrast-outline">#C2ADAB</Color>
+    <Color x:Key="Dark-medium-contrast-outlineVariant">#9F8C8A</Color>
+    <Color x:Key="Dark-medium-contrast-shadow">#000000</Color>
+    <Color x:Key="Dark-medium-contrast-scrim">#000000</Color>
+    <Color x:Key="Dark-medium-contrast-inverseSurface">#F1DEDC</Color>
+    <Color x:Key="Dark-medium-contrast-inverseOnSurface">#322826</Color>
+    <Color x:Key="Dark-medium-contrast-inversePrimary">#743530</Color>
+    <Color x:Key="Dark-medium-contrast-primaryFixed">#FFDAD6</Color>
+    <Color x:Key="Dark-medium-contrast-onPrimaryFixed">#2C0102</Color>
+    <Color x:Key="Dark-medium-contrast-primaryFixedDim">#FFB4AC</Color>
+    <Color x:Key="Dark-medium-contrast-onPrimaryFixedVariant">#5E231F</Color>
+    <Color x:Key="Dark-medium-contrast-secondaryFixed">#FFDAD6</Color>
+    <Color x:Key="Dark-medium-contrast-onSecondaryFixed">#200B09</Color>
+    <Color x:Key="Dark-medium-contrast-secondaryFixedDim">#E7BDB8</Color>
+    <Color x:Key="Dark-medium-contrast-onSecondaryFixedVariant">#4B2F2C</Color>
+    <Color x:Key="Dark-medium-contrast-tertiaryFixed">#FEDEA6</Color>
+    <Color x:Key="Dark-medium-contrast-onTertiaryFixed">#190F00</Color>
+    <Color x:Key="Dark-medium-contrast-tertiaryFixedDim">#E0C38C</Color>
+    <Color x:Key="Dark-medium-contrast-onTertiaryFixedVariant">#463309</Color>
+    <Color x:Key="Dark-medium-contrast-surfaceDim">#1A1110</Color>
+    <Color x:Key="Dark-medium-contrast-surfaceBright">#4D4240</Color>
+    <Color x:Key="Dark-medium-contrast-surfaceContainerLowest">#0D0605</Color>
+    <Color x:Key="Dark-medium-contrast-surfaceContainerLow">#251B1A</Color>
+    <Color x:Key="Dark-medium-contrast-surfaceContainer">#302524</Color>
+    <Color x:Key="Dark-medium-contrast-surfaceContainerHigh">#3B302F</Color>
+    <Color x:Key="Dark-medium-contrast-surfaceContainerHighest">#463B3A</Color>
+</ResourceDictionary>

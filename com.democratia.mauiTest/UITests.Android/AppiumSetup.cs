@@ -10,7 +10,7 @@ namespace UITests
     {
         private static AppiumDriver? driver;
 
-        public readonly static string appId = "com.democratia";
+        public readonly static string appId = "com.koyok.democratia";
         public readonly static string device = "android";
 
         public readonly static string sshSortie = string.Empty;
@@ -27,14 +27,14 @@ namespace UITests
             {
                 AutomationName = "UIAutomator2",
                 PlatformName = "Android",
-                App = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-android/com.democratia-Signed.apk")),
+                App = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\..\..\com.koyok.democratia.view\bin\Debug\net10.0-android/com.koyok.democratia-Signed.apk")),
 
             };
 #if DEBUG
             options.AddAdditionalAppiumOption(MobileCapabilityType.NoReset, "true");
-            string activity = ResolveAppActivity("com.democratia");
+            string activity = ResolveAppActivity("com.koyok.democratia");
             options.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
-            options.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.democratia");
+            options.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.koyok.democratia");
 # endif
         }
 
@@ -70,7 +70,7 @@ namespace UITests
             using var process = Process.Start(psi);
             string output = process?.StandardOutput.ReadToEnd().Trim() ?? string.Empty;
 
-            // Expected format: com.democratia/crc64...MainActivity or com.democratia/.MainActivity
+            // Expected format: com.koyok.democratia/crc64...MainActivity or com.koyok.democratia/.MainActivity
             var parts = output.Split('/');
             return parts.Length == 2 ? parts[1] : ".MainActivity"; // Fallback
         }

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.koyok.democratia.Views.internaute.gestionCompte.HomeGestionPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:component="clr-namespace:com.koyok.democratia.Views.Component"
+    xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
+    xmlns:local="clr-namespace:com.koyok.democratia.Views"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.ViewModels.internaute.gestionCompte;assembly=com.koyok.democratia.core"
+    x:DataType="viewModel:HomeGestionViewModel"
+    Style="{DynamicResource fondEcran}">
+
+    <ScrollView>
+        <Grid x:Name="grille" RowDefinitions="Auto,*">
+            <Label
+                x:Name="errorMessageLabel"
+                Grid.Row="0"
+                AutomationId="errorMessageLabel"
+                Style="{DynamicResource ErrorLabelStyle}"
+                Text="{Binding RetourMessage}" />
+
+            <StackLayout
+                x:Name="stackLayout"
+                Grid.Row="1"
+                AutomationId="stackLayout"
+                Spacing="{DynamicResource SpacingLarge}">
+                <Button
+                    x:Name="modifierButton"
+                    AutomationId="modifierButton"
+                    Command="{Binding NavigateTappedCommand}"
+                    CommandParameter="ModifierGestionPage"
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="{x:Static lang:AppResources.ModifCompte}" />
+                <Button
+                    x:Name="supprimerButton"
+                    AutomationId="supprimerButton"
+                    Command="{Binding ActionInternauteCommand}"
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="{x:Static lang:AppResources.SuppCompte}" />
+                <Button
+                    x:Name="preferenceButton"
+                    AutomationId="preferenceButton"
+                    Command="{Binding NavigateTappedCommand}"
+                    CommandParameter="PreferencePage"
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="{x:Static lang:AppResources.preference}" />
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

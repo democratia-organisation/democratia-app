@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="Light-high-contrast-primary">#511A16</Color>
+    <Color x:Key="Light-high-contrast-surfaceTint">#904A44</Color>
+    <Color x:Key="Light-high-contrast-onPrimary">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-primaryContainer">#763631</Color>
+    <Color x:Key="Light-high-contrast-onPrimaryContainer">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-secondary">#3F2523</Color>
+    <Color x:Key="Light-high-contrast-onSecondary">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-secondaryContainer">#60423E</Color>
+    <Color x:Key="Light-high-contrast-onSecondaryContainer">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-tertiary">#3B2902</Color>
+    <Color x:Key="Light-high-contrast-onTertiary">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-tertiaryContainer">#5B461B</Color>
+    <Color x:Key="Light-high-contrast-onTertiaryContainer">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-error">#600004</Color>
+    <Color x:Key="Light-high-contrast-onError">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-errorContainer">#98000A</Color>
+    <Color x:Key="Light-high-contrast-onErrorContainer">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-background">#FFF8F7</Color>
+    <Color x:Key="Light-high-contrast-onBackground">#231918</Color>
+    <Color x:Key="Light-high-contrast-surface">#FFF8F7</Color>
+    <Color x:Key="Light-high-contrast-onSurface">#000000</Color>
+    <Color x:Key="Light-high-contrast-surfaceVariant">#F5DDDB</Color>
+    <Color x:Key="Light-high-contrast-onSurfaceVariant">#000000</Color>
+    <Color x:Key="Light-high-contrast-outline">#362927</Color>
+    <Color x:Key="Light-high-contrast-outlineVariant">#554544</Color>
+    <Color x:Key="Light-high-contrast-shadow">#000000</Color>
+    <Color x:Key="Light-high-contrast-scrim">#000000</Color>
+    <Color x:Key="Light-high-contrast-inverseSurface">#392E2D</Color>
+    <Color x:Key="Light-high-contrast-inverseOnSurface">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-inversePrimary">#FFB4AC</Color>
+    <Color x:Key="Light-high-contrast-primaryFixed">#763631</Color>
+    <Color x:Key="Light-high-contrast-onPrimaryFixed">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-primaryFixedDim">#59201C</Color>
+    <Color x:Key="Light-high-contrast-onPrimaryFixedVariant">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-secondaryFixed">#60423E</Color>
+    <Color x:Key="Light-high-contrast-onSecondaryFixed">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-secondaryFixedDim">#472C29</Color>
+    <Color x:Key="Light-high-contrast-onSecondaryFixedVariant">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-tertiaryFixed">#5B461B</Color>
+    <Color x:Key="Light-high-contrast-onTertiaryFixed">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-tertiaryFixedDim">#423006</Color>
+    <Color x:Key="Light-high-contrast-onTertiaryFixedVariant">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-surfaceDim">#C6B5B3</Color>
+    <Color x:Key="Light-high-contrast-surfaceBright">#FFF8F7</Color>
+    <Color x:Key="Light-high-contrast-surfaceContainerLowest">#FFFFFF</Color>
+    <Color x:Key="Light-high-contrast-surfaceContainerLow">#FFEDEA</Color>
+    <Color x:Key="Light-high-contrast-surfaceContainer">#F1DEDC</Color>
+    <Color x:Key="Light-high-contrast-surfaceContainerHigh">#E2D0CE</Color>
+    <Color x:Key="Light-high-contrast-surfaceContainerHighest">#D4C3C1</Color>
+</ResourceDictionary>
