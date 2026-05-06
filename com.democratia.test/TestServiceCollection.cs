@@ -1,8 +1,4 @@
 using com.democratia.Services;
-using com.democratia.test.Services;
-using com.democratia.ViewModels.internaute;
-using com.democratia.Utils;
-using com.democratia.ViewModels.internaute.gestionCompte;
 
 namespace com.democratia.test;
 
@@ -12,20 +8,13 @@ public static class TestServiceCollection
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton<INavigationService, ShellNavigationService>();
-        services.AddSingleton<IClient, InternauteClient>();
-        services.AddTransient<MainViewModel>();
-
+        
         return services.BuildServiceProvider();
     }
 
     public static IServiceProvider CreateTestServiceProviderForCreationViewModel()
     {
         var services = new ServiceCollection();
-
-        services.AddSingleton<INavigationService, ShellNavigationService>();
-        services.AddSingleton<IClient, InternauteClient>();
-        services.AddTransient<CreationViewModel>();
 
         return services.BuildServiceProvider();
     }
@@ -34,34 +23,18 @@ public static class TestServiceCollection
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton<INavigationService, ShellNavigationService>();
-        services.AddSingleton<IFakeClient>(sp =>
-        {
-            var factory = sp.GetRequiredService<IHttpClientFactory>();
-            var httpClient = factory.CreateClient(nameof(IFakeClient));
-            return new FakeClient(httpClient,fakeResponse);
-        });
-        services.AddTransient<MainViewModel>();
-
+        
         return services.BuildServiceProvider();
     }
 
-    public static Client CreateInternauteServiceProviderForClientTest(IServiceProvider sp)
+    public static void CreateInternauteServiceProviderForClientTest(IServiceProvider sp)
     {
         var services = new ServiceCollection();
+        
 
-        services.AddSingleton<INavigationService, ShellNavigationService>();
-        var factory = sp.GetRequiredService<IHttpClientFactory>();
-        var httpClient = factory.CreateClient(nameof(IInternauteClient));
-        return new InternauteClient(httpClient);
     }
 
-    public static IServiceProvider CreateTestServiceProviderForClients()
+    public static void CreateTestServiceProviderForClients()
     {
-        var services = new ServiceCollection();
-        services.AddSingleton<IClient, InternauteClient>();
-        services.AddTransient<Provider>();
-
-        return services.BuildServiceProvider();
     }
 }

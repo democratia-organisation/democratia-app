@@ -7,7 +7,8 @@
     xmlns:lang="clr-namespace:com.democratia.view.Resources.Localization"
     xmlns:local="clr-namespace:com.democratia.Views"
     xmlns:viewModel="clr-namespace:com.democratia.ViewModels.internaute.gestionCompte;assembly=com.democratia.core"
-    x:DataType="viewModel:HomeGestionViewModel">
+    x:DataType="viewModel:HomeGestionViewModel"
+    Style="{DynamicResource fondEcran}">
 
     <ScrollView>
         <Grid x:Name="grille" RowDefinitions="Auto,*">
@@ -24,21 +25,21 @@
                 AutomationId="stackLayout"
                 Spacing="{DynamicResource SpacingLarge}">
                 <Button
-                    x:Name="modificationButton"
-                    AutomationId="modificationButton"
+                    x:Name="modifierButton"
+                    AutomationId="modifierButton"
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="ModifierGestionPage"
                     Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.ModifCompte}" />
                 <Button
-                    x:Name="supressionButton"
-                    AutomationId="supressionButton"
+                    x:Name="supprimerButton"
+                    AutomationId="supprimerButton"
                     Command="{Binding ActionInternauteCommand}"
                     Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.SuppCompte}" />
                 <Button
                     x:Name="preferenceButton"
-                    AutomationId="preferencButton"
+                    AutomationId="preferenceButton"
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="PreferencePage"
                     Style="{DynamicResource ButtonStyle}"

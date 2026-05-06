@@ -2,7 +2,7 @@ using OpenQA.Selenium.Appium;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
-using UITests.UI.Localization;
+using UITests.Localization;
 using Xunit;
 
 

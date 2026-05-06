@@ -34,8 +34,8 @@
             PassWord="True"
             ValeurDonne="{Binding User.tempMDP, Source={x:Reference this}}" />
         <Label
-            x:Name="retourMessageLabel"
-            AutomationId="retourMessageLabel"
+            x:Name="errorMessageLabel"
+            AutomationId="errorMessageLabel"
             HorizontalOptions="Center"
             Style="{DynamicResource ErrorLabelStyle}"
             Text="{Binding RetourMessage, Source={x:Reference this}}" />

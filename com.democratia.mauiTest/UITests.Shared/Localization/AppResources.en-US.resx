@@ -369,4 +369,7 @@
   <data name="budgetUtilise" xml:space="preserve">
     <value>used budget</value>
   </data>
+  <data name="erreurThematiqueBudget" xml:space="preserve">
+    <value>The amount of themes's budgets is superior than the group's  project</value>
+  </data>
 </root>

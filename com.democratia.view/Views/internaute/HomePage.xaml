@@ -59,10 +59,10 @@
             </comp:RefreshView.ItemTemplate>
         </comp:RefreshView>
         <Button
-            x:Name="creationGroupButton"
+            x:Name="creerUnGroupeButton"
             Grid.Row="3"
             Margin="20"
-            AutomationId="creationGroupButton"
+            AutomationId="creerUnGroupeButton"
             Command="{Binding NavigateTappedCommand}"
             CommandParameter="PremiereCreationPage"
             Style="{StaticResource ButtonStyle}"

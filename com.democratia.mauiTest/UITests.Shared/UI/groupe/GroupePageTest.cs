@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium.Appium;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using UITests.UI.Localization;
+using UITests.Localization;
 using Xunit;
 
 namespace UITests.UI.groupe

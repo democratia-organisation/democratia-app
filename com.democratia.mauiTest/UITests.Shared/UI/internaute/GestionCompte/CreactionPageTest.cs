@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using UITests.UI.Localization;
+using UITests.Localization;
 using Xunit;
 
 namespace UITests.UI.internaute.GestionCompte
@@ -65,7 +65,6 @@ namespace UITests.UI.internaute.GestionCompte
             AppiumElement? errorMessageLabel = FindUIElement("errorMessageLabel");
             Assert.NotNull(entries);
             Assert.NotNull(labels);
-            Assert.NotNull(errorMessageLabel);
             var nombreElements = 5;
             var (nomElement, prenomElement, adressePostaleElement, adresseMailElement, motDePasseElement) =
                 (entries[0], entries[1], entries[2], entries[3], entries[4]);
@@ -89,6 +88,7 @@ namespace UITests.UI.internaute.GestionCompte
         {
             ReadOnlyCollection<AppiumElement>? entries = FindUIElements("Entry");
             ReadOnlyCollection<AppiumElement>? labels = FindUIElements("Label");
+            AppiumElement? errorMessageLabel = FindUIElement("errorMessageLabel");
             AppiumElement? mInscrireButton = FindUIElement("actionButton");
             var nombresEntrees = 5;
 
@@ -98,6 +98,7 @@ namespace UITests.UI.internaute.GestionCompte
             Assert.Equal(nombresEntrees, nombresLabels);
             Assert.Equal(nombresEntrees, nombresEntries);
             Assert.NotNull(mInscrireButton);
+            Assert.NotNull(errorMessageLabel);
         }
     }
     public class ParameterCreation<T1, T2, T3, T4, T5, T6> : TheoryData

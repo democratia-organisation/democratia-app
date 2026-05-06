@@ -8,8 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UITests.UI.Localization {
+namespace UITests.Localization {
     using System;
+    using System.Reflection;
     
     
     /// <summary>
@@ -39,7 +40,7 @@ namespace UITests.UI.Localization {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UITests.UI.Localization.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UITests.Localization.AppResources", typeof(AppResources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -167,7 +168,19 @@ namespace UITests.UI.Localization {
                 return ResourceManager.GetString("choixImage", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à La somme des budgets de thématiques est supérieur au budget global.
+        /// </summary>
+        public static string erreurThematiqueBudget
+        {
+            get
+            {
+                return ResourceManager.GetString("erreurThematiqueBudget", resourceCulture);
+            }
+        }
+
+
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Claire.
         /// </summary>
@@ -329,7 +342,6 @@ namespace UITests.UI.Localization {
                 return ResourceManager.GetString("erreurPhoto", resourceCulture);
             }
         }
-        
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Veuillez saisir votre adresse mail.
         /// </summary>

@@ -369,4 +369,7 @@
   <data name="budgetUtilise" xml:space="preserve">
     <value>budget utilisé</value>
   </data>
+  <data name="erreurThematiqueBudget" xml:space="preserve">
+    <value>La somme des budgets de thématiques est supérieur au budget global</value>
+  </data>
 </root>

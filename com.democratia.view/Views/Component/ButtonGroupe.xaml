@@ -21,7 +21,7 @@
         </Border>
         <Label
             x:Name="nomGroupeLabel"
-            AutomationId="{Binding Path=Groupe.NomGroupe, Source={x:Reference this}, StringFormat='Label {0}'}"
+            AutomationId="nomGroupeLabel"
             HorizontalOptions="Center"
             LineBreakMode="WordWrap"
             Style="{StaticResource SubHeadlineStyle}"
