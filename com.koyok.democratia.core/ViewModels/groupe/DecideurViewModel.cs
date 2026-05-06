@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.groupe
 {
-    public partial class DecideurViewModel.Domain.Service.AppContext appContext) : ObservableObject, INotifyPropertyChanged, IQueryAttributable
+    public partial class DecideurViewModel.core.Domain.Utils.AppContext appContext) : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
 

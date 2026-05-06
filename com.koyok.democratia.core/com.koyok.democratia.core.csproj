@@ -37,7 +37,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\Mapper\" />
-    <Folder Include="Domain\Exception\" />
-    <Folder Include="Domain\UseCase\" />
   </ItemGroup>
 </Project>

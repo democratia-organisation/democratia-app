@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 
-namespace com.koyok.democratia.Models
+namespace com.koyok.democratia.Domain.Models
 {
     public partial class Groupe : ObservableObject, IModel
     {

@@ -1,8 +1,4 @@
 ﻿using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.Domain.Extension;
-using com.koyok.democratia.Domain.Service;
-using com.koyok.democratia.Domain.Utils;
-using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.UI;
 using com.koyok.democratia.UI.groupe;
@@ -15,6 +11,8 @@ using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
 using System.Net.Http.Headers;
 using System.Reflection;
+using com.koyok.democratia.Domain.Extension.DelegatesHandler;
+using com.koyok.democratia.Domain.Service;
 
 namespace com.koyok.democratia.Domain.Extension
 {
@@ -75,7 +73,7 @@ namespace com.koyok.democratia.Domain.Extension
             /// <returns>Retourne la collection de services après l'ajout des services.</returns>
             public IServiceCollection AddServices()
             {
-                services.AddSingleton<Service.AppContext>();
+                services.AddSingleton<Utils.AppContext>();
                 services.AddSingleton<INavigationService, ShellNavigationService>();
                 services.AddClients();
                 services.AddClient();

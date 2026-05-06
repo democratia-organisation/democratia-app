@@ -7,6 +7,7 @@ using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Utils;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Data.Repository;
+using com.koyok.democratia.core.Domain.Service;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {

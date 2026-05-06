@@ -1,5 +1,5 @@
-﻿using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Utils;
+﻿using com.koyok.democratia.core.Domain.Service;
+using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -10,12 +10,12 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class DeuxiemePageViewModel(INavigationService service,.Domain.Service.AppContext context) 
+    public partial class DeuxiemePageViewModel(INavigationService service,.core.Domain.Utils.AppContext context) 
         : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel, IQueryAttributable
     {
         private INavigationService service = service;
         private Groupe? groupe;
-        private.Domain.Service.AppContext context = context;
+        private.core.Domain.Utils.AppContext context = context;
         [ObservableProperty] public partial Color? couleur { get; set; } = Colors.Transparent;
         private InternauteRemoteSource? internaute;
         private List<ThematiqueRemoteSource>? thematiques { get; set; }

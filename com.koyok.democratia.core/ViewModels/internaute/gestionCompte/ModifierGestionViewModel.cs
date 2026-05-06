@@ -1,4 +1,6 @@
-﻿using com.koyok.democratia.Data.Repository;
+﻿using com.koyok.democratia.core.Domain.Exception;
+using com.koyok.democratia.core.Domain.Service;
+using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.Utils;
@@ -19,10 +21,10 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [ObservableProperty] public partial InternauteRemoteSource? tempInternaute { get; set; } = new();
         [ObservableProperty] public partial string? password {get; set; }
         [ObservableProperty] public partial string? email {get; set; }
-        private.Domain.Service.AppContext appContext;
+        private.core.Domain.Utils.AppContext appContext;
 
         public ModifierGestionViewModel(INavigationService navigationService, ILocalizationService localizationService, 
-            IEnumerable<IRepository> clients,.Domain.Service.AppContext appContext) 
+            IEnumerable<IRepository> clients,.core.Domain.Utils.AppContext appContext) 
             : base(clients.OfType<InternauteRepository>().FirstOrDefault(),localizationService)
         {
             this.NavigationService = navigationService;

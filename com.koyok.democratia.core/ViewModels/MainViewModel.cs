@@ -1,4 +1,6 @@
-﻿using com.koyok.democratia.Data.Repository;
+﻿using com.koyok.democratia.core.Domain.Exception;
+using com.koyok.democratia.core.Domain.Service;
+using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.Utils;
@@ -15,7 +17,7 @@ namespace com.koyok.democratia.UI
         public partial string? adresseMail { get; set; }
 
         public InternauteRemoteSource? modele { get; private set; }
-        private.Domain.Service.AppContext? contexte;
+        private.core.Domain.Utils.AppContext? contexte;
 
         [ObservableProperty]
         public partial string? motDePasse { get; set; }
@@ -24,7 +26,7 @@ namespace com.koyok.democratia.UI
         public partial string? errorMessage { get; set; }
         private readonly INavigationService? navigationService;
 
-        public MainViewModel(INavigationService navigationService, IEnumerable<IRepository?>? clients, ILocalizationService localization,.Domain.Service.AppContext context)
+        public MainViewModel(INavigationService navigationService, IEnumerable<IRepository?>? clients, ILocalizationService localization,.core.Domain.Utils.AppContext context)
             : base(clients!.OfType<InternauteRepository>().FirstOrDefault(), localization)
         {
             this.navigationService = navigationService;

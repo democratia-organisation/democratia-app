@@ -1,8 +1,7 @@
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
-using System.Data;
 
-namespace com.koyok.democratia.Domain.Utils
+namespace com.koyok.democratia.Domain.Service
 {
     public class ShellNavigationService : INavigationService
     {
@@ -18,7 +17,7 @@ namespace com.koyok.democratia.Domain.Utils
                     }
                     await Shell.Current.GoToAsync(route, false ,parameters);
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
                     throw;
                 }

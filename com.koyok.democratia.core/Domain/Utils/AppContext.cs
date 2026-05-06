@@ -4,7 +4,7 @@ using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace com.koyok.democratia.Domain.Service
+namespace com.koyok.democratia.Domain.Utils
 {
     public partial record class AppContext : INotifyPropertyChanged
     {

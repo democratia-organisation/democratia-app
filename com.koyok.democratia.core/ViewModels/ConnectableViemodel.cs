@@ -1,6 +1,6 @@
-﻿using com.koyok.democratia.Domain.Models;
+﻿using com.koyok.democratia.core.Domain.Service;
+using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Utils;
 using com.koyok.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Maui.Storage;

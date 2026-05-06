@@ -1,31 +1,33 @@
-﻿namespace com.koyok.democratia.Domain.Utils
+﻿using com.koyok.democratia.core.Domain.Service;
+
+namespace com.koyok.democratia.Domain.Exception
 {
-    internal class MailException : Exception { }
+    internal class MailException : System.Exception { }
 
-    internal class PassWordException : Exception { }
+    internal class PassWordException : System.Exception { }
 
-    internal class EmptyEmailFieldException : Exception { }
+    internal class EmptyEmailFieldException : System.Exception { }
 
-    internal class EmptyPassWordFieldException : Exception { }
+    internal class EmptyPassWordFieldException : System.Exception { }
 
-    internal class EmptyRequiredFieldException(string message) : Exception(message) 
+    internal class EmptyRequiredFieldException(string message) : System.Exception(message) 
     {
         public EmptyRequiredFieldException() : this("") { }
 
     }
-    internal class ConnexionErrorException : Exception { }
-    internal class BadPasswordException : Exception { }
+    internal class ConnexionErrorException : System.Exception { }
+    internal class BadPasswordException : System.Exception { }
 
-    internal class NoUserException : Exception { }
-    internal class FetchDataException : Exception { }
+    internal class NoUserException : System.Exception { }
+    internal class FetchDataException : System.Exception { }
 
-    internal class CompteExistantException : Exception { }
-    internal class NoImageGiven : Exception { }
+    internal class CompteExistantException : System.Exception { }
+    internal class NoImageGiven : System.Exception { }
 
 
     internal static class MapExceptionMessage
     {
-        public static string? MappingException(Exception e, ILocalizationService localizationService, params object[] args)
+        public static string? MappingException(System.Exception e, ILocalizationService localizationService, params object[] args)
         {
             return e switch
             {

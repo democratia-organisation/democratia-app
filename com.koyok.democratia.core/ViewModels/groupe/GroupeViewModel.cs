@@ -1,7 +1,8 @@
-﻿using com.koyok.democratia.Data.Repository;
+﻿using com.koyok.democratia.core.Domain.Extension;
+using com.koyok.democratia.core.Domain.Service;
+using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Utils;
 using com.koyok.democratia.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -14,7 +15,7 @@ namespace com.koyok.democratia.UI.groupe
         IEnumerable<IRepository> clients,
         INavigationService navigationService,
         ILocalizationService localizationService,
-       .Domain.Service.AppContext context
+       .core.Domain.Utils.AppContext context
     ) : ConnectableViewModel(clients.OfType<IGroupeClient>().FirstOrDefault(), localizationService), INavigeablleViewModel, IQueryAttributable
     {
         [ObservableProperty] public partial ImageSource? image { get; set;}
@@ -24,7 +25,7 @@ namespace com.koyok.democratia.UI.groupe
         private int cursor = 0;
 
         private InternauteRemoteSource? internaute;
-        private.Domain.Service.AppContext context = context;
+        private.core.Domain.Utils.AppContext context = context;
         // TODO : savoir si c'est un décideur afin d'afficher certaines options en fonction
         [ObservableProperty]
         public partial ObservableCollection<Critere> criteres { get; set; } = [Critere.PRIX,Critere.POPULARITE,Critere.REACTIONS];

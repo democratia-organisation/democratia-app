@@ -1,29 +1,29 @@
-﻿using com.koyok.democratia.Domain.Utils;
+﻿using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Utils;
 using System.Text.Json.Serialization;
 
 namespace com.koyok.democratia.Domain.Models
 {
 
-    public class InternauteRemoteSource : IModel
+    public class Internaute : IModel
     {
 
-        [JsonConstructor]
-        public InternauteRemoteSource(int? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postale, string? courriel, string? hashageMDP)
+        public Internaute(int? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postale, string? courriel, string? hashageMDP)
         {
-            this.id_internaute = id_internaute;
-            this.nom_internaute = nom_internaute;
-            this.prenom_internaute = prenom_internaute;
-            this.adresse_postale = adresse_postale;
+            this.idInternaute = id_internaute;
+            this.nomInternaute = nom_internaute;
+            this.prenomInternaute = prenom_internaute;
+            this.adressePostale = adresse_postale;
             this.courriel = courriel;
             this.hashageMDP = hashageMDP;
         }
 
         
 
-        public int? id_internaute { get;  set; }
-        public string? nom_internaute { get;  set; }
-        public string? prenom_internaute { get; set; }
-        public string? adresse_postale { get; set; }
+        public int? idInternaute { get;  set; }
+        public string? nomInternaute { get;  set; }
+        public string? prenomInternaute { get; set; }
+        public string? adressePostale { get; set; }
         public string? courriel { get; set {
                 if (value is null) { field = value; return; }
                 if (!Verification.VerifierFormatage(value!, new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$")))
@@ -38,7 +38,7 @@ namespace com.koyok.democratia.Domain.Models
                 else field = value;
         } }
 
-        public InternauteRemoteSource() : this(null, null, null, null, null, null) { }
+        public Internaute() : this(null, null, null, null, null, null) { }
 
     }
 }
