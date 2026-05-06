@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:res="clr-namespace:com.koyok.democratia.view.Resources.Localization"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.ViewModels.internaute;assembly=com.koyok.democratia.core"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute;assembly=com.koyok.democratia.core"
     x:DataType="viewModel:HomeViewModel"
     AutomationId="homePage"
     Style="{StaticResource fondEcran}">

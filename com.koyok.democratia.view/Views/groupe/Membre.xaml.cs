@@ -1,9 +1,10 @@
-namespace com.koyok.democratia.UI.groupe;
-
-public partial class Membre : ContentPage
+namespace com.koyok.democratia.UI.groupe
 {
-	public Membre()
-	{
-		InitializeComponent();
-	}
+    public partial class Membre : ContentPage
+    {
+        public Membre()
+        {
+            InitializeComponent();
+        }
+    }
 }

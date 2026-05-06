@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:models="clr-namespace:com.koyok.democratia.Models;assembly=com.koyok.democratia.core"
-    xmlns:viewModels="clr-namespace:com.koyok.democratia.ViewModels.groupe;assembly=com.koyok.democratia.core"
+    xmlns:viewModels="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia.core"
     x:Name="this"
     x:DataType="models:Proposition"
     Style="{DynamicResource ContenViewStyle}">

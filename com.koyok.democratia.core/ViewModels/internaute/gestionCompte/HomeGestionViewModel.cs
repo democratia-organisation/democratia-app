@@ -7,7 +7,7 @@ using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 
-namespace com.koyok.democratia.ViewModels.internaute.gestionCompte
+namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
 
     public partial class HomeGestionViewModel : ConnectableViewModel, IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel

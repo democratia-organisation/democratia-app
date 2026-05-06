@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:component="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.ViewModels.internaute.gestionCompte;assembly=com.koyok.democratia.core"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.gestionCompte;assembly=com.koyok.democratia.core"
     Title="ModifierGestionPage"
     x:DataType="viewModel:ModifierGestionViewModel"
     Style="{DynamicResource fondEcran}">

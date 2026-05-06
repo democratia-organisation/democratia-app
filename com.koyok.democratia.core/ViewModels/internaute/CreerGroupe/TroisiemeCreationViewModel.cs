@@ -7,7 +7,7 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
 
-namespace com.koyok.democratia.ViewModels.internaute.CreerGroupe
+namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
     public partial class TroisiemeCreationViewModel(IEnumerable<IClient?>? clients, ILocalizationService? LocalizationService, 
         INavigationService service, Services.AppContext context) : ConnectableViewModel(clients?.OfType<GroupClient>().FirstOrDefault(), 

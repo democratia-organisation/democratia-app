@@ -1,6 +1,4 @@
-﻿using com.koyok.democratia.ViewModels.internaute;
-
-namespace com.koyok.democratia.UI.internaute;
+﻿namespace com.koyok.democratia.UI.internaute;
 
 public partial class HomePage : ContentPage
 {

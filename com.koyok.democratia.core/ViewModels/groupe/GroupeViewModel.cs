@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 
-namespace com.koyok.democratia.ViewModels.groupe
+namespace com.koyok.democratia.UI.groupe
 {
     public partial class GroupeViewModel(
         IEnumerable<IClient> clients,

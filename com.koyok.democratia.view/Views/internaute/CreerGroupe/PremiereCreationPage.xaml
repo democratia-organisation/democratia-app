@@ -7,7 +7,7 @@
     xmlns:communityToolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:modele="clr-namespace:com.koyok.democratia.Models;assembly=com.koyok.democratia.core"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.ViewModels.internaute.CreerGroupe;assembly=com.koyok.democratia.core"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.CreerGroupe;assembly=com.koyok.democratia.core"
     Title="PremiereCreationGroupePage"
     x:DataType="viewModel:PremiereCreationViewModel"
     AutomationId="PremiereCreationGroupePage"

@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 
-namespace com.koyok.democratia.ViewModels
+namespace com.koyok.democratia.UI
 {
     public interface INavigeablleViewModel
     {

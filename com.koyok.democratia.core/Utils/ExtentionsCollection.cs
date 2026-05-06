@@ -1,8 +1,8 @@
 ﻿using com.koyok.democratia.Services;
-using com.koyok.democratia.ViewModels.groupe;
-using com.koyok.democratia.ViewModels.internaute;
-using com.koyok.democratia.ViewModels.internaute.CreerGroupe;
-using com.koyok.democratia.ViewModels.internaute.gestionCompte;
+using com.koyok.democratia.UI.groupe;
+using com.koyok.democratia.UI.internaute;
+using com.koyok.democratia.UI.internaute.CreerGroupe;
+using com.koyok.democratia.UI.internaute.gestionCompte;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Devices;

@@ -6,8 +6,8 @@
     xmlns:component="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:models="clr-namespace:com.koyok.democratia.Models;assembly=com.koyok.democratia.core"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.ViewModels.groupe;assembly=com.koyok.democratia.core"
-    xmlns:viewModelDecideur="clr-namespace:com.koyok.democratia.ViewModels.groupe;assembly=com.koyok.democratia.core"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia.core"
+    xmlns:viewModelDecideur="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia.core"
     x:DataType="viewModelDecideur:DecideurViewModel"
     Style="{DynamicResource fondEcran}">
     <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">

@@ -7,7 +7,7 @@ using Microsoft.Maui.Graphics;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace com.koyok.democratia.ViewModels.internaute.CreerGroupe
+namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
     public partial class DeuxiemePageViewModel(INavigationService service, Services.AppContext context) 
         : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel, IQueryAttributable

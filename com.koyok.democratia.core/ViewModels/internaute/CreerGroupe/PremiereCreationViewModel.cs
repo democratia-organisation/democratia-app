@@ -10,7 +10,7 @@ using System.Text.Json;
 using System.Collections.ObjectModel;
 
 
-namespace com.koyok.democratia.ViewModels.internaute.CreerGroupe
+namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
     public partial class PremiereCreationViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable, INotifyPropertyChanged
     {

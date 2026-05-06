@@ -1,9 +1,10 @@
-namespace com.koyok.democratia.UI.groupe;
-
-public partial class NouvelleProposition : ContentPage
+namespace com.koyok.democratia.UI.groupe
 {
-	public NouvelleProposition()
-	{
-		InitializeComponent();
-	}
+    public partial class NouvelleProposition : ContentPage
+    {
+        public NouvelleProposition()
+        {
+            InitializeComponent();
+        }
+    }
 }

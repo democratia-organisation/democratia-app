@@ -1,7 +1,7 @@
 ﻿using com.koyok.democratia.Models;
 using com.koyok.democratia.test.Localization;
 using com.koyok.democratia.Utils;
-using com.koyok.democratia.ViewModels.internaute;
+using com.koyok.democratia.UI.internaute;
 using System.Globalization;
 
 

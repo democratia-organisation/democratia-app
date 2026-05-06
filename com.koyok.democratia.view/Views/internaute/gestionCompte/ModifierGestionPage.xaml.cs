@@ -1,5 +1,4 @@
 using com.koyok.democratia.view.Resources.Localization;
-using com.koyok.democratia.ViewModels.internaute.gestionCompte;
 using com.koyok.democratia.UI.Component;
 using CommunityToolkit.Mvvm.Messaging;
 

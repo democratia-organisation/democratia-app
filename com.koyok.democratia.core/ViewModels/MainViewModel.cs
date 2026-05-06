@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 
-namespace com.koyok.democratia.ViewModels.internaute
+namespace com.koyok.democratia.UI
 {
     public partial class MainViewModel : ConnectableViewModel, INavigeablleViewModel
     {

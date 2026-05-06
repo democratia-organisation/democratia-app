@@ -8,7 +8,7 @@ using com.koyok.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Input;
 
-namespace com.koyok.democratia.ViewModels.internaute
+namespace com.koyok.democratia.UI.internaute
 {
     public partial class HomeViewModel : ConnectableViewModel , IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel
     {

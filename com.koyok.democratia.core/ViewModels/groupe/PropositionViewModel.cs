@@ -4,7 +4,7 @@ using com.koyok.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Maui.Controls;
 
-namespace com.koyok.democratia.ViewModels.groupe
+namespace com.koyok.democratia.UI.groupe
 {
     public partial class PropositionViewModel(IEnumerable<IClient?> clients, ILocalizationService? localizationService) : ConnectableViewModel(clients.OfType<PropositionClient>().FirstOrDefault(), localizationService), IQueryAttributable
     {

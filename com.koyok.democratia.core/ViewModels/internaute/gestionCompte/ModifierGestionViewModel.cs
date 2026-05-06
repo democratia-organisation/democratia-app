@@ -8,7 +8,7 @@ using Microsoft.Maui.Controls;
 using System.ComponentModel;
 
 
-namespace com.koyok.democratia.ViewModels.internaute.gestionCompte
+namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
     public partial class ModifierGestionViewModel : ConnectableViewModel, INavigeablleViewModel, INotifyPropertyChanged, IQueryAttributable
     {

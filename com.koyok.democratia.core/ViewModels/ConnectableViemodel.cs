@@ -6,7 +6,7 @@ using Microsoft.Maui.Storage;
 using System.ComponentModel;
 using System.Text.Json;
 
-namespace com.koyok.democratia.ViewModels
+namespace com.koyok.democratia.UI
 {
     /// <summary>
     /// Classe abstraite qui représente tout viewModel qui peut se connecter à l'API

@@ -6,7 +6,7 @@
     xmlns:component="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.ViewModels.internaute.gestionCompte;assembly=com.koyok.democratia.core"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.gestionCompte;assembly=com.koyok.democratia.core"
     Title="PreferencePage"
     x:DataType="viewModel:PreferenceViewModel"
     Style="{DynamicResource fondEcran}">

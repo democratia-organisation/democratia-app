@@ -5,7 +5,7 @@ using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace com.koyok.democratia.ViewModels.groupe
+namespace com.koyok.democratia.UI.groupe
 {
     public partial class DecideurViewModel(Services.AppContext appContext) : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {

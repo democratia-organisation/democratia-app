@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace com.koyok.democratia.ViewModels.internaute.gestionCompte
+namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
     public partial class PreferenceViewModel : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel
     {

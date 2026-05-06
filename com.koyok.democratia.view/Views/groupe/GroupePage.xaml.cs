@@ -1,21 +1,20 @@
-using com.koyok.democratia.ViewModels.groupe;
-
-namespace com.koyok.democratia.UI.groupe;
-
-public partial class GroupePage : ContentPage
+namespace com.koyok.democratia.UI.groupe
 {
-    public GroupePage(GroupeViewModel viewModel)
+    public partial class GroupePage : ContentPage
     {
-        InitializeComponent();
-        BindingContext = viewModel;
-    }
+        public GroupePage(GroupeViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
+        }
 
 
-    protected override async void OnAppearing()
-    {
-        base.OnAppearing();
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
 
-        if (BindingContext is GroupeViewModel viewModel)
-            await viewModel.ChargerElementsCommand.ExecuteAsync(null);
+            if (BindingContext is GroupeViewModel viewModel)
+                await viewModel.ChargerElementsCommand.ExecuteAsync(null);
+        }
     }
 }

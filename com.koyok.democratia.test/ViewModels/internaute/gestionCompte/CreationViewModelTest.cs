@@ -1,4 +1,4 @@
-﻿using com.koyok.democratia.ViewModels.internaute.gestionCompte;
+﻿using com.koyok.democratia.UI.internaute.gestionCompte;
 
 namespace com.koyok.democratia.test.ViewModels.internaute.gestionCompte
 {

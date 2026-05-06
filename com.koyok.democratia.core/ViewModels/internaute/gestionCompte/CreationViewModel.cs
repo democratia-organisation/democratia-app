@@ -7,7 +7,7 @@ using com.koyok.democratia.Models;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
 
-namespace com.koyok.democratia.ViewModels.internaute.gestionCompte
+namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
     public partial class CreationViewModel : ConnectableViewModel, INavigeablleViewModel
     {
