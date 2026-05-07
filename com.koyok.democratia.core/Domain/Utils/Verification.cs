@@ -10,7 +10,7 @@ namespace com.koyok.democratia.Domain.Utils
         public  static bool VerifierFormatage(string valeur, FormatRule champ) => champ.Check(valeur);
 
         // Tâche rendu asynchrone à cause du temps d'execution de la fonction Verify
-        public static async Task HasherMotDePasse(InternauteRemoteSource internaute) => await Task.Run(() => internaute!.hashageMDP = Crypt.HashPassword(internaute!.tempMDP!));
+        public static async Task HasherMotDePasse(Internaute internaute) => await Task.Run(() => internaute!.hashageMDP = Crypt.HashPassword(internaute!.tempMDP!));
         
         public static async Task<bool> VerifierMotDePasseUtilisateur(string plainMotDePasse, string hashedMotDePasse) => await Task.Run(() => Crypt.Verify(plainMotDePasse, hashedMotDePasse));
 

@@ -20,11 +20,11 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [ObservableProperty] public partial ObservableCollection<string> themes {get; set;}
         private Dictionary<string,string> languagesDict;
         private Dictionary<string, AppTheme> themesDict;
-        private INavigationService navigationService;
+        private INavigationService Shell.Current;
         
-        public PreferenceViewModel(INavigationService navigationService, ILocalizationService localizationService) 
+        public PreferenceViewModel(INavigationService Shell.Current, ILocalizationService localizationService) 
         { 
-            this.navigationService = navigationService;
+            this.Shell.Current = Shell.Current;
             languages = ["Français","English (American)"];
             themes = [localizationService.GetString("claire"), localizationService.GetString("sombre")]; // light, dark
             languagesDict = [];
@@ -45,7 +45,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             Preferences.Default.Set("Language",langage);
             Preferences.Default.Set("Theme", (int)theme); // casting car Preferences ne supporte que les types primitif
             WeakReferenceMessenger.Default.Send<EventPreferecesSucess>();
-            await navigationService.GoToAsync(commande, []);
+            await Shell.Current.GoToAsync(commande, []);
         }
 
         public record EventPreferecesSucess() { }

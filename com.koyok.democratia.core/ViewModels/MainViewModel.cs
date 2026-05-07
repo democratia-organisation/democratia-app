@@ -1,47 +1,38 @@
-﻿using com.koyok.democratia.core.Domain.Exception;
-using com.koyok.democratia.core.Domain.Service;
-using com.koyok.democratia.Data.Repository;
+﻿using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Domain.UseCase;
 using com.koyok.democratia.Domain.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
+using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
 
 namespace com.koyok.democratia.UI
 {
-    public partial class MainViewModel : ConnectableViewModel, INavigeablleViewModel
+    public partial class MainViewModel(AuthenticateUseCase useCase, AppContext context) : ObservableObject
     {
         [ObservableProperty]
         public partial string? adresseMail { get; set; }
 
-        public InternauteRemoteSource? modele { get; private set; }
-        private.core.Domain.Utils.AppContext? contexte;
+        public Internaute? modele { get; private set; }
+        private AppContext contexte = context;
 
         [ObservableProperty]
         public partial string? motDePasse { get; set; }
 
         [ObservableProperty]
         public partial string? errorMessage { get; set; }
-        private readonly INavigationService? navigationService;
-
-        public MainViewModel(INavigationService navigationService, IEnumerable<IRepository?>? clients, ILocalizationService localization,.core.Domain.Utils.AppContext context)
-            : base(clients!.OfType<InternauteRepository>().FirstOrDefault(), localization)
-        {
-            this.navigationService = navigationService;
-            contexte = context;
-            client ??= clients?.OfType<FakeClient>().FirstOrDefault();
-        }
-
-        public MainViewModel() : base(null, null) { }
+        
+        private readonly AuthenticateUseCase useCase = useCase;
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
             if (commande == "CreationPage")
             {
-                await navigationService!.GoToAsync(commande);
+                await Shell.Current!.GoToAsync(commande);
             }
             else
             {
@@ -51,22 +42,17 @@ namespace com.koyok.democratia.UI
                 }
                 catch (Exception ex)
                 {
-#if DEBUG
-                    errorMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
-#elif !DEBUG
-                    errorMessage = LocalizationService?.GetString("erreurInattendu");    
-#endif
-                    return;
+                    errorMessage = contexte.Mapper!.MappingException(ex);
                 }
 
                 contexte!.Internaute = modele;
                 var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
-                await navigationService!.GoToAsync(commande, parameters);
+                await Shell.Current!.GoToAsync(commande, parameters);
             }
 
         }
 
-        internal async Task<InternauteRemoteSource?> ConnecterInternaute()
+        internal async Task<Internaute?> ConnecterInternaute()
         {
 
             if (string.IsNullOrWhiteSpace(adresseMail)) throw new EmptyEmailFieldException();
@@ -75,7 +61,7 @@ namespace com.koyok.democratia.UI
             {
                 await SecureStorage.Default.SetAsync("id_internaute", adresseMail);
                 string jsonString = await client?.GetModelAsync(adresseMail)!;
-                List<InternauteRemoteSource> listeInformation = RecuprerInformationConnexion<InternauteRemoteSource>(jsonString);
+                List<Internaute> listeInformation = RecuprerInformationConnexion<Internaute>(jsonString);
                 if (listeInformation.Count == 0) throw new NoUserException();
                 var internaute = listeInformation![0];
                 string motDePasseHash = internaute?.hashageMDP!;

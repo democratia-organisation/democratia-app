@@ -12,7 +12,7 @@ using Microsoft.Maui.Storage;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class TroisiemeCreationViewModel(IEnumerable<IRepository?>? clients, ILocalizationService? LocalizationService, 
+    public partial class TroisiemeCreationViewModel(IEnumerable<Repository?>? clients, ILocalizationService? LocalizationService, 
         INavigationService service,.core.Domain.Utils.AppContext context) : ConnectableViewModel(clients?.OfType<GroupClient>().FirstOrDefault(), 
             LocalizationService), INavigeablleViewModel , IQueryAttributable
     {

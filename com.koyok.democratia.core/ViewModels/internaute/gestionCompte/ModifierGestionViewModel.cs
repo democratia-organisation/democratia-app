@@ -23,13 +23,13 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [ObservableProperty] public partial string? email {get; set; }
         private.core.Domain.Utils.AppContext appContext;
 
-        public ModifierGestionViewModel(INavigationService navigationService, ILocalizationService localizationService, 
-            IEnumerable<IRepository> clients,.core.Domain.Utils.AppContext appContext) 
+        public ModifierGestionViewModel(INavigationService Shell.Current, ILocalizationService localizationService, 
+            IEnumerable<Repository> clients,.core.Domain.Utils.AppContext appContext) 
             : base(clients.OfType<InternauteRepository>().FirstOrDefault(),localizationService)
         {
-            this.NavigationService = navigationService;
+            this.NavigationService = Shell.Current;
             this.appContext = appContext;
-            client ??= clients?.OfType<FakeClient>().FirstOrDefault();
+            client ??= clients?.OfType<FakeRepository>().FirstOrDefault();
         }
 
         [RelayCommand]

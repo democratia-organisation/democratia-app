@@ -1,38 +1,32 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Text.Json;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
-using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Utils;
-using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.core.Domain.Service;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Domain.Repository;
+using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
-    public partial class CreationViewModel : ConnectableViewModel, INavigeablleViewModel
+    public partial class CreationViewModel(IInternauteRepository? repository, AppContext? context) : ObservableObject
     {
 
-        [ObservableProperty] public partial InternauteRemoteSource? internaute { get; set; } = new();
+        [ObservableProperty] public partial Internaute? internaute { get; set; } = new();
         [ObservableProperty] public partial string? retourMessage { get; set; }
         [ObservableProperty] public partial string? password { get; set; } // passowrd tempon afin d'éviter le set à chaque écriture dans la varible
         [ObservableProperty] public partial string? email { get; set; }
-        private readonly INavigationService? navigationService;
+        private readonly IInternauteRepository? _internauteRepository = repository;
+        private readonly AppContext? _context = context;
         
 
-        public CreationViewModel(INavigationService? navigationService, IEnumerable<IRepository?>? clients, ILocalizationService service)
-            : base(clients?.OfType<InternauteRepository>().FirstOrDefault(), service)
-        {
-            this.navigationService = navigationService;
-            client ??= clients?.OfType<FakeClient>().FirstOrDefault();
-        }
-
-        public CreationViewModel() : base(null, null) { }
+        public CreationViewModel() : this(null, null) { }
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) 
-            => await navigationService?.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", internaute! } })!;
+            => await Shell.Current?.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", internaute! } })!;
 
         [RelayCommand]
         private async Task CreerInternauteTapped()
@@ -43,11 +37,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             }
             catch (Exception ex)
             {
-#if DEBUG
-                retourMessage = ex.Message;
-#elif !DEBUG
-                RetourMessage = localizationService?.GetString("erreurInattendu");    
-#endif
+                retourMessage = _context!.Mapper!.MappingException(ex);
             }
             WeakReferenceMessenger.Default.Send<EventCreationSucess>();
         }

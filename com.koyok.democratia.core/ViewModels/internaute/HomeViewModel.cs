@@ -16,7 +16,7 @@ namespace com.koyok.democratia.UI.internaute
     public partial class HomeViewModel : ConnectableViewModel , IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel
     {
         public InternauteRemoteSource? internaute;
-        private readonly INavigationService? navigationService;
+        private readonly INavigationService? Shell.Current;
         private readonly.core.Domain.Utils.AppContext context;
         private int cursor = 0;
 
@@ -26,11 +26,11 @@ namespace com.koyok.democratia.UI.internaute
         [ObservableProperty]
         public partial bool isRefreshing { get; set; } = false;
 
-        public HomeViewModel(INavigationService? navigationService, IEnumerable<IRepository?>? clients, ILocalizationService? localizationService,.core.Domain.Utils.AppContext context)
+        public HomeViewModel(INavigationService? Shell.Current, IEnumerable<Repository?>? clients, ILocalizationService? localizationService,.core.Domain.Utils.AppContext context)
             : base(clients?.OfType<GroupRepository>().FirstOrDefault(), localizationService)
         {
-            this.navigationService = navigationService;
-            client ??= clients?.OfType<FakeClient>().FirstOrDefault();
+            this.Shell.Current = Shell.Current;
+            client ??= clients?.OfType<FakeRepository>().FirstOrDefault();
             this.context = context;
         }
 
@@ -74,7 +74,7 @@ namespace com.koyok.democratia.UI.internaute
             var parameters = new ShellNavigationQueryParameters { { "groupe", tuple.Item1! }, { "Image", tuple.Item2! }, { "modele", internaute! } };
             context.Groupe = tuple.Item1;
             context.ImageSourceGroupe = tuple.Item2;
-            await navigationService?.GoToAsync("GroupePage", parameters)!;
+            await Shell.Current?.GoToAsync("GroupePage", parameters)!;
         }
 
 
@@ -82,7 +82,7 @@ namespace com.koyok.democratia.UI.internaute
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) => 
-            await navigationService?.GoToAsync(commande, new (){{ "modele", internaute! }})!;
+            await Shell.Current?.GoToAsync(commande, new (){{ "modele", internaute! }})!;
 
         [RelayCommand]
         private async Task RefreshListGroupe()

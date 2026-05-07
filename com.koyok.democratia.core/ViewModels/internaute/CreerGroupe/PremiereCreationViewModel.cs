@@ -29,12 +29,12 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
 
         
         private List<ThematiqueRemoteSource> thematiquesNouvelles { get; set; } = []; 
-        private INavigationService navigationService;
-        public PremiereCreationViewModel(INavigationService navigation, IEnumerable<IRepository?>? clients, ILocalizationService? LocalizationService)
+        private INavigationService Shell.Current;
+        public PremiereCreationViewModel(INavigationService navigation, IEnumerable<Repository?>? clients, ILocalizationService? LocalizationService)
             : base(clients!.OfType<ThematiqueClient>().FirstOrDefault(), LocalizationService)
         {
-            navigationService = navigation;
-            client ??= clients?.OfType<FakeClient>().FirstOrDefault();
+            Shell.Current = navigation;
+            client ??= clients?.OfType<FakeRepository>().FirstOrDefault();
             thematiquesExistantes = [];
             thematiquesRetenues = [];
         }
@@ -84,7 +84,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
                     item.id_thematique = thematiques.Last().id_thematique;
                 }
 
-                await navigationService.GoToAsync(commande, new()
+                await Shell.Current.GoToAsync(commande, new()
                 { 
                     { "groupe",  groupe},
                     { "thematique", thematiquesRetenues },

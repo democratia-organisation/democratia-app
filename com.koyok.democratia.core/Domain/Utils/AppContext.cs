@@ -1,15 +1,27 @@
-﻿using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Models;
+﻿using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Service;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace com.koyok.democratia.Domain.Utils
 {
+
     public partial record class AppContext : INotifyPropertyChanged
     {
-        private InternauteRemoteSource? internaute;
-        public InternauteRemoteSource? Internaute
+        private MapExceptionMessage? mapper;
+        public MapExceptionMessage? Mapper
+        {
+            get => mapper;
+            set
+            {
+                mapper = value;
+                OnPropertyChanged(nameof(mapper));
+            }
+        }
+        private Internaute? internaute;
+        public Internaute? Internaute
         {
             get => internaute;
             set

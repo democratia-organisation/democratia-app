@@ -12,8 +12,8 @@ using System.Collections.ObjectModel;
 namespace com.koyok.democratia.UI.groupe
 {
     public partial class GroupeViewModel(
-        IEnumerable<IRepository> clients,
-        INavigationService navigationService,
+        IEnumerable<Repository> clients,
+        INavigationService Shell.Current,
         ILocalizationService localizationService,
        .core.Domain.Utils.AppContext context
     ) : ConnectableViewModel(clients.OfType<IGroupeClient>().FirstOrDefault(), localizationService), INavigeablleViewModel, IQueryAttributable
@@ -30,7 +30,7 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty]
         public partial ObservableCollection<Critere> criteres { get; set; } = [Critere.PRIX,Critere.POPULARITE,Critere.REACTIONS];
         [ObservableProperty] public partial Critere critere { get; set; }
-        private readonly INavigationService navigationService = navigationService;
+        private readonly INavigationService Shell.Current = Shell.Current;
 
         [ObservableProperty]
         public partial bool isRefreshing { get; set; } = false;
@@ -39,7 +39,7 @@ namespace com.koyok.democratia.UI.groupe
         public async Task NavigateTapped(string commande)
         {
             ShellNavigationQueryParameters parameters = new() { { "thematiques", thematiques }, { "groupe" , groupe! } };
-            await navigationService?.GoToAsync(commande, parameters)!;
+            await Shell.Current?.GoToAsync(commande, parameters)!;
         }
 
         [RelayCommand]

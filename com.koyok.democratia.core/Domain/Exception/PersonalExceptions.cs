@@ -25,9 +25,11 @@ namespace com.koyok.democratia.Domain.Exception
     internal class NoImageGiven : System.Exception { }
 
 
-    internal static class MapExceptionMessage
+    public class MapExceptionMessage(ILocalizationService localizationService)
     {
-        public static string? MappingException(System.Exception e, ILocalizationService localizationService, params object[] args)
+
+        private ILocalizationService localizationService = localizationService;
+        public string? MappingException(System.Exception e, params object[] args)
         {
             return e switch
             {

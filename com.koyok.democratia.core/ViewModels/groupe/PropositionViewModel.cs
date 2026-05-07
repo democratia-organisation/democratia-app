@@ -7,7 +7,7 @@ using Microsoft.Maui.Controls;
 
 namespace com.koyok.democratia.UI.groupe
 {
-    public partial class PropositionViewModel(IEnumerable<IRepository?> clients, ILocalizationService? localizationService) : ConnectableViewModel(clients.OfType<PropositionRepository>().FirstOrDefault(), localizationService), IQueryAttributable
+    public partial class PropositionViewModel(IEnumerable<Repository?> clients, ILocalizationService? localizationService) : ConnectableViewModel(clients.OfType<PropositionRepository>().FirstOrDefault(), localizationService), IQueryAttributable
     {
         private readonly Groupe? groupe;
         public void ApplyQueryAttributes(IDictionary<string, object> query)

@@ -5,6 +5,7 @@ using com.koyok.democratia.Domain.Extension;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Data.DataSource.Local;
 using com.koyok.democratia.Data.DataSource.Remote;
+using System.Text.Json;
 
 namespace com.koyok.democratia.Data.Repository
 {
@@ -33,6 +34,17 @@ namespace com.koyok.democratia.Data.Repository
 #endif
             this.localSource = localSource;
             this.remoteSource = remoteSource;
+        }
+
+        public virtual List<T> RecuprerInformationConnexion<T>(string stringJson)
+        {
+            Dictionary<string, object> dictionnary;
+            var finalJson = stringJson.Trim();
+            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(finalJson)!; }
+            catch (Exception) { throw new FetchDataException(); }
+            var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new FetchDataException();
+            return JsonSerializer.Deserialize<List<T>>(rawElement!)!;
+
         }
 
         /// <summary>

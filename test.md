@@ -42,7 +42,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -93,7 +93,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -114,7 +114,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -135,7 +135,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -156,7 +156,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -177,7 +177,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -198,7 +198,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -219,7 +219,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran

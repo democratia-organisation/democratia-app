@@ -20,11 +20,11 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         private bool _isNavigating = false;
         private readonly INavigationService navigationService1;
         private readonly WeakReferenceMessenger weakReferenceMessenger;
-        public HomeGestionViewModel(IEnumerable<IRepository> clients, ILocalizationService? localizationService, INavigationService navigationService,.core.Domain.Utils.AppContext context) 
+        public HomeGestionViewModel(IEnumerable<Repository> clients, ILocalizationService? localizationService, INavigationService Shell.Current,.core.Domain.Utils.AppContext context) 
             : base(clients.OfType<InternauteRepository>().FirstOrDefault(), localizationService)
         {
-            client ??= clients?.OfType<FakeClient>().FirstOrDefault();
-            navigationService1 = navigationService;
+            client ??= clients?.OfType<FakeRepository>().FirstOrDefault();
+            navigationService1 = Shell.Current;
             weakReferenceMessenger = WeakReferenceMessenger.Default;
             appContext = context;
         }
