@@ -74,7 +74,6 @@ namespace com.koyok.democratia.Domain.Extension
             public IServiceCollection AddServices()
             {
                 services.AddSingleton<Utils.AppContext>();
-                services.AddSingleton<INavigationService, ShellNavigationService>();
                 services.AddClients();
                 services.AddClient();
                 services.AddTransientViewModel();
@@ -101,16 +100,17 @@ namespace com.koyok.democratia.Domain.Extension
             public IServiceCollection AddClient()
             {
                
-                services.AddTransient<Repository>(s => s.GetRequiredService<IInternauteRepository>());
-                services.AddTransient<Repository>(s => s.GetRequiredService<IGroupeRepository>());
-                services.AddTransient<Repository>(s => s.GetRequiredService<IThematiqueRepository>());
-                services.AddTransient<Repository>(s => s.GetRequiredService<IPropositionRepository>());
+                services.AddTransient<IRepository>(s => s.GetRequiredService<IInternauteRepository>());
+                services.AddTransient<IRepository>(s => s.GetRequiredService<IGroupeRepository>());
+                services.AddTransient<IRepository>(s => s.GetRequiredService<IThematiqueRepository>());
+                services.AddTransient<IRepository>(s => s.GetRequiredService<IPropositionRepository>());
 
                 return services;
             }
 
             private IServiceCollection AddTransientViewModel()
             {
+                services.AddTransient<LoginViewModel>();
                 services.AddTransient<MainViewModel>();
                 services.AddTransient<CreationViewModel>();
                 services.AddTransient<HomeViewModel>();

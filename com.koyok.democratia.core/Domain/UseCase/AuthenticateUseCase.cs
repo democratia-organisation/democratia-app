@@ -7,7 +7,7 @@ namespace com.koyok.democratia.Domain.UseCase
     {
         private readonly IInternauteRepository internauteRepository = repository;
 
-        public Internaute Authenticate()
+        public Internaute? Authenticate()
         {
             return new();
         }
