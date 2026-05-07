@@ -1,12 +1,12 @@
-﻿using com.koyok.democratia.core.Domain.Service;
+﻿using com.koyok.democratia.Domain.Service;
 using com.koyok.democratia.view.Resources.Localization;
 
-namespace com.koyok.democratia.Resources.Localization
+namespace com.koyok.democratia.UI
 {
 
     public class LocalizationService : ILocalizationService
     {
-        public string GetString(string key) => AppResources.ResourceManager.GetString(key) ?? String.Empty;
+        public string GetString(string key) => AppResources.ResourceManager.GetString(key) ?? string.Empty;
 
         public string GetString(string key, params object[] args)
         {
