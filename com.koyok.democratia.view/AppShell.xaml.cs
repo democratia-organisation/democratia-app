@@ -12,6 +12,7 @@ namespace com.koyok.democratia
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             CreerGroupeRoute.RouteCreationGroup();
             GestionCompteRoute.RouteGestionCompte();
             GroupeRoute.Routes();
