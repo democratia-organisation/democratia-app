@@ -1,9 +1,12 @@
-﻿using com.koyok.democratia.Domain.Utils;
+﻿using com.koyok.democratia.Data.DataSource.Local;
+using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    public class PropositionRepository(HttpClient client) : BaseRepository(client), IPropositionRepository
+    public class PropositionRepository(HttpClient client, PropositionLocalSource localSource, PropositionRemoteSource remoteSource) 
+        : BaseRepository(client, localSource, remoteSource), IPropositionRepository
     {
         public Task<string> CreateModelAsync(params object?[]? parameters)
         {
@@ -47,7 +50,7 @@ namespace com.koyok.democratia.Data.Repository
             throw new NotImplementedException();
         }
 
-        Task<string> IRepository.GetModelAsync(params object?[] parameters)
+        Task<string> Domain.Repository.Repository.GetModelAsync(params object?[] parameters)
         {
             throw new NotImplementedException();
         }

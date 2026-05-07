@@ -1,18 +1,21 @@
-﻿using com.koyok.democratia.Domain.Utils;
-using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Models;
+﻿using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Data.DataSource.Local;
+using com.koyok.democratia.Data.DataSource.Remote;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    internal class ThematiqueRepository(HttpClient client) : BaseRepository(client), IThematiqueRepository
+    internal class ThematiqueRepository(HttpClient client, ThematiqueLocalSource localSource, ThematiqueRemoteSource remoteSource) 
+        : BaseRepository(client, localSource, remoteSource), IThematiqueRepository
     {
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
-            var thematique = (ThematiqueRemoteSource)parameters![0]!;
+            var thematique = (Thematique)parameters![0]!;
             var requete = $"""
                 ?request=INSERT INTO thematique (nom_thematique)
                 VALUES (?);
-                &parameters=["{thematique.nom_thematique}"]
+                &parameters=["{thematique.nomThematique}"]
                 """;
             HttpResponseMessage response;
             try

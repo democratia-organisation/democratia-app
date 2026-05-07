@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace com.koyok.democratia.Data.DataSource.Remote
 {
     [method: JsonConstructor]
-    public partial class ThematiqueRemoteSource(int? id_thematique, string? nom_thematique, float? budget, float? budget_groupe) : ILocalSource
+    public partial class ThematiqueRemoteSource(int? id_thematique, string? nom_thematique, float? budget, float? budget_groupe) : IRemoteSource
     {
         public int? id_thematique { get; set; } = id_thematique;
         public string? nom_thematique { get; set; } = nom_thematique;        

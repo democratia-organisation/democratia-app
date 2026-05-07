@@ -2,7 +2,9 @@
 using System.Net.Http.Headers;
 using Xunit.Abstractions;
 using com.koyok.democratia.Domain.Extension;
-using com.koyok.democratia.Domain.Utils;
+using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Data.DataSource.Local;
+using com.koyok.democratia.Data.DataSource.Remote;
 
 namespace com.koyok.democratia.Data.Repository
 {
@@ -13,22 +15,24 @@ namespace com.koyok.democratia.Data.Repository
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
-        
+        protected ILocalSource localSource;
+        protected IRemoteSource remoteSource;
 
         public bool succes {  get; private set; }
         
-        protected BaseRepository(HttpClient client)
+        protected BaseRepository(HttpClient client, ILocalSource localSource, IRemoteSource remoteSource)
         {
             statutsMessage = string.Empty;
             statuts = 0;
             this.client = client;
             this.client.BaseAddress = this.AffecterURL();
 #if DEBUG
-            this.client.Timeout = TimeSpan.FromSeconds(60*7)
+            this.client.Timeout = TimeSpan.FromSeconds(60 * 7);
 #elif !DEBUG
-            this.client.Timeout = TimeSpan.FromSeconds(10)
+            this.client.Timeout = TimeSpan.FromSeconds(10);
 #endif
-            ;
+            this.localSource = localSource;
+            this.remoteSource = remoteSource;
         }
 
         /// <summary>

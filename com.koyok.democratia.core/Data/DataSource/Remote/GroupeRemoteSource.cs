@@ -3,7 +3,7 @@
 namespace com.koyok.democratia.Data.DataSource.Remote
 {
     [method: JsonConstructor]
-    public partial class GroupeRemoteSource(Guid? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement) : ILocalSource
+    public partial class GroupeRemoteSource(Guid? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement) : IRemoteSource
     {
         public Guid? id { get; set; } = idGroupe;
         public string? nom_groupe { get; set; } = nomGroupe;

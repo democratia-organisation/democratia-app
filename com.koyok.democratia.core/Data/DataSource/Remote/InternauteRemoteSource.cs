@@ -4,7 +4,7 @@ namespace com.koyok.democratia.Data.DataSource.Remote
 {
 
     [method: JsonConstructor]
-    public class InternauteLocalSource(int? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postale, string? courriel, string? hashageMDP) : ILocalSource
+    public class InternauteRemoteSource(int? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postale, string? courriel, string? hashageMDP) : IRemoteSource
     {
         public int? id_internaute { get; set; } = id_internaute;
         public string? nom_internaute { get; set; } = nom_internaute;
@@ -14,7 +14,7 @@ namespace com.koyok.democratia.Data.DataSource.Remote
         public string? hashageMDP { get; set; } = hashageMDP;
         public string? tempMDP { get; set; }
 
-        public InternauteLocalSource() : this(null, null, null, null, null, null) { }
+        public InternauteRemoteSource() : this(null, null, null, null, null, null) { }
 
     }
 }

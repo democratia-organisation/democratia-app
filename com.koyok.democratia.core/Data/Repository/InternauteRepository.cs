@@ -1,8 +1,12 @@
-﻿using com.koyok.democratia.Domain.Repository;
+﻿using com.koyok.democratia.Data.DataSource.Local;
+using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    public class InternauteRepository(HttpClient client) : BaseRepository(client), IInternauteRepository
+    public class InternauteRepository(HttpClient client, InternauteLocalSource localSource, InternauteRemoteSource remoteSource) 
+        : BaseRepository(client, localSource, remoteSource), IInternauteRepository
     {
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
@@ -72,7 +76,7 @@ namespace com.koyok.democratia.Data.Repository
             var internaute = (Internaute)parameters![0]!;
             try
             {
-                response = await client!.PatchAsync($"""?request=ModifInfoInternaute&parameters=["{internaute.id_internaute}","{internaute.nom_internaute}","{internaute.prenom_internaute}","{internaute.adresse_postale}","{internaute.courriel}","{internaute.hashageMDP}"]""", null);
+                response = await client!.PatchAsync($"""?request=ModifInfoInternaute&parameters=["{internaute.idInternaute}","{internaute.nomInternaute}","{internaute.prenomInternaute}","{internaute.adressePostale}","{internaute.courriel}","{internaute.hashageMDP}"]""", null);
             }
             catch (HttpRequestException ex) {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
@@ -86,7 +90,7 @@ namespace com.koyok.democratia.Data.Repository
             HttpResponseMessage? response;
             try
             {
-                response = await client?.DeleteAsync($"?request=SupprimerInternaute&parameters=[{((InternauteRemoteSource)parameters![0]!).id_internaute}]")!;
+                response = await client?.DeleteAsync($"?request=SupprimerInternaute&parameters=[{((Internaute)parameters![0]!).idInternaute}]")!;
             }
             catch (HttpRequestException ex)
             {

@@ -11,10 +11,7 @@ namespace com.koyok.democratia.Domain.Service
             {
                 try
                 {
-                    if (parameters == null)
-                    {
-                        parameters = [];
-                    }
+                    parameters ??= [];
                     await Shell.Current.GoToAsync(route, false ,parameters);
                 }
                 catch (System.Exception)

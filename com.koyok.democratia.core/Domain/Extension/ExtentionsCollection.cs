@@ -101,10 +101,10 @@ namespace com.koyok.democratia.Domain.Extension
             public IServiceCollection AddClient()
             {
                
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IInternauteRepository>());
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IGroupeRepository>());
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IThematiqueRepository>());
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IPropositionRepository>());
+                services.AddTransient<Repository>(s => s.GetRequiredService<IInternauteRepository>());
+                services.AddTransient<Repository>(s => s.GetRequiredService<IGroupeRepository>());
+                services.AddTransient<Repository>(s => s.GetRequiredService<IThematiqueRepository>());
+                services.AddTransient<Repository>(s => s.GetRequiredService<IPropositionRepository>());
 
                 return services;
             }

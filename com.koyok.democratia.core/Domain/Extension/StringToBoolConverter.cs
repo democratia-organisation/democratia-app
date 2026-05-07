@@ -10,7 +10,7 @@ namespace com.koyok.democratia.Domain.Extension
 
 
         public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
-             => throw new NotImplementedException(); // Pas besoin ici
+             => throw new NotImplementedException();
 
     }
 }

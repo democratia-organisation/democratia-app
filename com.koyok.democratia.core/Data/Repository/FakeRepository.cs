@@ -1,19 +1,18 @@
-﻿using com.koyok.democratia.Domain.Repository;
+﻿using com.koyok.democratia.Data.DataSource.Local;
+using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository
 {
     /// <summary>
     /// Classe utilisée pour simuler un client comportant des erreurs dans les tests unitaires.
     /// </summary>
-    internal class FakeClient : BaseRepository, IFakeClient
+    internal class FakeRepository(HttpClient? client, string? fakeResponse, ILocalSource? localSource, IRemoteSource? remoteSource) 
+        : BaseRepository(client!, localSource!, remoteSource!), IFakeRepository
     {
-        private readonly string? fakeResponse;
+        private readonly string? fakeResponse = fakeResponse;
 
-        public FakeClient(HttpClient? client, string? fakeResponse) : base(client!) 
-        {
-            this.fakeResponse = fakeResponse;
-        }
-        public FakeClient() : this(null, null) { }
+        public FakeRepository() : this(null, null, null, null) { }
 
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {

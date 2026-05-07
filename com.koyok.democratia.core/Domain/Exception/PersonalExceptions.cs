@@ -1,4 +1,4 @@
-﻿using com.koyok.democratia.core.Domain.Service;
+﻿using com.koyok.democratia.Domain.Service;
 
 namespace com.koyok.democratia.Domain.Exception
 {
