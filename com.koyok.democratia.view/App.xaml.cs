@@ -1,18 +1,20 @@
-﻿namespace com.koyok.democratia
+﻿using com.koyok.democratia.Domain.Enumerations;
+
+namespace com.koyok.democratia
 {
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
-            Current?.UserAppTheme = (AppTheme)Preferences.Default.Get("Theme", (int)Current?.UserAppTheme!)!;
+            Current?.UserAppTheme = (AppTheme)Preferences.Default.Get(Settings.Theme.ToString(), (int)Current?.UserAppTheme!)!;
 
 #if ANDROID
-            MainApplication.SetLocal(Preferences.Default.Get("Language", MainApplication.cultureInfo.Name));
+            MainApplication.SetLocal(Preferences.Default.Get(Settings.Language.ToString(), MainApplication.cultureInfo.Name));
 #elif WINDOWS
-            WinUI.App.SetLocal(Preferences.Default.Get("Language", WinUI.App.cultureInfo.Name));
+            WinUI.App.SetLocal(Preferences.Default.Get(Settings.Language.ToString(), WinUI.App.cultureInfo.Name));
 #elif IOS || MACCATALYST
-            AppDelegate.SetLocal(Preferences.Default.Get("Language", AppDelegate.cultureInfo.Name));
+            AppDelegate.SetLocal(Preferences.Default.Get(Settings.Language.ToString(), AppDelegate.cultureInfo.Name));
 #endif
 
         }

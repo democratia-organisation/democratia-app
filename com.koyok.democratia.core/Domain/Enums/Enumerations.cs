@@ -1,11 +1,10 @@
-﻿namespace com.koyok.democratia.Domain.UseCase
+﻿namespace com.koyok.democratia.Domain.Enumerations
 {
     public enum Critere
     {
         POPULARITE,
         PRIX,
         REACTIONS
-
     }
 
     public enum TypeGestion
@@ -19,7 +18,12 @@
         ADMINISTRATEUR,
         DECIDEUR,
         MEMBRE
-        
+    }
+
+    public enum Settings
+    {
+        Theme,
+        Language
     }
 
 }

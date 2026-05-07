@@ -1,5 +1,5 @@
-﻿
-using com.koyok.democratia.core.Domain.Service;
+﻿using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Domain.Enumerations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -12,21 +12,19 @@ using System.Globalization;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
-    public partial class PreferenceViewModel : ObservableObject, INotifyPropertyChanged, INavigeablleViewModel
+    public partial class PreferenceViewModel : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? language {get; set;}
         [ObservableProperty] public partial string? theme {get; set;}
         [ObservableProperty] public partial ObservableCollection<string> languages {get; set;}
         [ObservableProperty] public partial ObservableCollection<string> themes {get; set;}
-        private Dictionary<string,string> languagesDict;
-        private Dictionary<string, AppTheme> themesDict;
-        private INavigationService Shell.Current;
+        private readonly Dictionary<string,string> languagesDict;
+        private readonly Dictionary<string, AppTheme> themesDict;
         
-        public PreferenceViewModel(INavigationService Shell.Current, ILocalizationService localizationService) 
+        public PreferenceViewModel(ILocalizationService localizationService) 
         { 
-            this.Shell.Current = Shell.Current;
             languages = ["Français","English (American)"];
-            themes = [localizationService.GetString("claire"), localizationService.GetString("sombre")]; // light, dark
+            themes = [localizationService.GetString("claire"), localizationService.GetString("sombre")];
             languagesDict = [];
             themesDict = [];
             languagesDict.Add(languages[0], "fr-FR");
@@ -38,14 +36,15 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            var langueChoisi = language ?? Preferences.Default.Get("Language", CultureInfo.CurrentCulture.Name);
+            var langueChoisi = language ?? Preferences.Default.Get(Settings.Language.ToString(), CultureInfo.CurrentCulture.Name);
             var themeChoisi = this.theme ?? themes!.First(value => themesDict[value] == Application.Current!.UserAppTheme);
             var langage = languagesDict[langueChoisi];
             AppTheme theme = themesDict[themeChoisi];
-            Preferences.Default.Set("Language",langage);
-            Preferences.Default.Set("Theme", (int)theme); // casting car Preferences ne supporte que les types primitif
+            Preferences.Default.Set(Settings.Language.ToString(), langage);
+            // casting car Preferences ne supporte que les types primitif
+            Preferences.Default.Set(Settings.Theme.ToString(), (int)theme); 
             WeakReferenceMessenger.Default.Send<EventPreferecesSucess>();
-            await Shell.Current.GoToAsync(commande, []);
+            await Shell.Current.GoToAsync(commande);
         }
 
         public record EventPreferecesSucess() { }

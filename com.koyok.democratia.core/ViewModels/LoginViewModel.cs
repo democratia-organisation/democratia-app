@@ -1,17 +1,18 @@
 ﻿using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Service;
 using com.koyok.democratia.Domain.UseCase;
 using com.koyok.democratia.Domain.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
+using System.ComponentModel;
 using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
 
 namespace com.koyok.democratia.UI
 {
-    public partial class LoginViewModel(AuthenticateUseCase useCase, AppContext context) : ObservableObject
+    public partial class LoginViewModel(AuthenticateUseCase useCase, AppContext context) 
+        : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty]
         public partial string? adresseMail { get; set; }
@@ -31,9 +32,8 @@ namespace com.koyok.democratia.UI
         public async Task NavigateTapped(string commande)
         {
             if (commande == "CreationPage")
-            {
                 await Shell.Current!.GoToAsync(commande);
-            }
+            
             else
             {
                 try
