@@ -1,6 +1,7 @@
-using com.koyok.democratia.Models;
 
-namespace com.koyok.democratia.UI.Component;
+using com.koyok.democratia.Domain.Models;
+
+namespace com.koyok.democratia.UI.Component.groupe;
 
 public partial class LabelBudgetaire : ContentView
 {
@@ -42,7 +43,7 @@ public partial class LabelBudgetaire : ContentView
 
     private void UpdateModel(string value)
     {
-        if (BindingContext is ThematiqueRemoteSource thematique)
+        if (BindingContext is Thematique thematique)
             thematique.budget = float.TryParse(value, out float result) ? result : 0;
     }
 }

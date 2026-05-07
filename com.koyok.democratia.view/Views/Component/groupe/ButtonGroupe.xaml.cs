@@ -1,6 +1,7 @@
+using com.koyok.democratia.Domain.Models;
 using System.Windows.Input;
 
-namespace com.koyok.democratia.UI.Component;
+namespace com.koyok.democratia.UI.Component.groupe;
 
 public partial class ButtonGroupe : ContentView
 {
@@ -24,11 +25,11 @@ public partial class ButtonGroupe : ContentView
 
     public static readonly BindableProperty GroupeProperty =
         BindableProperty.Create(
-            nameof(Groupe), typeof(Models.Groupe), typeof(ButtonGroupe));
+            nameof(Groupe), typeof(Groupe), typeof(ButtonGroupe));
 
-    public Models.Groupe Groupe
+    public Groupe Groupe
     {
-        get => (Models.Groupe)GetValue(GroupeProperty);
+        get => (Groupe)GetValue(GroupeProperty);
         set => SetValue(GroupeProperty, value);
     }
 
@@ -40,7 +41,7 @@ public partial class ButtonGroupe : ContentView
     protected async override void OnBindingContextChanged()
     {
         base.OnBindingContextChanged();
-        if (BindingContext is Tuple<Models.Groupe,ImageSource,ICommand> tuple)
+        if (BindingContext is Tuple<Groupe,ImageSource,ICommand> tuple)
         {
             Image = tuple.Item2;
             OpenGroupeCommand = tuple.Item3;

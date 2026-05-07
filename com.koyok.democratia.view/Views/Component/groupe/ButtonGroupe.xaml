@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView
-    x:Class="com.koyok.democratia.UI.Component.ButtonGroupe"
+    x:Class="com.koyok.democratia.UI.Component.groupe.ButtonGroupe"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Name="this">
@@ -11,7 +11,7 @@
             Style="{StaticResource BorderStyle}">
             <ImageButton
                 x:Name="enterGroupeImageButton"
-                AutomationId="{Binding Path=Groupe.NomGroupe, Source={x:Reference this}, StringFormat='Groupe {0}'}"
+                AutomationId="{Binding Path=Groupe.nomGroupe, Source={x:Reference this}, StringFormat='Groupe {0}'}"
                 Command="{Binding OpenGroupeCommand, Source={x:Reference this}}"
                 CommandParameter="{Binding .}"
                 HeightRequest="{StaticResource SpacingUltraLarge}"
@@ -25,6 +25,6 @@
             HorizontalOptions="Center"
             LineBreakMode="WordWrap"
             Style="{StaticResource SubHeadlineStyle}"
-            Text="{Binding Groupe.NomGroupe, Source={x:Reference this}}" />
+            Text="{Binding Groupe.nomGroupe, Source={x:Reference this}}" />
     </VerticalStackLayout>
 </ContentView>

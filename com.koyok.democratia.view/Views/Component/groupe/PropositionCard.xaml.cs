@@ -2,7 +2,7 @@ using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.view.Resources.Localization;
 using System.Windows.Input;
 
-namespace com.koyok.democratia.UI.Component
+namespace com.koyok.democratia.UI.Component.groupe
 {
     public partial class PropositionCard : ContentView
     {
@@ -20,7 +20,7 @@ namespace com.koyok.democratia.UI.Component
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            dateLabel.Text = $"{AppResources.finDiscussion} {((PropositionRemoteSource)BindingContext).FormatDateFinDiscussion}";
+            dateLabel.Text = $"{AppResources.finDiscussion} {((Proposition)BindingContext).formatDateFinDiscussion}";
 
         }
     }

@@ -1,4 +1,4 @@
-namespace com.koyok.democratia.UI.Component;
+namespace com.koyok.democratia.UI.Component.groupe;
 
 public partial class DecideurIndicator : ContentView
 {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace com.koyok.democratia.UI.Component;
+namespace com.koyok.democratia.UI.Component.internaute;
 
 public partial class FinGestionCompte : ContentView
 {
