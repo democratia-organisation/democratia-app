@@ -50,9 +50,14 @@ namespace com.koyok.democratia.Data.Repository
             throw new NotImplementedException();
         }
 
-        Task<string> Domain.Repository.Repository.GetModelAsync(params object?[] parameters)
+        Task<string> GetModelAsync(params object?[] parameters)
         {
             throw new NotImplementedException();
+        }
+
+        Task<string> IRepository.GetModelAsync(params object?[] parameters)
+        {
+            return GetModelAsync(parameters);
         }
     }
 }
