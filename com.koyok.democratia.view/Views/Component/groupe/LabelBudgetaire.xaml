@@ -3,7 +3,9 @@
     x:Class="com.koyok.democratia.UI.Component.groupe.LabelBudgetaire"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Name="this">
+    xmlns:models="clr-namespace:com.koyok.democratia.Domain.Models;assembly=com.koyok.democratia.core"
+    x:Name="this"
+    x:DataType="models:Thematique">
 
     <Border
         x:Name="mainBorder"
