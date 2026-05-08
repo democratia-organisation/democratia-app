@@ -12,7 +12,8 @@ namespace com.koyok.democratia.UI
     {
         private readonly AuthenticateUseCase useCase = useCase;
         private readonly AppContext context = context;
-        
+        public bool loading;
+
         [ObservableProperty]
         public partial bool isConnected { get; set; }
         

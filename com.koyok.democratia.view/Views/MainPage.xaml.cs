@@ -10,21 +10,19 @@ namespace com.koyok.democratia.UI
             BindingContext = viewModel;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+        }
+
         protected async override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
             var viewModel = BindingContext as MainViewModel;
-            AnimationChargement();
             viewModel!.ConnectCommand.Execute(null);
             var route = viewModel.isConnected ? $"/{nameof(HomePage)}" : $"/{nameof(LoginPage)}";
             await Shell.Current.GoToAsync(route);
-
         }
-
-        private void AnimationChargement()
-        {
-            throw new NotImplementedException();
-            // TODO : faire une animation de chargement pendant 3 secondes
-        }
+        
     }
 }

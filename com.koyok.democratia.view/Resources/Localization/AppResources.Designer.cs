@@ -736,6 +736,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Êtes-vous prêt à débattre ?.
+        /// </summary>
+        public static string slogan {
+            get {
+                return ResourceManager.GetString("slogan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Sombre.
         /// </summary>
         public static string sombre {

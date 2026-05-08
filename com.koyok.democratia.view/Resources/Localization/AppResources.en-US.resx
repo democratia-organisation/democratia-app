@@ -372,4 +372,7 @@
   <data name="erreurThematiqueBudget" xml:space="preserve">
     <value>The amount of themes's budgets is superior than the group's  project</value>
   </data>
+  <data name="slogan" xml:space="preserve">
+    <value>Are you ready for the debate ?</value>
+  </data>
 </root>

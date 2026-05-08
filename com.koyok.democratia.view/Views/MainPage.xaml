@@ -3,7 +3,32 @@
     x:Class="com.koyok.democratia.UI.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Component="clr-namespace:com.koyok.democratia.UI.Component"
+    xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI;assembly=com.koyok.democratia.core"
     Title="MainPage"
-    AutomationId="mainPage">
-    <Image x:Name="loginImage" Source="appicon.png" />
+    x:DataType="viewModel:MainViewModel"
+    AutomationId="mainPage"
+    BackgroundColor="#85000C">
+    <HorizontalStackLayout
+        HorizontalOptions="Center"
+        Spacing="{DynamicResource SpacingSmall}"
+        VerticalOptions="Center">
+        <Image
+            x:Name="loginImage"
+            AutomationId="loginImage"
+            Source="appicon.png" />
+        <Label
+            x:Name="democratiaLabel"
+            AutomationId="democratiaLabel"
+            Style="{DynamicResource HeadlineStyle}"
+            Text="Democratia" />
+        <Label
+            x:Name="sloganLabel"
+            AutomationId="sloganLabel"
+            Style="{DynamicResource SubHeadlineStyle}"
+            Text="{x:Static lang:AppResources.slogan}" />
+        <Component:LoadingComponent Loading="{Binding loading}" Size="{DynamicResource SpacingMedium}" />
+
+    </HorizontalStackLayout>
 </ContentPage>

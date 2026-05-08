@@ -372,4 +372,7 @@
   <data name="erreurThematiqueBudget" xml:space="preserve">
     <value>La somme des budgets de thématiques est supérieur au budget global</value>
   </data>
+  <data name="slogan" xml:space="preserve">
+    <value>Êtes-vous prêt à débattre ?</value>
+  </data>
 </root>

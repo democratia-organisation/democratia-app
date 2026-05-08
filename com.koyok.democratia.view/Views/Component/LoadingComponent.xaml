@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="com.koyok.democratia.UI.Component.LoadingComponent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="this">
+    <Path
+        x:Name="arcPath"
+        AnchorX="0.5"
+        AnchorY="0.5"
+        Aspect="Uniform"
+        AutomationId="arcPath"
+        Stroke="{AppThemeBinding Dark={DynamicResource Dark-tertiary},
+                                 Light={DynamicResource Light-tertiary}}"
+        StrokeThickness="3">
+        <Path.Data>
+            <PathGeometry>
+                <PathGeometry.Figures>
+                    <PathFigureCollection>
+                        <PathFigure StartPoint="50,0">
+                            <PathFigure.Segments>
+                                <ArcSegment
+                                    IsLargeArc="True"
+                                    Point="50,100"
+                                    RotationAngle="0"
+                                    Size="{Binding Size, Source={x:Reference this}}"
+                                    SweepDirection="Clockwise" />
+                            </PathFigure.Segments>
+                        </PathFigure>
+                    </PathFigureCollection>
+                </PathGeometry.Figures>
+            </PathGeometry>
+        </Path.Data>
+    </Path>
+</ContentView>

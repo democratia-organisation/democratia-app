@@ -9,7 +9,7 @@ using Microsoft.Maui.Storage;
 using System.ComponentModel;
 using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
 
-namespace com.koyok.democratia.UI
+namespace com.koyok.democratia.UI.internaute
 {
     public partial class LoginViewModel(AuthenticateUseCase useCase, AppContext context) 
         : ObservableObject, INotifyPropertyChanged
