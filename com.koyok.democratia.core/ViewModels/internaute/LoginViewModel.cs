@@ -14,18 +14,11 @@ namespace com.koyok.democratia.UI.internaute
     public partial class LoginViewModel(AuthenticateUseCase useCase, AppContext context) 
         : ObservableObject, INotifyPropertyChanged
     {
-        [ObservableProperty]
-        public partial string? adresseMail { get; set; }
-
+        [ObservableProperty] public partial string? adresseMail { get; set; }
+        [ObservableProperty] public partial string? motDePasse { get; set; }
+        [ObservableProperty] public partial string? errorMessage { get; set; }
         public Internaute? modele { get; private set; }
         private AppContext contexte = context;
-
-        [ObservableProperty]
-        public partial string? motDePasse { get; set; }
-
-        [ObservableProperty]
-        public partial string? errorMessage { get; set; }
-        
         private readonly AuthenticateUseCase useCase = useCase;
 
         [RelayCommand]
@@ -59,33 +52,7 @@ namespace com.koyok.democratia.UI.internaute
             else if (string.IsNullOrWhiteSpace(motDePasse)) throw new EmptyPassWordFieldException();
             try
             {
-                await SecureStorage.Default.SetAsync("id_internaute", adresseMail);
-                string jsonString = await client?.GetModelAsync(adresseMail)!;
-                List<Internaute> listeInformation = RecuprerInformationConnexion<Internaute>(jsonString);
-                if (listeInformation.Count == 0) throw new NoUserException();
-                var internaute = listeInformation![0];
-                string motDePasseHash = internaute?.hashageMDP!;
-                bool estAuthetifie;
-#if DEBUG
-                if (motDePasseHash != "root")
-                // les mots de passe avec le mot root ne vont pas dans tempMDP pour éviter une erreur
-                {
-                    internaute!.tempMDP = motDePasse; // utilisation de internaute.tempMDP car son set vérifie le format du mot de passe
-                    bool hashedPasswordIsNotEqual = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
-                    estAuthetifie = hashedPasswordIsNotEqual;
-                }
-                else
-                    estAuthetifie = motDePasseHash == motDePasse;
-#elif !DEBUG
-                internaute!.tempMDP = motDePasse;
-                estAuthetifie = !await Verification.VerifiermotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);;
-#endif
-                if (!estAuthetifie) throw new BadPasswordException();
-                else
-                {
-                    EnregistrerModele(internaute!);
-                    return internaute;
-                }
+                return await useCase.Authenticate(adresseMail!, motDePasse!);
             }
             catch (Exception)
             { throw; }

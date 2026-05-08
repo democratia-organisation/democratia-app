@@ -1,6 +1,6 @@
-﻿using com.koyok.democratia.Data.Repository;
+﻿using com.koyok.democratia.core.Domain.UseCase;
+using com.koyok.democratia.Domain.Enumerations;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
-    public partial class ModifierGestionViewModel(Domain.Utils.AppContext appContext) 
+    public partial class ModifierGestionViewModel(Domain.Utils.AppContext appContext, InsertionCompteUseCase? useCase) 
         : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         private Internaute? internaute;
@@ -19,26 +19,27 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [ObservableProperty] public partial string? password {get; set; }
         [ObservableProperty] public partial string? email {get; set; }
         private Domain.Utils.AppContext appContext = appContext;
+        private readonly InsertionCompteUseCase? _useCase = useCase;
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
-        {
-            
-            await Shell.Current?.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", internaute! } })!;
-
-        }
+        => await Shell.Current?.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", internaute! } })!;
 
         [RelayCommand]
         private async Task ModifierInternaute()
         {
-            RecupererInformations();
-            if(!string.IsNullOrWhiteSpace(password)) await Verification.HasherMotDePasse(internaute!);
-            await client?.UpdateModelAsync(internaute)!;
-            EnregistrerModele(internaute!);
+            try
+            {
+                RecupererInformations();
+                await _useCase!.InsertAsync(TypeGestion.MODIFIER, internaute!);
+            }
+            catch (Exception ex) 
+            {
+                retourMessage = appContext.Mapper!.MappingException(ex);
+            }
             WeakReferenceMessenger.Default.Send<EventModificationSuccessSender>();
         }
 
-        
 
         private void RecupererInformations()
         {
@@ -50,21 +51,19 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
                 internaute!.courriel = Merge(internaute.courriel, email);
                 if(!string.IsNullOrWhiteSpace(password)) internaute!.tempMDP = Merge(internaute.tempMDP, password);
             }
-            catch (Exception ex) 
+            catch
             {
 
-                retourMessage = appContext.Mapper!.MappingException(ex);
+                throw;
             }
         }
 
-        private static string? Merge(string? baseValue, string? newValue) =>
-            string.IsNullOrWhiteSpace(newValue) ? baseValue : newValue;
+        private static string? Merge(string? baseValue, string? newValue) 
+            => string.IsNullOrWhiteSpace(newValue) ? baseValue : newValue;
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            internaute = query.TryGetValue("internaute", out var value) ?
-                (Internaute)value : appContext.Internaute;
-        }
+         => internaute = (Internaute)query["internaute"] ?? appContext.Internaute;
+        
 
         public record EventModificationSuccessSender() { }
     }

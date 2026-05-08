@@ -2,26 +2,22 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
-using com.koyok.democratia.Domain.Utils;
-using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Service;
-using com.koyok.democratia.Domain.Repository;
 using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
 using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.core.Domain.UseCase;
+using com.koyok.democratia.Domain.Enumerations;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
-    public partial class CreationViewModel(IInternauteRepository? repository, AppContext? context) : ObservableObject
+    public partial class CreationViewModel(InsertionCompteUseCase? useCase, AppContext? context) : ObservableObject
     {
 
         [ObservableProperty] public partial Internaute? internaute { get; set; } = new();
         [ObservableProperty] public partial string? retourMessage { get; set; }
-        [ObservableProperty] public partial string? password { get; set; } // passowrd tempon afin d'éviter le set à chaque écriture dans la varible
         [ObservableProperty] public partial string? email { get; set; }
-        private readonly IInternauteRepository? _internauteRepository = repository;
         private readonly AppContext? _context = context;
-        
+        private readonly InsertionCompteUseCase? _useCase = useCase;
 
         public CreationViewModel() : this(null, null) { }
 
@@ -34,33 +30,18 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         {
             try
             {
-                await CreerInternaute();
+                if (VerifierChampComplet())
+                {
+                    internaute!.courriel = email;
+                    await _useCase!.InsertAsync(TypeGestion.AJOUTER, internaute!);
+
+                }
             }
             catch (Exception ex)
             {
                 retourMessage = _context!.Mapper!.MappingException(ex);
             }
             WeakReferenceMessenger.Default.Send<EventCreationSucess>();
-        }
-
-
-        internal async Task CreerInternaute()
-        {
-            try
-            {
-                internaute!.tempMDP = password;
-                internaute!.courriel = email;
-                if (await VerifierToutesLesConditions())
-                {
-                    await Verification.HasherMotDePasse(internaute!);
-                    string reponse = await client?.CreateModelAsync(internaute!.nom_internaute, internaute!.prenom_internaute, internaute!.courriel, internaute!.adresse_postale, internaute!.hashageMDP )!;
-                    List<object> values = RecuprerInformationConnexion<object>(reponse);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
         private bool VerifierChampComplet()
@@ -73,17 +54,6 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
                 throw new EmptyRequiredFieldException();
             else return true;
         }
-        
-        private async Task<bool> VerifierMailDoublon()
-        {
-            string retourJson = await ((InternauteRepository?)client)?.DoublonEmailAsync(internaute!.courriel!)!;
-            List<Dictionary<string, int>>? listeInformation = RecuprerInformationConnexion<Dictionary<string, int>>(retourJson);
-            int? nombreMail = listeInformation![0].TryGetValue("COUNT(courriel)", out var value) ? value : null;
-            return nombreMail == 0 ? true : throw new CompteExistantException();
-        }
-        
-
-        private async Task<bool> VerifierToutesLesConditions() => VerifierChampComplet() && await VerifierMailDoublon();
 
         public record EventCreationSucess() { }
     }

@@ -25,5 +25,13 @@
         Theme,
         Language
     }
+    public enum SecureStorageKeys
+    {
+        API_KEY,
+        REFRESH,
+        is_refresh_key_fresh,
+        IdInternaute,
+        MotDePasseInternaute
+    }
 
 }

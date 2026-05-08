@@ -23,9 +23,8 @@ namespace com.koyok.democratia.UI.internaute
         public partial bool isRefreshing { get; set; } = false;
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            internaute = query.TryGetValue("modele", out var user) ? (Internaute)user : context.Internaute ;
-        }
+            => internaute = (Internaute)query["modele"] ?? context.Internaute ;
+        
 
         [RelayCommand]
         private async Task InitialisationListe()
@@ -66,11 +65,12 @@ namespace com.koyok.democratia.UI.internaute
         }
 
 
-        private async Task<ImageSource> GetImageAsync(string? url) => (await client!.GetImageAsync(url))!;
+        private async Task<ImageSource> GetImageAsync(string? url) 
+            => (await client!.GetImageAsync(url))!;
 
         [RelayCommand]
-        public async Task NavigateTapped(string commande) => 
-            await Shell.Current?.GoToAsync(commande, new ShellNavigationQueryParameters{{ "modele", internaute! }})!;
+        public async Task NavigateTapped(string commande) 
+            => await Shell.Current?.GoToAsync(commande, new ShellNavigationQueryParameters{{ "modele", internaute! }})!;
 
         [RelayCommand]
         private async Task RefreshListGroupe()

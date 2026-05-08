@@ -14,7 +14,8 @@ namespace com.koyok.democratia.Data.Repository
 
             try
             {
-                var content = $$"""?request=CreerUtilisateur&parameters=["{{parameters![0]}}", "{{parameters[1]}}", "{{parameters[3]}}", "{{parameters[2]}}", "{{parameters[4]}}"]""";
+                var internaute = (Internaute)parameters![0]!;
+                var content = $$"""?request=CreerUtilisateur&parameters=["{{internaute.nomInternaute}}", "{{internaute.prenomInternaute}}", "{{internaute.courriel}}", "{{internaute.adressePostale}}", "{{internaute.hashageMDP}}"]""";
                 response = await client!.PostAsync(content, null);
             }
             catch (HttpRequestException ex)
@@ -27,8 +28,6 @@ namespace com.koyok.democratia.Data.Repository
 
         public async Task<string> GetModelAsync(params object?[] parameters)
         {
-            
-
             HttpResponseMessage? response;
             try
             {

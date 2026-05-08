@@ -1,4 +1,6 @@
-﻿using Microsoft.Maui.Storage;
+﻿using com.koyok.democratia.Domain.Enumerations;
+using com.koyok.democratia.Domain.Exception;
+using Microsoft.Maui.Storage;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -6,12 +8,7 @@ using System.Text.Json;
 
 namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
 {
-    public enum SecureStorageKeys
-    {
-        API_KEY,
-        REFRESH,
-        is_refresh_key_fresh
-    }
+    
     public class AuthentificationHandler(IHttpClientFactory factory) : DelegatingHandler
     {
         private readonly IHttpClientFactory _factory = factory;

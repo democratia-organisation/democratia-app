@@ -6,15 +6,17 @@ using CommunityToolkit.Mvvm.Messaging;
 using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
 
-    public partial class HomeGestionViewModel(Domain.Utils.AppContext context
-        ,ILocalizationService localizationService) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
+    public partial class HomeGestionViewModel(Domain.Utils.AppContext context,
+        ILocalizationService localizationService, 
+        IInternauteRepository internauteRepository) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? retourMessage { get; set; }
-
+        private readonly IInternauteRepository? internauteRepository = internauteRepository;
         public Internaute? internaute;
         private readonly ILocalizationService localizationService = localizationService;
         private readonly Domain.Utils.AppContext appContext = context;
@@ -29,18 +31,16 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [RelayCommand]
         private async Task SupprimerCompte()
         {
-            await client?.DeleteModelAsync(internaute)!;
-            if (((InternauteRepository)client!).succes)
+            await internauteRepository?.DeleteModelAsync(internaute)!;
+            if (((InternauteRepository)internauteRepository!).succes)
                 weakReferenceMessenger.Send<EventSuppression, string>(TypeEventSuppression.Sucess.ToString());
             else
                 retourMessage = localizationService?.GetString("connexionErreur");
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            if (query.TryGetValue("modele", out var valeur)) internaute = (Internaute)valeur;
-            else internaute = appContext.Internaute ;
-        }
+         => internaute = (Internaute)query["modele"] ?? appContext.Internaute;
+        
 
         [RelayCommand(AllowConcurrentExecutions = false)]
         public async Task NavigateTapped(string commande)
