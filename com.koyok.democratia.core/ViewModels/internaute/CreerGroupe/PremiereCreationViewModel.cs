@@ -1,48 +1,38 @@
-﻿using com.koyok.democratia.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using System.ComponentModel;
-using System.Text.Json;
 using System.Collections.ObjectModel;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.core.Domain.Exception;
-using com.koyok.democratia.core.Domain.Service;
+using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Extension.Comparer;
 
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class PremiereCreationViewModel : ConnectableViewModel, INavigeablleViewModel , IQueryAttributable, INotifyPropertyChanged
+    public partial class PremiereCreationViewModel(ILocalizationService? LocalizationService,
+        Domain.Utils.AppContext appContext) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? thematique { get; set; }
         [ObservableProperty] public partial string? erreurMessage { get; set; }
-        [ObservableProperty] public partial ObservableCollection<ThematiqueRemoteSource>? thematiquesAffiches { get; set; }
-        [ObservableProperty] public partial ThematiqueRemoteSource? thematiqueSelectionnee { get; set; }
-        [ObservableProperty] public partial ObservableCollection<ThematiqueRemoteSource>? thematiquesRetenues { get; set; }
+        [ObservableProperty] public partial ObservableCollection<Thematique>? thematiquesAffiches { get; set; }
+        [ObservableProperty] public partial Thematique? thematiqueSelectionnee { get; set; }
+        [ObservableProperty] public partial ObservableCollection<Thematique>? thematiquesRetenues { get; set; } = [];
         [ObservableProperty] public partial Groupe groupe { get; set; } = new();
         [ObservableProperty] public partial bool afficheCollectionView { get; set; } = false;
-        private List<ThematiqueRemoteSource>? thematiquesExistantes;
-        private InternauteRemoteSource? internaute;
+        private List<Thematique>? thematiquesExistantes = [];
+        private Internaute? internaute;
+        private readonly Domain.Utils.AppContext appContext = appContext;    
 
-        
-        private List<ThematiqueRemoteSource> thematiquesNouvelles { get; set; } = []; 
-        private INavigationService Shell.Current;
-        public PremiereCreationViewModel(INavigationService navigation, IEnumerable<Repository?>? clients, ILocalizationService? LocalizationService)
-            : base(clients!.OfType<ThematiqueClient>().FirstOrDefault(), LocalizationService)
-        {
-            Shell.Current = navigation;
-            client ??= clients?.OfType<FakeRepository>().FirstOrDefault();
-            thematiquesExistantes = [];
-            thematiquesRetenues = [];
-        }
+
+        private List<Thematique> thematiquesNouvelles { get; set; } = [];
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            if (string.IsNullOrWhiteSpace(groupe?.NomGroupe))
+            if (string.IsNullOrWhiteSpace(groupe?.nomGroupe))
             {
                 erreurMessage = LocalizationService?.GetString("nomGroupeRequis");
                 return;
@@ -61,30 +51,25 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
                         if (!t.budget.HasValue) throw new EmptyRequiredFieldException(nameof(t));
                         return t.budget;
                     });
-                    if (groupe.Budget < themeBudget)
+                    if (groupe.budget < themeBudget)
                     {
                         erreurMessage = LocalizationService?.GetString("budgetInsuffisant");
                         return;
                     }
                 }
-                catch (EmptyRequiredFieldException ex)
+                catch (Exception ex) 
                 {
-                    erreurMessage = MapExceptionMessage.MappingException(ex, LocalizationService!, ex.Message);
-                    return;
-                }
-                catch (Exception ex) {
-                    erreurMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
-                
+                    erreurMessage = appContext!.Mapper!.MappingException(ex, ex.Message ?? "");
                 }
                 thematiquesNouvelles = [.. thematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];
-                foreach (ThematiqueRemoteSource item in thematiquesNouvelles)
+                foreach (Thematique item in thematiquesNouvelles)
                 {
                     await client!.CreateModelAsync(item);
-                    List<ThematiqueRemoteSource> thematiques = RecuprerInformationConnexion<ThematiqueRemoteSource>(await client.GetModelAsync());
-                    item.id_thematique = thematiques.Last().id_thematique;
+                    List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(await client.GetModelAsync());
+                    item.idThematique = thematiques.Last().idThematique;
                 }
 
-                await Shell.Current.GoToAsync(commande, new()
+                await Shell.Current.GoToAsync(commande, new ShellNavigationQueryParameters
                 { 
                     { "groupe",  groupe},
                     { "thematique", thematiquesRetenues },
@@ -99,7 +84,8 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
         [RelayCommand]
         private void PrendreThematiqueSelectionnee()
         {
-            if(thematiqueSelectionnee  is not null ) // quand ThematiquesAffiches est modifié, CollectionView.SelectedItem est mis à null, donc ThematiqueSelectionnee est null
+            // quand ThematiquesAffiches est modifié, CollectionView.SelectedItem est mis à null, donc ThematiqueSelectionnee est null
+            if (thematiqueSelectionnee  is not null ) 
             {
                 AjoutThematique(thematiqueSelectionnee);
                 thematiquesExistantes!.Remove(thematiqueSelectionnee);
@@ -115,7 +101,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
             if(!string.IsNullOrWhiteSpace(thematique) && !afficheCollectionView) afficheCollectionView = true;
             else if (string.IsNullOrWhiteSpace(thematique) && afficheCollectionView) afficheCollectionView = false;
             string texteRecherche = thematique?.ToLower() ?? string.Empty;
-            var thematiquesFiltrees = thematiquesExistantes!.Where(t => (bool)t.nom_thematique?.ToLower()?.Contains(texteRecherche)!).ToList();
+            var thematiquesFiltrees = thematiquesExistantes!.Where(t => (bool)t.nomThematique?.ToLower()?.Contains(texteRecherche)!).ToList();
             thematiquesAffiches!.Clear();
             thematiquesFiltrees.ForEach(t => thematiquesAffiches.Add(t));
 
@@ -123,26 +109,24 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
 
 
 
-        private void AjoutThematique(ThematiqueRemoteSource thematiqueItem)
+        private void AjoutThematique(Thematique thematiqueItem)
         {
             if (!thematiquesRetenues!.Contains(thematiqueItem, new ThematiqueEqualityComparer()))
                 thematiquesRetenues!.Add(thematiqueItem);
-
             thematique = string.Empty;
         }
 
         public async Task RemplirThematique()
         {
             string listeRequete = await client!.GetModelAsync();
-            List<ThematiqueRemoteSource> thematiques = RecuprerInformationConnexion<ThematiqueRemoteSource>(listeRequete);
+            List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(listeRequete);
             thematiques.ForEach(t => thematiquesExistantes!.Add(t));
             thematiquesAffiches = [..thematiquesExistantes!];
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            internaute = query.TryGetValue("modele", out var internauteObj) ? (InternauteRemoteSource)internauteObj : null;
-            internaute ??= await RetrouverModele<InternauteRemoteSource>();
+            internaute = (Internaute)query["modele"] ?? appContext.Internaute;
         }
         
     }

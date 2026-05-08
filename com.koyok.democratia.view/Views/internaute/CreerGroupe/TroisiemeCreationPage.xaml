@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Component="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.CreerGroupe;assembly=com.koyok.democratia"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.CreerGroupe;assembly=com.koyok.democratia.core"
     Title="TroisiemePage"
     x:DataType="viewModel:TroisiemeCreationViewModel"
     Style="{DynamicResource fondEcran}">

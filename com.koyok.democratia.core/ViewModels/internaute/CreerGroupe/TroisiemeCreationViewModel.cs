@@ -1,38 +1,34 @@
-﻿using com.koyok.democratia.core.Domain.Exception;
-using com.koyok.democratia.core.Domain.Service;
-using com.koyok.democratia.Data.Services;
+﻿using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Models;
+using com.koyok.democratia.Domain.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
+using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class TroisiemeCreationViewModel(IEnumerable<Repository?>? clients, ILocalizationService? LocalizationService, 
-        INavigationService service,.core.Domain.Utils.AppContext context) : ConnectableViewModel(clients?.OfType<GroupClient>().FirstOrDefault(), 
-            LocalizationService), INavigeablleViewModel , IQueryAttributable
+    public partial class TroisiemeCreationViewModel(Domain.Utils.AppContext context) 
+        : ObservableObject, INotifyPropertyChanged , IQueryAttributable
     {
 
-        private readonly INavigationService service = service;
         private Groupe? groupe;
         private string imagePath = string.Empty;
-        private InternauteRemoteSource? internaute;
-        private.core.Domain.Utils.AppContext context = context;
+        private Internaute? internaute;
+        private readonly Domain.Utils.AppContext context = context;
         [ObservableProperty] public partial ImageSource? image { get; set; }
         [ObservableProperty] public partial bool? isObservable { get; set; } = false;
         [ObservableProperty] public partial string? errorMessage { get; set; }
         [ObservableProperty] public partial bool isFinish { get; set; } = false;
-        private List<ThematiqueRemoteSource>? thematiques { get; set; }
+        private List<Thematique>? thematiques { get; set; }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"];
-            thematiques = (List<ThematiqueRemoteSource>)query["thematique"];
-            internaute = (InternauteRemoteSource)query["internaute"] ?? context.Internaute;
+            thematiques = (List<Thematique>)query["thematique"];
+            internaute = (Internaute)query["internaute"] ?? context.Internaute;
         }
 
         [RelayCommand]
@@ -40,17 +36,17 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
         {
             try
             {
-                groupe!.IdGroupe = Guid.CreateVersion7();
+                groupe!.idGroupe = Guid.CreateVersion7();
                 await client!.CreateModelAsync(groupe!);
-                foreach (ThematiqueRemoteSource item in thematiques!)
-                    await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.IdGroupe, item.id_thematique, item.budget);
+                foreach (Thematique item in thematiques!)
+                    await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.idGroupe, item.idThematique, item.budget);
                 if (string.IsNullOrWhiteSpace(imagePath)) throw new NoImageGiven();
-                await client.UploadImage(groupe!.IdGroupe, imagePath);
-                await ((GroupClient)client).AjouterCreateur(internaute!.id_internaute, groupe.IdGroupe);                
-                await service.GoToAsync(commande, new ShellNavigationQueryParameters { {"modele" , internaute } });
+                await client.UploadImage(groupe!.idGroupe, imagePath);
+                await ((GroupClient)client).AjouterCreateur(internaute!.idInternaute, groupe.idGroupe);                
+                await Shell.Current.GoToAsync(commande, new ShellNavigationQueryParameters { {"modele" , internaute } });
             } catch (Exception ex)
             {
-                MapExceptionMessage.MappingException(ex, LocalizationService!);
+               context!.Mapper!.MappingException(ex);
             }
         }
 
@@ -91,11 +87,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
             }
             catch (Exception ex)
             {
-#if DEBUG
-                errorMessage = MapExceptionMessage.MappingException(ex,LocalizationService!);
-#elif !DEBUG
-                errorMessage = LocalizationService?.GetString("erreurInattendu");
-#endif
+                errorMessage = context!.Mapper!.MappingException(ex);
             }
         }
     }

@@ -4,12 +4,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:com.koyok.democratia.UI.Component"
+    xmlns:groupeComp="clr-namespace:com.koyok.democratia.UI.Component.groupe"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-    xmlns:models="clr-namespace:com.koyok.democratia.Models;assembly=com.koyok.democratia"
+    xmlns:models="clr-namespace:com.koyok.democratia.Domain.Models;assembly=com.koyok.democratia.core"
     xmlns:res="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia"
-    Title="{Binding groupe.NomGroupe}"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia.core"
+    Title="{Binding groupe.nomGroupe}"
     x:DataType="viewModel:GroupeViewModel"
     Style="{DynamicResource fondEcran}">
 
@@ -53,7 +54,7 @@
                 HorizontalOptions="Center"
                 HorizontalTextAlignment="Center"
                 Style="{DynamicResource SubHeadlineStyle}"
-                Text="{Binding groupe.NomGroupe}"
+                Text="{Binding groupe.nomGroupe}"
                 VerticalOptions="Center" />
 
             <HorizontalStackLayout Grid.Column="2" Spacing="{DynamicResource SpacingSmall}">
@@ -98,7 +99,7 @@
             UpdateElementsCommand="{Binding UpdateListCommand}">
             <comp:RefreshView.ItemTemplate>
                 <DataTemplate>
-                    <comp:PropositionCard OpenCommand="{Binding OuvrirPropositionCommand}" />
+                    <groupeComp:PropositionCard OpenCommand="{Binding OuvrirPropositionCommand}" />
                 </DataTemplate>
             </comp:RefreshView.ItemTemplate>
         </comp:RefreshView>

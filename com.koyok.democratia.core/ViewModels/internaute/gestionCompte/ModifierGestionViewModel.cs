@@ -1,8 +1,5 @@
-﻿using com.koyok.democratia.core.Domain.Exception;
-using com.koyok.democratia.core.Domain.Service;
-using com.koyok.democratia.Data.Repository;
+﻿using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,30 +10,21 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
-    public partial class ModifierGestionViewModel : ConnectableViewModel, INavigeablleViewModel, INotifyPropertyChanged, IQueryAttributable
+    public partial class ModifierGestionViewModel(Domain.Utils.AppContext appContext) 
+        : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
-        private INavigationService NavigationService { get; set; }
-        private InternauteRemoteSource? internaute;
+        private Internaute? internaute;
         [ObservableProperty] public partial string? retourMessage {get; set; }
-        [ObservableProperty] public partial InternauteRemoteSource? tempInternaute { get; set; } = new();
+        [ObservableProperty] public partial Internaute? tempInternaute { get; set; } = new();
         [ObservableProperty] public partial string? password {get; set; }
         [ObservableProperty] public partial string? email {get; set; }
-        private.core.Domain.Utils.AppContext appContext;
-
-        public ModifierGestionViewModel(INavigationService Shell.Current, ILocalizationService localizationService, 
-            IEnumerable<Repository> clients,.core.Domain.Utils.AppContext appContext) 
-            : base(clients.OfType<InternauteRepository>().FirstOrDefault(),localizationService)
-        {
-            this.NavigationService = Shell.Current;
-            this.appContext = appContext;
-            client ??= clients?.OfType<FakeRepository>().FirstOrDefault();
-        }
+        private Domain.Utils.AppContext appContext = appContext;
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
             
-            await NavigationService.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", internaute! } });
+            await Shell.Current?.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", internaute! } })!;
 
         }
 
@@ -54,17 +42,18 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
 
         private void RecupererInformations()
         {
-            internaute!.prenom_internaute = Merge(internaute.prenom_internaute, tempInternaute!.prenom_internaute);
-            internaute!.nom_internaute = Merge(internaute.nom_internaute, tempInternaute!.nom_internaute);
-            internaute!.adresse_postale = Merge(internaute.adresse_postale, tempInternaute!.adresse_postale);
+            internaute!.prenomInternaute = Merge(internaute.prenomInternaute, tempInternaute!.prenomInternaute);
+            internaute!.nomInternaute = Merge(internaute.nomInternaute, tempInternaute!.nomInternaute);
+            internaute!.adressePostale = Merge(internaute.adressePostale, tempInternaute!.adressePostale);
             try
             {
                 internaute!.courriel = Merge(internaute.courriel, email);
                 if(!string.IsNullOrWhiteSpace(password)) internaute!.tempMDP = Merge(internaute.tempMDP, password);
             }
-            catch (Exception ex) {
+            catch (Exception ex) 
+            {
 
-                retourMessage = MapExceptionMessage.MappingException(ex, LocalizationService!);
+                retourMessage = appContext.Mapper!.MappingException(ex);
             }
         }
 
@@ -74,7 +63,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             internaute = query.TryGetValue("internaute", out var value) ?
-                (InternauteRemoteSource)value : appContext.Internaute;
+                (Internaute)value : appContext.Internaute;
         }
 
         public record EventModificationSuccessSender() { }

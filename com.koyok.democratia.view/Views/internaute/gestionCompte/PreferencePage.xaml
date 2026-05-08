@@ -3,12 +3,12 @@
     x:Class="com.koyok.democratia.UI.internaute.gestionCompte.PreferencePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:component="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.gestionCompte;assembly=com.koyok.democratia"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.gestionCompte;assembly=com.koyok.democratia.core"
     Title="PreferencePage"
     x:DataType="viewModel:PreferenceViewModel"
+    AutomationId="preferencePage"
     Style="{DynamicResource fondEcran}">
 
     <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">

@@ -1,23 +1,19 @@
-﻿using com.koyok.democratia.Models;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using com.koyok.democratia.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Input;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.core.Domain.Service;
+using com.koyok.democratia.Domain.Exception;
+using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
 
 namespace com.koyok.democratia.UI.internaute
 {
-    public partial class HomeViewModel : ConnectableViewModel , IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel
+    public partial class HomeViewModel(AppContext context) :  ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
-        public InternauteRemoteSource? internaute;
-        private readonly INavigationService? Shell.Current;
-        private readonly.core.Domain.Utils.AppContext context;
+        public Internaute? internaute;
+        private readonly AppContext context = context;
         private int cursor = 0;
 
         [ObservableProperty]
@@ -26,17 +22,9 @@ namespace com.koyok.democratia.UI.internaute
         [ObservableProperty]
         public partial bool isRefreshing { get; set; } = false;
 
-        public HomeViewModel(INavigationService? Shell.Current, IEnumerable<Repository?>? clients, ILocalizationService? localizationService,.core.Domain.Utils.AppContext context)
-            : base(clients?.OfType<GroupRepository>().FirstOrDefault(), localizationService)
-        {
-            this.Shell.Current = Shell.Current;
-            client ??= clients?.OfType<FakeRepository>().FirstOrDefault();
-            this.context = context;
-        }
-
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            internaute = query.TryGetValue("modele", out var user) ? (InternauteRemoteSource)user : context.Internaute ;
+            internaute = query.TryGetValue("modele", out var user) ? (Internaute)user : context.Internaute ;
         }
 
         [RelayCommand]
@@ -63,7 +51,7 @@ namespace com.koyok.democratia.UI.internaute
             groupes.Clear();
             foreach (var groupe in listeInformation)
             {
-                ImageSource image = await GetImageAsync(groupe.Image);
+                ImageSource image = await GetImageAsync(groupe.image);
                 groupes.Add(new Tuple<Groupe, ImageSource, ICommand>(groupe, image, OpenGroupCommand));
             }
         }
@@ -82,7 +70,7 @@ namespace com.koyok.democratia.UI.internaute
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) => 
-            await Shell.Current?.GoToAsync(commande, new (){{ "modele", internaute! }})!;
+            await Shell.Current?.GoToAsync(commande, new ShellNavigationQueryParameters{{ "modele", internaute! }})!;
 
         [RelayCommand]
         private async Task RefreshListGroupe()

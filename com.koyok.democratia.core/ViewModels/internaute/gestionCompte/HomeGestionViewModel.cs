@@ -3,31 +3,23 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.core.Domain.Service;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Service;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
 
-    public partial class HomeGestionViewModel : ConnectableViewModel, IQueryAttributable, INotifyPropertyChanged, INavigeablleViewModel
+    public partial class HomeGestionViewModel(Domain.Utils.AppContext context
+        ,ILocalizationService localizationService) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
-        [ObservableProperty] private string? retourMessage;
+        [ObservableProperty] public partial string? retourMessage { get; set; }
 
-        public InternauteRemoteSource? internaute;
-        private.core.Domain.Utils.AppContext appContext;
+        public Internaute? internaute;
+        private readonly ILocalizationService localizationService = localizationService;
+        private readonly Domain.Utils.AppContext appContext = context;
         private bool _isNavigating = false;
-        private readonly INavigationService navigationService1;
-        private readonly WeakReferenceMessenger weakReferenceMessenger;
-        public HomeGestionViewModel(IEnumerable<Repository> clients, ILocalizationService? localizationService, INavigationService Shell.Current,.core.Domain.Utils.AppContext context) 
-            : base(clients.OfType<InternauteRepository>().FirstOrDefault(), localizationService)
-        {
-            client ??= clients?.OfType<FakeRepository>().FirstOrDefault();
-            navigationService1 = Shell.Current;
-            weakReferenceMessenger = WeakReferenceMessenger.Default;
-            appContext = context;
-        }
+        private readonly WeakReferenceMessenger weakReferenceMessenger = WeakReferenceMessenger.Default;
 
         [RelayCommand]
         private void ActionInternaute() =>
@@ -41,12 +33,12 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             if (((InternauteRepository)client!).succes)
                 weakReferenceMessenger.Send<EventSuppression, string>(TypeEventSuppression.Sucess.ToString());
             else
-                RetourMessage = LocalizationService?.GetString("connexionErreur");
+                retourMessage = localizationService?.GetString("connexionErreur");
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            if (query.TryGetValue("modele", out var valeur)) internaute = (InternauteRemoteSource)valeur;
+            if (query.TryGetValue("modele", out var valeur)) internaute = (Internaute)valeur;
             else internaute = appContext.Internaute ;
         }
 
@@ -58,7 +50,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             var parameter = new ShellNavigationQueryParameters { { "modele", internaute! } };
             try
             {
-                await navigationService1.GoToAsync(commande, parameter);
+                await Shell.Current?.GoToAsync(commande, parameter)!;
             }
             finally
             {

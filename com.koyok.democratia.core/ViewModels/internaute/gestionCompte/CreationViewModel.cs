@@ -8,6 +8,7 @@ using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Service;
 using com.koyok.democratia.Domain.Repository;
 using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
+using com.koyok.democratia.Domain.Exception;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
@@ -64,9 +65,9 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
 
         private bool VerifierChampComplet()
         {
-            if (!(!string.IsNullOrWhiteSpace(internaute!.adresse_postale) &&
-              !string.IsNullOrWhiteSpace(internaute!.nom_internaute) &&
-              !string.IsNullOrWhiteSpace(internaute!.prenom_internaute) &&
+            if (!(!string.IsNullOrWhiteSpace(internaute!.adressePostale) &&
+              !string.IsNullOrWhiteSpace(internaute!.nomInternaute) &&
+              !string.IsNullOrWhiteSpace(internaute!.prenomInternaute) &&
               !string.IsNullOrWhiteSpace(internaute!.tempMDP) &&
               !string.IsNullOrWhiteSpace(internaute!.courriel)))
                 throw new EmptyRequiredFieldException();

@@ -10,8 +10,8 @@ namespace com.koyok.democratia.UI
     public partial class MainViewModel(AuthenticateUseCase useCase,
         AppContext context) : ObservableObject, INotifyPropertyChanged
     {
-        private AuthenticateUseCase useCase = useCase;
-        private AppContext context = context;
+        private readonly AuthenticateUseCase useCase = useCase;
+        private readonly AppContext context = context;
         
         [ObservableProperty]
         public partial bool isConnected { get; set; }

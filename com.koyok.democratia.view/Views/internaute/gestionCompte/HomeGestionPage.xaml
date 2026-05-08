@@ -6,8 +6,9 @@
     xmlns:component="clr-namespace:com.koyok.democratia.UI.Component"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:local="clr-namespace:com.koyok.democratia.UI"
-    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.gestionCompte;assembly=com.koyok.democratia"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.gestionCompte;assembly=com.koyok.democratia.core"
     x:DataType="viewModel:HomeGestionViewModel"
+    AutomationId="homeGestionPage"
     Style="{DynamicResource fondEcran}">
 
     <ScrollView>
@@ -17,7 +18,7 @@
                 Grid.Row="0"
                 AutomationId="errorMessageLabel"
                 Style="{DynamicResource ErrorLabelStyle}"
-                Text="{Binding RetourMessage}" />
+                Text="{Binding r}" />
 
             <StackLayout
                 x:Name="stackLayout"
