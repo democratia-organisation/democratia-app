@@ -1,20 +1,21 @@
-﻿using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Domain.Enumerations;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
+using com.koyok.democratia.Domain.Extension;
+using System.ComponentModel;
+using com.koyok.democratia.Domain.UseCase;
 
 namespace com.koyok.democratia.UI.groupe
 {
     public partial class GroupeViewModel(
-        Domain.Utils.AppContext context,
         IPropositionRepository propositionRepository,
-        IGroupeRepository groupRepository
-    ) : ObservableObject, IQueryAttributable
+        IGroupeRepository groupRepository,
+        ClassementPropositionUseCase useCase
+    ) : ObservableObject, INotifyPropertyChanged ,IQueryAttributable
     {
         [ObservableProperty] public partial ImageSource? image { get; set;}
         [ObservableProperty] public partial Groupe? groupe { get; set; }
@@ -22,10 +23,9 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty] public partial ObservableCollection<Thematique> thematiques { get; set; } = [];
         private int cursor = 0;
 
-        private Internaute? internaute;
-        private readonly Domain.Utils.AppContext context = context;
         private readonly IPropositionRepository propositionRepository = propositionRepository;
         private readonly IGroupeRepository groupRepository = groupRepository;
+        private readonly ClassementPropositionUseCase useCase = useCase;
 
         // TODO : savoir si c'est un décideur afin d'afficher certaines options en fonction
         [ObservableProperty]
@@ -44,7 +44,7 @@ namespace com.koyok.democratia.UI.groupe
         [RelayCommand]
         private void ClasserPropositions() 
         {
-            throw new NotImplementedException();
+            useCase.Classer(critere);
         }
 
         [RelayCommand]
@@ -90,9 +90,8 @@ namespace com.koyok.democratia.UI.groupe
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            groupe = (Groupe)query["groupe"] ?? context.Groupe;
-            image = (ImageSource)query["Image"] ?? context.ImageSourceGroupe;
-            internaute = (Internaute)query["modele"] ?? context.Internaute;
+            groupe = (Groupe)query["groupe"] ?? Shell.Current!.AppContext.Groupe;
+            image = (ImageSource)query["Image"] ?? Shell.Current!.AppContext.ImageSourceGroupe;
         }
 
     }

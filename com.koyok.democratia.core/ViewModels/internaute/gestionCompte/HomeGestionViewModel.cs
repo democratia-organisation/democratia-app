@@ -7,19 +7,18 @@ using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Service;
 using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.Extension;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
 
-    public partial class HomeGestionViewModel(Domain.Utils.AppContext context,
-        ILocalizationService localizationService, 
+    public partial class HomeGestionViewModel(ILocalizationService localizationService, 
         IInternauteRepository internauteRepository) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? retourMessage { get; set; }
         private readonly IInternauteRepository? internauteRepository = internauteRepository;
-        public Internaute? internaute;
+        private Internaute? internaute;
         private readonly ILocalizationService localizationService = localizationService;
-        private readonly Domain.Utils.AppContext appContext = context;
         private bool _isNavigating = false;
         private readonly WeakReferenceMessenger weakReferenceMessenger = WeakReferenceMessenger.Default;
 
@@ -39,7 +38,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
-         => internaute = (Internaute)query["modele"] ?? appContext.Internaute;
+         => internaute = (Internaute)query["modele"] ?? Shell.Current?.AppContext.Internaute;
         
 
         [RelayCommand(AllowConcurrentExecutions = false)]

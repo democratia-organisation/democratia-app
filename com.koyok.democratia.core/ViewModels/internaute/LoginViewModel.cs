@@ -1,24 +1,21 @@
 ﻿using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.UseCase;
-using com.koyok.democratia.Domain.Utils;
+using com.koyok.democratia.Domain.Extension;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Storage;
 using System.ComponentModel;
-using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
 
 namespace com.koyok.democratia.UI.internaute
 {
-    public partial class LoginViewModel(AuthenticateUseCase useCase, AppContext context) 
+    public partial class LoginViewModel(AuthenticateUseCase useCase) 
         : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? adresseMail { get; set; }
         [ObservableProperty] public partial string? motDePasse { get; set; }
         [ObservableProperty] public partial string? errorMessage { get; set; }
         public Internaute? modele { get; private set; }
-        private AppContext contexte = context;
         private readonly AuthenticateUseCase useCase = useCase;
 
         [RelayCommand]
@@ -35,10 +32,10 @@ namespace com.koyok.democratia.UI.internaute
                 }
                 catch (Exception ex)
                 {
-                    errorMessage = contexte.Mapper!.MappingException(ex);
+                    errorMessage = Shell.Current.AppContext.Mapper!.MappingException(ex);
                 }
 
-                contexte!.Internaute = modele;
+                Shell.Current.AppContext.Internaute = modele;
                 var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
                 await Shell.Current!.GoToAsync(commande, parameters);
             }

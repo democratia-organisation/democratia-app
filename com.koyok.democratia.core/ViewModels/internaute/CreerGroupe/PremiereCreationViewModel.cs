@@ -9,13 +9,13 @@ using com.koyok.democratia.Domain.Service;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Extension.Comparer;
 using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.Extension;
 
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
     public partial class PremiereCreationViewModel(ILocalizationService? LocalizationService,
-        IThematiqueRepository? repository,
-        Domain.Utils.AppContext appContext) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
+        IThematiqueRepository? repository) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? thematique { get; set; }
         [ObservableProperty] public partial string? erreurMessage { get; set; }
@@ -26,8 +26,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
         [ObservableProperty] public partial bool afficheCollectionView { get; set; } = false;
         private readonly IThematiqueRepository? repository = repository;
         private List<Thematique>? thematiquesExistantes = [];
-        private Internaute? internaute;
-        private readonly Domain.Utils.AppContext appContext = appContext;    
+        private Internaute? internaute; 
 
 
         private List<Thematique> thematiquesNouvelles { get; set; } = [];
@@ -62,7 +61,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
                 }
                 catch (Exception ex) 
                 {
-                    erreurMessage = appContext!.Mapper!.MappingException(ex, ex.Message ?? "");
+                    erreurMessage = Shell.Current!.AppContext.Mapper!.MappingException(ex, ex.Message ?? "");
                 }
                 thematiquesNouvelles = [.. thematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];
                 foreach (Thematique item in thematiquesNouvelles)
@@ -128,7 +127,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
-            => internaute = (Internaute)query["modele"] ?? appContext.Internaute;
+            => internaute = (Internaute)query["modele"] ?? Shell.Current?.AppContext.Internaute;
         
         
     }

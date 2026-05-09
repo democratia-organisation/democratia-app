@@ -29,6 +29,7 @@ namespace com.koyok.democratia
                 });
             builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
             builder.Services.AddServices();
+            builder.Services.AddClients();
             builder.SetUrl();
 
 #if DEBUG

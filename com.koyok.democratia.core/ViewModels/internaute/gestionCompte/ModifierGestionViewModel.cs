@@ -1,16 +1,17 @@
-﻿using com.koyok.democratia.core.Domain.UseCase;
-using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Domain.Enumerations;
 using com.koyok.democratia.Domain.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
+using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Domain.UseCase;
 
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
-    public partial class ModifierGestionViewModel(Domain.Utils.AppContext appContext, InsertionCompteUseCase? useCase) 
+    public partial class ModifierGestionViewModel(InsertionCompteUseCase? useCase) 
         : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         private Internaute? internaute;
@@ -18,7 +19,6 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [ObservableProperty] public partial Internaute? tempInternaute { get; set; } = new();
         [ObservableProperty] public partial string? password {get; set; }
         [ObservableProperty] public partial string? email {get; set; }
-        private Domain.Utils.AppContext appContext = appContext;
         private readonly InsertionCompteUseCase? _useCase = useCase;
 
         [RelayCommand]
@@ -35,7 +35,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             }
             catch (Exception ex) 
             {
-                retourMessage = appContext.Mapper!.MappingException(ex);
+                retourMessage = Shell.Current?.AppContext.Mapper!.MappingException(ex);
             }
             WeakReferenceMessenger.Default.Send<EventModificationSuccessSender>();
         }
@@ -62,7 +62,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             => string.IsNullOrWhiteSpace(newValue) ? baseValue : newValue;
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
-         => internaute = (Internaute)query["internaute"] ?? appContext.Internaute;
+         => internaute = (Internaute)query["internaute"] ?? Shell.Current?.AppContext.Internaute;
         
 
         public record EventModificationSuccessSender() { }

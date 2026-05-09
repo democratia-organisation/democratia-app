@@ -1,27 +1,20 @@
 ﻿using com.koyok.democratia.Data.Repository;
+using com.koyok.democratia.Domain.Extension.DelegatesHandler;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.UI;
-using com.koyok.democratia.UI.groupe;
-using com.koyok.democratia.UI.internaute;
-using com.koyok.democratia.UI.internaute.CreerGroupe;
-using com.koyok.democratia.UI.internaute.gestionCompte;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
 using System.Net.Http.Headers;
 using System.Reflection;
-using com.koyok.democratia.Domain.Extension.DelegatesHandler;
-using com.koyok.democratia.Domain.UseCase;
-using com.koyok.democratia.core.Domain.UseCase;
-using com.koyok.democratia.Data.DataSource.Local;
-using com.koyok.democratia.Data.DataSource.Remote;
 
 namespace com.koyok.democratia.Domain.Extension
 {
     public static class ExtentionsCollection
     {
         private static MauiAppBuilder? maui;
+        private static Utils.AppContext appContext = new();
 
         extension(HttpRequestMessage request)
         {
@@ -68,58 +61,18 @@ namespace com.koyok.democratia.Domain.Extension
             }
         }
 
+
+
         extension(IServiceCollection services)
         {
-            /// <summary>
-            /// Méthode pour ajouter les services nécessaires à l'application.
-            /// </summary>
-            /// <returns>Retourne la collection de services après l'ajout des services.</returns>
-            public IServiceCollection AddServices()
+
+            private void AddHttpExtension()
             {
-                services.AddSingleton<Utils.AppContext>();
-                services.AddDataLocalSources();
-                services.AddDataRemoteSources();
-                services.AddClients();
-                services.AddClient();
-                services.AddUsesCases();
-                services.AddTransientViewModel();
-
-                return services;
+                services.AddTransient<DebutRequete>();
+                services.AddTransient<AuthentificationHandler>();
+                services.AddTransient<FinRequete>();
             }
-
-            public IServiceCollection AddUsesCases()
-            {
-                services.AddSingleton<AuthenticateUseCase>();
-                services.AddSingleton<ClassementPropositionUseCase>();
-                services.AddSingleton<CreerGroupeUseCase>();
-                services.AddSingleton<DeterminateRoleUseCase>();
-                services.AddSingleton<InsertionCompteUseCase>();
-                services.AddSingleton<ListeDonneeUseCase>();
-                services.AddSingleton<ManipulateImageUseCase>();
-
-                return services;
-            }
-
-            public IServiceCollection AddDataLocalSources()
-            {
-                services.AddTransient<ILocalSource, InternauteLocalSource>();
-                services.AddTransient<ILocalSource, GroupeLocalSource>();
-                services.AddTransient<ILocalSource, ThematiqueLocalSource>();
-                services.AddTransient<ILocalSource, PropositionLocalSource>();
-                return services;
-            }
-
-            public IServiceCollection AddDataRemoteSources()
-            {
-                services.AddTransient<IRemoteSource, InternauteRemoteSource>();
-                services.AddTransient<IRemoteSource, GroupeRemoteSource>();
-                services.AddTransient<IRemoteSource, ThematiqueRemoteSource>();
-                services.AddTransient<IRemoteSource, PropositionRemoteSource>();
-
-                return services;
-            }
-
-            private IServiceCollection AddClients()
+            public IServiceCollection AddClients()
             {
                 services.AddHttpExtension();
                 services.AddHttpClient<IInternauteRepository, InternauteRepository>().AddAllHttpHander();
@@ -129,47 +82,12 @@ namespace com.koyok.democratia.Domain.Extension
 #if DEBUG
                 // utiliser pour avoir les clé JWT dans les middlewares 
 #endif
-                services.AddHttpClient("ClientBrut", static c => c.BaseAddress = GetUrl()); 
+                services.AddHttpClient("ClientBrut", static c => c.BaseAddress = GetUrl());
 
                 return services;
 
             }
 
-            public IServiceCollection AddClient()
-            {
-               
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IInternauteRepository>());
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IGroupeRepository>());
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IThematiqueRepository>());
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IPropositionRepository>());
-
-                return services;
-            }
-
-            private IServiceCollection AddTransientViewModel()
-            {
-                services.AddTransient<LoginViewModel>();
-                services.AddTransient<MainViewModel>();
-                services.AddTransient<CreationViewModel>();
-                services.AddTransient<HomeViewModel>();
-                services.AddTransient<HomeGestionViewModel>();
-                services.AddTransient<PremiereCreationViewModel>();
-                services.AddTransient<DeuxiemePageViewModel>();
-                services.AddTransient<TroisiemeCreationViewModel>();
-                services.AddTransient<GroupeViewModel>();
-                services.AddTransient<ModifierGestionViewModel>();
-                services.AddTransient<PreferenceViewModel>();
-                services.AddTransient<DecideurViewModel>();
-
-                return services;
-            }
-
-            private void AddHttpExtension()
-            {
-                services.AddTransient<DebutRequete>();
-                services.AddTransient<AuthentificationHandler>();
-                services.AddTransient<FinRequete>();
-            }
         }
 
         private static Uri GetUrl()
@@ -219,9 +137,15 @@ namespace com.koyok.democratia.Domain.Extension
                 return builder.Configuration.GetValue<string>(nom_cle)!;
             }
         }
+
         extension(BaseRepository builder)
         {
             public Uri AffecterURL() => GetUrl();
+        }
+
+        extension(Shell shell)
+        {
+            public Utils.AppContext AppContext => appContext;
         }
     }
 }

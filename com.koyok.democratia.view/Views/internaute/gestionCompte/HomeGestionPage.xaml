@@ -18,7 +18,7 @@
                 Grid.Row="0"
                 AutomationId="errorMessageLabel"
                 Style="{DynamicResource ErrorLabelStyle}"
-                Text="{Binding r}" />
+                Text="{Binding retourMessage}" />
 
             <StackLayout
                 x:Name="stackLayout"

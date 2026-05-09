@@ -4,10 +4,11 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using com.koyok.democratia.Domain.Extension;
 
 namespace com.koyok.democratia.UI.groupe
 {
-    public partial class DecideurViewModel(Domain.Utils.AppContext appContext) 
+    public partial class DecideurViewModel() 
         : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
@@ -16,16 +17,15 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty] public partial Groupe? groupe { get; set; }
         [ObservableProperty] public partial float? ration { get; set; }
         [ObservableProperty] public partial int? cursor { get; set; } = 0;
-        Domain.Utils.AppContext appContext = appContext;
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             thematiques = (ObservableCollection<Thematique>)query["thematiques"];
-            groupe = (Groupe)query["groupe"] ?? appContext.Groupe;
+            groupe = (Groupe)query["groupe"] ?? Shell.Current!.AppContext.Groupe;
         }
 
         [RelayCommand]
-        private async Task InitialisationListe()
+        private async Task InitialisationListeAsync()
         {
             if (isRefreshing)
             {

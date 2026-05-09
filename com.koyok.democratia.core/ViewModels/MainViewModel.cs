@@ -1,19 +1,17 @@
 ﻿using com.koyok.democratia.Domain.Enumerations;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.UseCase;
+using com.koyok.democratia.Domain.Extension;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 using System.ComponentModel;
-using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
 
 namespace com.koyok.democratia.UI
 {
-    public partial class MainViewModel(AuthenticateUseCase useCase,
-        AppContext context) : ObservableObject, INotifyPropertyChanged
+    public partial class MainViewModel(AuthenticateUseCase useCase) : ObservableObject, INotifyPropertyChanged
     {
-        private readonly AuthenticateUseCase useCase = useCase;
-        private readonly AppContext context = context;
         [ObservableProperty]
         public partial bool loading { get; set; } = true;
 
@@ -28,14 +26,16 @@ namespace com.koyok.democratia.UI
             if (identifiant is null || motDePasse is null)
             {
                 isConnected = false;
+                loading = false;
                 return;
             }
             else
             {
                 Internaute internaute = await useCase.Authenticate(identifiant, motDePasse);
-                context.Internaute = internaute;
+                Shell.Current.AppContext.Internaute = internaute;
                 isConnected = true;
-
+                loading = false; 
+                return;
             }
             
         }

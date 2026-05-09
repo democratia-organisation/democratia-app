@@ -5,14 +5,14 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using com.koyok.democratia.Domain.Extension;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class DeuxiemePageViewModel(Domain.Utils.AppContext context) 
+    public partial class DeuxiemePageViewModel() 
         : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         private Groupe? groupe;
-        private Domain.Utils.AppContext context = context;
         [ObservableProperty] public partial Color? couleur { get; set; } = Colors.Transparent;
         private Internaute? internaute;
         private List<Thematique>? thematiques { get; set; }
@@ -20,9 +20,9 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            groupe = (Groupe)query["groupe"] ?? context.Groupe;
+            groupe = (Groupe)query["groupe"] ?? Shell.Current!.AppContext.Groupe;
             thematiques = [..(query["thematique"] as ObservableCollection<Thematique>)!];
-            internaute = (Internaute)query["internaute"] ?? context.Internaute;
+            internaute = (Internaute)query["internaute"] ?? Shell.Current!.AppContext.Internaute;
         }
 
         [RelayCommand]

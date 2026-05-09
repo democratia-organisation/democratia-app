@@ -3,23 +3,22 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
 using com.koyok.democratia.Domain.Models;
-using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
+using com.koyok.democratia.Domain.Extension;
 using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.core.Domain.UseCase;
 using com.koyok.democratia.Domain.Enumerations;
+using com.koyok.democratia.Domain.UseCase;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
-    public partial class CreationViewModel(InsertionCompteUseCase? useCase, AppContext? context) : ObservableObject
+    public partial class CreationViewModel(InsertionCompteUseCase? useCase) : ObservableObject
     {
 
         [ObservableProperty] public partial Internaute? internaute { get; set; } = new();
         [ObservableProperty] public partial string? retourMessage { get; set; }
         [ObservableProperty] public partial string? email { get; set; }
-        private readonly AppContext? _context = context;
         private readonly InsertionCompteUseCase? _useCase = useCase;
 
-        public CreationViewModel() : this(null, null) { }
+        public CreationViewModel() : this(null) { }
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) 
@@ -39,7 +38,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             }
             catch (Exception ex)
             {
-                retourMessage = _context!.Mapper!.MappingException(ex);
+                retourMessage = Shell.Current?.AppContext.Mapper!.MappingException(ex);
             }
             WeakReferenceMessenger.Default.Send<EventCreationSucess>();
         }

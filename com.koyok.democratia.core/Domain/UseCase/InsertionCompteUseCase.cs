@@ -4,7 +4,7 @@ using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.Utils;
 
-namespace com.koyok.democratia.core.Domain.UseCase
+namespace com.koyok.democratia.Domain.UseCase
 {
     public class InsertionCompteUseCase(IInternauteRepository repository)
     {

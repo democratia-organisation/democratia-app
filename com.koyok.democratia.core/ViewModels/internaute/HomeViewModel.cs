@@ -6,15 +6,14 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Input;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Exception;
-using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
+using com.koyok.democratia.Domain.Extension;
 using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.UI.internaute
 {
-    public partial class HomeViewModel(AppContext context, IGroupeRepository repository) :  ObservableObject, IQueryAttributable, INotifyPropertyChanged
+    public partial class HomeViewModel(IGroupeRepository repository) :  ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         public Internaute? internaute;
-        private readonly AppContext context = context;
         private readonly IGroupeRepository repository = repository;
         private int cursor = 0;
 
@@ -25,7 +24,7 @@ namespace com.koyok.democratia.UI.internaute
         public partial bool isRefreshing { get; set; } = false;
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
-            => internaute = (Internaute)query["modele"] ?? context.Internaute ;
+            => internaute = (Internaute)query["modele"] ?? Shell.Current.AppContext.Internaute ;
         
 
         [RelayCommand]
@@ -61,8 +60,8 @@ namespace com.koyok.democratia.UI.internaute
         private async Task OpenGroup(Tuple<Groupe, ImageSource, ICommand> tuple)
         {
             var parameters = new ShellNavigationQueryParameters { { "groupe", tuple.Item1! }, { "Image", tuple.Item2! }, { "modele", internaute! } };
-            context.Groupe = tuple.Item1;
-            context.ImageSourceGroupe = tuple.Item2;
+            Shell.Current.AppContext.Groupe = tuple.Item1;
+            Shell.Current.AppContext.ImageSourceGroupe = tuple.Item2;
             await Shell.Current?.GoToAsync("GroupePage", parameters)!;
         }
 
