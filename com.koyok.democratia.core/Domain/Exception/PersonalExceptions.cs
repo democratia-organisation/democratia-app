@@ -15,7 +15,10 @@ namespace com.koyok.democratia.Domain.Exception
         public EmptyRequiredFieldException() : this("") { }
 
     }
-    internal class ConnexionErrorException : System.Exception { }
+    internal class ConnexionErrorException(string message) : System.Exception(message)
+    {
+        public ConnexionErrorException() : this("") { }
+    }
     internal class BadPasswordException : System.Exception { }
 
     internal class NoUserException : System.Exception { }
@@ -28,7 +31,7 @@ namespace com.koyok.democratia.Domain.Exception
     public class MapExceptionMessage(ILocalizationService localizationService)
     {
 
-        private ILocalizationService localizationService = localizationService;
+        private readonly ILocalizationService localizationService = localizationService;
         public string? MappingException(System.Exception e, params object[] args)
         {
             return e switch
@@ -39,6 +42,7 @@ namespace com.koyok.democratia.Domain.Exception
                 EmptyRequiredFieldException => localizationService?.GetString("errorUnknowEmptyFieldMessage"),
                 MailException => localizationService?.GetString("errorMailMessage"),
                 PassWordException => localizationService?.GetString("errorPasswordMessage"),
+                ConnexionErrorException when args.Length > 0 => localizationService?.GetString("connexionErreur", args[0]),
                 ConnexionErrorException => localizationService?.GetString("connexionErreur"),
                 NoUserException => localizationService?.GetString("noUser"),
                 BadPasswordException => localizationService?.GetString("mauvaisMdp"),

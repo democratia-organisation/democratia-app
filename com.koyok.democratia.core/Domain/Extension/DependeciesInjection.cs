@@ -1,6 +1,9 @@
 ﻿using com.koyok.democratia.Data.DataSource.Local;
 using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Data.Mapper.LocalToDomain;
+using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Data.Repository;
+using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Extension.DelegatesHandler;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.UseCase;
@@ -23,13 +26,31 @@ namespace com.koyok.democratia.Domain.Extension
             /// <returns>Retourne la collection de services après l'ajout des services.</returns>
             public IServiceCollection AddServices()
             {
-                services.AddSingleton<Utils.AppContext>();
                 services.AddDataLocalSources();
                 services.AddDataRemoteSources();
+                services.AddLocalToDomain();
+                services.AddRemoteToDomain();
                 services.AddClient();
                 services.AddUsesCases();
                 services.AddTransientViewModel();
+                return services;
+            }
 
+            public IServiceCollection AddRemoteToDomain()
+            {
+                services.AddSingleton<IRemoteToDomain, InternauteRemoteToDomain>();
+                services.AddSingleton<IRemoteToDomain, GroupeRemoteToDomain>();
+                services.AddSingleton<IRemoteToDomain, ThematiqueRemoteToDomain>();
+                services.AddSingleton<IRemoteToDomain, PropositionRemoteToDomain>();
+                return services;
+            }
+
+            public IServiceCollection AddLocalToDomain()
+            {
+                services.AddSingleton<ILocalToDomain, InternauteLocalToDomain>();
+                services.AddSingleton<ILocalToDomain, GroupeLocalToDomain>();
+                services.AddSingleton<ILocalToDomain, ThematiqueLocalToDomain>();
+                services.AddSingleton<ILocalToDomain, PropositionLocalToDomain>();
                 return services;
             }
 

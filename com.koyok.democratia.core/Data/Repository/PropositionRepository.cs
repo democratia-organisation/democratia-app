@@ -1,14 +1,19 @@
 ﻿using com.koyok.democratia.Data.DataSource.Local;
 using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Data.Mapper.LocalToDomain;
+using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    public class PropositionRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources) 
-        : BaseRepository(client, 
-            localSources.OfType<PropositionLocalSource>().FirstOrDefault()!, 
-            remoteSources.OfType<PropositionRemoteSource>().FirstOrDefault()!), IPropositionRepository
+    public class PropositionRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources,
+        IEnumerable<IRemoteToDomain> remotes, IEnumerable<ILocalToDomain> domains)
+        : BaseRepository(client,
+            localSources.OfType<PropositionLocalSource>().FirstOrDefault()!,
+            remoteSources.OfType<PropositionRemoteSource>().FirstOrDefault()!,
+            remotes.OfType<PropositionRemoteToDomain>().FirstOrDefault()!,
+            domains.OfType<PropositionLocalToDomain>().FirstOrDefault()!), IPropositionRepository
     {
         public Task<string> CreateModelAsync(params object?[]? parameters)
         {
@@ -25,7 +30,7 @@ namespace com.koyok.democratia.Data.Repository
             HttpResponseMessage? response;
             string? requete = $""""
 
-                ?request=SELECT BIN_TO_UUID(id_groupe) AS id_groupe,
+                ?request=SELECT BIN_TO_UUID(id_Proposition) AS id_Proposition,
                     budget,
                     date_publication,
                     description_proposition,
@@ -34,7 +39,7 @@ namespace com.koyok.democratia.Data.Repository
                     nb_signalement,
                     titre_proposition
                 FROM proposition
-                WHERE id_groupe = UUID_TO_BIN(?, 1)
+                WHERE id_Proposition = UUID_TO_BIN(?, 1)
                 &parameters=["{parameters[0]!}"]
                 """";
             try

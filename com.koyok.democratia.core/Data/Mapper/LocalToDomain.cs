@@ -1,16 +1,15 @@
-﻿using com.koyok.democratia.Data.DataSource.Local;
-using com.koyok.democratia.Domain.Models;
+﻿using com.koyok.democratia.Domain.Models;
 
 namespace com.koyok.democratia.Data.Mapper.LocalToDomain
 {
     public interface ILocalToDomain
     {
-        public static abstract IModel Mapping(ILocalSource source);
+        public T? Mapping<T>(string source) where T : class, IModel;
     }
 
     public class InternauteLocalToDomain : ILocalToDomain
     {
-        public static IModel Mapping(ILocalSource source)
+        public T? Mapping<T>(string source) where T : class, IModel
         {
             throw new NotImplementedException();
         }
@@ -18,7 +17,7 @@ namespace com.koyok.democratia.Data.Mapper.LocalToDomain
 
     public class PropositionLocalToDomain : ILocalToDomain
     {
-        public static IModel Mapping(ILocalSource source)
+        public T? Mapping<T>(string source) where T : class, IModel
         {
             throw new NotImplementedException();
         }
@@ -26,7 +25,7 @@ namespace com.koyok.democratia.Data.Mapper.LocalToDomain
 
     public class ThematiqueLocalToDomain : ILocalToDomain
     {
-        public static IModel Mapping(ILocalSource source)
+        public T? Mapping<T>(string source) where T : class, IModel
         {
             throw new NotImplementedException();
         }
@@ -34,7 +33,7 @@ namespace com.koyok.democratia.Data.Mapper.LocalToDomain
 
     public class GroupeLocalToDomain : ILocalToDomain
     {
-        public static IModel Mapping(ILocalSource source)
+        public T? Mapping<T>(string source) where T : class, IModel
         {
             throw new NotImplementedException();
         }

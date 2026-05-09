@@ -1,6 +1,7 @@
 ﻿using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Extension.DelegatesHandler;
 using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
@@ -14,7 +15,6 @@ namespace com.koyok.democratia.Domain.Extension
     public static class ExtentionsCollection
     {
         private static MauiAppBuilder? maui;
-        private static Utils.AppContext appContext = new();
 
         extension(HttpRequestMessage request)
         {
@@ -142,10 +142,16 @@ namespace com.koyok.democratia.Domain.Extension
         {
             public Uri AffecterURL() => GetUrl();
         }
+    }
+
+    public static class ShellExtension
+    {
+        private static Utils.AppContext appContext = new(new(ServiceHelper.GetService<ILocalizationService>()!));
 
         extension(Shell shell)
         {
             public Utils.AppContext AppContext => appContext;
         }
+
     }
 }

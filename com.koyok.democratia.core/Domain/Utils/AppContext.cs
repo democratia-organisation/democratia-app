@@ -1,6 +1,5 @@
 ﻿using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Service;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,9 +7,9 @@ using System.Runtime.CompilerServices;
 namespace com.koyok.democratia.Domain.Utils
 {
 
-    public partial record class AppContext : INotifyPropertyChanged
+    public partial record class AppContext(MapExceptionMessage mapper) : INotifyPropertyChanged
     {
-        private MapExceptionMessage? mapper;
+        private MapExceptionMessage? mapper = mapper;
         public MapExceptionMessage? Mapper
         {
             get => mapper;

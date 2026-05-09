@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 using System.ComponentModel;
+using Microsoft.Maui.Graphics;
 
 namespace com.koyok.democratia.UI
 {
@@ -17,7 +18,10 @@ namespace com.koyok.democratia.UI
 
         [ObservableProperty]
         public partial bool isConnected { get; set; }
-        
+
+        [ObservableProperty]
+        public partial Size size { get; set; } = new Size(100);
+
         [RelayCommand]
         private async Task Connect()
         {
@@ -31,11 +35,19 @@ namespace com.koyok.democratia.UI
             }
             else
             {
-                Internaute internaute = await useCase.Authenticate(identifiant, motDePasse);
-                Shell.Current.AppContext.Internaute = internaute;
-                isConnected = true;
-                loading = false; 
-                return;
+                try
+                {
+                    Internaute internaute = await useCase.Authenticate(identifiant, motDePasse);
+                    Shell.Current.AppContext.Internaute = internaute;
+                    isConnected = true;
+                    loading = false;
+                    return;
+
+                }
+                catch (Exception) {
+                    SecureStorage.Default.RemoveAll();
+                }
+                
             }
             
         }

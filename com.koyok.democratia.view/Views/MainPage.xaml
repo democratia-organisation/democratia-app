@@ -10,14 +10,16 @@
     x:DataType="viewModel:MainViewModel"
     AutomationId="mainPage"
     BackgroundColor="#85000C">
-    <HorizontalStackLayout
+    <VerticalStackLayout
         HorizontalOptions="Center"
-        Spacing="{DynamicResource SpacingSmall}"
+        Spacing="{DynamicResource SpacingLarge}"
         VerticalOptions="Center">
         <Image
             x:Name="loginImage"
             AutomationId="loginImage"
-            Source="appicon.png" />
+            HeightRequest="50"
+            Source="appicon.png"
+            WidthRequest="50" />
         <Label
             x:Name="democratiaLabel"
             AutomationId="democratiaLabel"
@@ -28,7 +30,7 @@
             AutomationId="sloganLabel"
             Style="{DynamicResource SubHeadlineStyle}"
             Text="{x:Static lang:AppResources.slogan}" />
-        <Component:LoadingComponent Loading="{Binding loading}" Size="{DynamicResource SpacingMedium}" />
+        <Component:LoadingComponent Loading="{Binding loading}" SizeAttribute="{Binding size}" />
 
-    </HorizontalStackLayout>
+    </VerticalStackLayout>
 </ContentPage>

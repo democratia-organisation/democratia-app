@@ -45,7 +45,7 @@ namespace com.koyok.democratia.UI.internaute
             var jsonString = string.Empty;
             try
             { jsonString = await repository.GetGroupesAsync(internaute!)!; }
-            catch (Exception)
+            catch (Exception ex)
             { throw new ConnexionErrorException(); }
             List<Groupe> listeInformation = repository.RecuprerInformationConnexion<Groupe>(jsonString);
             groupes.Clear();

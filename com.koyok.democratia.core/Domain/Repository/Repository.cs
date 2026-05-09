@@ -21,7 +21,7 @@ namespace com.koyok.democratia.Domain.Repository
         public Task<string> DeleteModelAsync(params object?[]? parameters);
         public Task<MemoryStream?> GetImageAsync(string? url);
         public Task<string> UploadImage(Guid? id, string filePath);
-        public List<T> RecuprerInformationConnexion<T>(string stringJson);
+        public List<T> RecuprerInformationConnexion<T>(string stringJson) where T : class, IModel;
     }
 
     public interface IGroupeRepository : IRepository

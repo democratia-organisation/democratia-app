@@ -47,6 +47,7 @@ namespace com.koyok.democratia
             var app = builder.Build();
             Directory.CreateDirectory(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
             ServiceHelper.Initialize(app.Services);
+            Domain.Service.ServiceHelper.Initialize(app.Services);
 
             return app;
 

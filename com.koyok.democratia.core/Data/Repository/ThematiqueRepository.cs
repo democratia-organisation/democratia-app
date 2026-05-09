@@ -1,15 +1,20 @@
-﻿using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.Data.DataSource.Local;
+﻿using com.koyok.democratia.Data.DataSource.Local;
 using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Data.Mapper.LocalToDomain;
+using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    internal class ThematiqueRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources) 
-        : BaseRepository(client, 
-            localSources.OfType<ThematiqueLocalSource>().FirstOrDefault()!, 
-            remoteSources.OfType<ThematiqueRemoteSource>().FirstOrDefault()!), IThematiqueRepository
+    internal class ThematiqueRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources,
+        IEnumerable<IRemoteToDomain> remotes, IEnumerable<ILocalToDomain> domains)
+        : BaseRepository(client,
+            localSources.OfType<ThematiqueLocalSource>().FirstOrDefault()!,
+            remoteSources.OfType<ThematiqueRemoteSource>().FirstOrDefault()!,
+            remotes.OfType<ThematiqueRemoteToDomain>().FirstOrDefault()!,
+            domains.OfType<ThematiqueLocalToDomain>().FirstOrDefault()!), IThematiqueRepository
     {
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {

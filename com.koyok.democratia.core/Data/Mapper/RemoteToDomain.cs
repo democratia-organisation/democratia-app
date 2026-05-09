@@ -1,24 +1,34 @@
 ﻿using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Domain.Models;
+using System.Text.Json;
 
 namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
 {
     public interface IRemoteToDomain
     {
-        public static abstract IModel Mapping(IRemoteSource source);
+        public T? Mapping<T>(string source) where T : class, IModel;
     }
 
     public class InternauteRemoteToDomain : IRemoteToDomain
     {
-        public static IModel Mapping(IRemoteSource source)
+        public T? Mapping<T>(string source) where T : class, IModel
         {
-            throw new NotImplementedException();
+            var remoteSource =  JsonSerializer.Deserialize<InternauteRemoteSource>(source)!;
+            var internaute = new Internaute(
+                remoteSource.id_internaute,
+                remoteSource.nom_internaute,
+                remoteSource.prenom_internaute,
+                remoteSource.adresse_postale,
+                remoteSource.courriel,
+                remoteSource.hashageMDP
+            );
+            return internaute as T;
         }
     }
 
     public class PropositionRemoteToDomain : IRemoteToDomain
     {
-        public static IModel Mapping(IRemoteSource source)
+        public T? Mapping<T>(string source) where T : class, IModel
         {
             throw new NotImplementedException();
         }
@@ -26,7 +36,7 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
 
     public class ThematiqueRemoteToDomain : IRemoteToDomain
     {
-        public static IModel Mapping(IRemoteSource source)
+        public T? Mapping<T>(string source) where T : class, IModel
         {
             throw new NotImplementedException();
         }
@@ -34,7 +44,7 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
 
     public class GroupeRemoteToDomain : IRemoteToDomain
     {
-        public static IModel Mapping(IRemoteSource source)
+        public T? Mapping<T>(string source) where T : class, IModel
         {
             throw new NotImplementedException();
         }

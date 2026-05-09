@@ -1,10 +1,12 @@
-﻿using System.Net.Http.Headers;
-using Xunit.Abstractions;
-using com.koyok.democratia.Domain.Extension;
-using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.Data.DataSource.Local;
+﻿using com.koyok.democratia.Data.DataSource.Local;
 using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Data.Mapper.LocalToDomain;
+using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Domain.Models;
 using System.Text.Json;
+using Xunit.Abstractions;
 
 namespace com.koyok.democratia.Data.Repository
 {
@@ -17,10 +19,13 @@ namespace com.koyok.democratia.Data.Repository
         protected HttpClient? client;
         protected ILocalSource localSource;
         protected IRemoteSource remoteSource;
+        private IRemoteToDomain remoteToDomain;
+        private ILocalToDomain localToDomain;
 
         public bool succes {  get; private set; }
         
-        protected BaseRepository(HttpClient client, ILocalSource localSource, IRemoteSource remoteSource)
+        protected BaseRepository(HttpClient client, 
+            ILocalSource localSource, IRemoteSource remoteSource, IRemoteToDomain remoteToDomain, ILocalToDomain localToDomain)
         {
             statutsMessage = string.Empty;
             statuts = 0;
@@ -33,16 +38,35 @@ namespace com.koyok.democratia.Data.Repository
 #endif
             this.localSource = localSource;
             this.remoteSource = remoteSource;
+            this.remoteToDomain = remoteToDomain;
+            this.localToDomain = localToDomain;
         }
 
-        public virtual List<T> RecuprerInformationConnexion<T>(string stringJson)
-        {
-            Dictionary<string, object> dictionnary;
+        public virtual List<T> RecuprerInformationConnexion<T>(string stringJson) where T : class, IModel
+        {            
             var finalJson = stringJson.Trim();
-            try { dictionnary = JsonSerializer.Deserialize<Dictionary<string, object>>(finalJson)!; }
+            try { 
+                using var doc = JsonDocument.Parse(finalJson);
+                var root = doc.RootElement;
+                if (!root.TryGetProperty("data", out var data))
+                    throw new ConnexionErrorException(root.TryGetProperty("message", out var message)? message.ToString() : throw new Exception());
+                var resultList = new List<T>();
+
+                if (data.ValueKind == JsonValueKind.Array)
+                {
+                    foreach (var item in data.EnumerateArray())
+                    {
+                        T domainModel = remoteToDomain.Mapping<T>(item.GetRawText())!;
+
+                        if (domainModel is not null)
+                            resultList.Add(domainModel);
+                    }
+                }
+
+                return resultList;
+            }
             catch (Exception) { throw new FetchDataException(); }
-            var rawElement = dictionnary.TryGetValue("data", out var data) ? data.ToString() : throw new FetchDataException();
-            return JsonSerializer.Deserialize<List<T>>(rawElement!)!;
+            
 
         }
 

@@ -17,7 +17,7 @@ namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
 
         private async Task<HttpResponseMessage> RefreshKeys(CancellationToken ct)
         {
-            string email = await SecureStorage.Default.GetAsync("id_internaute") ?? string.Empty;
+            string email = await SecureStorage.Default.GetAsync(SecureStorageKeys.IdInternaute.ToString()) ?? string.Empty;
             var brutClient = _factory.CreateClient("ClientBrut");
 #if DEBUG
             brutClient.Timeout = TimeSpan.FromSeconds(60*5);

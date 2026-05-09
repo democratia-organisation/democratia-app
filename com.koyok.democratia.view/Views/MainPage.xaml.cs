@@ -10,12 +10,12 @@ namespace com.koyok.democratia.UI
             BindingContext = viewModel;
         }
 
-        
-        protected async override void OnBindingContextChanged()
+
+        protected async override void OnNavigatedTo(NavigatedToEventArgs args)
         {
-            base.OnBindingContextChanged();
+            base.OnNavigatedTo(args);
             var viewModel = BindingContext as MainViewModel;
-            Thread.Sleep(3000);
+            await Task.Delay(3000);
             viewModel!.ConnectCommand.Execute(null);
             var route = viewModel.isConnected ? $"/{nameof(HomePage)}" : $"/{nameof(LoginPage)}";
             await Shell.Current.GoToAsync(route);

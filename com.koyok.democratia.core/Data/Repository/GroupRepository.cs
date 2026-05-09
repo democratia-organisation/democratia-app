@@ -1,17 +1,21 @@
 ﻿using com.koyok.democratia.Data.DataSource.Local;
 using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Data.Mapper.LocalToDomain;
+using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    internal class GroupRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources) 
+    internal class GroupRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources,
+        IEnumerable<IRemoteToDomain> remotes, IEnumerable<ILocalToDomain> domains) 
         : BaseRepository(client, 
             localSources.OfType<GroupeLocalSource>().FirstOrDefault()!, 
-            remoteSources.OfType<GroupeRemoteSource>().FirstOrDefault()!), IGroupeRepository
+            remoteSources.OfType<GroupeRemoteSource>().FirstOrDefault()!,
+            remotes.OfType<GroupeRemoteToDomain>().FirstOrDefault()!,
+            domains.OfType<GroupeLocalToDomain>().FirstOrDefault()!), IGroupeRepository
     {
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {

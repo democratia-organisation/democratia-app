@@ -6,6 +6,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Storage;
 
 namespace com.koyok.democratia.UI.internaute
 {
@@ -23,36 +25,24 @@ namespace com.koyok.democratia.UI.internaute
         {
             if (commande == "CreationPage")
                 await Shell.Current!.GoToAsync(commande);
-            
             else
             {
                 try
                 {
-                    modele = await ConnecterInternaute();
+                    if (string.IsNullOrWhiteSpace(adresseMail)) throw new EmptyEmailFieldException();
+                    else if (string.IsNullOrWhiteSpace(motDePasse)) throw new EmptyPassWordFieldException();
+                    modele = await useCase.Authenticate(adresseMail!, motDePasse!);
+                    Shell.Current.AppContext.Internaute = modele;
+                    var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
+                    await Shell.Current!.GoToAsync(commande, parameters);
                 }
                 catch (Exception ex)
                 {
                     errorMessage = Shell.Current.AppContext.Mapper!.MappingException(ex);
+                    SecureStorage.Default.RemoveAll();
                 }
-
-                Shell.Current.AppContext.Internaute = modele;
-                var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
-                await Shell.Current!.GoToAsync(commande, parameters);
             }
 
-        }
-
-        internal async Task<Internaute?> ConnecterInternaute()
-        {
-
-            if (string.IsNullOrWhiteSpace(adresseMail)) throw new EmptyEmailFieldException();
-            else if (string.IsNullOrWhiteSpace(motDePasse)) throw new EmptyPassWordFieldException();
-            try
-            {
-                return await useCase.Authenticate(adresseMail!, motDePasse!);
-            }
-            catch (Exception)
-            { throw; }
         }
     }
 }

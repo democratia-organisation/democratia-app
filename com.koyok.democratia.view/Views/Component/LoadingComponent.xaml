@@ -8,7 +8,7 @@
         x:Name="arcPath"
         AnchorX="0.5"
         AnchorY="0.5"
-        Aspect="Uniform"
+        Aspect="Fill"
         AutomationId="arcPath"
         Stroke="{AppThemeBinding Dark={DynamicResource Dark-tertiary},
                                  Light={DynamicResource Light-tertiary}}"
@@ -21,9 +21,9 @@
                             <PathFigure.Segments>
                                 <ArcSegment
                                     IsLargeArc="True"
-                                    Point="50,100"
+                                    Point="50,50"
                                     RotationAngle="0"
-                                    Size="{Binding Size, Source={x:Reference this}}"
+                                    Size="{Binding SizeAttribute, Source={x:Reference this}}"
                                     SweepDirection="Clockwise" />
                             </PathFigure.Segments>
                         </PathFigure>

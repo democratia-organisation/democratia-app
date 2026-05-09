@@ -1,14 +1,19 @@
 ﻿using com.koyok.democratia.Data.DataSource.Local;
 using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Data.Mapper.LocalToDomain;
+using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    public class InternauteRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources) 
-        : BaseRepository(client, 
-            localSources.OfType<InternauteLocalSource>().FirstOrDefault()!, 
-            remoteSources.OfType<InternauteRemoteSource>().FirstOrDefault()!), IInternauteRepository
+    public class InternauteRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources,
+        IEnumerable<IRemoteToDomain> remotes, IEnumerable<ILocalToDomain> domains)
+        : BaseRepository(client,
+            localSources.OfType<InternauteLocalSource>().FirstOrDefault()!,
+            remoteSources.OfType<InternauteRemoteSource>().FirstOrDefault()!,
+            remotes.OfType<InternauteRemoteToDomain>().FirstOrDefault()!,
+            domains.OfType<InternauteLocalToDomain>().FirstOrDefault()!), IInternauteRepository
     {
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
