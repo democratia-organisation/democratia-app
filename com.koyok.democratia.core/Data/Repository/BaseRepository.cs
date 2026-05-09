@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using Xunit.Abstractions;
 using com.koyok.democratia.Domain.Extension;
 using com.koyok.democratia.Domain.Exception;
@@ -78,56 +77,12 @@ namespace com.koyok.democratia.Data.Repository
             info.AddValue("Statuts", statuts);
         }
 
-        public async Task<ImageSource?> GetImageAsync(string? url)
-        {
-            var requete = $"""?request=obtenirImage&parameters=["{url}"]""";
-            
-            HttpResponseMessage? response;
-            try
-            {
-                response = await client!.GetAsync(requete);
-            }
-            catch (HttpRequestException ex)
-            {
-                throw new HttpRequestException("Erreur de connexion inattendu", ex);
-            }
-            MettreAJourStatuts(response);
-            if (!response.IsSuccessStatusCode)
-            {
-                string content = await response.Content.ReadAsStringAsync();
-                throw new ConnexionErrorException();
-            }
+        // vouer à ne pas être implémenté ici mais dans les repositories qui en ont besoin
+        public virtual async Task<MemoryStream?> GetImageAsync(string? url) => new ();
+        
 
-            else
-            {
-                byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
-                if (imageBytes.Length == 0) return null;
-                return ImageSource.FromStream(() => new MemoryStream(imageBytes));
-            }
-        }
-
-        public async Task<string> UploadImage(Guid? id, string filePath)
-        {
-            var requete = $"""?request=publierImage&parameters=["{id}"]""";
-            
-            HttpResponseMessage? response;
-            
-            try
-            {
-                byte[] imageBytes = await File.ReadAllBytesAsync(filePath);
-                using var multipartContent = new MultipartFormDataContent();
-                var byteContent = new ByteArrayContent(imageBytes);
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-                multipartContent.Add(byteContent, "image", "upload.jpg");
-
-                response = await client!.PostAsync(requete,multipartContent);
-            }
-            catch (HttpRequestException ex)
-            {
-                throw new HttpRequestException("Erreur de connexion inattendu", ex);
-            }
-            return await response.Content.ReadAsStringAsync();
-        }
+        public virtual async Task<string> UploadImage(Guid? id, string filePath) => "";
+        
 
         public void Dispose()
         {

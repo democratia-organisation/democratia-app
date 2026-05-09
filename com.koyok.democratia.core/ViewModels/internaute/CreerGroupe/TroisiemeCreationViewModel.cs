@@ -1,6 +1,8 @@
-﻿using com.koyok.democratia.Domain.Exception;
+﻿using com.koyok.democratia.Data.Repository;
+using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.UseCase;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
@@ -10,7 +12,8 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class TroisiemeCreationViewModel(Domain.Utils.AppContext context) 
+    public partial class TroisiemeCreationViewModel(Domain.Utils.AppContext context, 
+        IGroupeRepository repository) 
         : ObservableObject, INotifyPropertyChanged , IQueryAttributable
     {
 
@@ -18,6 +21,8 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
         private string imagePath = string.Empty;
         private Internaute? internaute;
         private readonly Domain.Utils.AppContext context = context;
+        private readonly IGroupeRepository repository = repository;
+        private readonly ManipulateImageUseCase manipulateImageUseCase = new((GroupRepository)repository);
         [ObservableProperty] public partial ImageSource? image { get; set; }
         [ObservableProperty] public partial bool? isObservable { get; set; } = false;
         [ObservableProperty] public partial string? errorMessage { get; set; }
@@ -37,12 +42,12 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
             try
             {
                 groupe!.idGroupe = Guid.CreateVersion7();
-                await client!.CreateModelAsync(groupe!);
+                await repository!.CreateModelAsync(groupe!);
                 foreach (Thematique item in thematiques!)
-                    await ((GroupClient)client).CreateJointureThemeEtGroupeAsync(groupe!.idGroupe, item.idThematique, item.budget);
+                    await repository.CreateJointureThemeEtGroupeAsync(groupe!.idGroupe, item.idThematique, item.budget);
                 if (string.IsNullOrWhiteSpace(imagePath)) throw new NoImageGiven();
-                await client.UploadImage(groupe!.idGroupe, imagePath);
-                await ((GroupClient)client).AjouterCreateur(internaute!.idInternaute, groupe.idGroupe);                
+                await manipulateImageUseCase.UploadImage(groupe!.idGroupe, imagePath);
+                await repository.AjouterCreateur(internaute!.idInternaute, groupe.idGroupe);                
                 await Shell.Current.GoToAsync(commande, new ShellNavigationQueryParameters { {"modele" , internaute } });
             } catch (Exception ex)
             {

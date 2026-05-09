@@ -1,16 +1,15 @@
 using com.koyok.democratia.view.Resources.Localization;
 using CommunityToolkit.Mvvm.Messaging;
-using com.koyok.democratia.UI.Component;
+using com.koyok.democratia.UI.Component.internaute;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
     public partial class CreationPage : ContentPage
     {
-        public CreationPage(IEnumerable<INavigeablleViewModel?>? navigeablleViewModels)
+        public CreationPage(CreationViewModel viewModel)
         {
             InitializeComponent();
-            var viewModel = navigeablleViewModels!.OfType<CreationViewModel>().FirstOrDefault();
-            BindingContext = viewModel!;
+            BindingContext = viewModel;
 
             WeakReferenceMessenger.Default.Register<CreationViewModel.EventCreationSucess>(this, (r, s) =>
             {

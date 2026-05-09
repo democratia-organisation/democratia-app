@@ -7,13 +7,15 @@ using System.Windows.Input;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Exception;
 using AppContext = com.koyok.democratia.Domain.Utils.AppContext;
+using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.UI.internaute
 {
-    public partial class HomeViewModel(AppContext context) :  ObservableObject, IQueryAttributable, INotifyPropertyChanged
+    public partial class HomeViewModel(AppContext context, IGroupeRepository repository) :  ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         public Internaute? internaute;
         private readonly AppContext context = context;
+        private readonly IGroupeRepository repository = repository;
         private int cursor = 0;
 
         [ObservableProperty]
@@ -43,10 +45,10 @@ namespace com.koyok.democratia.UI.internaute
         {
             var jsonString = string.Empty;
             try
-            { jsonString = await client?.GetModelAsync(internaute!)!; }
+            { jsonString = await repository.GetGroupesAsync(internaute!)!; }
             catch (Exception)
             { throw new ConnexionErrorException(); }
-            List<Groupe> listeInformation = RecuprerInformationConnexion<Groupe>(jsonString);
+            List<Groupe> listeInformation = repository.RecuprerInformationConnexion<Groupe>(jsonString);
             groupes.Clear();
             foreach (var groupe in listeInformation)
             {
@@ -65,8 +67,14 @@ namespace com.koyok.democratia.UI.internaute
         }
 
 
-        private async Task<ImageSource> GetImageAsync(string? url) 
-            => (await client!.GetImageAsync(url))!;
+        private async Task<ImageSource> GetImageAsync(string? url)
+        {
+            var imageStream = await repository.GetImageAsync(url);
+            if (imageStream != null)
+                return ImageSource.FromStream(() => imageStream);
+            else
+                return ImageSource.FromFile("default_group_image.png");
+        }
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) 

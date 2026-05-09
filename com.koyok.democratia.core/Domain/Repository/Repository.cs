@@ -1,4 +1,4 @@
-﻿using Microsoft.Maui.Controls;
+﻿using com.koyok.democratia.Domain.Models;
 using Xunit.Abstractions;
 
 namespace com.koyok.democratia.Domain.Repository
@@ -19,14 +19,16 @@ namespace com.koyok.democratia.Domain.Repository
         public Task<string> CreateModelAsync(params object?[]? parameters);
         public Task<string> UpdateModelAsync(params object?[]? parameters);
         public Task<string> DeleteModelAsync(params object?[]? parameters);
-        public Task<ImageSource?> GetImageAsync(string? url);
+        public Task<MemoryStream?> GetImageAsync(string? url);
         public Task<string> UploadImage(Guid? id, string filePath);
         public List<T> RecuprerInformationConnexion<T>(string stringJson);
     }
 
     public interface IGroupeRepository : IRepository
     {
+        public Task<string> AjouterCreateur(int? idInternaute, Guid? idGroupe);
         public Task<string> CreateJointureThemeEtGroupeAsync(Guid? idGroupe, int? idThematique, float? budgetThematique);
+        public Task<string> GetGroupesAsync(Internaute internaute);
         public Task<string> GetJointureThemeEtGroupeAsync(Guid? idGroupe);
     }
 

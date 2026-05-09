@@ -12,7 +12,10 @@ using Microsoft.Maui.Hosting;
 using System.Net.Http.Headers;
 using System.Reflection;
 using com.koyok.democratia.Domain.Extension.DelegatesHandler;
-using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Domain.UseCase;
+using com.koyok.democratia.core.Domain.UseCase;
+using com.koyok.democratia.Data.DataSource.Local;
+using com.koyok.democratia.Data.DataSource.Remote;
 
 namespace com.koyok.democratia.Domain.Extension
 {
@@ -74,9 +77,44 @@ namespace com.koyok.democratia.Domain.Extension
             public IServiceCollection AddServices()
             {
                 services.AddSingleton<Utils.AppContext>();
+                services.AddDataLocalSources();
+                services.AddDataRemoteSources();
                 services.AddClients();
                 services.AddClient();
+                services.AddUsesCases();
                 services.AddTransientViewModel();
+
+                return services;
+            }
+
+            public IServiceCollection AddUsesCases()
+            {
+                services.AddSingleton<AuthenticateUseCase>();
+                services.AddSingleton<ClassementPropositionUseCase>();
+                services.AddSingleton<CreerGroupeUseCase>();
+                services.AddSingleton<DeterminateRoleUseCase>();
+                services.AddSingleton<InsertionCompteUseCase>();
+                services.AddSingleton<ListeDonneeUseCase>();
+                services.AddSingleton<ManipulateImageUseCase>();
+
+                return services;
+            }
+
+            public IServiceCollection AddDataLocalSources()
+            {
+                services.AddTransient<ILocalSource, InternauteLocalSource>();
+                services.AddTransient<ILocalSource, GroupeLocalSource>();
+                services.AddTransient<ILocalSource, ThematiqueLocalSource>();
+                services.AddTransient<ILocalSource, PropositionLocalSource>();
+                return services;
+            }
+
+            public IServiceCollection AddDataRemoteSources()
+            {
+                services.AddTransient<IRemoteSource, InternauteRemoteSource>();
+                services.AddTransient<IRemoteSource, GroupeRemoteSource>();
+                services.AddTransient<IRemoteSource, ThematiqueRemoteSource>();
+                services.AddTransient<IRemoteSource, PropositionRemoteSource>();
 
                 return services;
             }

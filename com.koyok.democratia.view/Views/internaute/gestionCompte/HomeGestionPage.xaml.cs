@@ -1,7 +1,7 @@
 using com.koyok.democratia.view.Resources.Localization;
-using com.koyok.democratia.UI.Component;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Windows.Input;
+using com.koyok.democratia.UI.Component.internaute;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {

@@ -5,8 +5,10 @@ using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    public class PropositionRepository(HttpClient client, PropositionLocalSource localSource, PropositionRemoteSource remoteSource) 
-        : BaseRepository(client, localSource, remoteSource), IPropositionRepository
+    public class PropositionRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources) 
+        : BaseRepository(client, 
+            localSources.OfType<PropositionLocalSource>().FirstOrDefault()!, 
+            remoteSources.OfType<PropositionRemoteSource>().FirstOrDefault()!), IPropositionRepository
     {
         public Task<string> CreateModelAsync(params object?[]? parameters)
         {

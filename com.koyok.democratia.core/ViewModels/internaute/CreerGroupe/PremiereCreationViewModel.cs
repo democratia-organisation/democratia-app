@@ -8,11 +8,13 @@ using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Service;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Extension.Comparer;
+using com.koyok.democratia.Domain.Repository;
 
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
     public partial class PremiereCreationViewModel(ILocalizationService? LocalizationService,
+        IThematiqueRepository? repository,
         Domain.Utils.AppContext appContext) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? thematique { get; set; }
@@ -22,6 +24,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
         [ObservableProperty] public partial ObservableCollection<Thematique>? thematiquesRetenues { get; set; } = [];
         [ObservableProperty] public partial Groupe groupe { get; set; } = new();
         [ObservableProperty] public partial bool afficheCollectionView { get; set; } = false;
+        private readonly IThematiqueRepository? repository = repository;
         private List<Thematique>? thematiquesExistantes = [];
         private Internaute? internaute;
         private readonly Domain.Utils.AppContext appContext = appContext;    
@@ -64,8 +67,8 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
                 thematiquesNouvelles = [.. thematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];
                 foreach (Thematique item in thematiquesNouvelles)
                 {
-                    await client!.CreateModelAsync(item);
-                    List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(await client.GetModelAsync());
+                    await repository!.CreateModelAsync(item);
+                    List<Thematique> thematiques = repository.RecuprerInformationConnexion<Thematique>(await repository.GetModelAsync());
                     item.idThematique = thematiques.Last().idThematique;
                 }
 
@@ -118,16 +121,15 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
 
         public async Task RemplirThematique()
         {
-            string listeRequete = await client!.GetModelAsync();
-            List<Thematique> thematiques = RecuprerInformationConnexion<Thematique>(listeRequete);
+            string listeRequete = await repository!.GetModelAsync();
+            List<Thematique> thematiques = repository.RecuprerInformationConnexion<Thematique>(listeRequete);
             thematiques.ForEach(t => thematiquesExistantes!.Add(t));
             thematiquesAffiches = [..thematiquesExistantes!];
         }
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            internaute = (Internaute)query["modele"] ?? appContext.Internaute;
-        }
+            => internaute = (Internaute)query["modele"] ?? appContext.Internaute;
+        
         
     }
 }

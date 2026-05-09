@@ -1,5 +1,4 @@
 ﻿using com.koyok.democratia.UI;
-using com.koyok.democratia.UI.groupe;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;

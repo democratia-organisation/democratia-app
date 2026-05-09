@@ -11,7 +11,9 @@ using System.Collections.ObjectModel;
 namespace com.koyok.democratia.UI.groupe
 {
     public partial class GroupeViewModel(
-        Domain.Utils.AppContext context
+        Domain.Utils.AppContext context,
+        IPropositionRepository propositionRepository,
+        IGroupeRepository groupRepository
     ) : ObservableObject, IQueryAttributable
     {
         [ObservableProperty] public partial ImageSource? image { get; set;}
@@ -22,6 +24,9 @@ namespace com.koyok.democratia.UI.groupe
 
         private Internaute? internaute;
         private readonly Domain.Utils.AppContext context = context;
+        private readonly IPropositionRepository propositionRepository = propositionRepository;
+        private readonly IGroupeRepository groupRepository = groupRepository;
+
         // TODO : savoir si c'est un décideur afin d'afficher certaines options en fonction
         [ObservableProperty]
         public partial ObservableCollection<Critere> criteres { get; set; } = [Critere.PRIX,Critere.POPULARITE,Critere.REACTIONS];
@@ -56,13 +61,10 @@ namespace com.koyok.democratia.UI.groupe
         [RelayCommand]
         private async Task ChargerElementsAsync()
         {
-            // TODO : paginer la récupération de propositions
-            var propositionClient = ServiceHelper.GetService<IPropositionRepository>();
-            var thematiqueClient = ServiceHelper.GetService<IThematiqueRepository>();
-            string response = await ((PropositionRepository)propositionClient!).GetAllPropositionsAsync(groupe!.idGroupe);
-            List<Proposition> propositionsListe = RecuprerInformationConnexion<Proposition>(response)!;
-            response = await ((GroupRepository)client!).GetJointureThemeEtGroupeAsync(groupe!.idGroupe)!;          
-            List<Thematique> thematiquesListe = RecuprerInformationConnexion<Thematique>(response)!;
+            string response = await propositionRepository.GetAllPropositionsAsync(groupe!.idGroupe);
+            List<Proposition> propositionsListe = propositionRepository.RecuprerInformationConnexion<Proposition>(response)!;
+            response = await groupRepository.GetJointureThemeEtGroupeAsync(groupe!.idGroupe)!;          
+            List<Thematique> thematiquesListe = groupRepository.RecuprerInformationConnexion<Thematique>(response)!;
             propositions.Clear();
             thematiques.Clear();
             propositionsListe.ForEach(p => {

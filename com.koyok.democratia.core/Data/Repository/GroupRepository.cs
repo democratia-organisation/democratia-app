@@ -1,12 +1,17 @@
-﻿using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Data.DataSource.Local;
+﻿using com.koyok.democratia.Data.DataSource.Local;
 using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Repository;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    internal class GroupRepository(HttpClient client, GroupeLocalSource localSource, GroupeRemoteSource remoteSource) 
-        : BaseRepository(client, localSource, remoteSource), IGroupeRepository
+    internal class GroupRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources) 
+        : BaseRepository(client, 
+            localSources.OfType<GroupeLocalSource>().FirstOrDefault()!, 
+            remoteSources.OfType<GroupeRemoteSource>().FirstOrDefault()!), IGroupeRepository
     {
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
@@ -75,6 +80,59 @@ namespace com.koyok.democratia.Data.Repository
             return await response.Content.ReadAsStringAsync();
         }
 
+        public async override Task<string> UploadImage(Guid? id, string filePath)
+        {
+            var requete = $"""?request=publierImage&parameters=["{id}"]""";
+
+            HttpResponseMessage? response;
+
+            try
+            {
+                byte[] imageBytes = await File.ReadAllBytesAsync(filePath);
+                using var multipartContent = new MultipartFormDataContent();
+                var byteContent = new ByteArrayContent(imageBytes);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                multipartContent.Add(byteContent, "image", "upload.jpg");
+
+                response = await client!.PostAsync(requete, multipartContent);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async override Task<MemoryStream?> GetImageAsync(string? url)
+        {
+            var requete = $"""?request=obtenirImage&parameters=["{url}"]""";
+
+            HttpResponseMessage? response;
+            try
+            {
+                response = await client!.GetAsync(requete);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+            MettreAJourStatuts(response);
+            if (!response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                throw new ConnexionErrorException();
+            }
+
+            else
+            {
+                byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
+                if (imageBytes.Length == 0) return null;
+                return new MemoryStream(imageBytes);
+            }
+        }
+
+        
+
         public Task<string> DeleteModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();
@@ -106,7 +164,7 @@ namespace com.koyok.democratia.Data.Repository
             throw new NotImplementedException();
         }
 
-        internal async Task<string> AjouterCreateur(int? id_internaute, Guid? id_groupe)
+        public async Task<string> AjouterCreateur(int? id_internaute, Guid? id_groupe)
         {
             var adminId = 2;
             var notificationId = 1;
@@ -137,6 +195,11 @@ namespace com.koyok.democratia.Data.Repository
             }
 
             return await response.Content.ReadAsStringAsync();
+        }
+
+        public Task<string> GetGroupesAsync(Internaute internaute)
+        {
+            throw new NotImplementedException();
         }
     }
 }

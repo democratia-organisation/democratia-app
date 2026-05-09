@@ -6,8 +6,10 @@ using com.koyok.democratia.Data.DataSource.Remote;
 
 namespace com.koyok.democratia.Data.Repository
 {
-    internal class ThematiqueRepository(HttpClient client, ThematiqueLocalSource localSource, ThematiqueRemoteSource remoteSource) 
-        : BaseRepository(client, localSource, remoteSource), IThematiqueRepository
+    internal class ThematiqueRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources) 
+        : BaseRepository(client, 
+            localSources.OfType<ThematiqueLocalSource>().FirstOrDefault()!, 
+            remoteSources.OfType<ThematiqueRemoteSource>().FirstOrDefault()!), IThematiqueRepository
     {
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
