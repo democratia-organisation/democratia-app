@@ -9,7 +9,7 @@
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
             canvas.StrokeColor = Couleur;
-            canvas.StrokeSize = 10;
+            canvas.StrokeSize = 20;
             canvas.StrokeLineCap = LineCap.Round;
 
             float x = 50;
@@ -26,18 +26,16 @@
             typeof(LoadingArc),
             defaultValue: default(Color),
             propertyChanged: (bindable, oldValue, newValue) =>
-            {
-                var control = (LoadingArc)bindable;
-                control.canvasView.Invalidate();
-            }
-        );
+                {
+                    var control = (LoadingArc)bindable;
+                    control.canvasView.Invalidate();
+                }
+            );
 
         public Color Couleur
         {
             get => (Color)GetValue(CouleurProperty);
             set => SetValue(CouleurProperty, value);
         }
-
-
     }
 }

@@ -21,11 +21,7 @@ namespace com.koyok.democratia.UI
             string? identifiant = await SecureStorage.Default.GetAsync(SecureStorageKeys.IdInternaute.ToString());
             string? motDePasse = await SecureStorage.Default.GetAsync(SecureStorageKeys.MotDePasseInternaute.ToString());
             if (identifiant is null || motDePasse is null)
-            {
                 isConnected = false;
-                loading = false;
-                return;
-            }
             else
             {
                 try
@@ -34,15 +30,11 @@ namespace com.koyok.democratia.UI
                     isConnected = internaute != null;
                     await SecureStorage.Default.SetAsync(SecureStorageKeys.isConnected.ToString(), $"{isConnected}");
                     if(isConnected) Shell.Current.AppContext.Internaute = internaute;
-                    loading = false;
-                    return;
                 }
                 catch (Exception) {
                     SecureStorage.Default.RemoveAll();
-                }
-                
+                }   
             }
-            
         }
 
     }

@@ -8,8 +8,6 @@
     Style="{DynamicResource ContenViewStyle}">
     <Grid ColumnDefinitions="Auto,*,Auto">
 
-
-        <!--  En haut à gauche  -->
         <ImageButton
             x:Name="backButton"
             Grid.Column="0"
@@ -30,7 +28,6 @@
             MaximumHeightRequest="60"
             MaximumWidthRequest="60"
             Source="logo.png" />
-        <!--  En haut à droite  -->
         <ImageButton
             x:Name="switchImageButton"
             Grid.Column="2"

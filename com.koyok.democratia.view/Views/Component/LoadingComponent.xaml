@@ -6,8 +6,16 @@
     xmlns:component="clr-namespace:com.koyok.democratia.UI.Component">
 
     <Grid>
-        <component:LoadingArc x:Name="arcPath" Couleur="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" />
-        <component:LoadingArc x:Name="arcBisPath" Couleur="{AppThemeBinding Light={DynamicResource Light-secondaryFixedDim}, Dark={DynamicResource Dark-secondaryFixedDim}}" />
+        <component:LoadingArc
+            x:Name="arcPath"
+            AutomationId="arcPath"
+            Couleur="{AppThemeBinding Light={DynamicResource Light-secondaryFixed},
+                                      Dark={DynamicResource Dark-secondaryFixed}}" />
+        <component:LoadingArc
+            x:Name="arcBisPath"
+            AutomationId="arcBisPath"
+            Couleur="{AppThemeBinding Light={DynamicResource Light-secondary},
+                                      Dark={DynamicResource Dark-secondary}}" />
     </Grid>
 
 </ContentView>
