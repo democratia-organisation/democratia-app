@@ -1,5 +1,6 @@
 using com.koyok.democratia.view.Resources.Localization;
 using com.koyok.democratia.UI.internaute;
+using com.koyok.democratia.Domain.Enumerations;
 
 namespace com.koyok.democratia.UI.Component
 {
@@ -18,15 +19,10 @@ namespace com.koyok.democratia.UI.Component
             if (button == switchImageButton)
             {
                 if (Application.Current?.RequestedTheme == AppTheme.Dark)
-                {
                     Application.Current.UserAppTheme = AppTheme.Light;
-                    button.Source = "light.png";
-                }
                 else if (Application.Current?.RequestedTheme == AppTheme.Light)
-                {
                     Application.Current.UserAppTheme = AppTheme.Dark;
-                    button.Source = "dark.png";
-                }
+                SetTheme();
             }
             else if (button == backButton)
             {
@@ -39,35 +35,18 @@ namespace com.koyok.democratia.UI.Component
                     {
                         bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.quitterApp, AppResources.confirmQuitt, AppResources.oui, AppResources.non);
                         if (souhaiteQuitter)
-                        {
-                            string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
-                            foreach (string file in files)
-                            {
-                                try
-                                {
-                                    File.Delete(file);
-                                }
-                                catch (Exception)
-                                {
-                                    throw;
-                                }
-                            }
                             Environment.Exit(0);
-
-                        }
                     }
                 }
 
                 if (pile.Count > 1) await shell.GoToAsync("..");
 
             }
-
             else
             {
-                string[] files = Directory.GetDirectories(Path.Combine(FileSystem.Current.CacheDirectory));
-                if (files.Length > 0) await AppShell.Current.GoToAsync($"{nameof(HomePage)}"); // naviguer que si des données ont été mis en cache
+                bool isConnected = bool.Parse((await SecureStorage.Default.GetAsync(SecureStorageKeys.isConnected.ToString()))!);
+                if(isConnected) await AppShell.Current.GoToAsync($"{nameof(HomePage)}");
             }
-
         }
 
         private void SetTheme() =>
