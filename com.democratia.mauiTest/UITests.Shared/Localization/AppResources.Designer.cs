@@ -168,19 +168,7 @@ namespace UITests.Localization {
                 return ResourceManager.GetString("choixImage", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à La somme des budgets de thématiques est supérieur au budget global.
-        /// </summary>
-        public static string erreurThematiqueBudget
-        {
-            get
-            {
-                return ResourceManager.GetString("erreurThematiqueBudget", resourceCulture);
-            }
-        }
-
-
+        
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Claire.
         /// </summary>
@@ -342,6 +330,16 @@ namespace UITests.Localization {
                 return ResourceManager.GetString("erreurPhoto", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à La somme des budgets de thématiques est supérieur au budget global.
+        /// </summary>
+        public static string erreurThematiqueBudget {
+            get {
+                return ResourceManager.GetString("erreurThematiqueBudget", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Veuillez saisir votre adresse mail.
         /// </summary>
