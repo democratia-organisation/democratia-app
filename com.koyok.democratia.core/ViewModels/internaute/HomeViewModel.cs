@@ -24,7 +24,7 @@ namespace com.koyok.democratia.UI.internaute
         public partial bool isRefreshing { get; set; } = false;
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
-            => internaute = (Internaute)query["modele"] ?? Shell.Current.AppContext.Internaute ;
+            => internaute = query.TryGetValue("modele", out var data) ? (Internaute)data : Shell.Current.AppContext.Internaute ;
         
 
         [RelayCommand]
@@ -45,7 +45,7 @@ namespace com.koyok.democratia.UI.internaute
             var jsonString = string.Empty;
             try
             { jsonString = await repository.GetGroupesAsync(internaute!)!; }
-            catch (Exception ex)
+            catch (Exception)
             { throw new ConnexionErrorException(); }
             List<Groupe> listeInformation = repository.RecuprerInformationConnexion<Groupe>(jsonString);
             groupes.Clear();

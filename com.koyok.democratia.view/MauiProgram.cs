@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Text;
 using com.koyok.democratia.Domain.Extension;
 using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Domain.Enumerations;
 
 namespace com.koyok.democratia
 {
@@ -43,12 +44,10 @@ namespace com.koyok.democratia
             TaskScheduler.UnobservedTaskException += (sender, e) => 
                 LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
            
-
             var app = builder.Build();
-            Directory.CreateDirectory(Path.Combine(FileSystem.Current.CacheDirectory, "cache"));
             ServiceHelper.Initialize(app.Services);
             Domain.Service.ServiceHelper.Initialize(app.Services);
-
+            
             return app;
 
         }

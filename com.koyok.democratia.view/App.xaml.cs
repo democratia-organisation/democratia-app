@@ -7,7 +7,7 @@ namespace com.koyok.democratia
         public App()
         {
             InitializeComponent();
-            Current?.UserAppTheme = (AppTheme)Preferences.Default.Get(Settings.Theme.ToString(), (int)Current?.UserAppTheme!)!;
+            Current?.UserAppTheme = (AppTheme)Preferences.Default.Get(Settings.Theme.ToString(), (int)Current?.UserAppTheme!)!; 
 
 #if ANDROID
             MainApplication.SetLocal(Preferences.Default.Get(Settings.Language.ToString(), MainApplication.cultureInfo.Name));

@@ -11,8 +11,20 @@ namespace com.koyok.democratia.Domain.UseCase
     {
         private readonly IInternauteRepository internauteRepository = repository;
 
-        public async Task<Internaute> Authenticate(string adresseMail, string motDePasse)
+        public async Task<Internaute?> Authenticate(string adresseMail, string motDePasse)
         {
+            string? stringTime = await SecureStorage.Default.GetAsync(SecureStorageKeys.LastLogin.ToString());
+            if(stringTime is not null)
+            {
+                TimeSpan span = DateTime.UtcNow - DateTime.Parse(stringTime);
+                if (span.Days > 7)
+                {
+                    SecureStorage.Default.Remove(SecureStorageKeys.IdInternaute.ToString());
+                    SecureStorage.Default.Remove(SecureStorageKeys.MotDePasseInternaute.ToString());
+                    await SecureStorage.Default.SetAsync(SecureStorageKeys.LastLogin.ToString(), DateTime.Now.ToString("U"));
+                    return null;
+                }
+            }
             await SecureStorage.Default.SetAsync(SecureStorageKeys.IdInternaute.ToString(), adresseMail);
             await SecureStorage.Default.SetAsync(SecureStorageKeys.MotDePasseInternaute.ToString(), motDePasse);
             string jsonString = await internauteRepository?.GetModelAsync(adresseMail)!;
@@ -36,6 +48,7 @@ namespace com.koyok.democratia.Domain.UseCase
                 estAuthetifie = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
 #endif
             if (!estAuthetifie) throw new BadPasswordException();
+            await SecureStorage.Default.SetAsync(SecureStorageKeys.LastLogin.ToString(), DateTime.Now.ToString("U"));
             return internaute;
         }
     }

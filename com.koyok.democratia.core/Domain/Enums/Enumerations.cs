@@ -31,7 +31,9 @@
         REFRESH,
         is_refresh_key_fresh,
         IdInternaute,
-        MotDePasseInternaute
+        MotDePasseInternaute,
+        LastLogin,
+        isConnected
     }
 
 }

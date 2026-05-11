@@ -3,6 +3,7 @@ using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.Utils;
+using System.Text.Json;
 
 namespace com.koyok.democratia.Domain.UseCase
 {
@@ -18,8 +19,6 @@ namespace com.koyok.democratia.Domain.UseCase
                 await Verification.HasherMotDePasse(internaute!);
                 string reponse = type == TypeGestion.AJOUTER ? 
                     await repository?.CreateModelAsync(internaute)! : await repository?.UpdateModelAsync(internaute!)!;
-                List<object> values = repository!.RecuprerInformationConnexion<object>(reponse);
-                if(values.Count > 0) throw new ConnexionErrorException();
             }
             else throw new CompteExistantException();
         }
@@ -27,9 +26,9 @@ namespace com.koyok.democratia.Domain.UseCase
         private async Task<bool> VerifierMailDoublon(Internaute internaute)
         {
             string retourJson = await repository?.DoublonEmailAsync(internaute!.courriel!)!;
-            List<Dictionary<string, int>>? listeInformation = repository!.RecuprerInformationConnexion<Dictionary<string, int>>(retourJson);
-            int? nombreMail = listeInformation![0].TryGetValue("COUNT(courriel)", out var value) ? value : null;
-            return nombreMail == 0 ? true : throw new CompteExistantException();
+            var tableau = JsonSerializer.Deserialize<Dictionary<string, object>>(retourJson);
+            var reponse = tableau!["data"] as List<Dictionary<string,object>>;
+            return int.Parse(reponse![0]["COUNT(courriel)"].ToString()!) == 0;
         }
 
     }

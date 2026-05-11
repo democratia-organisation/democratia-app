@@ -201,9 +201,30 @@ namespace com.koyok.democratia.Data.Repository
             return await response.Content.ReadAsStringAsync();
         }
 
-        public Task<string> GetGroupesAsync(Internaute internaute)
+        public async Task<string> GetGroupesAsync(Internaute internaute)
         {
-            throw new NotImplementedException();
+            var requete = $"""
+                ?request=SELECT BIN_TO_UUID(g.id_groupe) AS id_groupe,
+                    nom_groupe,
+                    budget,
+                    couleur_groupe,
+                    image,
+                    nb_signalement,
+                    nbj_dft_discuss,
+                    nbj_dft_vote
+                FROM groupe g
+                    INNER JOIN infos_membre ifo ON g.id_groupe = ifo.id_groupe
+                WHERE id_internaute=?&parameters=["{internaute.idInternaute}"]
+                """;
+            HttpResponseMessage? response;
+            try
+            {
+                response = await client?.GetAsync(requete)!;
+            }
+            catch (HttpRequestException) {
+                throw new ConnexionErrorException();
+            }
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

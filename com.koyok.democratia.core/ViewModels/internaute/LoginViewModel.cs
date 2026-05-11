@@ -1,13 +1,13 @@
-﻿using com.koyok.democratia.Domain.Exception;
+﻿using com.koyok.democratia.Domain.Enumerations;
+using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Extension;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.UseCase;
-using com.koyok.democratia.Domain.Extension;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
-using System.ComponentModel;
-using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Storage;
+using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute
 {
@@ -32,6 +32,7 @@ namespace com.koyok.democratia.UI.internaute
                     if (string.IsNullOrWhiteSpace(adresseMail)) throw new EmptyEmailFieldException();
                     else if (string.IsNullOrWhiteSpace(motDePasse)) throw new EmptyPassWordFieldException();
                     modele = await useCase.Authenticate(adresseMail!, motDePasse!);
+                    await SecureStorage.Default.SetAsync(SecureStorageKeys.isConnected.ToString(), $"{true}");
                     Shell.Current.AppContext.Internaute = modele;
                     var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
                     await Shell.Current!.GoToAsync(commande, parameters);

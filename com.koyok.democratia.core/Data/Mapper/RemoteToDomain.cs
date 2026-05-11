@@ -30,7 +30,18 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
     {
         public T? Mapping<T>(string source) where T : class, IModel
         {
-            throw new NotImplementedException();
+            var remoteSource = JsonSerializer.Deserialize<PropositionRemoteSource>(source)!;
+            var proposition = new Proposition(
+                remoteSource.id_proposition,
+                remoteSource.titre_proposition,
+                remoteSource.description_proposition,
+                remoteSource.date_publication,
+                remoteSource.budget,
+                remoteSource.nb_signalement,
+                remoteSource.id_thematique,
+                remoteSource.id_groupe
+            );
+            return proposition as T;
         }
     }
 
@@ -38,7 +49,14 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
     {
         public T? Mapping<T>(string source) where T : class, IModel
         {
-            throw new NotImplementedException();
+            var remoteSource = JsonSerializer.Deserialize<ThematiqueRemoteSource>(source)!;
+            var thematique = new Thematique(
+                remoteSource.id_thematique,
+                remoteSource.nom_thematique,
+                remoteSource.budget_thematique,
+                remoteSource.budget
+            );
+            return thematique as T;
         }
     }
 
@@ -46,7 +64,18 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
     {
         public T? Mapping<T>(string source) where T : class, IModel
         {
-            throw new NotImplementedException();
+            var remoteSource = JsonSerializer.Deserialize<GroupeRemoteSource>(source)!;
+            var groupe = new Groupe(
+                remoteSource.id_groupe,
+                remoteSource.nom_groupe,
+                remoteSource.couleur_groupe,
+                remoteSource.image,
+                remoteSource.budget,
+                remoteSource.nbj_dft_vote,
+                remoteSource.nbj_dft_discuss,
+                remoteSource.nb_signalement
+            );
+            return groupe as T;
         }
     }
 }
