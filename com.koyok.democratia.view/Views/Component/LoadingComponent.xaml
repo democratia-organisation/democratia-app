@@ -3,13 +3,11 @@
     x:Class="com.koyok.democratia.UI.Component.LoadingComponent"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Name="this">
+    xmlns:component="clr-namespace:com.koyok.democratia.UI.Component">
 
-    <Ellipse
-        x:Name="arcPath"
-        HeightRequest="100"
-        Stroke="{AppThemeBinding Light={DynamicResource Light-tertiary},
-                                 Dark={DynamicResource Dark-tertiary}}"
-        StrokeThickness="10"
-        WidthRequest="100" />
+    <Grid>
+        <component:LoadingArc x:Name="arcPath" Couleur="{AppThemeBinding Light={DynamicResource Light-secondary}, Dark={DynamicResource Dark-secondary}}" />
+        <component:LoadingArc x:Name="arcBisPath" Couleur="{AppThemeBinding Light={DynamicResource Light-secondaryFixedDim}, Dark={DynamicResource Dark-secondaryFixedDim}}" />
+    </Grid>
+
 </ContentView>

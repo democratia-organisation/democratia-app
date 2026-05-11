@@ -176,6 +176,9 @@
     <MauiXaml Update="Views\Component\groupe\PropositionCard.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\Component\LoadingArc.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\Component\LoadingComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

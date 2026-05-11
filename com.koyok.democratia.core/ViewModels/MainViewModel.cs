@@ -13,9 +13,6 @@ namespace com.koyok.democratia.UI
     public partial class MainViewModel(AuthenticateUseCase useCase) : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty]
-        public partial bool loading { get; set; } = true;
-
-        [ObservableProperty]
         public partial bool isConnected { get; set; }
 
         [RelayCommand]
