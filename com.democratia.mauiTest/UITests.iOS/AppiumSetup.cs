@@ -7,6 +7,8 @@ namespace UITests
     {
         private static AppiumDriver? driver;
         public readonly static string device = "ios";
+        public readonly static string appId = "com.companyname.com.koyok.democratia.view";
+        public AppiumOptions options;
 
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null. V�rifiez que le serveur Appium tourne sur le Mac.");
 
@@ -18,17 +20,20 @@ namespace UITests
         private void InitDriver()
         {
             AppiumServerHelper.StartAppiumLocalServer();
-            var iOSOptions = new AppiumOptions
+            options = new AppiumOptions
             {
                 AutomationName = "XCUITest",
                 PlatformName = "iOS",
                 PlatformVersion = "26.2",
                 DeviceName = "iPhone 16",
             };
+        }
 
+        public AppiumDriver CreatePage()
+        {
             try
             {
-                driver = new IOSDriver(new Uri("http://127.0.0.1:4724/"), iOSOptions, TimeSpan.FromSeconds(120));
+                return new IOSDriver(new Uri("http://127.0.0.1:4724/"), options, TimeSpan.FromSeconds(120));
             }
             catch (Exception ex)
             {

@@ -41,7 +41,7 @@ ScaffoldingReadMe.txt
 *~
 CodeCoverage/
 .vs
-com.democratia/com.democratia/Properties/
+com.koyok.democratia/com.koyok.democratia/Properties/
 
 # MSBuild Binary and Structured Log
 *.binlog
@@ -57,20 +57,20 @@ nunit-*.xml
 
 /modelisation
 /api
-com.democratia/com.democratia/Resources/Styles/adaptateur.py
-com.democratia/com.democratia/Resources/Styles/material-theme.json
-/com.democratia/Resources/Styles/adaptateur.py
-/com.democratia/Resources/Styles/material-theme.json
-/com.democratia/global.json
-/com.democratia/GlobalSuppressions.cs
+com.koyok.democratia/com.koyok.democratia/Resources/Styles/adaptateur.py
+com.koyok.democratia/com.koyok.democratia/Resources/Styles/material-theme.json
+/com.koyok.democratia/Resources/Styles/adaptateur.py
+/com.koyok.democratia/Resources/Styles/material-theme.json
+/com.koyok.democratia/global.json
+/com.koyok.democratia/GlobalSuppressions.cs
 /TODO.txt
 *.txt
-/com.democratia.view/Views/convert.py
-/com.democratia.view/Resources/Raw/convert.py
-/com.democratia.view/com.democratia.view.csproj.user
-/com.democratia.core/.env
+/com.koyok.democratia.view/Views/convert.py
+/com.koyok.democratia.view/Resources/Raw/convert.py
+/com.koyok.democratia.view/com.koyok.democratia.view.csproj.user
+/com.koyok.democratia.core/.env
 node_modules
-com.democratia.core/*.json
+com.koyok.democratia.core/*.json
 dotnet-tools.json
 /com.koyok.democratia.core/appsettings.developpement.json
 /com.koyok.democratia.core/appsettings.json

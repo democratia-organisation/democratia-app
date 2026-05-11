@@ -1,5 +1,6 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Mac;
+using OpenQA.Selenium.Appium.Windows;
 using System.Diagnostics;
 
 namespace UITests
@@ -9,13 +10,15 @@ namespace UITests
         private static AppiumDriver? driver;
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver est null.");
         public static string device = "macos";
+        public readonly static string appId = "com.companyname.com.koyok.democratia.view";
 
         // Configuration du Mac Scaleway
         private const string MacIp = "51.159.121.26";
         private const string MacUser = "m1";
         // Le chemin vers votre app macOS (.app Catalyst ou native)
-        private const string MacAppPath = "./bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app";
-        private const string MacProjectDir = "./com.democratia.mauiTest/UITests.macOS/";
+        private const string MacAppPath = "./bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.koyok.democratia.view.app";
+        private const string MacProjectDir = "./com.koyok.democratia.mauiTest/UITests.macOS/";
+        public AppiumOptions? options;
 
         public AppiumSetup()
         {
@@ -35,30 +38,31 @@ namespace UITests
         private void InitLocalMacDriver()
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var options = new AppiumOptions
+            options = new AppiumOptions
             {
                 AutomationName = "mac2",
                 PlatformName = "macOS",
-                App = Path.GetFullPath(Path.Combine(baseDir, @"../../../../../bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.democratia.view.app"))
+                App = Path.GetFullPath(Path.Combine(baseDir, @"../../../../../bin/Release/net10.0-maccatalyst/maccatalyst-arm64/com.koyok.democratia.view.app"))
             };
 
             // Ajoutez ceci pour éviter les erreurs de "Path" sur le Mac
             Environment.SetEnvironmentVariable("NODE_BINARY_PATH", "/opt/homebrew/bin/node");
-            options.AddAdditionalAppiumOption("appium:bundleId", "com.democratia.view");
+            options.AddAdditionalAppiumOption("appium:bundleId", "com.koyok.democratia.view");
 
             // On demande à Appium d'ouvrir l'app lui-même via son ID
             options.AddAdditionalAppiumOption("appium:arguments", new List<string>());
             options.AddAdditionalAppiumOption("appium:waitForAppLaunch", "30");
 
-            
-
-            driver = new MacDriver(new Uri("http://127.0.0.1:4724/"), options, TimeSpan.FromSeconds(120));
+        }
+        public AppiumDriver CreatePage()
+        {
+            return new MacDriver(new Uri("http://127.0.0.1:4724/"), options, TimeSpan.FromSeconds(120));
         }
 
 
         private void RunTestsRemotelyOnMac()
         {
-            string remoteResultsPath = $"/Users/m1/Documents/democratia-mobile/com.democratia.mauiTest/UITests.macOS/TestResults/results.trx";
+            string remoteResultsPath = $"/Users/m1/Documents/democratia-mobile/com.koyok.democratia.mauiTest/UITests.macOS/TestResults/results.trx";
             string localResultsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MacResults.trx");
 
             // 1. Commande pour lancer les tests et générer le fichier .trx

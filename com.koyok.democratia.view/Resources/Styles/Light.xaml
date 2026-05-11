@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="Light-primary">#904A44</Color>
+    <Color x:Key="Light-surfaceTint">#904A44</Color>
+    <Color x:Key="Light-onPrimary">#FFFFFF</Color>
+    <Color x:Key="Light-primaryContainer">#FFDAD6</Color>
+    <Color x:Key="Light-onPrimaryContainer">#73332E</Color>
+    <Color x:Key="Light-secondary">#775653</Color>
+    <Color x:Key="Light-onSecondary">#FFFFFF</Color>
+    <Color x:Key="Light-secondaryContainer">#FFDAD6</Color>
+    <Color x:Key="Light-onSecondaryContainer">#5D3F3C</Color>
+    <Color x:Key="Light-tertiary">#725B2E</Color>
+    <Color x:Key="Light-onTertiary">#FFFFFF</Color>
+    <Color x:Key="Light-tertiaryContainer">#FEDEA6</Color>
+    <Color x:Key="Light-onTertiaryContainer">#584419</Color>
+    <Color x:Key="Light-error">#BA1A1A</Color>
+    <Color x:Key="Light-onError">#FFFFFF</Color>
+    <Color x:Key="Light-errorContainer">#FFDAD6</Color>
+    <Color x:Key="Light-onErrorContainer">#93000A</Color>
+    <Color x:Key="Light-background">#FFF8F7</Color>
+    <Color x:Key="Light-onBackground">#231918</Color>
+    <Color x:Key="Light-surface">#FFF8F7</Color>
+    <Color x:Key="Light-onSurface">#231918</Color>
+    <Color x:Key="Light-surfaceVariant">#F5DDDB</Color>
+    <Color x:Key="Light-onSurfaceVariant">#534341</Color>
+    <Color x:Key="Light-outline">#857371</Color>
+    <Color x:Key="Light-outlineVariant">#D8C2BF</Color>
+    <Color x:Key="Light-shadow">#000000</Color>
+    <Color x:Key="Light-scrim">#000000</Color>
+    <Color x:Key="Light-inverseSurface">#392E2D</Color>
+    <Color x:Key="Light-inverseOnSurface">#FFEDEA</Color>
+    <Color x:Key="Light-inversePrimary">#FFB4AC</Color>
+    <Color x:Key="Light-primaryFixed">#FFDAD6</Color>
+    <Color x:Key="Light-onPrimaryFixed">#3B0908</Color>
+    <Color x:Key="Light-primaryFixedDim">#FFB4AC</Color>
+    <Color x:Key="Light-onPrimaryFixedVariant">#73332E</Color>
+    <Color x:Key="Light-secondaryFixed">#FFDAD6</Color>
+    <Color x:Key="Light-onSecondaryFixed">#2C1513</Color>
+    <Color x:Key="Light-secondaryFixedDim">#E7BDB8</Color>
+    <Color x:Key="Light-onSecondaryFixedVariant">#5D3F3C</Color>
+    <Color x:Key="Light-tertiaryFixed">#FEDEA6</Color>
+    <Color x:Key="Light-onTertiaryFixed">#261900</Color>
+    <Color x:Key="Light-tertiaryFixedDim">#E0C38C</Color>
+    <Color x:Key="Light-onTertiaryFixedVariant">#584419</Color>
+    <Color x:Key="Light-surfaceDim">#E8D6D4</Color>
+    <Color x:Key="Light-surfaceBright">#FFF8F7</Color>
+    <Color x:Key="Light-surfaceContainerLowest">#FFFFFF</Color>
+    <Color x:Key="Light-surfaceContainerLow">#FFF0EF</Color>
+    <Color x:Key="Light-surfaceContainer">#FCEAE8</Color>
+    <Color x:Key="Light-surfaceContainerHigh">#F6E4E2</Color>
+    <Color x:Key="Light-surfaceContainerHighest">#F1DEDC</Color>
+</ResourceDictionary>

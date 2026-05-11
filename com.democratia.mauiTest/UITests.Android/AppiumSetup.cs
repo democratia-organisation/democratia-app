@@ -2,7 +2,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using System.Diagnostics;
-using UITests.View;
+using UITests.UI;
 
 namespace UITests
 {
@@ -10,9 +10,11 @@ namespace UITests
     {
         private static AppiumDriver? driver;
 
+        public readonly static string appId = "com.koyok.democratia";
         public readonly static string device = "android";
 
         public readonly static string sshSortie = string.Empty;
+        public AppiumOptions options;
 
         public static AppiumDriver App => driver ?? throw new NullReferenceException("AppiumDriver is null");
 
@@ -21,24 +23,26 @@ namespace UITests
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             if (SystemInfo.SSHHost()) Environment.Exit(0);
             AppiumServerHelper.StartAppiumLocalServer();
-            var androidOptions = new AppiumOptions
+            options = new AppiumOptions
             {
                 AutomationName = "UIAutomator2",
                 PlatformName = "Android",
-#if !DEBUG
-                // App = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-android/com.democratia-Signed.apk")),
-# endif
+                App = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\..\..\com.koyok.democratia.view\bin\Debug\net10.0-android/com.koyok.democratia-Signed.apk")),
+
             };
 #if DEBUG
-            androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.NoReset, "true");
-            string activity = ResolveAppActivity("com.democratia");
-            androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
-            androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.democratia");
-            androidOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\..\..\com.democratia.view\bin\Debug\net10.0-android/com.democratia-Signed.apk")));
+            options.AddAdditionalAppiumOption(MobileCapabilityType.NoReset, "true");
+            string activity = ResolveAppActivity("com.koyok.democratia");
+            options.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, activity);
+            options.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, "com.koyok.democratia");
 # endif
+        }
+
+        public AppiumDriver CreatePage()
+        {
             try
             {
-                driver = new AndroidDriver(androidOptions);
+                return new AndroidDriver(options);
             }
             catch (Exception ex)
             {
@@ -66,7 +70,7 @@ namespace UITests
             using var process = Process.Start(psi);
             string output = process?.StandardOutput.ReadToEnd().Trim() ?? string.Empty;
 
-            // Expected format: com.democratia/crc64...MainActivity or com.democratia/.MainActivity
+            // Expected format: com.koyok.democratia/crc64...MainActivity or com.koyok.democratia/.MainActivity
             var parts = output.Split('/');
             return parts.Length == 2 ? parts[1] : ".MainActivity"; // Fallback
         }

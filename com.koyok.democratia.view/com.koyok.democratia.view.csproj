@@ -1,0 +1,219 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0-ios;</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks)net10.0-android;net10.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(TargetFrameworks)net10.0-maccatalyst</TargetFrameworks>
+	<EnablePreviewFeatures>true</EnablePreviewFeatures>
+	<MauiXamlInflator>SourceGen</MauiXamlInflator>
+	
+    <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+    <!--<TargetFrameworks>$(TargetFrameworks);net10.0-tizen</TargetFrameworks>-->
+    <!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+    <!--<RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers>-->
+	  
+	  <OutputType Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0' &#xD;&#xA;                        Or '$(TargetFramework)' == 'net10.0-android' &#xD;&#xA;                        Or '$(TargetFramework)' == 'net10.0-ios' &#xD;&#xA;                        Or '$(TargetFramework)' == 'net10.0-maccatalyst' &#xD;&#xA;                        Or '$(TargetFramework)' == 'net10.0-tizen'">Exe</OutputType>
+    <RootNamespace>com.koyok.democratia.view</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+    <!-- Display name -->
+    <ApplicationTitle>com.koyok.democratia.view</ApplicationTitle>
+    <!-- App Identifier -->
+    <ApplicationId>com.companyname.com.koyok.democratia.view</ApplicationId>
+    <!-- Versions -->
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
+    <WindowsPackageType>None</WindowsPackageType>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+    <UserSecretsId>c026941f-3829-4e74-bd61-6855fd2a538c</UserSecretsId>
+	  <AssemblyName>com.koyok.democratia.view</AssemblyName>
+	  <ArchiveOnBuild>false</ArchiveOnBuild>
+	  <DefaultLanguage>fr-FR</DefaultLanguage>
+  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-maccatalyst' And '$(Configuration)' == 'Release'">
+		<RuntimeIdentifier>maccatalyst-arm64</RuntimeIdentifier>
+		<SelfContained>true</SelfContained>
+		<CreatePackage>true</CreatePackage>
+		<EnableCodeSigning>false</EnableCodeSigning>
+		<EnablePackageSigning>false</EnablePackageSigning>
+		<_RemoteBuildSteps>true</_RemoteBuildSteps>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ApplicationIdGuid>7b28a8d1-xxxx-xxxx-xxxx-xxxxxxxxxxxx</ApplicationIdGuid>
+		<NeutralLanguage>fr</NeutralLanguage>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-ios|AnyCPU'">
+	  <ApplicationId>com.koyok.democratia</ApplicationId>
+	  <ApplicationTitle>Democratia</ApplicationTitle>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
+	  <ApplicationId>com.koyok.democratia</ApplicationId>
+	  <ApplicationTitle>Democratia</ApplicationTitle>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationId>com.koyok.democratia</ApplicationId>
+	  <ApplicationTitle>Democratia</ApplicationTitle>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-ios|AnyCPU'">
+	  <ApplicationId>com.koyok.democratia</ApplicationId>
+	  <ApplicationTitle>Democratia</ApplicationTitle>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
+	  <ApplicationId>com.koyok.democratia</ApplicationId>
+	  <ApplicationTitle>Democratia</ApplicationTitle>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationId>com.koyok.democratia</ApplicationId>
+	  <ApplicationTitle>Democratia</ApplicationTitle>
+	</PropertyGroup>
+  <ItemGroup>
+    <!-- App Icon -->
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#2D0004" />
+    <!-- Splash Screen -->
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2D0004" BaseSize="128,128" />
+    <!-- Images -->
+    <MauiImage Include="Resources\Images\*" />
+    <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+    <!-- Custom Fonts -->
+    <MauiFont Include="Resources\Fonts\*" />
+    <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+    <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Platforms\Android\Resources\xml\network_security_config.xml" />
+	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui" Version="14.1.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.7" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.60" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.7" />
+    <PackageReference Include="nor0x.Maui.ColorPicker" Version="2.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\com.koyok.democratia.core\com.koyok.democratia.core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Localization\AppResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Component\EntryComponent.xaml.cs">
+      <DependentUpon>EntryComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Component\internaute\Formulaire.xaml.cs">
+      <DependentUpon>Formulaire.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\groupe\DecideurPage.xaml.cs">
+      <DependentUpon>DecideurPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\groupe\Membre.xaml.cs">
+      <DependentUpon>Membre.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\groupe\Parametre.xaml.cs">
+      <DependentUpon>Parametre.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\CreerGroupe\TroisiemeCreationPage.xaml.cs">
+      <DependentUpon>TroisiemeCreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\gestionCompte\CreationPage.xaml.cs">
+      <DependentUpon>CreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml.cs">
+      <DependentUpon>DeuxiemeCreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\CreerGroupe\PremiereCreationPage.xaml.cs">
+      <DependentUpon>PremiereCreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\gestionCompte\HomeGestionPage.xaml.cs">
+      <DependentUpon>HomeGestionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\gestionCompte\ModifierGestionPage.xaml.cs">
+      <DependentUpon>ModifierGestionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\gestionCompte\PreferencePage.xaml.cs">
+      <DependentUpon>PreferencePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\internaute\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Localization\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <MauiXaml Update="Resources\Dimension\Dimension.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Component\groupe\DecideurThematique.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Component\EntryComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Component\internaute\Formulaire.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Component\groupe\PropositionCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Component\LoadingComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Component\RefreshView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\groupe\DecideurPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\groupe\Membre.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\groupe\NouvelleProposition.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\groupe\Parametre.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\CreerGroupe\PremiereCreationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\CreerGroupe\TroisiemeCreationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\gestionCompte\HomeGestionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\gestionCompte\ModifierGestionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\internaute\gestionCompte\PreferencePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
+</Project>

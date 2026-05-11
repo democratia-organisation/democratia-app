@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,290 +59,317 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="adress" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="adress" xml:space="preserve">
     <value>Adress</value>
   </data>
-	<data name="BonneNouvelle" xml:space="preserve">
+  <data name="BonneNouvelle" xml:space="preserve">
     <value>What a great idea to join us</value>
   </data>
-	<data name="connecter" xml:space="preserve">
+  <data name="connecter" xml:space="preserve">
     <value>log in</value>
   </data>
-	<data name="Identifiant" xml:space="preserve">
+  <data name="Identifiant" xml:space="preserve">
     <value>Log in</value>
   </data>
-	<data name="Langage" xml:space="preserve">
+  <data name="Langage" xml:space="preserve">
     <value>Select a langage</value>
   </data>
-	<data name="mail" xml:space="preserve">
+  <data name="mail" xml:space="preserve">
     <value>email</value>
   </data>
-	<data name="Mdp" xml:space="preserve">
+  <data name="Mdp" xml:space="preserve">
     <value>Password</value>
   </data>
-	<data name="ModifCompte" xml:space="preserve">
+  <data name="ModifCompte" xml:space="preserve">
     <value>Modify my account</value>
   </data>
-	<data name="NewCompte" xml:space="preserve">
+  <data name="NewCompte" xml:space="preserve">
     <value>Sign in !</value>
   </data>
-	<data name="NewGroupe" xml:space="preserve">
+  <data name="NewGroupe" xml:space="preserve">
     <value>Make a new group</value>
   </data>
-	<data name="Nom" xml:space="preserve">
+  <data name="Nom" xml:space="preserve">
     <value>surname</value>
   </data>
-	<data name="pasCompte" xml:space="preserve">
+  <data name="pasCompte" xml:space="preserve">
     <value>Any account ?</value>
   </data>
-	<data name="prenom" xml:space="preserve">
+  <data name="prenom" xml:space="preserve">
     <value>last name</value>
   </data>
-	<data name="SuppCompte" xml:space="preserve">
+  <data name="SuppCompte" xml:space="preserve">
     <value>Delete my account</value>
   </data>
-	<data name="errorMailMessage" xml:space="preserve">
+  <data name="errorMailMessage" xml:space="preserve">
     <value>Please enter your email adress</value>
   </data>
-	<data name="errorPasswordMessage" xml:space="preserve">
+  <data name="errorPasswordMessage" xml:space="preserve">
     <value>Please enter your password</value>
   </data>
-	<data name="enregistrer" xml:space="preserve">
+  <data name="enregistrer" xml:space="preserve">
     <value>Save</value>
   </data>
-	<data name="mauvaiseNouvelle" xml:space="preserve">
+  <data name="mauvaiseNouvelle" xml:space="preserve">
     <value>Are you sure you want to delete your account ?</value>
   </data>
-	<data name="confirmeSupp" xml:space="preserve">
+  <data name="confirmeSupp" xml:space="preserve">
     <value>Yes, delete my account</value>
   </data>
-	<data name="groupe" xml:space="preserve">
+  <data name="groupe" xml:space="preserve">
     <value>My groups</value>
   </data>
-	<data name="connexionErreur" xml:space="preserve">
+  <data name="connexionErreur" xml:space="preserve">
     <value>Unexcepted Error Connexion</value>
   </data>
-	<data name="noUser" xml:space="preserve">
+  <data name="noUser" xml:space="preserve">
     <value>No user found</value>
   </data>
-	<data name="mauvaisMdp" xml:space="preserve">
+  <data name="mauvaisMdp" xml:space="preserve">
     <value>Incorrect password</value>
   </data>
-	<data name="inscription" xml:space="preserve">
+  <data name="inscription" xml:space="preserve">
     <value>SIgn in</value>
   </data>
-	<data name="compteCree" xml:space="preserve">
+  <data name="compteCree" xml:space="preserve">
     <value>Account created, log in now</value>
   </data>
-	<data name="erreurInattendu" xml:space="preserve">
+  <data name="erreurInattendu" xml:space="preserve">
     <value>Unexcepted error, please come back later</value>
   </data>
-	<data name="erreurCreation" xml:space="preserve">
+  <data name="erreurCreation" xml:space="preserve">
     <value>Error while account creation</value>
   </data>
-	<data name="champComplet" xml:space="preserve">
+  <data name="champComplet" xml:space="preserve">
     <value>Verify that all field are entered</value>
   </data>
-	<data name="formatEmail" xml:space="preserve">
+  <data name="formatEmail" xml:space="preserve">
     <value>The format email address is incorrect</value>
   </data>
-	<data name="formatMotDePasse" xml:space="preserve">
+  <data name="formatMotDePasse" xml:space="preserve">
     <value>The password format is incorrect</value>
   </data>
-	<data name="erreurDonne" xml:space="preserve">
+  <data name="erreurDonne" xml:space="preserve">
     <value>Error while fetching the data</value>
   </data>
-	<data name="bienModifier" xml:space="preserve">
+  <data name="bienModifier" xml:space="preserve">
     <value>Your account has been updated suceffully</value>
   </data>
-	<data name="bienSupp" xml:space="preserve">
+  <data name="bienSupp" xml:space="preserve">
     <value>We hope you will come back soon</value>
   </data>
-	<data name="retourConnexion" xml:space="preserve">
+  <data name="retourConnexion" xml:space="preserve">
     <value>MainPage</value>
   </data>
-	<data name="retourHome" xml:space="preserve">
+  <data name="retourHome" xml:space="preserve">
     <value>Home</value>
   </data>
-	<data name="malModif" xml:space="preserve">
+  <data name="malModif" xml:space="preserve">
     <value>An error has occured</value>
   </data>
-	<data name="malSupp" xml:space="preserve">
+  <data name="malSupp" xml:space="preserve">
     <value>An delete error has occured</value>
   </data>
-	<data name="entrezNomGroupe" xml:space="preserve">
+  <data name="entrezNomGroupe" xml:space="preserve">
     <value>Write the name of the group</value>
   </data>
-	<data name="thematique" xml:space="preserve">
+  <data name="thematique" xml:space="preserve">
     <value>Themes</value>
   </data>
-	<data name="creaGroupe" xml:space="preserve">
+  <data name="creaGroupe" xml:space="preserve">
     <value>Group Creation</value>
   </data>
-	<data name="suivant" xml:space="preserve">
+  <data name="suivant" xml:space="preserve">
     <value>Next</value>
   </data>
-	<data name="CouleurRepre" xml:space="preserve">
+  <data name="CouleurRepre" xml:space="preserve">
     <value>Representative Color</value>
   </data>
-	<data name="choixImage" xml:space="preserve">
+  <data name="choixImage" xml:space="preserve">
     <value>Choose an image on your device</value>
   </data>
-	<data name="selectImage" xml:space="preserve">
+  <data name="selectImage" xml:space="preserve">
     <value>Select an image</value>
   </data>
-	<data name="selectAutreImage" xml:space="preserve">
+  <data name="selectAutreImage" xml:space="preserve">
     <value>Select another image</value>
   </data>
-	<data name="terminer" xml:space="preserve">
+  <data name="terminer" xml:space="preserve">
     <value>End</value>
   </data>
-	<data name="select" xml:space="preserve">
+  <data name="select" xml:space="preserve">
     <value>Select</value>
   </data>
-	<data name="galerie" xml:space="preserve">
+  <data name="galerie" xml:space="preserve">
     <value>Galery</value>
   </data>
-	<data name="photo" xml:space="preserve">
+  <data name="photo" xml:space="preserve">
     <value>photo</value>
   </data>
-	<data name="erreurPhoto" xml:space="preserve">
+  <data name="erreurPhoto" xml:space="preserve">
     <value>Error while taking the photo</value>
   </data>
-	<data name="nomGroupeRequis" xml:space="preserve">
+  <data name="nomGroupeRequis" xml:space="preserve">
     <value>Name Group is requiered</value>
   </data>
-	<data name="thematiqueRequise" xml:space="preserve">
+  <data name="thematiqueRequise" xml:space="preserve">
     <value>At least one theme is required</value>
   </data>
-	<data name="thematiqueInfo" xml:space="preserve">
+  <data name="thematiqueInfo" xml:space="preserve">
     <value>Press enter to add the theme</value>
   </data>
-	<data name="nombreJourVote" xml:space="preserve">
+  <data name="nombreJourVote" xml:space="preserve">
     <value>Time for a vote (in days)</value>
   </data>
-	<data name="nombreJourDiscus" xml:space="preserve">
+  <data name="nombreJourDiscus" xml:space="preserve">
     <value>Time for a discussion (in days)</value>
   </data>
-	<data name="budget" xml:space="preserve">
+  <data name="budget" xml:space="preserve">
     <value>Budget</value>
   </data>
-	<data name="quitterApp" xml:space="preserve">
+  <data name="quitterApp" xml:space="preserve">
     <value>Leave the app now</value>
   </data>
-	<data name="confirmQuitt" xml:space="preserve">
+  <data name="confirmQuitt" xml:space="preserve">
     <value>Do you really want leaving the application ?</value>
   </data>
-	<data name="oui" xml:space="preserve">
+  <data name="oui" xml:space="preserve">
     <value>Yes</value>
   </data>
-	<data name="non" xml:space="preserve">
+  <data name="non" xml:space="preserve">
     <value>No</value>
   </data>
-	<data name="budgetInsuffisant" xml:space="preserve">
+  <data name="budgetInsuffisant" xml:space="preserve">
     <value>The amount of budget for each theme is lower than the total budget</value>
   </data>
-	<data name="tapezBugetTheme" xml:space="preserve">
+  <data name="tapezBugetTheme" xml:space="preserve">
     <value>Give the theme's budget at the bottm of the page</value>
   </data>
-	<data name="preference" xml:space="preserve">
+  <data name="preference" xml:space="preserve">
     <value>Preferences</value>
   </data>
-	<data name="selectionLangue" xml:space="preserve">
+  <data name="selectionLangue" xml:space="preserve">
     <value>Select a language</value>
   </data>
-	<data name="selectionTheme" xml:space="preserve">
+  <data name="selectionTheme" xml:space="preserve">
     <value>Select a theme</value>
   </data>
-	<data name="theme" xml:space="preserve">
+  <data name="theme" xml:space="preserve">
     <value>Theme</value>
   </data>
-	<data name="claire" xml:space="preserve">
+  <data name="claire" xml:space="preserve">
     <value>Light</value>
   </data>
-	<data name="sombre" xml:space="preserve">
+  <data name="sombre" xml:space="preserve">
     <value>Dark</value>
   </data>
-	<data name="ChangementOk" xml:space="preserve">
+  <data name="ChangementOk" xml:space="preserve">
     <value>Your changes has been tooken and it will be display on the next  opening of the application</value>
   </data>
-	<data name="changementReussi" xml:space="preserve">
+  <data name="changementReussi" xml:space="preserve">
     <value>Sucefful changes</value>
   </data>
-	<data name="continuer" xml:space="preserve">
+  <data name="continuer" xml:space="preserve">
     <value>Continue</value>
   </data>
-	<data name="erreurChamp" xml:space="preserve">
+  <data name="erreurChamp" xml:space="preserve">
     <value>Please fullfil the field {0}</value>
   </data>
-	<data name="compteExistantErreur" xml:space="preserve">
+  <data name="compteExistantErreur" xml:space="preserve">
     <value>The email is already used</value>
   </data>
-	<data name="errorUnknowEmptyFieldMessage" xml:space="preserve">
+  <data name="errorUnknowEmptyFieldMessage" xml:space="preserve">
     <value>A required field is empty</value>
   </data>
-	<data name="groupeSansProposition" xml:space="preserve">
+  <data name="groupeSansProposition" xml:space="preserve">
     <value>This group has any proposition</value>
   </data>
-	<data name="thematiqueSansProposition" xml:space="preserve">
+  <data name="thematiqueSansProposition" xml:space="preserve">
     <value>This proposition has any proposition</value>
+  </data>
+  <data name="finDiscussion" xml:space="preserve">
+    <value>The discussion ends at</value>
+  </data>
+  <data name="nouvellProp" xml:space="preserve">
+    <value>Submit a new proposition</value>
+  </data>
+  <data name="Prix" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Popularite" xml:space="preserve">
+    <value>trend</value>
+  </data>
+  <data name="reaction" xml:space="preserve">
+    <value>reaction</value>
+  </data>
+  <data name="critere" xml:space="preserve">
+    <value>criteria</value>
+  </data>
+  <data name="budgetAttente" xml:space="preserve">
+    <value>waiting budget</value>
+  </data>
+  <data name="budgetUtilise" xml:space="preserve">
+    <value>used budget</value>
+  </data>
+  <data name="erreurThematiqueBudget" xml:space="preserve">
+    <value>The amount of themes's budgets is superior than the group's  project</value>
   </data>
 </root>
