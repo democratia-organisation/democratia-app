@@ -30,7 +30,7 @@ namespace com.koyok.democratia.Data.Repository
             HttpResponseMessage? response;
             string? requete = $""""
 
-                ?request=SELECT BIN_TO_UUID(id_Proposition) AS id_Proposition,
+                ?request=SELECT BIN_TO_UUID(id_groupe) AS id_groupe,id_proposition
                     budget,
                     date_publication,
                     description_proposition,
@@ -39,7 +39,7 @@ namespace com.koyok.democratia.Data.Repository
                     nb_signalement,
                     titre_proposition
                 FROM proposition
-                WHERE id_Proposition = UUID_TO_BIN(?, 1)
+                WHERE id_groupe = UUID_TO_BIN(?)
                 &parameters=["{parameters[0]!}"]
                 """";
             try

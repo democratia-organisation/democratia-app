@@ -21,7 +21,7 @@
                 RemainingItemsThreshold="1"
                 RemainingItemsThresholdReachedCommand="{Binding UpdateElementsCommand, Source={x:Reference this}}">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="{DynamicResource SpacingSmall}" Orientation="Vertical" />
+                    <LinearItemsLayout ItemSpacing="{DynamicResource SpacingExtraLarge}" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
             </CollectionView>
         </RefreshView>

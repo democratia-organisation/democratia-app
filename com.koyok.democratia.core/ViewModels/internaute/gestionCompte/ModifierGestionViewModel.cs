@@ -62,7 +62,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             => string.IsNullOrWhiteSpace(newValue) ? baseValue : newValue;
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
-         => internaute = (Internaute)query["internaute"] ?? Shell.Current?.AppContext.Internaute;
+         => internaute = (Internaute)query["modele"] ?? Shell.Current?.AppContext.Internaute;
         
 
         public record EventModificationSuccessSender() { }

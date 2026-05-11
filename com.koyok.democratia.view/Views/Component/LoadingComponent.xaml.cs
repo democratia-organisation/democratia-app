@@ -32,10 +32,11 @@ public partial class LoadingComponent : ContentView
     {
         while (true)
         {
-            uint vitesse = 2000;
-            Task animation1 = arcPath.RelRotateToAsync(360, vitesse, Easing.CubicIn);
-            Task animation2 = arcBisPath.RelRotateToAsync(-360, vitesse / 2, Easing.CubicOut);
-            await Task.WhenAll(animation1, animation2);
+            uint vitesse = 5;
+            for (double i = 0; i < 2 * Math.PI; i += ((2 * Math.PI) / 80))
+            {
+                await arcPath.TranslateToAsync(Math.Cos(i)*5, Math.Sin(i)*5, vitesse, Easing.CubicIn);
+            }
             await Task.Delay(5);
         }
     }

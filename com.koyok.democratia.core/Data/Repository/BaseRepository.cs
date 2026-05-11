@@ -65,7 +65,7 @@ namespace com.koyok.democratia.Data.Repository
 
                 return resultList;
             }
-            catch (Exception) { throw new FetchDataException(); }
+            catch (Exception ex) { throw new FetchDataException(); }
             
 
         }

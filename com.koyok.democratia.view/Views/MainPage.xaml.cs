@@ -15,9 +15,10 @@ namespace com.koyok.democratia.UI
         {
             base.OnNavigatedTo(args);
             var viewModel = BindingContext as MainViewModel;
+            await Task.Delay(3500);
             await viewModel!.ConnectCommand.ExecuteAsync(null);
             var route = viewModel.isConnected ? $"/{nameof(HomePage)}" : $"/{nameof(LoginPage)}";
-            //await Shell.Current.GoToAsync(route);
+            await Shell.Current.GoToAsync(route);
         }
         
     }
