@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.koyok.democratia.UI.internaute.gestionCompte.PreferencePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.gestionCompte;assembly=com.koyok.democratia.core"
+    Title="PreferencePage"
+    x:DataType="viewModel:PreferenceViewModel"
+    AutomationId="preferencePage"
+    Style="{DynamicResource fondEcran}">
+
+    <VerticalStackLayout Spacing="{DynamicResource SpacingLarge}">
+        <HorizontalStackLayout x:Name="langueHorizontalLayout" Spacing="{DynamicResource SpacingLarge}">
+            <Label
+                x:Name="selectionLangueLabel"
+                AutomationId="selectionLangueLabel"
+                HorizontalOptions="Center"
+                Style="{DynamicResource SubHeadlineStyle}"
+                Text="{x:Static lang:AppResources.selectionLangue}"
+                VerticalOptions="Center" />
+            <BoxView WidthRequest="{DynamicResource SpacingLarge}" />
+            <Picker
+                x:Name="languePicker"
+                Title="{x:Static lang:AppResources.Langage}"
+                ios:Picker.UpdateMode="WhenFinished"
+                AutomationId="languePicker"
+                ItemsSource="{Binding languages}"
+                SelectedItem="{Binding languages}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout x:Name="themeHorizontalLayout" Spacing="{DynamicResource SpacingLarge}">
+            <Label
+                x:Name="themeLable"
+                AutomationId="themeLabel"
+                HorizontalOptions="Center"
+                Style="{DynamicResource SubHeadlineStyle}"
+                Text="{x:Static lang:AppResources.selectionTheme}"
+                VerticalOptions="Center" />
+            <Picker
+                x:Name="themePicker"
+                Title="{x:Static lang:AppResources.theme}"
+                ios:Picker.UpdateMode="Immediately"
+                AutomationId="themePicker"
+                ItemsSource="{Binding themes}"
+                SelectedItem="{Binding theme}" />
+        </HorizontalStackLayout>
+        <Button
+            x:Name="terminerButton"
+            AutomationId="terminerButton"
+            Command="{Binding NavigateTappedCommand}"
+            CommandParameter="HomePage"
+            Style="{DynamicResource ButtonStyle}"
+            Text="{x:Static lang:AppResources.terminer}" />
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,24 @@
+{
+  "name": "democratia-app",
+  "version": "1.0.0",
+  "description": "Application democratia",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "dotnet format --verify-no-changes",
+    "lint:fix": "dotnet format"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0"
+  },
+  "lint-staged": {
+    "**/*.cs": [
+      "dotnet format --verify-no-changes --include"
+    ],
+    "**/*.xaml" : [
+	"dotnet xstyler -f"
+    ]
+  }
+}

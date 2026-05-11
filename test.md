@@ -12,6 +12,7 @@
     - [PremiereCreationViewModel](#premierecreationviewmodel)
     - [DeuxiemeCreationViewModel](#deuxiemecreationviewmodel)
     - [TroisiemeCreationViewModel](#troisiemecreationviewmodel)
+    - [DécideurViewModel](#décideurviewmodel)
   - [Model](#model)
     - [Internaute](#internaute)
     - [Groupe](#groupe)
@@ -27,6 +28,7 @@
     - [PremiereCreationPage](#premierecreationpage)
     - [DeuxiemeCreationPage](#deuxiemecreationpage)
     - [TroisiemeCreationPage](#troisiemecreationpage)
+    - [DécideurPage](#décideurpage)
   - [Service](#service)
     - [InternauteClient](#internauteclient)
     - [GroupeClient](#groupeclient)
@@ -40,7 +42,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -91,7 +93,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -112,7 +114,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -133,7 +135,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -154,7 +156,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -175,7 +177,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -196,7 +198,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -217,7 +219,7 @@
 
 - attributs :
   - internaute : internaute connecté
-  - navigationService : service permettant la navigation entre les pages
+  - Shell.Current : service permettant la navigation entre les pages
   - localizationService : service permettant d'internationaliser le texte
   - _internautePret : attribut pour attendre la fin de la récupération des données
   - Groupes : listes de groupe où l'internaute est membre affiché dans l'écran
@@ -234,67 +236,65 @@
 | 3 | rempli Groupes des groupes de l'utilistauers | listesRecu : 3 groupe;  internaute avec le mail : <vincent.leclerc@example.com> | Grouepes : 3 groupe |
 | 4 | navigue vers une page donnée | paramètre 1 : "CreerPage" | void |
 
+### DécideurViewModel
+
 ## Model
 
 ### Internaute
 
-- attributs :
-
 ### Groupe
 
-- attributs :
-  
 ### Thematique
 
-- attributs :
-  
 ### Proposition
 
-- attributs :
-  
 ## View
 
 ### HomePage
 
-- attributs :
-  
 ### ConnectablePage
 
-- attributs :
-  
 ### MainPage
 
-- attributs :
-  
 ### ModifierGestionPage
 
-- attributs :
-  
 ### HomeGestionPage
 
-- attributs :
-  
 ### CreationPage
 
-- attributs :
-  
 ### PremiereCreationPage
 
-- attributs :
-  
 ### DeuxiemeCreationPage
 
-- attributs :
-  
 ### TroisiemeCreationPage
 
-- attributs :
-  
+### DécideurPage
+
+- Choisir une proposition
+  - accepter cette proposition
+  - refuser une proposition
+- Afficher le prix de chacune des propositions
+- Modifier chacune des propositions
+- Limiter le budget
+  - Définir un budget annuel maximal
+  - Définir un budget par thème
+  - La somme des budget par thème ne doit pas dépasser le budget annuel
+- classer les propositions
+  - classer selon le critère de popularité
+  - classer selon le prix
+  - classer selon les intéractions sur la propositions
+- cas limites :
+  - un groupe n'a pas de thématique : texte pour le préciser
+  - une thématique n'a pas de proposition : texte pour le préciser
+  - une ou des propositions n'a pas de donnée pour un critère: rendre le classement impossible pour ce critère
+
 ## Service
 
 ### InternauteClient
 
-- attributs :
+- attirbuts :
+- méthodes :
+- spécifications des tests
 
 ### GroupeClient
 

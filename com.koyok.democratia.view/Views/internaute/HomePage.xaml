@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.koyok.democratia.UI.internaute.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:globalComponent="clr-namespace:com.koyok.democratia.UI.Component"
+    xmlns:groupeComponent="clr-namespace:com.koyok.democratia.UI.Component.groupe"
+    xmlns:res="clr-namespace:com.koyok.democratia.view.Resources.Localization"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute;assembly=com.koyok.democratia.core"
+    x:DataType="viewModel:HomeViewModel"
+    AutomationId="homePage"
+    Style="{StaticResource fondEcran}">
+
+    <Grid
+        x:Name="mainGrille"
+        AutomationId="mainGrille"
+        RowDefinitions="Auto, Auto, *, Auto"
+        RowSpacing="{DynamicResource SpacingMedium}">
+        <VerticalStackLayout Grid.Row="0">
+            <Border
+                Padding="0"
+                HorizontalOptions="Center"
+                MaximumHeightRequest="{StaticResource SpacingLarge}"
+                MaximumWidthRequest="{StaticResource SpacingLarge}"
+                Stroke="{AppThemeBinding Light={StaticResource Light-onSurface},
+                                         Dark={StaticResource Dark-onSurface}}"
+                StrokeThickness="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{StaticResource SpacingLarge}" />
+                </Border.StrokeShape>
+
+                <ImageButton
+                    x:Name="profileIconImageButton"
+                    Aspect="AspectFill"
+                    AutomationId="profileIconImageButton"
+                    Command="{Binding NavigateTappedCommand}"
+                    CommandParameter="HomeGestionPage"
+                    Source="profile_icon.jpeg" />
+            </Border>
+        </VerticalStackLayout>
+
+        <Label
+            x:Name="monGroupeLabel"
+            Grid.Row="1"
+            AutomationId="monGroupeLabel"
+            HorizontalOptions="Center"
+            Style="{StaticResource HeadlineStyle}"
+            Text="{x:Static res:AppResources.groupe}" />
+
+        <globalComponent:RefreshView
+            Grid.Row="2"
+            ChargerElementsCommand="{Binding InitialisationListeCommand}"
+            Elements="{Binding groupes}"
+            IsRefreshing="{Binding isRefreshing}"
+            UpdateElementsCommand="{Binding RefreshListGroupeCommand}">
+            <globalComponent:RefreshView.ItemTemplate>
+                <DataTemplate>
+                    <groupeComponent:ButtonGroupe AutomationId="buttonGroupe" />
+                </DataTemplate>
+            </globalComponent:RefreshView.ItemTemplate>
+        </globalComponent:RefreshView>
+        <Button
+            x:Name="creerUnGroupeButton"
+            Grid.Row="3"
+            Margin="20"
+            AutomationId="creerUnGroupeButton"
+            Command="{Binding NavigateTappedCommand}"
+            CommandParameter="PremiereCreationPage"
+            Style="{StaticResource ButtonStyle}"
+            Text="{x:Static res:AppResources.NewGroupe}"
+            VerticalOptions="End" />
+    </Grid>
+</ContentPage>
