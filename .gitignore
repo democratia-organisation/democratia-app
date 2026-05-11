@@ -72,3 +72,6 @@ com.democratia/com.democratia/Resources/Styles/material-theme.json
 node_modules
 com.democratia.core/*.json
 dotnet-tools.json
+/com.koyok.democratia.core/appsettings.developpement.json
+/com.koyok.democratia.core/appsettings.json
+/com.koyok.democratia.core/appsettings.production.json
