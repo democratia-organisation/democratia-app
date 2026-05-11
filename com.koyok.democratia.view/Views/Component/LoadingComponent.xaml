@@ -4,32 +4,52 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Name="this">
-    <Path
-        x:Name="arcPath"
-        AnchorX="0.5"
-        AnchorY="0.5"
-        Aspect="Fill"
-        AutomationId="arcPath"
-        Stroke="{AppThemeBinding Dark={DynamicResource Dark-tertiary},
-                                 Light={DynamicResource Light-tertiary}}"
-        StrokeThickness="3">
-        <Path.Data>
-            <PathGeometry>
-                <PathGeometry.Figures>
-                    <PathFigureCollection>
-                        <PathFigure StartPoint="50,0">
-                            <PathFigure.Segments>
-                                <ArcSegment
-                                    IsLargeArc="True"
-                                    Point="50,50"
-                                    RotationAngle="0"
-                                    Size="{Binding SizeAttribute, Source={x:Reference this}}"
-                                    SweepDirection="Clockwise" />
-                            </PathFigure.Segments>
-                        </PathFigure>
-                    </PathFigureCollection>
-                </PathGeometry.Figures>
-            </PathGeometry>
-        </Path.Data>
-    </Path>
+
+    <Grid HeightRequest="120" WidthRequest="120">
+
+
+        <Path
+            x:Name="arcPath"
+            Aspect="Fill"
+            HorizontalOptions="Center"
+            Stroke="{AppThemeBinding Dark={DynamicResource Dark-tertiary},
+                                     Light={DynamicResource Light-tertiary}}"
+            StrokeLineCap="Round"
+            StrokeThickness="10"
+            VerticalOptions="Center">
+            <Path.Data>
+                <PathGeometry>
+                    <PathFigure StartPoint="50,100">
+                        <ArcSegment
+                            IsLargeArc="False"
+                            Point="130,150"
+                            Size="50,50"
+                            SweepDirection="Clockwise" />
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
+
+        <Path
+            x:Name="arcBisPath"
+            Aspect="Fill"
+            HorizontalOptions="Center"
+            Stroke="{AppThemeBinding Dark={DynamicResource Dark-tertiaryContainer},
+                                     Light={DynamicResource Light-tertiaryContainer}}"
+            StrokeLineCap="Round"
+            StrokeThickness="10"
+            VerticalOptions="Center">
+            <Path.Data>
+                <PathGeometry>
+                    <PathFigure StartPoint="50,100">
+                        <ArcSegment
+                            IsLargeArc="False"
+                            Point="130,150"
+                            Size="50,50"
+                            SweepDirection="Clockwise" />
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
+    </Grid>
 </ContentView>

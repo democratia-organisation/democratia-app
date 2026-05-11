@@ -17,9 +17,9 @@
         <Image
             x:Name="loginImage"
             AutomationId="loginImage"
-            HeightRequest="50"
-            Source="appicon.png"
-            WidthRequest="50" />
+            HeightRequest="100"
+            Source="logo_white_border.png"
+            WidthRequest="100" />
         <Label
             x:Name="democratiaLabel"
             AutomationId="democratiaLabel"
@@ -30,7 +30,7 @@
             AutomationId="sloganLabel"
             Style="{DynamicResource SubHeadlineStyle}"
             Text="{x:Static lang:AppResources.slogan}" />
-        <Component:LoadingComponent Loading="{Binding loading}" SizeAttribute="{Binding size}" />
+        <Component:LoadingComponent Loading="{Binding loading}" />
 
     </VerticalStackLayout>
 </ContentPage>

@@ -15,20 +15,6 @@ public partial class LoadingComponent : ContentView
         set => SetValue(LoadingProperty, value);
     }
 
-    public static readonly BindableProperty SizeAttributeProperty = BindableProperty.Create(
-        nameof(SizeAttribute),
-        typeof(Size),
-        typeof(LoadingComponent),
-        defaultValue: new Size(50,50)
-    );
-
-    public Size SizeAttribute
-    {
-        get => (Size)GetValue(SizeAttributeProperty);
-        set => SetValue(SizeAttributeProperty, value);
-    }
-
-
     public LoadingComponent()
 	{
 		InitializeComponent();
@@ -44,11 +30,13 @@ public partial class LoadingComponent : ContentView
 
     private async Task AnimationChargement()
     {
-        while (Loading && arcPath != null)
+        while (true)
         {
-            await arcPath.RelRotateToAsync(180, 1000, Easing.CubicInOut);
-            await Task.Delay(10);
+            uint vitesse = 2000;
+            Task animation1 = arcPath.RelRotateToAsync(360, vitesse, Easing.CubicIn);
+            Task animation2 = arcBisPath.RelRotateToAsync(-360, vitesse / 2, Easing.CubicOut);
+            await Task.WhenAll(animation1, animation2);
+            await Task.Delay(5);
         }
-
     }
 }
