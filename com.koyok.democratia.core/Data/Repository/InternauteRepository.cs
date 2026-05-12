@@ -4,6 +4,7 @@ using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
+using System.Text.Json;
 
 namespace com.koyok.democratia.Data.Repository
 {
@@ -22,8 +23,9 @@ namespace com.koyok.democratia.Data.Repository
             try
             {
                 var internaute = (Internaute)parameters![0]!;
-                var content = $$"""?request=CreerUtilisateur&parameters=["{{internaute.nomInternaute}}", "{{internaute.prenomInternaute}}", "{{internaute.courriel}}", "{{internaute.adressePostale}}", "{{internaute.hashageMDP}}"]""";
-                response = await client!.PostAsync(content, null);
+                var content = "users";
+                var stringContent = new StringContent(JsonSerializer.Serialize(internaute));
+                response = await client!.PostAsync(content,stringContent);
             }
             catch (HttpRequestException ex)
             {
@@ -38,13 +40,7 @@ namespace com.koyok.democratia.Data.Repository
             HttpResponseMessage? response;
             try
             {
-                var requete = parameters.Length == 1 ?
-                    $"""
-                        ?request=SELECT * FROM internaute WHERE courriel=?&parameters=["{parameters[0]}"]
-                        """ :
-                    $"""
-                        ?request={parameters[1]}&parameters=["{parameters[0]}"]
-                        """;
+                var requete = $"""users/{parameters[0]}""";
                 response = await client!.GetAsync(requete);
             }
             catch (HttpRequestException ex)
@@ -62,10 +58,7 @@ namespace com.koyok.democratia.Data.Repository
             HttpResponseMessage? response;
             try
             {
-                response = await client!.GetAsync(
-                    $$"""
-                        ?request=SELECT COUNT(courriel) FROM internaute WHERE courriel=?&parameters=["{{email}}"]
-                        """);
+                response = await client!.GetAsync($"users/{email}/doublon");
             }
             catch (HttpRequestException ex)
             {
@@ -82,7 +75,8 @@ namespace com.koyok.democratia.Data.Repository
             var internaute = (Internaute)parameters![0]!;
             try
             {
-                response = await client!.PatchAsync($"""?request=ModifInfoInternaute&parameters=["{internaute.idInternaute}","{internaute.nomInternaute}","{internaute.prenomInternaute}","{internaute.adressePostale}","{internaute.courriel}","{internaute.hashageMDP}"]""", null);
+                var content = new StringContent(JsonSerializer.Serialize(internaute));
+                response = await client!.PatchAsync("users/", content);
             }
             catch (HttpRequestException ex) {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
@@ -96,7 +90,7 @@ namespace com.koyok.democratia.Data.Repository
             HttpResponseMessage? response;
             try
             {
-                response = await client?.DeleteAsync($"?request=SupprimerInternaute&parameters=[{((Internaute)parameters![0]!).idInternaute}]")!;
+                response = await client?.DeleteAsync($"users/{((Internaute)parameters![0]!).idInternaute}")!;
             }
             catch (HttpRequestException ex)
             {

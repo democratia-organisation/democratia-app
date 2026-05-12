@@ -28,20 +28,7 @@ namespace com.koyok.democratia.Data.Repository
         public async Task<string> GetAllPropositionsAsync(params object?[] parameters)
         {
             HttpResponseMessage? response;
-            string? requete = $""""
-
-                ?request=SELECT BIN_TO_UUID(id_groupe) AS id_groupe,id_proposition
-                    budget,
-                    date_publication,
-                    description_proposition,
-                    id_proposition,
-                    id_thematique,
-                    nb_signalement,
-                    titre_proposition
-                FROM proposition
-                WHERE id_groupe = UUID_TO_BIN(?)
-                &parameters=["{parameters[0]!}"]
-                """";
+            string? requete = $"propositions/{parameters![0]}";
             try
             {
                 response = await client!.GetAsync(requete);

@@ -19,11 +19,7 @@ namespace com.koyok.democratia.Data.Repository
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
             var thematique = (Thematique)parameters![0]!;
-            var requete = $"""
-                ?request=INSERT INTO thematique (nom_thematique)
-                VALUES (?);
-                &parameters=["{thematique.nomThematique}"]
-                """;
+            var requete = $"thematiques/{thematique.nomThematique}";
             HttpResponseMessage response;
             try
             {
@@ -46,7 +42,7 @@ namespace com.koyok.democratia.Data.Repository
             HttpResponseMessage response;
             try
             {
-                var content = "?request=SELECT * FROM thematique ORDER BY id_thematique&parameters=[]";
+                var content = "thematiques";
                 
                 response = await client?.GetAsync(content)!;
                 return await response.Content.ReadAsStringAsync();
