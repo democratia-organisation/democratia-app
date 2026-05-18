@@ -6,6 +6,7 @@ using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 
 namespace com.koyok.democratia.Data.Repository
@@ -159,7 +160,7 @@ namespace com.koyok.democratia.Data.Repository
             var adminId = 2;
             var notificationId = 1;
             List<object?> data = [id_groupe, id_internaute, adminId, notificationId];
-            var stringContent = new StringContent(JsonSerializer.Serialize(data),new MediaTypeHeaderValue("application/json"));
+            var stringContent = new StringContent(JsonSerializer.Serialize(data),Encoding.UTF8,new MediaTypeHeaderValue("application/json"));
             var requete = $"groupes/{id_internaute}";
             
             HttpResponseMessage? response;
