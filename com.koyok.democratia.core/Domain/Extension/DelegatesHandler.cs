@@ -25,7 +25,7 @@ namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
 #elif !DEBUG
             brutClient.Timeout = TimeSpan.FromSeconds(10);
 #endif
-            var resp = await brutClient.PostAsync($"""relogin""", new StringContent(JsonSerializer.Serialize(email),Encoding.UTF8,new MediaTypeHeaderValue("application/json")), ct);
+            var resp = await brutClient.PostAsync("users/refresh", new StringContent(JsonSerializer.Serialize(new List<string>([email])),Encoding.UTF8,new MediaTypeHeaderValue("application/json")), ct);
             return resp;
         }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
