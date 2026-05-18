@@ -4,6 +4,9 @@ using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 
 namespace com.koyok.democratia.Data.Repository
@@ -40,8 +43,10 @@ namespace com.koyok.democratia.Data.Repository
             HttpResponseMessage? response;
             try
             {
-                var requete = $"""users/{parameters[0]}""";
-                response = await client!.GetAsync(requete);
+                var requete = $"""users/login""";
+                string jsonContent = JsonSerializer.Serialize(parameters);
+                var content = new StringContent(jsonContent, Encoding.UTF8,new MediaTypeHeaderValue("application/json"));
+                response = await client!.PostAsync(requete,content);
             }
             catch (HttpRequestException ex)
             {

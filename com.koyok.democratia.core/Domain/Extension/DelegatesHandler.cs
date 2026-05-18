@@ -4,6 +4,7 @@ using Microsoft.Maui.Storage;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 
 namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
@@ -24,7 +25,7 @@ namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
 #elif !DEBUG
             brutClient.Timeout = TimeSpan.FromSeconds(10);
 #endif
-            var resp = await brutClient.GetAsync($"""?request=login&parameters=["{email}"]""", ct);
+            var resp = await brutClient.PostAsync($"""relogin""", new StringContent(JsonSerializer.Serialize(email),Encoding.UTF8,new MediaTypeHeaderValue("application/json")), ct);
             return resp;
         }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
