@@ -136,7 +136,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="Black" />
+                            <Setter Property="TextColor" Value="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainerLowest}, Light={DynamicResource Light-surfaceContainerLowest}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

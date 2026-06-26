@@ -81,7 +81,7 @@ namespace com.koyok.democratia.Data.Repository
             try
             {
                 var content = new StringContent(JsonSerializer.Serialize(internaute));
-                response = await client!.PatchAsync("users/", content);
+                response = await client!.PatchAsync("users", content);
             }
             catch (HttpRequestException ex) {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);

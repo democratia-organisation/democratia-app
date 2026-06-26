@@ -17,7 +17,7 @@
                 HorizontalOptions="Center"
                 HorizontalTextAlignment="Center"
                 Style="{DynamicResource LabelStyle}"
-                Text="{Binding titre}" />
+                Text="{}" />
             <ImageButton
                 x:Name="loupePropositionImageButton"
                 AutomationId="loupePropositionImageButton"
@@ -32,7 +32,8 @@
         <Label
             x:Name="dateLabel"
             AutomationId="dateLabel"
-            HorizontalTextAlignment="Start" />
+            HorizontalTextAlignment="Start"
+            Text="{$'x:Static lang:AppResources.finDiscussion {formatDateFinDiscussion}'}" />
 
     </VerticalStackLayout>
 </ContentView>

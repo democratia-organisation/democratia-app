@@ -178,7 +178,7 @@ namespace com.koyok.democratia.Data.Repository
 
         public async Task<string> GetGroupesAsync(Internaute internaute)
         {
-            var requete = $"""users/{internaute.idInternaute}/groupes""";
+            var requete = $"""users/groupes/{internaute.idInternaute}""";
             HttpResponseMessage? response;
             try
             {
