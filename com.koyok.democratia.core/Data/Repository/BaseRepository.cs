@@ -17,6 +17,7 @@ namespace com.koyok.democratia.Data.Repository
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
+        public HttpClient Client => client!;
         protected ILocalSource localSource;
         protected IRemoteSource remoteSource;
         private IRemoteToDomain remoteToDomain;
@@ -102,7 +103,7 @@ namespace com.koyok.democratia.Data.Repository
         }
 
         // vouer à ne pas être implémenté ici mais dans les repositories qui en ont besoin
-        public virtual async Task<MemoryStream?> GetImageAsync(string? url) => new ();
+        public virtual Task<string?> GetImageAsync(string? url) => throw new NotImplementedException();
         
 
         public virtual async Task<string> UploadImage(Guid? id, string filePath) => "";

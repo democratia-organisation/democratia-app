@@ -6,7 +6,7 @@ namespace com.koyok.democratia.Domain.UseCase
     {
         private readonly BaseRepository repository = repository;
 
-        public async Task<MemoryStream> GetImageAsync(string url)
+        public async Task<string> GetImageAsync(string url)
         {
 
             return (await repository.GetImageAsync(url))!;

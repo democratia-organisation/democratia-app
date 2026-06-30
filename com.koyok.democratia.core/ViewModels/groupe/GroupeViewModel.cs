@@ -11,13 +11,14 @@ using com.koyok.democratia.Domain.UseCase;
 
 namespace com.koyok.democratia.UI.groupe
 {
+    [QueryProperty(nameof(image), "Image")]
     public partial class GroupeViewModel(
         IPropositionRepository propositionRepository,
         IGroupeRepository groupRepository,
         ClassementPropositionUseCase useCase
     ) : ObservableObject, INotifyPropertyChanged ,IQueryAttributable
     {
-        [ObservableProperty] public partial ImageSource? image { get; set;}
+        [ObservableProperty] public partial string? image { get; set;}
         [ObservableProperty] public partial Groupe? groupe { get; set; }
         [ObservableProperty] public partial ObservableCollection<Proposition> propositions { get; set; } = [];
         [ObservableProperty] public partial ObservableCollection<Thematique> thematiques { get; set; } = [];
@@ -91,7 +92,7 @@ namespace com.koyok.democratia.UI.groupe
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"] ?? Shell.Current!.AppContext.Groupe;
-            image = (ImageSource)query["Image"] ?? Shell.Current!.AppContext.ImageSourceGroupe;
+            image = (string)query["Image"] ?? Shell.Current!.AppContext.ImageSourceGroupe;
         }
 
     }

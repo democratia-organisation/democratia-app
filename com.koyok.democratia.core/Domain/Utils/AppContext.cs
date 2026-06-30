@@ -41,8 +41,8 @@ namespace com.koyok.democratia.Domain.Utils
             }
         }
 
-        private ImageSource? imageSourceGroupe;
-        public ImageSource? ImageSourceGroupe
+        private string? imageSourceGroupe;
+        public string? ImageSourceGroupe
         {
             get => imageSourceGroupe;
             set

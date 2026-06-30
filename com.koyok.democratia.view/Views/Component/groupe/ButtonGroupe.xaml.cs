@@ -41,7 +41,7 @@ public partial class ButtonGroupe : ContentView
     protected async override void OnBindingContextChanged()
     {
         base.OnBindingContextChanged();
-        if (BindingContext is Tuple<Groupe,ImageSource,ICommand> tuple)
+        if (BindingContext is Tuple<Groupe,string,ICommand> tuple)
         {
             Image = tuple.Item2;
             OpenGroupeCommand = tuple.Item3;

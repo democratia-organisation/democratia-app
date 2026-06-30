@@ -8,6 +8,7 @@ using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Extension;
 using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Data.Repository;
 
 namespace com.koyok.democratia.UI.internaute
 {
@@ -18,13 +19,13 @@ namespace com.koyok.democratia.UI.internaute
         private int cursor = 0;
 
         [ObservableProperty]
-        public partial ObservableCollection<Tuple<Groupe, ImageSource, ICommand>> groupes { get; set; } = [];
+        public partial ObservableCollection<Tuple<Groupe, string, ICommand>> groupes { get; set; } = [];
 
         [ObservableProperty]
         public partial bool isRefreshing { get; set; } = false;
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
-            => internaute = (Internaute)query["modele"] ?? Shell.Current.AppContext.Internaute ;
+            => internaute = query.TryGetValue("modele", out var data) ? (Internaute)data : Shell.Current.AppContext.Internaute ;
         
 
         [RelayCommand]
@@ -51,13 +52,13 @@ namespace com.koyok.democratia.UI.internaute
             groupes.Clear();
             foreach (var groupe in listeInformation)
             {
-                ImageSource image = await GetImageAsync(groupe.image);
-                groupes.Add(new Tuple<Groupe, ImageSource, ICommand>(groupe, image, OpenGroupCommand));
+                string image = await GetImageAsync(groupe.image);
+                groupes.Add(new Tuple<Groupe, string, ICommand>(groupe, image, OpenGroupCommand));
             }
         }
 
         [RelayCommand]
-        private async Task OpenGroup(Tuple<Groupe, ImageSource, ICommand> tuple)
+        private async Task OpenGroup(Tuple<Groupe, string, ICommand> tuple)
         {
             var parameters = new ShellNavigationQueryParameters { { "groupe", tuple.Item1! }, { "Image", tuple.Item2! }, { "modele", internaute! } };
             Shell.Current.AppContext.Groupe = tuple.Item1;
@@ -66,13 +67,13 @@ namespace com.koyok.democratia.UI.internaute
         }
 
 
-        private async Task<ImageSource> GetImageAsync(string? url)
+        private async Task<string> GetImageAsync(string? url)
         {
             var imageStream = await repository.GetImageAsync(url);
             if (imageStream != null)
-                return ImageSource.FromStream(() => imageStream);
+                return imageStream;
             else
-                return ImageSource.FromFile("default_group_image.png");
+                return "default_group_image.png";
         }
 
         [RelayCommand]
