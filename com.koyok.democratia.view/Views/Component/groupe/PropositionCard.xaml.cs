@@ -20,7 +20,6 @@ namespace com.koyok.democratia.UI.Component.groupe
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            //dateLabel.Text = $"{AppResources.finDiscussion} {((Proposition)BindingContext).formatDateFinDiscussion}";
 
         }
     }

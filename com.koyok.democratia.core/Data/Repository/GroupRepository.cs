@@ -44,7 +44,7 @@ namespace com.koyok.democratia.Data.Repository
         {
             List<object> arguments = [idGroupe!,idThematique!,budgetThematique!];
             var stringContent = new StringContent(JsonSerializer.Serialize(arguments), new MediaTypeHeaderValue("application/json"));
-            var requete = $"groupes/{idThematique}";
+            var requete = $"groupes/theme";
             
             HttpResponseMessage? response;
             try
@@ -99,7 +99,7 @@ namespace com.koyok.democratia.Data.Repository
 
         public async override Task<MemoryStream?> GetImageAsync(string? url)
         {
-            var requete = $"groupes/obtenirImage/:url";
+            var requete = $"groupes/obtenirImage/{url}";
 
             HttpResponseMessage? response;
             try
@@ -161,7 +161,7 @@ namespace com.koyok.democratia.Data.Repository
             var notificationId = 1;
             List<object?> data = [id_groupe, id_internaute, adminId, notificationId];
             var stringContent = new StringContent(JsonSerializer.Serialize(data),Encoding.UTF8,new MediaTypeHeaderValue("application/json"));
-            var requete = $"groupes/{id_internaute}";
+            var requete = $"groupes/internaute";
             
             HttpResponseMessage? response;
             try
@@ -173,20 +173,6 @@ namespace com.koyok.democratia.Data.Repository
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
 
-            return await response.Content.ReadAsStringAsync();
-        }
-
-        public async Task<string> GetGroupesAsync(Internaute internaute)
-        {
-            var requete = $"""users/groupes/{internaute.idInternaute}""";
-            HttpResponseMessage? response;
-            try
-            {
-                response = await client?.GetAsync(requete)!;
-            }
-            catch (HttpRequestException) {
-                throw new ConnexionErrorException();
-            }
             return await response.Content.ReadAsStringAsync();
         }
     }

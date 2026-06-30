@@ -5,6 +5,9 @@ using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
 
 namespace com.koyok.democratia.Data.Repository
 {
@@ -19,11 +22,11 @@ namespace com.koyok.democratia.Data.Repository
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
             var thematique = (Thematique)parameters![0]!;
-            var requete = $"thematiques/{thematique.nomThematique}";
+            var requete = $"thematiques";
             HttpResponseMessage response;
             try
             {
-                response = await client?.PostAsync(requete, null)!;
+                response = await client?.PostAsync(requete, new StringContent(JsonSerializer.Serialize(thematique), Encoding.UTF8, new MediaTypeHeaderValue("application/json")))!;
             }
             catch (Exception) { 
                 throw new ConnexionErrorException();
