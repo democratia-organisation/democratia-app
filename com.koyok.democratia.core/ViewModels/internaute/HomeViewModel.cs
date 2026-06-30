@@ -84,8 +84,5 @@ namespace com.koyok.democratia.UI.internaute
         {
             cursor += 1;
         }
-
-
-
     }
 }
