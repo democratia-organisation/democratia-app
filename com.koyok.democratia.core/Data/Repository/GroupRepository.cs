@@ -99,7 +99,7 @@ namespace com.koyok.democratia.Data.Repository
 
         public async override Task<MemoryStream?> GetImageAsync(string? url)
         {
-            var requete = $"groupes/obtenirImage/{url}";
+            var requete = $"groupes/obtenirImageGroupe/{url}";
 
             HttpResponseMessage? response;
             try
