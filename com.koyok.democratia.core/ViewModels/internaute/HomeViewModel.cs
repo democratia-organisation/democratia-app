@@ -24,7 +24,7 @@ namespace com.koyok.democratia.UI.internaute
         public partial bool isRefreshing { get; set; } = false;
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
-            => internaute = query.TryGetValue("modele", out var data) ? (Internaute)data : Shell.Current.AppContext.Internaute ;
+            => internaute = (Internaute)query["modele"] ?? Shell.Current.AppContext.Internaute ;
         
 
         [RelayCommand]
