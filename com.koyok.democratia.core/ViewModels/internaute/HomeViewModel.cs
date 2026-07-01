@@ -8,14 +8,16 @@ using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Extension;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Data.Repository;
+using com.koyok.democratia.Domain.UseCase;
 
 namespace com.koyok.democratia.UI.internaute
 {
-    public partial class HomeViewModel(IGroupeRepository repository) :  ObservableObject, IQueryAttributable, INotifyPropertyChanged
+    public partial class HomeViewModel(IGroupeRepository repository,
+        ManipulateImageUseCase useCase) :  ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         public Internaute? internaute;
         private readonly IGroupeRepository repository = repository;
+        private readonly ManipulateImageUseCase useCase = useCase;
         private int cursor = 0;
 
         [ObservableProperty]
@@ -69,7 +71,7 @@ namespace com.koyok.democratia.UI.internaute
 
         private async Task<string> GetImageAsync(string? url)
         {
-            var imageStream = await repository.GetImageAsync(url);
+            var imageStream = await useCase.GetImageAsync(url!);
             if (imageStream != null)
                 return imageStream;
             else

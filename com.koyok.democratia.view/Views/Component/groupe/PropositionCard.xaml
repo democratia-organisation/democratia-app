@@ -32,8 +32,7 @@
         <Label
             x:Name="dateLabel"
             AutomationId="dateLabel"
-            HorizontalTextAlignment="Start"
-            Text="{$'x:Static lang:AppResources.finDiscussion {formatDateFinDiscussion}'}" />
+            HorizontalTextAlignment="Start" />
 
     </VerticalStackLayout>
 </ContentView>

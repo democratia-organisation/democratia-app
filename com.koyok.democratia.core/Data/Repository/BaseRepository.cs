@@ -103,7 +103,7 @@ namespace com.koyok.democratia.Data.Repository
         }
 
         // vouer à ne pas être implémenté ici mais dans les repositories qui en ont besoin
-        public virtual Task<string?> GetImageAsync(string? url) => throw new NotImplementedException();
+        public virtual Task<byte[]?> GetImageAsync(string? url) => throw new NotImplementedException();
         
 
         public virtual async Task<string> UploadImage(Guid? id, string filePath) => "";

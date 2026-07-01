@@ -2,10 +2,8 @@
 using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
-using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
-using Microsoft.Maui.Storage;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -98,43 +96,20 @@ namespace com.koyok.democratia.Data.Repository
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async override Task<string?> GetImageAsync(string? url)
+        public async override Task<byte[]?> GetImageAsync(string? url)
         {
             var requete = $"groupes/obtenirImageGroupe/{url}";
-            string fileName = $"img_{Math.Abs(requete.GetHashCode())}.jpg";
-            string localFilePath = Path.Combine(FileSystem.CacheDirectory, fileName);
-            if (File.Exists(localFilePath))
+            HttpResponseMessage? response;
+            try
             {
-                return localFilePath;
+                response = await client!.GetAsync(requete);
             }
-            else
+            catch (HttpRequestException ex)
             {
-                HttpResponseMessage? response;
-                try
-                {
-                    response = await client!.GetAsync(requete);
-                }
-                catch (HttpRequestException ex)
-                {
-                    throw new HttpRequestException("Erreur de connexion inattendu", ex);
-                }
-                MettreAJourStatuts(response);
-                if (!response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    throw new ConnexionErrorException();
-                }
-
-                else
-                {
-                    byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
-                    if (imageBytes.Length == 0) return null;
-                    await File.WriteAllBytesAsync(localFilePath, imageBytes);
-                    return localFilePath;
-                }
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-
-
+            MettreAJourStatuts(response);
+            return await response.Content.ReadAsByteArrayAsync();
         }
 
         
