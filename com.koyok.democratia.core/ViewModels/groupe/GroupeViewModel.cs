@@ -22,18 +22,15 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty] public partial Groupe? groupe { get; set; }
         [ObservableProperty] public partial ObservableCollection<Proposition> propositions { get; set; } = [];
         [ObservableProperty] public partial ObservableCollection<Thematique> thematiques { get; set; } = [];
+        [ObservableProperty] public partial bool isAdmin { get; set; } = false;
+        [ObservableProperty] public partial ObservableCollection<Critere> criteres { get; set; } = [Critere.PRIX, Critere.POPULARITE, Critere.REACTIONS];
+        [ObservableProperty] public partial Critere critere { get; set; }
+        [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
         private int cursor = 0;
-
         private readonly IPropositionRepository propositionRepository = propositionRepository;
         private readonly IGroupeRepository groupRepository = groupRepository;
         private readonly ClassementPropositionUseCase useCase = useCase;
 
-        // TODO : savoir si c'est un décideur afin d'afficher certaines options en fonction
-        [ObservableProperty]
-        public partial ObservableCollection<Critere> criteres { get; set; } = [Critere.PRIX,Critere.POPULARITE,Critere.REACTIONS];
-        [ObservableProperty] public partial Critere critere { get; set; }
-        
-        [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)

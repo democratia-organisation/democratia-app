@@ -162,5 +162,11 @@ namespace com.koyok.democratia.Data.Repository
 
             return await response.Content.ReadAsStringAsync();
         }
+
+        public Task<string> GetRoleAsync(Guid? idGroupe, int? idInternaute)
+        {
+            var requete = $"";
+            return Task.FromResult(string.Empty);
+        }
     }
 }

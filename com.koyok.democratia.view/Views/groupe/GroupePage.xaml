@@ -84,6 +84,7 @@
             ios:Picker.UpdateMode="WhenFinished"
             AutomationId="criterePicker"
             HorizontalOptions="Start"
+            IsEnabled="{isAdmin}"
             ItemsSource="{Binding criteres}"
             SelectedItem="{Binding critere}">
             <Picker.Behaviors>

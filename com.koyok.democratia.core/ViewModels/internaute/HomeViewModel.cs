@@ -54,8 +54,8 @@ namespace com.koyok.democratia.UI.internaute
             groupes.Clear();
             foreach (var groupe in listeInformation)
             {
-                string image = await GetImageAsync(groupe.image);
-                groupes.Add(new Tuple<Groupe, string, ICommand>(groupe, image, OpenGroupCommand));
+                string? image = await useCase.GetImageAsync(groupe.image!);
+                groupes.Add(new Tuple<Groupe, string, ICommand>(groupe, image!, OpenGroupCommand));
             }
         }
 
@@ -68,15 +68,6 @@ namespace com.koyok.democratia.UI.internaute
             await Shell.Current?.GoToAsync("GroupePage", parameters)!;
         }
 
-
-        private async Task<string> GetImageAsync(string? url)
-        {
-            var imageStream = await useCase.GetImageAsync(url!);
-            if (imageStream != null)
-                return imageStream;
-            else
-                return "default_group_image.png";
-        }
 
         [RelayCommand]
         public async Task NavigateTapped(string commande) 
