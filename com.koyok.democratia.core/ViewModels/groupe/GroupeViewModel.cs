@@ -82,7 +82,6 @@ namespace com.koyok.democratia.UI.groupe
             throw new NotImplementedException();
         }
 
-        
         [RelayCommand]
         private async Task UpdateList()
         {
