@@ -18,7 +18,7 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty] public partial Groupe? groupe { get; set; }
         [ObservableProperty] public partial ObservableCollection<Proposition> propositions { get; set; } = [];
         [ObservableProperty] public partial ObservableCollection<Thematique> thematiques { get; set; } = [];
-        [ObservableProperty] public partial ObservableCollection<Critere> criteres { get; set; } = [Critere.PRIX, Critere.POPULARITE, Critere.REACTIONS];
+        [ObservableProperty] public partial List<Critere> criteres { get; set; } = [Critere.PRIX, Critere.POPULARITE, Critere.REACTIONS];
         [ObservableProperty] public partial Critere critere { get; set; }
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
         private readonly IPropositionRepository propositionRepository;
