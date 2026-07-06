@@ -12,10 +12,7 @@ using com.koyok.democratia.Domain.UseCase;
 namespace com.koyok.democratia.UI.groupe
 {
     [QueryProperty(nameof(image), "Image")]
-    public partial class GroupeViewModel(
-        IPropositionRepository propositionRepository,
-        IGroupeRepository groupRepository
-    ) : ObservableObject, INotifyPropertyChanged ,IQueryAttributable
+    public partial class GroupeViewModel : ObservableObject, INotifyPropertyChanged ,IQueryAttributable
     {
         [ObservableProperty] public partial string? image { get; set;}
         [ObservableProperty] public partial Groupe? groupe { get; set; }
@@ -24,10 +21,16 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty] public partial ObservableCollection<Critere> criteres { get; set; } = [Critere.PRIX, Critere.POPULARITE, Critere.REACTIONS];
         [ObservableProperty] public partial Critere critere { get; set; }
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
+        private readonly IPropositionRepository propositionRepository;
+        private readonly IGroupeRepository groupRepository;
+        private readonly ClassementPropositionUseCase useCase;
         private int cursor = 0;
-        private readonly IPropositionRepository propositionRepository = propositionRepository;
-        private readonly IGroupeRepository groupRepository = groupRepository;
-        private readonly ClassementPropositionUseCase useCase = new;
+        public GroupeViewModel(IPropositionRepository propositionRepository,IGroupeRepository groupRepository)
+        {
+            this.propositionRepository = propositionRepository;
+            this.groupRepository = groupRepository;
+            useCase = new([..propositions], propositionRepository);
+        }
 
 
         [RelayCommand]
@@ -40,7 +43,9 @@ namespace com.koyok.democratia.UI.groupe
         [RelayCommand]
         private void ClasserPropositions() 
         {
-            useCase.Classer(critere);
+            var propositionsClasser = useCase.Classer(critere);
+            propositions.Clear();
+            propositionsClasser.ForEach(p => propositions.Add(p));
         }
 
         [RelayCommand]
