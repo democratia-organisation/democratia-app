@@ -2,7 +2,9 @@
 using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+using com.koyok.democratia.Domain.Enumerations;
 using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository
@@ -39,19 +41,19 @@ namespace com.koyok.democratia.Data.Repository
             return await response!.Content.ReadAsStringAsync();
         }
 
+        public List<Proposition> TrierProposition(Critere critere)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<string> UpdateModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();
         }
 
-        Task<string> GetModelAsync(params object?[] parameters)
+        public Task<string> GetModelAsync(params object?[] parameters)
         {
             throw new NotImplementedException();
-        }
-
-        Task<string> IRepository.GetModelAsync(params object?[] parameters)
-        {
-            return GetModelAsync(parameters);
         }
     }
 }

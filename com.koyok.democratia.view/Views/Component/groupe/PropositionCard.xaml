@@ -35,6 +35,7 @@
                 CommandParameter="{Binding .}"
                 HeightRequest="30"
                 HorizontalOptions="End"
+                IsVisible="{Binding EnableLoupe, Source={x:Reference this}}"
                 Source="loupe.png"
                 VerticalOptions="End"
                 WidthRequest="30" />

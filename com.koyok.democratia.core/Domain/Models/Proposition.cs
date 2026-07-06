@@ -14,6 +14,10 @@ namespace com.koyok.democratia.Domain.Models
         public Guid? idGroupe { get; private set; } = idGroupe;
         public string formatDateFinDiscussion => DateOnly.FromDateTime(DateTime.Parse(DateOnly.Parse(publication!).ToString())).AddDays(jourDiscussion).ToString("dd MMMM yyy");
         public int jourDiscussion { get; set; } = 1;
+        public object Popularite { get; internal set; }
+        public object Prix { get; internal set; }
+        public object Reactions { get; internal set; }
+
         public Proposition() : this(null, null, null, null, null, null, null, null) { }
 
 

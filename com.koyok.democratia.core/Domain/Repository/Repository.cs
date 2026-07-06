@@ -1,4 +1,5 @@
-﻿using com.koyok.democratia.Domain.Models;
+﻿using com.koyok.democratia.Domain.Enumerations;
+using com.koyok.democratia.Domain.Models;
 using Xunit.Abstractions;
 
 namespace com.koyok.democratia.Domain.Repository
@@ -48,6 +49,7 @@ namespace com.koyok.democratia.Domain.Repository
     public interface IPropositionRepository : IRepository
     {
         public Task<string> GetAllPropositionsAsync(params object?[] parameters);
+        List<Proposition> TrierProposition(Critere critere);
     }
 }
 

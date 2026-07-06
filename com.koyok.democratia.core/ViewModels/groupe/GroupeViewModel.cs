@@ -14,8 +14,7 @@ namespace com.koyok.democratia.UI.groupe
     [QueryProperty(nameof(image), "Image")]
     public partial class GroupeViewModel(
         IPropositionRepository propositionRepository,
-        IGroupeRepository groupRepository,
-        ClassementPropositionUseCase useCase
+        IGroupeRepository groupRepository
     ) : ObservableObject, INotifyPropertyChanged ,IQueryAttributable
     {
         [ObservableProperty] public partial string? image { get; set;}
@@ -28,7 +27,7 @@ namespace com.koyok.democratia.UI.groupe
         private int cursor = 0;
         private readonly IPropositionRepository propositionRepository = propositionRepository;
         private readonly IGroupeRepository groupRepository = groupRepository;
-        private readonly ClassementPropositionUseCase useCase = useCase;
+        private readonly ClassementPropositionUseCase useCase = new;
 
 
         [RelayCommand]

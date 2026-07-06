@@ -57,7 +57,6 @@ namespace com.koyok.democratia.Domain.Extension
             public IServiceCollection AddUsesCases()
             {
                 services.AddSingleton<AuthenticateUseCase>();
-                services.AddSingleton<ClassementPropositionUseCase>();
                 services.AddSingleton<CreerGroupeUseCase>();
                 services.AddSingleton<DeterminateRoleUseCase>();
                 services.AddSingleton<InsertionCompteUseCase>();
