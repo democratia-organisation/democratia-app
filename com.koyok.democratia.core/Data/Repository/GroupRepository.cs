@@ -2,6 +2,7 @@
 using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 using System.Net.Http.Headers;
@@ -21,16 +22,13 @@ namespace com.koyok.democratia.Data.Repository
         public async Task<string> CreateModelAsync(params object?[]? parameters)
         {
             var groupe = (Groupe)parameters![0]!;
-
             var stringContent = new StringContent(JsonSerializer.Serialize(groupe),new MediaTypeHeaderValue("application/json"));
-            
             var requete = "groupes";
             
             HttpResponseMessage? response;
             try
             {
                 response = await client!.PostAsync(requete,stringContent);
-
             }
             catch (HttpRequestException ex)
             {
@@ -132,9 +130,7 @@ namespace com.koyok.democratia.Data.Repository
             {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-
             return await response.Content.ReadAsStringAsync();
-            
         }
 
         public Task<string> UpdateModelAsync(params object?[]? parameters)
@@ -144,9 +140,8 @@ namespace com.koyok.democratia.Data.Repository
 
         public async Task<string> AjouterCreateur(int? id_internaute, Guid? id_groupe)
         {
-            var adminId = 2;
             var notificationId = 1;
-            List<object?> data = [id_groupe, id_internaute, adminId, notificationId];
+            List<object?> data = [id_groupe, id_internaute, (int)Role.Administrateur, notificationId];
             var stringContent = new StringContent(JsonSerializer.Serialize(data),Encoding.UTF8,new MediaTypeHeaderValue("application/json"));
             var requete = $"groupes/internaute";
             
@@ -163,10 +158,21 @@ namespace com.koyok.democratia.Data.Repository
             return await response.Content.ReadAsStringAsync();
         }
 
-        public Task<string> GetRoleAsync(Guid? idGroupe, int? idInternaute)
+        public async Task<string> GetRoleGroupe(string rowGroupe)
         {
-            var requete = $"";
-            return Task.FromResult(string.Empty);
+            try
+            {
+                var jsonArray = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(rowGroupe)!;
+                var content = jsonArray["data"].Deserialize<List<Dictionary<string, JsonElement>>>()!;
+                foreach (var item in content)
+                {
+                    item["is_admin"] = JsonSerializer.SerializeToElement(JsonSerializer.Deserialize<int>(item["id_role"]!.ToString()!) == (int)Role.Administrateur);
+                    item.Remove("id_role");
+                }
+                jsonArray["data"] = JsonSerializer.SerializeToElement(content);
+                return JsonSerializer.Serialize(jsonArray); ;
+            }
+            catch (Exception) { throw new FetchDataException(); }
         }
     }
 }

@@ -50,6 +50,7 @@ namespace com.koyok.democratia.UI.internaute
             { jsonString = await repository.GetModelAsync(internaute!)!; }
             catch (Exception)
             { throw new ConnexionErrorException(); }
+            jsonString = await repository.GetRoleGroupe(jsonString);
             List<Groupe> listeInformation = repository.RecuprerInformationConnexion<Groupe>(jsonString);
             groupes.Clear();
             foreach (var groupe in listeInformation)

@@ -196,6 +196,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Êtes-vous sûr de vouloir vous déconnecter ?.
+        /// </summary>
+        public static string confirmDeconnexion {
+            get {
+                return ResourceManager.GetString("confirmDeconnexion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Oui, supprimez mon compte.
         /// </summary>
         public static string confirmeSupp {
@@ -264,6 +273,24 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string critere {
             get {
                 return ResourceManager.GetString("critere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Voulez-vous vous déconnecter ?.
+        /// </summary>
+        public static string deconnexion {
+            get {
+                return ResourceManager.GetString("deconnexion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le serveur est actuellement surchargé, veuillez réessayer dans {0} secondes.
+        /// </summary>
+        public static string DetailBusy {
+            get {
+                return ResourceManager.GetString("DetailBusy", resourceCulture);
             }
         }
         
@@ -498,6 +525,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string Mdp {
             get {
                 return ResourceManager.GetString("Mdp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Déconnexion.
+        /// </summary>
+        public static string messageDeconexion {
+            get {
+                return ResourceManager.GetString("messageDeconexion", resourceCulture);
             }
         }
         
@@ -831,6 +867,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string theme {
             get {
                 return ResourceManager.GetString("theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Surcharge serveur.
+        /// </summary>
+        public static string toomanyRequest {
+            get {
+                return ResourceManager.GetString("toomanyRequest", resourceCulture);
             }
         }
     }

@@ -10,16 +10,26 @@
     x:DataType="models:Proposition"
     Style="{DynamicResource ContenViewStyle}">
     <VerticalStackLayout x:Name="mainLayout">
-        <HorizontalStackLayout x:Name="groupeLayout" Spacing="{DynamicResource SpacingLarge}">
+        <Label
+            x:Name="titreLabel"
+            AutomationId="titreLabel"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Style="{DynamicResource LabelStyle}"
+            Text="{Binding titre}" />
+        <Grid
+            x:Name="groupeLayout"
+            ColumnDefinitions="Auto,*"
+            ColumnSpacing="{DynamicResource SpacingLarge}"
+            FlowDirection="LeftToRight">
             <Label
-                x:Name="titreLabel"
-                AutomationId="titreLabel"
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                Style="{DynamicResource LabelStyle}"
-                Text="{}" />
+                x:Name="dateLabel"
+                Grid.Column="0"
+                AutomationId="dateLabel"
+                HorizontalTextAlignment="Start" />
             <ImageButton
                 x:Name="loupePropositionImageButton"
+                Grid.Column="1"
                 AutomationId="loupePropositionImageButton"
                 Command="{Binding OpenCommand, Source={x:Reference this}}"
                 CommandParameter="{Binding .}"
@@ -28,11 +38,6 @@
                 Source="loupe.png"
                 VerticalOptions="End"
                 WidthRequest="30" />
-        </HorizontalStackLayout>
-        <Label
-            x:Name="dateLabel"
-            AutomationId="dateLabel"
-            HorizontalTextAlignment="Start" />
-
+        </Grid>
     </VerticalStackLayout>
 </ContentView>

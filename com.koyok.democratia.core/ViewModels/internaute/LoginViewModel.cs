@@ -37,6 +37,10 @@ namespace com.koyok.democratia.UI.internaute
                     var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
                     await Shell.Current!.GoToAsync(commande, parameters);
                 }
+                catch(TooManyRequestException)
+                {
+                    throw;
+                }
                 catch (Exception ex)
                 {
                     errorMessage = Shell.Current.AppContext.Mapper!.MappingException(ex);

@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 using System.ComponentModel;
+using com.koyok.democratia.Domain.Exception;
 
 namespace com.koyok.democratia.UI
 {
@@ -30,6 +31,10 @@ namespace com.koyok.democratia.UI
                     isConnected = internaute != null;
                     await SecureStorage.Default.SetAsync(SecureStorageKeys.isConnected.ToString(), $"{isConnected}");
                     if(isConnected) Shell.Current.AppContext.Internaute = internaute;
+                }
+                catch(TooManyRequestException)
+                {
+                    throw;
                 }
                 catch (Exception) {
                     SecureStorage.Default.RemoveAll();

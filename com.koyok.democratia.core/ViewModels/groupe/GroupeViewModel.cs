@@ -22,7 +22,6 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty] public partial Groupe? groupe { get; set; }
         [ObservableProperty] public partial ObservableCollection<Proposition> propositions { get; set; } = [];
         [ObservableProperty] public partial ObservableCollection<Thematique> thematiques { get; set; } = [];
-        [ObservableProperty] public partial bool isAdmin { get; set; } = false;
         [ObservableProperty] public partial ObservableCollection<Critere> criteres { get; set; } = [Critere.PRIX, Critere.POPULARITE, Critere.REACTIONS];
         [ObservableProperty] public partial Critere critere { get; set; }
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
@@ -89,7 +88,6 @@ namespace com.koyok.democratia.UI.groupe
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"] ?? Shell.Current!.AppContext.Groupe;
-            image = (string)query["Image"] ?? Shell.Current!.AppContext.ImageSourceGroupe;
         }
 
     }

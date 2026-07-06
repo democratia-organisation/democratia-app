@@ -10,6 +10,19 @@ namespace com.koyok.democratia.Domain.Exception
 
     internal class EmptyPassWordFieldException : System.Exception { }
 
+    public class TooManyRequestException(int delay) : System.Exception { 
+        public int Delay { get => delay; } 
+        private int delay = delay;
+        public void CountdownAsync()
+        {
+            while (delay!=0)
+            {
+                Task.Delay(1000);
+                delay -= 1;
+            }
+        }
+    }
+
     internal class EmptyRequiredFieldException(string message) : System.Exception(message) 
     {
         public EmptyRequiredFieldException() : this("") { }

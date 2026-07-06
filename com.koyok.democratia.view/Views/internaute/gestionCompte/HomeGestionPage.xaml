@@ -45,6 +45,12 @@
                     CommandParameter="PreferencePage"
                     Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.preference}" />
+                <Button
+                    x:Name="deconnexionButton"
+                    AutomationId="deconnexionButton"
+                    Command="{Binding DeconnexionCommand}"
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="{x:Static lang:AppResources.messageDeconexion}" />
             </StackLayout>
         </Grid>
     </ScrollView>

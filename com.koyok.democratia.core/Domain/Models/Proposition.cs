@@ -1,9 +1,11 @@
-﻿namespace com.koyok.democratia.Domain.Models
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace com.koyok.democratia.Domain.Models
 {
-    public class Proposition(int? idProposition, string? titre, string? description, string? publication, float? budget, int? nombreSignalement, int? thematique, Guid? idGroupe) : IModel
+    public partial class Proposition(int? idProposition, string? titre, string? description, string? publication, float? budget, int? nombreSignalement, int? thematique, Guid? idGroupe) : ObservableObject, IModel
     {
         public int? idProposition { get; private set; } = idProposition;
-        public string? titre { get; private set; } = titre;
+        [ObservableProperty] public partial string? titre { get; private set; } = titre;
         public string? description { get; private set; } = description;
         public string? publication { get; private set; } = publication;
         public float? budget { get; private set; } = budget;

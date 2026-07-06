@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Windows.Input;
 
 namespace com.koyok.democratia.UI.Component;
@@ -20,7 +19,6 @@ public partial class RefreshView : ContentView
 	{
         get => (IEnumerable<object>)GetValue(ElementsProperty);
         set => SetValue(ElementsProperty, value);
-
     }
 
     public static readonly BindableProperty IsRefreshingProperty =
@@ -48,7 +46,7 @@ public partial class RefreshView : ContentView
         get => (DataTemplate)GetValue(ItemTemplateProperty);
         set => SetValue(ItemTemplateProperty, value);
     }
-
+    
     public RefreshView()
 	{
 		InitializeComponent();

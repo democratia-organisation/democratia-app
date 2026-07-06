@@ -57,7 +57,10 @@
                 Text="{Binding groupe.nomGroupe}"
                 VerticalOptions="Center" />
 
-            <HorizontalStackLayout Grid.Column="2" Spacing="{DynamicResource SpacingSmall}">
+            <HorizontalStackLayout
+                Grid.Column="2"
+                IsVisible="{Binding groupe.isAdmin}"
+                Spacing="{DynamicResource SpacingSmall}">
                 <ImageButton
                     x:Name="rouageImageButton"
                     AutomationId="rouageImageButton"
@@ -84,7 +87,7 @@
             ios:Picker.UpdateMode="WhenFinished"
             AutomationId="criterePicker"
             HorizontalOptions="Start"
-            IsEnabled="{isAdmin}"
+            IsVisible="{Binding groupe.isAdmin}"
             ItemsSource="{Binding criteres}"
             SelectedItem="{Binding critere}">
             <Picker.Behaviors>
