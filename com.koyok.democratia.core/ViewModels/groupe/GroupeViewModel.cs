@@ -66,18 +66,19 @@ namespace com.koyok.democratia.UI.groupe
             List<Proposition> propositionsListe = propositionRepository.RecuprerInformationConnexion<Proposition>(response)!;
             response = await groupRepository.GetJointureThemeEtGroupeAsync(groupe!.idGroupe)!;          
             List<Thematique> thematiquesListe = groupRepository.RecuprerInformationConnexion<Thematique>(response)!;
-            propositions.Clear();
-            thematiques.Clear();
-            propositionsListe.ForEach(p => {
-                p.jourDiscussion = (int)groupe.nombreDeJourDiscuss!;
-                propositions.Add(p);
-            });
-            thematiquesListe.ForEach(t => thematiques.Add(t) );
-
+            propositions.RemplacerElements(propositionsListe, p => p.jourDiscussion = (int)groupe.nombreDeJourDiscuss!);
+            thematiques.RemplacerElements(thematiquesListe);
         }
 
         [RelayCommand]
         private async Task OuvrirPropositionAsync(Proposition proposition)
+        {
+            ShellNavigationQueryParameters parameters = new() { { "proposition", proposition } };
+            await Shell.Current?.GoToAsync("PropositionPage", parameters)!;
+        }
+
+        [RelayCommand]
+        private async Task OuvrirDetailPropositionAsync(Thematique thematique)
         {
             throw new NotImplementedException();
         }

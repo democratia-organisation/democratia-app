@@ -103,7 +103,10 @@
             UpdateElementsCommand="{Binding UpdateListCommand}">
             <comp:RefreshView.ItemTemplate>
                 <DataTemplate>
-                    <groupeComp:PropositionCard EnableLoupe="{Binding groupe.isAdmin}" OpenCommand="{Binding OuvrirPropositionCommand}" />
+                    <groupeComp:PropositionCard
+                        EnableLoupe="{Binding groupe.isAdmin}"
+                        OpenCommand="{Binding BindingContext.OuvrirPropositionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                        OpenDetailCommand="{Binding BindingContext.OuvrirDetailPropositionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
                 </DataTemplate>
             </comp:RefreshView.ItemTemplate>
         </comp:RefreshView>

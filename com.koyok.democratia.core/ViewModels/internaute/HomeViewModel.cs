@@ -21,7 +21,7 @@ namespace com.koyok.democratia.UI.internaute
         private int cursor = 0;
 
         [ObservableProperty]
-        public partial ObservableCollection<Tuple<Groupe, string, ICommand>> groupes { get; set; } = [];
+        public partial ObservableCollection<Groupe> groupes { get; set; } = [];
 
         [ObservableProperty]
         public partial bool isRefreshing { get; set; } = false;
@@ -45,7 +45,7 @@ namespace com.koyok.democratia.UI.internaute
         [RelayCommand]
         private async Task InitializeAsync()
         {
-            var jsonString = string.Empty;
+            string jsonString;
             try
             { jsonString = await repository.GetModelAsync(internaute!)!; }
             catch (Exception)
@@ -55,17 +55,16 @@ namespace com.koyok.democratia.UI.internaute
             groupes.Clear();
             foreach (var groupe in listeInformation)
             {
-                string? image = await useCase.GetImageAsync(groupe.image!);
-                groupes.Add(new Tuple<Groupe, string, ICommand>(groupe, image!, OpenGroupCommand));
+                groupe.image = await useCase.GetImageAsync(groupe.image!);
+                groupes.Add(groupe);
             }
         }
 
         [RelayCommand]
-        private async Task OpenGroup(Tuple<Groupe, string, ICommand> tuple)
+        private async Task OpenGroup(Groupe groupe)
         {
-            var parameters = new ShellNavigationQueryParameters { { "groupe", tuple.Item1! }, { "Image", tuple.Item2! }, { "modele", internaute! } };
-            Shell.Current.AppContext.Groupe = tuple.Item1;
-            Shell.Current.AppContext.ImageSourceGroupe = tuple.Item2;
+            var parameters = new ShellNavigationQueryParameters { { "groupe", groupe }, { "Image", groupe.image! }, { "modele", internaute! } };
+            Shell.Current.AppContext.Groupe = groupe;
             await Shell.Current?.GoToAsync("GroupePage", parameters)!;
         }
 

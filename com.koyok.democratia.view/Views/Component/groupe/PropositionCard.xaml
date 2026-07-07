@@ -3,13 +3,14 @@
     x:Class="com.koyok.democratia.UI.Component.groupe.PropositionCard"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:models="clr-namespace:com.koyok.democratia.Domain.Models;assembly=com.koyok.democratia.core"
-    xmlns:viewModels="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia.core"
     x:Name="this"
     x:DataType="models:Proposition"
     Style="{DynamicResource ContenViewStyle}">
     <VerticalStackLayout x:Name="mainLayout">
+        <VerticalStackLayout.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding OpenCommand, Source={x:Reference this}}" CommandParameter="{Binding .}" />
+        </VerticalStackLayout.GestureRecognizers>
         <Label
             x:Name="titreLabel"
             AutomationId="titreLabel"
@@ -31,7 +32,7 @@
                 x:Name="loupePropositionImageButton"
                 Grid.Column="1"
                 AutomationId="loupePropositionImageButton"
-                Command="{Binding OpenCommand, Source={x:Reference this}}"
+                Command="{Binding OpenDetailCommand, Source={x:Reference this}}"
                 CommandParameter="{Binding .}"
                 HeightRequest="30"
                 HorizontalOptions="End"

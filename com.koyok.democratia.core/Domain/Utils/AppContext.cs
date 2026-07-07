@@ -41,17 +41,6 @@ namespace com.koyok.democratia.Domain.Utils
             }
         }
 
-        private string? imageSourceGroupe;
-        public string? ImageSourceGroupe
-        {
-            get => imageSourceGroupe;
-            set
-            {
-                imageSourceGroupe = value;
-                OnPropertyChanged(nameof(imageSourceGroupe));
-            }
-        }
-
         private void OnPropertyChanged([CallerMemberName] string prop = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 

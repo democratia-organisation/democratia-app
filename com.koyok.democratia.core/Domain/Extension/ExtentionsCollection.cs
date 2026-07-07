@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
+using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Reflection;
 
@@ -44,9 +45,51 @@ namespace com.koyok.democratia.Domain.Extension
             public static void CloneHeader(HttpHeaders source, HttpHeaders destination)
             {
                 foreach (var header in source)
-                {
                     destination.TryAddWithoutValidation(header.Key, header.Value);
-                }
+            }
+        }
+
+        //
+        // Résumé :
+        //     Remplace les éléments de la collection
+        //
+        // Paramètres :
+        //   newElements:
+        //     Les nouveaux éléments à ajouter.
+        //
+        //   customAdding:
+        //     Une action à exécuter pour chaque élément ajouté
+        //     Pas besoin d'appeller Add pour ajouter l'élément.
+
+        public static void RemplacerElements<T>(this ObservableCollection<T> models, IEnumerable<T> newElements, Action<T>? customAdding = null)
+        {
+            models.Clear();
+            foreach (var item in newElements)
+            {
+                customAdding?.Invoke(item);
+                models.Add(item);
+            }
+        }
+
+        //
+        // Résumé :
+        //     Remplace les éléments de la collection
+        //
+        // Paramètres :
+        //   newElements:
+        //     Les nouveaux éléments à ajouter.
+        //
+        //   customAdding:
+        //     Une action asynchrone à exécuter pour chaque élément ajouté
+        //     Pas besoin d'appeller Add pour ajouter l'élément.
+
+        public static async Task RemplacerElementsAsync<T>(this ObservableCollection<T> models, IEnumerable<T> newElements, Func<T, Task>? customAdding = null)
+        {
+            models.Clear();
+            foreach (var item in newElements)
+            {
+                await customAdding?.Invoke(item)!;
+                models.Add(item);
             }
         }
 
@@ -60,8 +103,6 @@ namespace com.koyok.democratia.Domain.Extension
                 return builder;
             }
         }
-
-
 
         extension(IServiceCollection services)
         {
@@ -152,6 +193,5 @@ namespace com.koyok.democratia.Domain.Extension
         {
             public Utils.AppContext AppContext => appContext;
         }
-
     }
 }

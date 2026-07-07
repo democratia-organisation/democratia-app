@@ -9,8 +9,7 @@ using com.koyok.democratia.Domain.Extension;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class DeuxiemePageViewModel() 
-        : ObservableObject, INotifyPropertyChanged, IQueryAttributable
+    public partial class DeuxiemePageViewModel : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         private Groupe? groupe;
         [ObservableProperty] public partial Color? couleur { get; set; } = Colors.Transparent;

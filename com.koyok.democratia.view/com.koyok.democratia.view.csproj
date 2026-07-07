@@ -199,6 +199,9 @@
     <MauiXaml Update="Views\groupe\Parametre.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\groupe\PropositionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

@@ -103,12 +103,11 @@ namespace com.koyok.democratia.Domain.Extension
                 services.AddTransient<HomeViewModel>();
                 services.AddTransient<HomeGestionViewModel>();
                 services.AddTransient<PremiereCreationViewModel>();
-                services.AddTransient<DeuxiemePageViewModel>();
                 services.AddTransient<TroisiemeCreationViewModel>();
                 services.AddTransient<GroupeViewModel>();
                 services.AddTransient<ModifierGestionViewModel>();
                 services.AddTransient<PreferenceViewModel>();
-                services.AddTransient<DecideurViewModel>();
+                services.AddTransient<PropositionViewModel>();
 
                 return services;
             }
