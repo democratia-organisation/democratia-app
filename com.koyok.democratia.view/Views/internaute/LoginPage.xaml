@@ -78,7 +78,6 @@
             AutomationId="seConnecterButton"
             Command="{Binding NavigateTappedCommand}"
             CommandParameter="/HomePage"
-            Style="{DynamicResource ButtonStyle}"
             Text="{x:Static lang:AppResources.connecter}"
             VerticalOptions="End" />
     </VerticalStackLayout>

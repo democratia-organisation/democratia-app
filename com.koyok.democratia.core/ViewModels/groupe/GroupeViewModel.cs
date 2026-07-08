@@ -21,6 +21,8 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty] public partial List<Critere> criteres { get; set; } = [Critere.PRIX, Critere.POPULARITE, Critere.REACTIONS];
         [ObservableProperty] public partial Critere critere { get; set; }
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
+        [ObservableProperty] public partial ComplexFilterEnum complexFilter { get; set; }
+
         private readonly IPropositionRepository propositionRepository;
         private readonly IGroupeRepository groupRepository;
         private readonly ClassementPropositionUseCase useCase;
@@ -44,8 +46,23 @@ namespace com.koyok.democratia.UI.groupe
         private void ClasserPropositions() 
         {
             var propositionsClasser = useCase.Classer(critere);
-            propositions.Clear();
-            propositionsClasser.ForEach(p => propositions.Add(p));
+            propositions.RemplacerElements(propositionsClasser);
+        }
+
+        [RelayCommand]
+        private void FiltrerPropositions()
+        {
+            // TODO : déléguer cette tâche au useCase
+            switch (complexFilter)
+            {
+                case ComplexFilterEnum.UnParThematique :
+                    break;
+                case ComplexFilterEnum.MinbudgetMaxSatistaction:
+                    break;
+                case ComplexFilterEnum.MaxNombreVoteMinBudget:
+                    break;
+            }
+
         }
 
         [RelayCommand]
@@ -78,7 +95,7 @@ namespace com.koyok.democratia.UI.groupe
         }
 
         [RelayCommand]
-        private async Task OuvrirDetailPropositionAsync(Thematique thematique)
+        private async Task OuvrirDetailPropositionAsync(Proposition proposition)
         {
             throw new NotImplementedException();
         }

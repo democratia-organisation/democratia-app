@@ -1,40 +1,39 @@
-using com.koyok.democratia.Services;
-
-namespace com.koyok.democratia.test;
-
-public static class TestServiceCollection
+namespace com.koyok.democratia.test
 {
-    public static IServiceProvider CreateTestServiceProviderForMainViewModel()
+    public static class TestServiceCollection
     {
-        var services = new ServiceCollection();
+        public static IServiceProvider CreateTestServiceProviderForMainViewModel()
+        {
+            var services = new ServiceCollection();
 
-        
-        return services.BuildServiceProvider();
-    }
 
-    public static IServiceProvider CreateTestServiceProviderForCreationViewModel()
-    {
-        var services = new ServiceCollection();
+            return services.BuildServiceProvider();
+        }
 
-        return services.BuildServiceProvider();
-    }
+        public static IServiceProvider CreateTestServiceProviderForCreationViewModel()
+        {
+            var services = new ServiceCollection();
 
-    public static IServiceProvider CreateFakeServiceProviderForMainViewModel(string? fakeResponse)
-    {
-        var services = new ServiceCollection();
+            return services.BuildServiceProvider();
+        }
 
-        
-        return services.BuildServiceProvider();
-    }
+        public static IServiceProvider CreateFakeServiceProviderForMainViewModel(string? fakeResponse)
+        {
+            var services = new ServiceCollection();
 
-    public static void CreateInternauteServiceProviderForClientTest(IServiceProvider sp)
-    {
-        var services = new ServiceCollection();
-        
 
-    }
+            return services.BuildServiceProvider();
+        }
 
-    public static void CreateTestServiceProviderForClients()
-    {
+        public static void CreateInternauteServiceProviderForClientTest(IServiceProvider sp)
+        {
+            var services = new ServiceCollection();
+
+
+        }
+
+        public static void CreateTestServiceProviderForClients()
+        {
+        }
     }
 }

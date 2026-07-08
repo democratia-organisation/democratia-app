@@ -394,6 +394,24 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Filtre des propositions.
+        /// </summary>
+        public static string filtre {
+            get {
+                return ResourceManager.GetString("filtre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Filtrer.
+        /// </summary>
+        public static string filtrer {
+            get {
+                return ResourceManager.GetString("filtrer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à La discussion prend fin le .
         /// </summary>
         public static string finDiscussion {

@@ -4,8 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:com.koyok.democratia.UI.Component"
+    xmlns:extension="clr-namespace:com.koyok.democratia.Domain.Extension;assembly=com.koyok.democratia.core"
     xmlns:groupeComp="clr-namespace:com.koyok.democratia.UI.Component.groupe"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:models="clr-namespace:com.koyok.democratia.Domain.Models;assembly=com.koyok.democratia.core"
     xmlns:res="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -13,13 +15,11 @@
     Title="{Binding groupe.nomGroupe}"
     x:DataType="viewModel:GroupeViewModel"
     Style="{DynamicResource fondEcran}">
-
     <Grid
         x:Name="mainGrille"
         Padding="10"
         RowDefinitions="Auto, Auto, Auto, *, Auto"
         RowSpacing="{DynamicResource SpacingSmall}">
-
 
         <Image
             x:Name="groupeImage"
@@ -43,7 +43,6 @@
                 Command="{Binding NavigateTappedCommand}"
                 CommandParameter="Membre"
                 HeightRequest="{DynamicResource SpacingLarge}"
-                HorizontalOptions="Start"
                 Source="groupe.png"
                 WidthRequest="{DynamicResource SpacingLarge}" />
 
@@ -51,8 +50,6 @@
                 x:Name="nomGroupeLabel"
                 Grid.Column="1"
                 AutomationId="nomGroupeLabel"
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
                 Style="{DynamicResource SubHeadlineStyle}"
                 Text="{Binding groupe.nomGroupe}"
                 VerticalOptions="Center" />
@@ -80,20 +77,57 @@
             </HorizontalStackLayout>
         </Grid>
 
-        <Picker
-            x:Name="criterePicker"
-            Title="{x:Static res:AppResources.critere}"
+        <HorizontalStackLayout
             Grid.Row="2"
-            ios:Picker.UpdateMode="WhenFinished"
-            AutomationId="criterePicker"
             HorizontalOptions="Start"
-            IsVisible="{Binding groupe.isAdmin}"
-            ItemsSource="{Binding criteres}"
-            SelectedItem="{Binding critere}">
-            <Picker.Behaviors>
-                <toolkit:EventToCommandBehavior Command="{Binding ClasserPropositionsCommand}" EventName="SelectedIndexChanged" />
-            </Picker.Behaviors>
-        </Picker>
+            Spacing="{DynamicResource SpacingMedium}">
+            <Picker
+                x:Name="criterePicker"
+                Title="{x:Static res:AppResources.critere}"
+                Grid.Column="0"
+                ios:Picker.UpdateMode="WhenFinished"
+                AutomationId="criterePicker"
+                ItemsSource="{Binding criteres}"
+                SelectedItem="{Binding critere}">
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior Command="{Binding ClasserPropositionsCommand}" EventName="SelectedIndexChanged" />
+                </Picker.Behaviors>
+            </Picker>
+            <VerticalStackLayout Grid.Column="1" IsVisible="{Binding groupe.isAdmin}">
+                <Label
+                    HorizontalOptions="Center"
+                    Style="{DynamicResource SubHeadlineStyle}"
+                    Text="{x:Static lang:AppResources.filtre}" />
+                <HorizontalStackLayout
+                    RadioButtonGroup.GroupName="FilterGroup"
+                    RadioButtonGroup.SelectedValue="{Binding complexFilter}"
+                    Spacing="{DynamicResource SpacingSmall}">
+                    <RadioButton
+                        x:Name="radioButtonAll"
+                        AutomationId="radioButtonAll"
+                        Content="{x:Static lang:AppResources.Langage}"
+                        Value="{extension:ComplexFilter Texte='MinbudgetMaxSatistaction'}" />
+                    <RadioButton
+                        x:Name="radioButtonMaxi"
+                        AutomationId="radioButtonMaxi"
+                        Content="{x:Static lang:AppResources.Langage}"
+                        Value="{extension:ComplexFilter Texte='UnParThematique'}" />
+                    <RadioButton
+                        x:Name="radioButtonMini"
+                        AutomationId="radioButtonMini"
+                        Content="{x:Static lang:AppResources.Langage}"
+                        Value="{extension:ComplexFilter Texte='MaxNombreVoteMinBudget'}" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <Button
+                x:Name="filterButton"
+                AutomationId="filterButton"
+                Command="{Binding FiltrerPropositionsCommand}"
+                HeightRequest="{DynamicResource SpacingMedium}"
+                IsVisible="{Binding groupe.isAdmin}"
+                Text="{x:Static lang:AppResources.filtrer}"
+                WidthRequest="{DynamicResource SpacingExtraLarge}" />
+        </HorizontalStackLayout>
 
         <comp:RefreshView
             Grid.Row="3"
@@ -117,7 +151,6 @@
             AutomationId="nouvellePropositionButton"
             Command="{Binding NavigateTappedCommand}"
             CommandParameter="NouvelleProposition"
-            Style="{DynamicResource ButtonStyle}"
             Text="{x:Static res:AppResources.nouvellProp}"
             VerticalOptions="End" />
     </Grid>

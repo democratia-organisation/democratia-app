@@ -1,10 +1,12 @@
 ﻿using com.koyok.democratia.Data.Repository;
+using com.koyok.democratia.Domain.Enumerations;
 using com.koyok.democratia.Domain.Extension.DelegatesHandler;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
 using System.Collections.ObjectModel;
@@ -192,6 +194,29 @@ namespace com.koyok.democratia.Domain.Extension
         extension(Shell shell)
         {
             public Utils.AppContext AppContext => appContext;
+        }
+    }
+
+    public class ComplexFilter(string texte) : IMarkupExtension<ComplexFilterEnum>
+    {
+
+        public string Texte { get; set; } = texte;
+        public object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return ((IMarkupExtension<ComplexFilterEnum>)this).ProvideValue(serviceProvider);
+        }
+
+        public ComplexFilter() : this(string.Empty) { }
+
+        ComplexFilterEnum IMarkupExtension<ComplexFilterEnum>.ProvideValue(IServiceProvider serviceProvider)
+        {
+
+            if (string.IsNullOrWhiteSpace(Texte))
+                return ComplexFilterEnum.UnParThematique;
+            if (Enum.TryParse<ComplexFilterEnum>(Texte, false, out var result))
+                return result;
+
+            return ComplexFilterEnum.UnParThematique;
         }
     }
 }

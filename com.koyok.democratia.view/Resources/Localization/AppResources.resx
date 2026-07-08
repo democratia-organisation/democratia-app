@@ -390,4 +390,10 @@
   <data name="DetailBusy" xml:space="preserve">
     <value>Le serveur est actuellement surchargé, veuillez réessayer dans {0} secondes</value>
   </data>
+  <data name="filtre" xml:space="preserve">
+    <value>Filtre des propositions</value>
+  </data>
+  <data name="filtrer" xml:space="preserve">
+    <value>Filtrer</value>
+  </data>
 </root>

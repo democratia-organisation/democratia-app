@@ -1,10 +1,10 @@
-﻿using com.koyok.democratia.UI.internaute.gestionCompte;
+﻿using com.koyok.democratia.UI.internaute.CreerGroupe;
 
 namespace com.koyok.democratia.test.ViewModels.internaute.gestionCompte
 {
     public class CreationViewModelTest
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceProvider? _serviceProvider;
         
         public CreationViewModelTest()
         {

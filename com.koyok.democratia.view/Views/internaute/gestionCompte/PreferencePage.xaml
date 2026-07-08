@@ -50,7 +50,6 @@
             AutomationId="terminerButton"
             Command="{Binding NavigateTappedCommand}"
             CommandParameter="HomePage"
-            Style="{DynamicResource ButtonStyle}"
             Text="{x:Static lang:AppResources.terminer}" />
     </VerticalStackLayout>
 </ContentPage>

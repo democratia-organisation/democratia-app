@@ -390,4 +390,10 @@
   <data name="DetailBusy" xml:space="preserve">
     <value>The server is currently overused, please come back in {0} secondes.</value>
   </data>
+  <data name="filtre" xml:space="preserve">
+    <value>Proposition filter</value>
+  </data>
+  <data name="filtrer" xml:space="preserve">
+    <value>Filter</value>
+  </data>
 </root>

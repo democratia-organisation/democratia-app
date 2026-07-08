@@ -43,7 +43,6 @@
             x:Name="actionButton"
             AutomationId="actionButton"
             Command="{Binding ActionTappedCommand, Source={x:Reference this}}"
-            Style="{DynamicResource ButtonStyle}"
             Text="{Binding TextAction, Source={x:Reference this}}" />
     </VerticalStackLayout>
 </ContentView>

@@ -19,7 +19,6 @@
             Command="{Binding Command, Source={x:Reference this}}"
             CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"
             HorizontalOptions="Center"
-            Style="{StaticResource ButtonStyle}"
             Text="{Binding ButtonText, Source={x:Reference this}}"
             VerticalOptions="Center" />
     </StackLayout>

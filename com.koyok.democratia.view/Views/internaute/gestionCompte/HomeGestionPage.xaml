@@ -30,26 +30,22 @@
                     AutomationId="modifierButton"
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="ModifierGestionPage"
-                    Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.ModifCompte}" />
                 <Button
                     x:Name="supprimerButton"
                     AutomationId="supprimerButton"
                     Command="{Binding ActionInternauteCommand}"
-                    Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.SuppCompte}" />
                 <Button
                     x:Name="preferenceButton"
                     AutomationId="preferenceButton"
                     Command="{Binding NavigateTappedCommand}"
                     CommandParameter="PreferencePage"
-                    Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.preference}" />
                 <Button
                     x:Name="deconnexionButton"
                     AutomationId="deconnexionButton"
                     Command="{Binding DeconnexionCommand}"
-                    Style="{DynamicResource ButtonStyle}"
                     Text="{x:Static lang:AppResources.messageDeconexion}" />
             </StackLayout>
         </Grid>

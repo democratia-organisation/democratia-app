@@ -118,7 +118,6 @@
                 AutomationId="nextFirstPageButton"
                 Command="{Binding NavigateTappedCommand}"
                 CommandParameter="DeuxiemeCreationPage"
-                Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.suivant}" />
         </VerticalStackLayout>
     </ScrollView>
