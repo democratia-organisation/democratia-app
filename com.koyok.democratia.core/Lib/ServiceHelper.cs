@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace com.koyok.democratia.Domain.Service
+namespace com.koyok.democratia.Lib
 {
     /// <summary>
     /// classe qui permet d'avoir les dépendances injectés dans tout l'assembly com.koyok.democratia.view

@@ -2,7 +2,7 @@
 using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
-using com.koyok.democratia.Domain.Enumerations;
+using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;

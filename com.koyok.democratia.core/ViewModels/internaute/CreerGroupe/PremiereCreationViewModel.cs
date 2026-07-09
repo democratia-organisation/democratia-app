@@ -5,11 +5,11 @@ using Microsoft.Maui.Graphics;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.Domain.Extension.Comparer;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
+using com.koyok.democratia.Lib;
 
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe

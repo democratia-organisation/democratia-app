@@ -5,9 +5,9 @@ using System.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {

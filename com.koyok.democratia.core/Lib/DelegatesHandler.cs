@@ -1,5 +1,6 @@
-﻿using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Extension;
 using Microsoft.Maui.Storage;
 using System.Net;
 using System.Net.Http.Headers;
@@ -7,7 +8,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 
-namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
+namespace com.koyok.democratia.Lib
 {
     
     public class AuthentificationHandler(IHttpClientFactory factory) : DelegatingHandler

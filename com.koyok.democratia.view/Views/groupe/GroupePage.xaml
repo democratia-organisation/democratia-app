@@ -4,10 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:com.koyok.democratia.UI.Component"
-    xmlns:extension="clr-namespace:com.koyok.democratia.Domain.Extension;assembly=com.koyok.democratia.core"
+    xmlns:enum="clr-namespace:com.koyok.democratia.Lib;assembly=com.koyok.democratia.core"
     xmlns:groupeComp="clr-namespace:com.koyok.democratia.UI.Component.groupe"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
+    xmlns:lib="clr-namespace:com.koyok.democratia.Lib;assembly=com.koyok.democratia.core"
     xmlns:models="clr-namespace:com.koyok.democratia.Domain.Models;assembly=com.koyok.democratia.core"
     xmlns:res="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -103,20 +104,20 @@
                     RadioButtonGroup.SelectedValue="{Binding complexFilter}"
                     Spacing="{DynamicResource SpacingSmall}">
                     <RadioButton
-                        x:Name="radioButtonAll"
-                        AutomationId="radioButtonAll"
-                        Content="{x:Static lang:AppResources.Langage}"
-                        Value="{extension:ComplexFilter Texte='MinbudgetMaxSatistaction'}" />
+                        x:Name="radioButtonMaxSatisfactionMinBudget"
+                        AutomationId="radioButtonMaxSatisfactionMinBudget"
+                        Content="{x:Static lang:AppResources.MaxsatisfactionMinBudget}"
+                        Value="{x:Static enum:ComplexFilterEnum.MaxSatisfactionMinBudget}" />
                     <RadioButton
-                        x:Name="radioButtonMaxi"
-                        AutomationId="radioButtonMaxi"
-                        Content="{x:Static lang:AppResources.Langage}"
-                        Value="{extension:ComplexFilter Texte='UnParThematique'}" />
+                        x:Name="radioButtonPlusGrandeSatisfactionTheme"
+                        AutomationId="radioButtonPlusGrandeSatisfactionTheme"
+                        Content="{x:Static lang:AppResources.satisfactionTheme}"
+                        Value="{x:Static enum:ComplexFilterEnum.PlusGrandeSatisfactionTheme}" />
                     <RadioButton
-                        x:Name="radioButtonMini"
-                        AutomationId="radioButtonMini"
-                        Content="{x:Static lang:AppResources.Langage}"
-                        Value="{extension:ComplexFilter Texte='MaxNombreVoteMinBudget'}" />
+                        x:Name="radioButtonPropositionsTheme"
+                        AutomationId="radioButtonPropositionsTheme"
+                        Content="{x:Static lang:AppResources.pluspropotheme}"
+                        Value="{x:Static enum:ComplexFilterEnum.PlusPropositionsTheme}" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
             <Button

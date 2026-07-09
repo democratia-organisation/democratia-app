@@ -396,4 +396,13 @@
   <data name="filtrer" xml:space="preserve">
     <value>Filtrer</value>
   </data>
+  <data name="pluspropotheme" xml:space="preserve">
+    <value>Plus de propositions par thématique</value>
+  </data>
+  <data name="satisfactionTheme" xml:space="preserve">
+    <value>La plus grande satisfaction de chaque thématique</value>
+  </data>
+  <data name="MaxsatisfactionMinBudget" xml:space="preserve">
+    <value>Maximisation satisfaction et minimisation budget</value>
+  </data>
 </root>

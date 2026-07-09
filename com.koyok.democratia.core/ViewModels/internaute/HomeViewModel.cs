@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Input;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.UseCase;
 

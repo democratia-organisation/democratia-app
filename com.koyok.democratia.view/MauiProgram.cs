@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Diagnostics;
 using System.Text;
-using com.koyok.democratia.Domain.Extension;
-using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Extension;
+using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.view.Resources.Localization;
 
@@ -47,7 +47,7 @@ namespace com.koyok.democratia
            
             var app = builder.Build();
             ServiceHelper.Initialize(app.Services);
-            Domain.Service.ServiceHelper.Initialize(app.Services);
+            Lib.ServiceHelper.Initialize(app.Services);
             
             return app;
 

@@ -3,7 +3,7 @@ using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 using com.koyok.democratia.Domain.Models;
 using System.Text.Json;
 using Xunit.Abstractions;

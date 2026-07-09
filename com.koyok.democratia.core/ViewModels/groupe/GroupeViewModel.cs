@@ -1,11 +1,11 @@
-﻿using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 using System.ComponentModel;
 using com.koyok.democratia.Domain.UseCase;
 
@@ -55,11 +55,11 @@ namespace com.koyok.democratia.UI.groupe
             // TODO : déléguer cette tâche au useCase
             switch (complexFilter)
             {
-                case ComplexFilterEnum.UnParThematique :
+                case ComplexFilterEnum.MaxSatisfactionMinBudget :
                     break;
-                case ComplexFilterEnum.MinbudgetMaxSatistaction:
+                case ComplexFilterEnum.PlusGrandeSatisfactionTheme:
                     break;
-                case ComplexFilterEnum.MaxNombreVoteMinBudget:
+                case ComplexFilterEnum.PlusPropositionsTheme:
                     break;
             }
 

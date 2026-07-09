@@ -17,7 +17,7 @@ namespace com.koyok.democratia.UI.Component
 
         private async Task AnimationChargement()
         {
-            while (true)
+            while (IsVisible)
             {
                 uint vitesse = 1500;
                 await Task.WhenAll(

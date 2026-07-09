@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<EnablePreviewFeatures>true</EnablePreviewFeatures>
     <Nullable>enable</Nullable>
-    <OutputType Condition="'$(TargetFramework)' == 'net9.0'">Library</OutputType>
+    <OutputType Condition="'$(TargetFramework)' == 'net10.0'">Library</OutputType>
     <LangVersion>preview</LangVersion>
     <UserSecretsId>0452b56d-7166-4094-b79e-a730793fb934</UserSecretsId>
   </PropertyGroup>
@@ -34,5 +34,8 @@
     <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <InternalsVisibleTo Include="com.koyok.democratia.Test" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Lib\" />
   </ItemGroup>
 </Project>

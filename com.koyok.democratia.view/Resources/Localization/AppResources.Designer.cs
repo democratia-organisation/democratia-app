@@ -538,6 +538,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Maximisation satisfaction et minimisation budget.
+        /// </summary>
+        public static string MaxsatisfactionMinBudget {
+            get {
+                return ResourceManager.GetString("MaxsatisfactionMinBudget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Mot de passe.
         /// </summary>
         public static string Mdp {
@@ -673,6 +682,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Plus de propositions par thématique.
+        /// </summary>
+        public static string pluspropotheme {
+            get {
+                return ResourceManager.GetString("pluspropotheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à popularite.
         /// </summary>
         public static string Popularite {
@@ -741,6 +759,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string retourHome {
             get {
                 return ResourceManager.GetString("retourHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à La plus grande satisfaction de chaque thématique.
+        /// </summary>
+        public static string satisfactionTheme {
+            get {
+                return ResourceManager.GetString("satisfactionTheme", resourceCulture);
             }
         }
         

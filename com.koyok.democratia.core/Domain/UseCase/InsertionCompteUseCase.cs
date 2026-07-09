@@ -1,4 +1,4 @@
-﻿using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;

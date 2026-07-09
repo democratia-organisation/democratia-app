@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls.Xaml;
-
-namespace com.koyok.democratia.Domain.Enumerations
+﻿namespace com.koyok.democratia.Lib
 {
     public enum Critere
     {
@@ -39,8 +37,8 @@ namespace com.koyok.democratia.Domain.Enumerations
     }
     public enum ComplexFilterEnum
     {
-        MinbudgetMaxSatistaction,
-        UnParThematique,
-        MaxNombreVoteMinBudget
+        PlusPropositionsTheme,
+        PlusGrandeSatisfactionTheme,
+        MaxSatisfactionMinBudget
     }
 }

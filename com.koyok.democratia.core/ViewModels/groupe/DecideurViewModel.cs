@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 
 namespace com.koyok.democratia.UI.groupe
 {

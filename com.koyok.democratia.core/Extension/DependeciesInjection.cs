@@ -2,9 +2,6 @@
 using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
-using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.Domain.Extension.DelegatesHandler;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.UseCase;
 using com.koyok.democratia.UI;
@@ -14,7 +11,7 @@ using com.koyok.democratia.UI.internaute.CreerGroupe;
 using com.koyok.democratia.UI.internaute.gestionCompte;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace com.koyok.democratia.Domain.Extension
+namespace com.koyok.democratia.Extension
 {
     public static class DependeciesInjection
     {

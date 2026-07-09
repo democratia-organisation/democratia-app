@@ -1,19 +1,17 @@
-﻿using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.Domain.Enumerations;
-using com.koyok.democratia.Domain.Extension.DelegatesHandler;
+﻿using com.koyok.democratia.Lib;
+using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Lib;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Reflection;
 
-namespace com.koyok.democratia.Domain.Extension
+namespace com.koyok.democratia.Extension
 {
     public static class ExtentionsCollection
     {
@@ -51,18 +49,15 @@ namespace com.koyok.democratia.Domain.Extension
             }
         }
 
-        //
-        // Résumé :
-        //     Remplace les éléments de la collection
-        //
-        // Paramètres :
-        //   newElements:
-        //     Les nouveaux éléments à ajouter.
-        //
-        //   customAdding:
-        //     Une action à exécuter pour chaque élément ajouté
-        //     Pas besoin d'appeller Add pour ajouter l'élément.
-
+        /// <summary>
+        /// Remplace les éléments de la collection
+        /// </summary>
+        /// <typeparam name="T">la classe des éléments de la collection</typeparam>
+        /// <param name="models">this</param>
+        /// <param name="newElements">Les nouveaux éléments à ajouter.</param>
+        /// <param name="customAdding">Une action à exécuter pour chaque élément ajouté. 
+        /// Pas besoin d'appeller Add pour ajouter l'élément.
+        /// </param>
         public static void RemplacerElements<T>(this ObservableCollection<T> models, IEnumerable<T> newElements, Action<T>? customAdding = null)
         {
             models.Clear();
@@ -73,18 +68,16 @@ namespace com.koyok.democratia.Domain.Extension
             }
         }
 
-        //
-        // Résumé :
-        //     Remplace les éléments de la collection
-        //
-        // Paramètres :
-        //   newElements:
-        //     Les nouveaux éléments à ajouter.
-        //
-        //   customAdding:
-        //     Une action asynchrone à exécuter pour chaque élément ajouté
-        //     Pas besoin d'appeller Add pour ajouter l'élément.
-
+        /// <summary>
+        /// Remplace les éléments de la collection
+        /// </summary>
+        /// <typeparam name="T">la classe des éléments de la collection</typeparam>
+        /// <param name="models">this</param>
+        /// <param name="newElements">Les nouveaux éléments à ajouter.</param>
+        /// <param name="customAdding">Une fonction asynchrone à exécuter pour chaque élément ajouté. 
+        /// Pas besoin d'appeller Add pour ajouter l'élément.
+        /// </param>
+        /// <returns>la tâche asynchrone</returns>
         public static async Task RemplacerElementsAsync<T>(this ObservableCollection<T> models, IEnumerable<T> newElements, Func<T, Task>? customAdding = null)
         {
             models.Clear();
@@ -189,34 +182,11 @@ namespace com.koyok.democratia.Domain.Extension
 
     public static class ShellExtension
     {
-        private static Utils.AppContext appContext = new(new(ServiceHelper.GetService<ILocalizationService>()!));
+        private static Lib.AppContext appContext = new(new(ServiceHelper.GetService<ILocalizationService>()!));
 
         extension(Shell shell)
         {
-            public Utils.AppContext AppContext => appContext;
-        }
-    }
-
-    public class ComplexFilter(string texte) : IMarkupExtension<ComplexFilterEnum>
-    {
-
-        public string Texte { get; set; } = texte;
-        public object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return ((IMarkupExtension<ComplexFilterEnum>)this).ProvideValue(serviceProvider);
-        }
-
-        public ComplexFilter() : this(string.Empty) { }
-
-        ComplexFilterEnum IMarkupExtension<ComplexFilterEnum>.ProvideValue(IServiceProvider serviceProvider)
-        {
-
-            if (string.IsNullOrWhiteSpace(Texte))
-                return ComplexFilterEnum.UnParThematique;
-            if (Enum.TryParse<ComplexFilterEnum>(Texte, false, out var result))
-                return result;
-
-            return ComplexFilterEnum.UnParThematique;
+            public Lib.AppContext AppContext => appContext;
         }
     }
 }
