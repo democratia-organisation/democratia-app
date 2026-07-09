@@ -1,10 +1,9 @@
 ﻿using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
-using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace com.koyok.democratia.Domain.Utils
+namespace com.koyok.democratia.Lib
 {
 
     public partial record class AppContext(MapExceptionMessage mapper) : INotifyPropertyChanged
@@ -38,17 +37,6 @@ namespace com.koyok.democratia.Domain.Utils
             {
                 groupe = value;
                 OnPropertyChanged(nameof(groupe));
-            }
-        }
-
-        private ImageSource? imageSourceGroupe;
-        public ImageSource? ImageSourceGroupe
-        {
-            get => imageSourceGroupe;
-            set
-            {
-                imageSourceGroupe = value;
-                OnPropertyChanged(nameof(imageSourceGroupe));
             }
         }
 

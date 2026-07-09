@@ -9,7 +9,7 @@
             Routing.RegisterRoute($"{nameof(NouvelleProposition)}", typeof(NouvelleProposition));
             Routing.RegisterRoute($"{nameof(Parametre)}", typeof(Parametre));
             Routing.RegisterRoute($"{nameof(DecideurPage)}", typeof(DecideurPage));
+            Routing.RegisterRoute($"{nameof(PropositionPage)}", typeof(PropositionPage));
         }
-
     }
 }

@@ -3,9 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.Domain.Enumerations;
+using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.UseCase;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte

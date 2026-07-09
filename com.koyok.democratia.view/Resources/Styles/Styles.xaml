@@ -34,7 +34,7 @@
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Gray950}, Dark={DynamicResource Gray200}}" />
     </Style>
 
-    <Style x:Key="ButtonStyle" TargetType="Button">
+    <Style TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onPrimary}, Dark={DynamicResource Dark-onPrimary}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
@@ -136,7 +136,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="Black" />
+                            <Setter Property="TextColor" Value="{AppThemeBinding Dark={DynamicResource Dark-surfaceContainerLowest}, Light={DynamicResource Light-surfaceContainerLowest}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -282,20 +282,20 @@
         </Setter>
     </Style>
 
-    <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-primary}, Dark={DynamicResource Dark-primary}}" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onPrimary}, Dark={DynamicResource Dark-onPrimary}}" />
+    <Style TargetType="RadioButton">
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="MinimumHeightRequest" Value="44" />
-        <Setter Property="MinimumWidthRequest" Value="44" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
-                    <VisualState x:Name="Disabled">
+                <VisualStateGroup x:Name="CheckedStates">
+                    <VisualState x:Name="Checked">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray300}, Dark={DynamicResource Gray600}}" />
+                            <Setter Property="TextColor" Value="{AppThemeBinding Dark={DynamicResource Dark-tertiary}, Light={DynamicResource Light-tertiary}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Unchecked">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{AppThemeBinding Dark={DynamicResource Dark-primary}, Light={DynamicResource Light-primary}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

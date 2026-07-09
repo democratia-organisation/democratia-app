@@ -54,7 +54,6 @@
                 AutomationId="navigationButton"
                 Command="{Binding NavigateTappedCommand}"
                 CommandParameter="TroisiemeCreationPage"
-                Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.suivant}" />
         </VerticalStackLayout>
     </ScrollView>

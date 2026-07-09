@@ -30,7 +30,7 @@
             AutomationId="sloganLabel"
             Style="{DynamicResource SubHeadlineStyle}"
             Text="{x:Static lang:AppResources.slogan}" />
-        <Component:LoadingComponent Loading="{Binding loading}" />
+        <Component:LoadingComponent />
 
     </VerticalStackLayout>
 </ContentPage>

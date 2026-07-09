@@ -15,14 +15,24 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             var referenceMessenger = WeakReferenceMessenger.Default;
 
             referenceMessenger.Register<HomeGestionPage, HomeGestionViewModel.EventSuppression, string>
-                (this, HomeGestionViewModel.TypeEventSuppression.Send.ToString() ,(r, m) =>
+                (this, HomeGestionViewModel.SuceffulyEnum.Send.ToString() ,(r, m) =>
                     AjoutGrille(AppResources.mauvaiseNouvelle, AppResources.confirmeSupp, viewModel.SupprimerCompteCommand)
                 );
 
             referenceMessenger.Register<HomeGestionPage,HomeGestionViewModel.EventSuppression, string>
-                (this,HomeGestionViewModel.TypeEventSuppression.Sucess.ToString(),(r, m) =>
+                (this,HomeGestionViewModel.SuceffulyEnum.Sucess.ToString(),(r, m) =>
                     AjoutGrille(AppResources.bienSupp, AppResources.retourConnexion, viewModel.NavigateTappedCommand, "///MainPage")
                 );
+            referenceMessenger.Register<HomeGestionPage, HomeGestionViewModel.EventDeconnexion, string>
+                (this, HomeGestionViewModel.SuceffulyEnum.Send.ToString(),async (r, m) =>
+                {
+                    bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.deconnexion, AppResources.confirmDeconnexion, AppResources.oui, AppResources.non);
+                    if (souhaiteQuitter)
+                    {
+                        SecureStorage.Default.RemoveAll();
+                        Environment.Exit(0);
+                    }
+                });
         }
 
         private void AjoutGrille(string labelText, string buttonText, ICommand command, object? parameter = null)

@@ -1,4 +1,4 @@
-﻿using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
@@ -27,7 +27,7 @@ namespace com.koyok.democratia.Domain.UseCase
             }
             await SecureStorage.Default.SetAsync(SecureStorageKeys.IdInternaute.ToString(), adresseMail);
             await SecureStorage.Default.SetAsync(SecureStorageKeys.MotDePasseInternaute.ToString(), motDePasse);
-            string jsonString = await internauteRepository?.GetModelAsync(adresseMail)!;
+            string jsonString = await internauteRepository?.GetModelAsync(adresseMail, motDePasse)!;
             List<Internaute> listeInformation = internauteRepository.RecuprerInformationConnexion<Internaute>(jsonString);
             if (listeInformation.Count == 0) throw new NoUserException();
             var internaute = listeInformation[0];

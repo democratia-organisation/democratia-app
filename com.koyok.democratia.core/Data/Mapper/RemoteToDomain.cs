@@ -73,7 +73,7 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
                 remoteSource.budget,
                 remoteSource.nbj_dft_vote,
                 remoteSource.nbj_dft_discuss,
-                remoteSource.nb_signalement
+                remoteSource.nb_signalement,remoteSource.is_admin
             );
             return groupe as T;
         }

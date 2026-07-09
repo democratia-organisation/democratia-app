@@ -3,7 +3,7 @@ using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 using com.koyok.democratia.Domain.Models;
 using System.Text.Json;
 using Xunit.Abstractions;
@@ -17,6 +17,7 @@ namespace com.koyok.democratia.Data.Repository
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
+        public HttpClient Client => client!;
         protected ILocalSource localSource;
         protected IRemoteSource remoteSource;
         private IRemoteToDomain remoteToDomain;
@@ -65,7 +66,8 @@ namespace com.koyok.democratia.Data.Repository
 
                 return resultList;
             }
-            catch (Exception ex) { throw new FetchDataException(); }
+            catch (TooManyRequestException) { throw; }
+            catch (Exception) { throw new FetchDataException(); }
             
 
         }
@@ -102,7 +104,7 @@ namespace com.koyok.democratia.Data.Repository
         }
 
         // vouer à ne pas être implémenté ici mais dans les repositories qui en ont besoin
-        public virtual async Task<MemoryStream?> GetImageAsync(string? url) => new ();
+        public virtual Task<byte[]?> GetImageAsync(string? url) => throw new NotImplementedException();
         
 
         public virtual async Task<string> UploadImage(Guid? id, string filePath) => "";

@@ -2,7 +2,7 @@
 
 namespace com.koyok.democratia.Domain.Models
 {
-    public partial class Groupe(Guid? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement) : ObservableObject, IModel
+    public partial class Groupe(Guid? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement, bool? isAdmin) : ObservableObject, IModel
     {
 
         public Guid? idGroupe { get; set; } = idGroupe;
@@ -21,6 +21,9 @@ namespace com.koyok.democratia.Domain.Models
 
         public int? nombreSignalement { get; set; } = nombreSignalement;
 
+        [ObservableProperty]
+        public partial bool? isAdmin { get; set; } = isAdmin;
+
         // TODO : attente de plus ample calcul
         [ObservableProperty]
         public partial float  ratioUtilise { get; set; } = 0.5f;
@@ -28,6 +31,6 @@ namespace com.koyok.democratia.Domain.Models
         [ObservableProperty]
         public partial float ratioAttente { get; set; } = 0.7f;
 
-        public Groupe() : this(null,null,null,null,null,null,null,null) { }
+        public Groupe() : this(null,null,null,null,null,null,null,null, null) { }
     }
 }

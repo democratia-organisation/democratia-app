@@ -4,9 +4,10 @@ using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Diagnostics;
 using System.Text;
-using com.koyok.democratia.Domain.Extension;
-using com.koyok.democratia.Domain.Service;
-using com.koyok.democratia.Domain.Enumerations;
+using com.koyok.democratia.Extension;
+using com.koyok.democratia.Lib;
+using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.view.Resources.Localization;
 
 namespace com.koyok.democratia
 {
@@ -39,20 +40,27 @@ namespace com.koyok.democratia
 #endif
 
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
-                LogErreur((e.ExceptionObject as Exception)!, "AppDomain.UnhandledException");
+                GererErreur((e.ExceptionObject as Exception)!, "AppDomain.UnhandledException");
             
             TaskScheduler.UnobservedTaskException += (sender, e) => 
-                LogErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
+                GererErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
            
             var app = builder.Build();
             ServiceHelper.Initialize(app.Services);
-            Domain.Service.ServiceHelper.Initialize(app.Services);
+            Lib.ServiceHelper.Initialize(app.Services);
             
             return app;
 
         }
-        private static void LogErreur(Exception ex, string source)
+        private static void GererErreur(Exception ex, string source)
         {
+            if (ex is TooManyRequestException exception)
+            {
+                var compteur = exception.Delay;
+                Task.Run(exception.CountdownAsync);
+                Task.Run(async () => await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.toomanyRequest, string.Format(AppResources.DetailBusy, compteur), "OK"));
+                return;
+            }
             var message = $"Source: {source} | Erreur: {ex.Message} | StackTrace: {ex.StackTrace ?? ""}";
 
             Debug.WriteLine($"[GLOBAL ERROR] {message}");

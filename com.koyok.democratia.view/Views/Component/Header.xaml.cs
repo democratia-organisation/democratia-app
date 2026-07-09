@@ -1,6 +1,6 @@
 using com.koyok.democratia.view.Resources.Localization;
 using com.koyok.democratia.UI.internaute;
-using com.koyok.democratia.Domain.Enumerations;
+using com.koyok.democratia.Lib;
 
 namespace com.koyok.democratia.UI.Component
 {

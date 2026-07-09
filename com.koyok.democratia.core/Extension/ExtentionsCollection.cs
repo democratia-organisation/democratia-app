@@ -1,16 +1,17 @@
-﻿using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.Domain.Extension.DelegatesHandler;
+﻿using com.koyok.democratia.Lib;
+using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Lib;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
+using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Reflection;
 
-namespace com.koyok.democratia.Domain.Extension
+namespace com.koyok.democratia.Extension
 {
     public static class ExtentionsCollection
     {
@@ -44,9 +45,46 @@ namespace com.koyok.democratia.Domain.Extension
             public static void CloneHeader(HttpHeaders source, HttpHeaders destination)
             {
                 foreach (var header in source)
-                {
                     destination.TryAddWithoutValidation(header.Key, header.Value);
-                }
+            }
+        }
+
+        /// <summary>
+        /// Remplace les éléments de la collection
+        /// </summary>
+        /// <typeparam name="T">la classe des éléments de la collection</typeparam>
+        /// <param name="models">this</param>
+        /// <param name="newElements">Les nouveaux éléments à ajouter.</param>
+        /// <param name="customAdding">Une action à exécuter pour chaque élément ajouté. 
+        /// Pas besoin d'appeller Add pour ajouter l'élément.
+        /// </param>
+        public static void RemplacerElements<T>(this ObservableCollection<T> models, IEnumerable<T> newElements, Action<T>? customAdding = null)
+        {
+            models.Clear();
+            foreach (var item in newElements)
+            {
+                customAdding?.Invoke(item);
+                models.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Remplace les éléments de la collection
+        /// </summary>
+        /// <typeparam name="T">la classe des éléments de la collection</typeparam>
+        /// <param name="models">this</param>
+        /// <param name="newElements">Les nouveaux éléments à ajouter.</param>
+        /// <param name="customAdding">Une fonction asynchrone à exécuter pour chaque élément ajouté. 
+        /// Pas besoin d'appeller Add pour ajouter l'élément.
+        /// </param>
+        /// <returns>la tâche asynchrone</returns>
+        public static async Task RemplacerElementsAsync<T>(this ObservableCollection<T> models, IEnumerable<T> newElements, Func<T, Task>? customAdding = null)
+        {
+            models.Clear();
+            foreach (var item in newElements)
+            {
+                await customAdding?.Invoke(item)!;
+                models.Add(item);
             }
         }
 
@@ -60,8 +98,6 @@ namespace com.koyok.democratia.Domain.Extension
                 return builder;
             }
         }
-
-
 
         extension(IServiceCollection services)
         {
@@ -146,12 +182,11 @@ namespace com.koyok.democratia.Domain.Extension
 
     public static class ShellExtension
     {
-        private static Utils.AppContext appContext = new(new(ServiceHelper.GetService<ILocalizationService>()!));
+        private static Lib.AppContext appContext = new(new(ServiceHelper.GetService<ILocalizationService>()!));
 
         extension(Shell shell)
         {
-            public Utils.AppContext AppContext => appContext;
+            public Lib.AppContext AppContext => appContext;
         }
-
     }
 }

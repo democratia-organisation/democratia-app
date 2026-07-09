@@ -1,5 +1,5 @@
 ﻿using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Enumerations;
+using com.koyok.democratia.Lib;
 
 namespace com.koyok.democratia.Domain.UseCase
 {

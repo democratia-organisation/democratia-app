@@ -1,12 +1,14 @@
-﻿using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Extension;
 using Microsoft.Maui.Storage;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 
-namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
+namespace com.koyok.democratia.Lib
 {
     
     public class AuthentificationHandler(IHttpClientFactory factory) : DelegatingHandler
@@ -24,7 +26,7 @@ namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
 #elif !DEBUG
             brutClient.Timeout = TimeSpan.FromSeconds(10);
 #endif
-            var resp = await brutClient.GetAsync($"""?request=login&parameters=["{email}"]""", ct);
+            var resp = await brutClient.PostAsync("users/refresh", new StringContent(JsonSerializer.Serialize(new List<string>([email])),Encoding.UTF8,new MediaTypeHeaderValue("application/json")), ct);
             return resp;
         }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -34,19 +36,7 @@ namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
             {
                 HttpRequestMessage clone = await request.CloneRequest();
                 if (response.StatusCode == HttpStatusCode.TooManyRequests )
-                {
-                    if (_maxRetryAttempts < MAX_RETRY_ATTEMPTS)
-                    {
-                        Thread.Sleep((int)response.Headers.RetryAfter!.Delta!.Value.TotalMilliseconds);
-                        _maxRetryAttempts++;
-                        return await base.SendAsync(clone, cancellationToken);
-                    }
-                    else
-                    {
-                        throw new ConnexionErrorException();
-                    }
-
-                }
+                    throw new TooManyRequestException((int)response.Headers.RetryAfter!.Delta!.Value.TotalSeconds);
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     string reponse = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -56,8 +46,7 @@ namespace com.koyok.democratia.Domain.Extension.DelegatesHandler
                         string authorisation = response.RequestMessage!.Headers.Authorization!.Parameter!;
                         if (authorisation.Equals(await SecureStorage.Default.GetAsync(SecureStorageKeys.REFRESH.ToString())))
                             await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{false}");
-                        else
-                            response.StatusCode = HttpStatusCode.Unauthorized;
+                        else response.StatusCode = HttpStatusCode.Unauthorized;
                         return await base.SendAsync(clone,cancellationToken);
                     }
 

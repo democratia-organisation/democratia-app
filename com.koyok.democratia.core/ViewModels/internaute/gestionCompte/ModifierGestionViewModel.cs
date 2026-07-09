@@ -1,11 +1,11 @@
-﻿using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 using com.koyok.democratia.Domain.UseCase;
 
 

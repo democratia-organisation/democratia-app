@@ -20,7 +20,6 @@
                 x:Name="buttonSelectImage"
                 AutomationId="buttonSelectImage"
                 Command="{Binding ChoisirImageCommand}"
-                Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.select}" />
             <Label
                 x:Name="errorMessageLabel"
@@ -70,7 +69,6 @@
                 Command="{Binding NavigateTappedCommand}"
                 CommandParameter="/HomePage"
                 IsVisible="{Binding isFinish}"
-                Style="{DynamicResource ButtonStyle}"
                 Text="{x:Static lang:AppResources.terminer}" />
         </VerticalStackLayout>
     </ScrollView>

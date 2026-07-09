@@ -5,6 +5,8 @@
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(TargetFrameworks)net10.0-maccatalyst</TargetFrameworks>
 	<EnablePreviewFeatures>true</EnablePreviewFeatures>
 	<MauiXamlInflator>SourceGen</MauiXamlInflator>
+	<UseMaterial3>true</UseMaterial3>
+	  
 	
     <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
     <!--<TargetFrameworks>$(TargetFrameworks);net10.0-tizen</TargetFrameworks>-->
@@ -176,6 +178,9 @@
     <MauiXaml Update="Views\Component\groupe\PropositionCard.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\Component\LoadingArc.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\Component\LoadingComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
@@ -192,6 +197,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\groupe\Parametre.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\groupe\PropositionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\internaute\CreerGroupe\DeuxiemeCreationPage.xaml">

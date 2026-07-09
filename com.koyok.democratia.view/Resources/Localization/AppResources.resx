@@ -375,4 +375,34 @@
   <data name="slogan" xml:space="preserve">
     <value>Êtes-vous prêt à débattre ?</value>
   </data>
+  <data name="deconnexion" xml:space="preserve">
+    <value>Voulez-vous vous déconnecter ?</value>
+  </data>
+  <data name="messageDeconexion" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
+  <data name="confirmDeconnexion" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir vous déconnecter ?</value>
+  </data>
+  <data name="toomanyRequest" xml:space="preserve">
+    <value>Surcharge serveur</value>
+  </data>
+  <data name="DetailBusy" xml:space="preserve">
+    <value>Le serveur est actuellement surchargé, veuillez réessayer dans {0} secondes</value>
+  </data>
+  <data name="filtre" xml:space="preserve">
+    <value>Filtre des propositions</value>
+  </data>
+  <data name="filtrer" xml:space="preserve">
+    <value>Filtrer</value>
+  </data>
+  <data name="pluspropotheme" xml:space="preserve">
+    <value>Plus de propositions par thématique</value>
+  </data>
+  <data name="satisfactionTheme" xml:space="preserve">
+    <value>La plus grande satisfaction de chaque thématique</value>
+  </data>
+  <data name="MaxsatisfactionMinBudget" xml:space="preserve">
+    <value>Maximisation satisfaction et minimisation budget</value>
+  </data>
 </root>

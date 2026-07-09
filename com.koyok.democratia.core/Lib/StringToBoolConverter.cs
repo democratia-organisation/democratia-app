@@ -1,7 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
 using System.Globalization;
 
-namespace com.koyok.democratia.Domain.Extension
+namespace com.koyok.democratia.Lib
 {
     public class StringToBoolConverter : IValueConverter
     {

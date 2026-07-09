@@ -1,7 +1,7 @@
 ﻿using com.koyok.democratia.Domain.Models;
 using System.Diagnostics.CodeAnalysis;
 
-namespace com.koyok.democratia.Domain.Extension.Comparer
+namespace com.koyok.democratia.Lib
 {
     
     public record class PropositionPoulariteComparer() : IEqualityComparer<Proposition>

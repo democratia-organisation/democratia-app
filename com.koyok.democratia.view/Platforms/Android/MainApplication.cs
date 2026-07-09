@@ -1,19 +1,13 @@
 ﻿using Android.App;
 using Android.Runtime;
-using com.koyok.democratia.Utils;
-using com.koyok.democratia.UI;
 using System.Globalization;
 
 namespace com.koyok.democratia
 {
     [Application]
-    public class MainApplication : MauiApplication
+    public class MainApplication(IntPtr handle, JniHandleOwnership ownership) : MauiApplication(handle, ownership)
     {
         public static readonly CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
-        public MainApplication(IntPtr handle, JniHandleOwnership ownership)
-            : base(handle, ownership)
-        {
-        }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 

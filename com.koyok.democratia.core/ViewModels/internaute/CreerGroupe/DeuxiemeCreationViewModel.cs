@@ -5,12 +5,11 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class DeuxiemePageViewModel() 
-        : ObservableObject, INotifyPropertyChanged, IQueryAttributable
+    public partial class DeuxiemePageViewModel : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         private Groupe? groupe;
         [ObservableProperty] public partial Color? couleur { get; set; } = Colors.Transparent;

@@ -2,7 +2,9 @@
 using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository
@@ -28,20 +30,7 @@ namespace com.koyok.democratia.Data.Repository
         public async Task<string> GetAllPropositionsAsync(params object?[] parameters)
         {
             HttpResponseMessage? response;
-            string? requete = $""""
-
-                ?request=SELECT BIN_TO_UUID(id_groupe) AS id_groupe,id_proposition
-                    budget,
-                    date_publication,
-                    description_proposition,
-                    id_proposition,
-                    id_thematique,
-                    nb_signalement,
-                    titre_proposition
-                FROM proposition
-                WHERE id_groupe = UUID_TO_BIN(?)
-                &parameters=["{parameters[0]!}"]
-                """";
+            string? requete = $"propositions/{parameters![0]}";
             try
             {
                 response = await client!.GetAsync(requete);
@@ -52,19 +41,19 @@ namespace com.koyok.democratia.Data.Repository
             return await response!.Content.ReadAsStringAsync();
         }
 
+        public List<Proposition> TrierProposition(Critere critere)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<string> UpdateModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();
         }
 
-        Task<string> GetModelAsync(params object?[] parameters)
+        public Task<string> GetModelAsync(params object?[] parameters)
         {
             throw new NotImplementedException();
-        }
-
-        Task<string> IRepository.GetModelAsync(params object?[] parameters)
-        {
-            return GetModelAsync(parameters);
         }
     }
 }

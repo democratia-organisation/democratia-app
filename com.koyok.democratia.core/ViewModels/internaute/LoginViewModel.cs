@@ -1,6 +1,6 @@
-﻿using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.UseCase;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -36,6 +36,10 @@ namespace com.koyok.democratia.UI.internaute
                     Shell.Current.AppContext.Internaute = modele;
                     var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
                     await Shell.Current!.GoToAsync(commande, parameters);
+                }
+                catch(TooManyRequestException)
+                {
+                    throw;
                 }
                 catch (Exception ex)
                 {

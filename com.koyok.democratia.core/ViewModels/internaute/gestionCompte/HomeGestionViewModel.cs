@@ -5,9 +5,9 @@ using System.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
-using com.koyok.democratia.Domain.Service;
+using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Domain.Extension;
+using com.koyok.democratia.Extension;
 
 namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
@@ -24,7 +24,12 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
 
         [RelayCommand]
         private void ActionInternaute() =>
-            weakReferenceMessenger.Send<EventSuppression, string>(TypeEventSuppression.Send.ToString());
+            weakReferenceMessenger.Send<EventSuppression, string>(SuceffulyEnum.Send.ToString());
+        [RelayCommand]
+        private void Deconnexion()
+        {
+            weakReferenceMessenger.Send<EventDeconnexion, string>(SuceffulyEnum.Send.ToString());
+        }
 
         
         [RelayCommand]
@@ -32,7 +37,7 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         {
             await internauteRepository?.DeleteModelAsync(internaute)!;
             if (((InternauteRepository)internauteRepository!).succes)
-                weakReferenceMessenger.Send<EventSuppression, string>(TypeEventSuppression.Sucess.ToString());
+                weakReferenceMessenger.Send<EventSuppression, string>(SuceffulyEnum.Sucess.ToString());
             else
                 retourMessage = localizationService?.GetString("connexionErreur");
         }
@@ -56,11 +61,12 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
                 _isNavigating = false;
             }
         }
-        public enum TypeEventSuppression
+        public enum SuceffulyEnum
         {
             Sucess,
             Send
         }
         public record EventSuppression() { }
+        public record EventDeconnexion() { }
     }
 }

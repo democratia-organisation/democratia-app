@@ -1,5 +1,5 @@
-﻿using com.koyok.democratia.Domain.Service;
-using com.koyok.democratia.Domain.Enumerations;
+﻿using com.koyok.democratia.Lib;
+using com.koyok.democratia.Lib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;

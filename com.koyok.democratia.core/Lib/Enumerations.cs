@@ -1,4 +1,4 @@
-﻿namespace com.koyok.democratia.Domain.Enumerations
+﻿namespace com.koyok.democratia.Lib
 {
     public enum Critere
     {
@@ -35,5 +35,10 @@
         LastLogin,
         isConnected
     }
-
+    public enum ComplexFilterEnum
+    {
+        PlusPropositionsTheme,
+        PlusGrandeSatisfactionTheme,
+        MaxSatisfactionMinBudget
+    }
 }

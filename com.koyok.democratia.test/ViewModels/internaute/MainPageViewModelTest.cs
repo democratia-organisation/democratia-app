@@ -1,17 +1,9 @@
-﻿using com.koyok.democratia.Models;
-using com.koyok.democratia.test.Localization;
-using com.koyok.democratia.Utils;
-using com.koyok.democratia.UI.internaute;
-using System.Globalization;
-
-
-
-namespace com.koyok.democratia.test.ViewModels.internaute
+﻿namespace com.koyok.democratia.test.ViewModels.internaute
 {
 
     public class MainPageViewModelTest
     {
-        private IServiceProvider _serviceProvider;
+        private IServiceProvider? _serviceProvider;
         
         public MainPageViewModelTest()
         {
