@@ -3,7 +3,8 @@
     x:Class="com.koyok.democratia.UI.Component.LoadingComponent"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:component="clr-namespace:com.koyok.democratia.UI.Component">
+    xmlns:component="clr-namespace:com.koyok.democratia.UI.Component"
+    Unloaded="ContentView_Unloaded">
 
     <Grid>
         <component:LoadingArc
