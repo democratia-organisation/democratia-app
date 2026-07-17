@@ -1,27 +1,29 @@
-﻿using com.koyok.democratia.Domain.Repository;
+﻿using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.Exception;
 using Microsoft.Maui.Storage;
 
 namespace com.koyok.democratia.Domain.UseCase
 {
-    public class ManipulateImageUseCase(IGroupeRepository repository)
+    public class ManipulateImageUseCase(IRepository repository)
     {
-        private readonly IGroupeRepository repository = repository;
+        private readonly IRepository repository = repository;
 
-        public async Task<string?> GetImageAsync(string url)
+        public async Task<string> GetImageAsync(Groupe groupe, int bytesRiden, Internaute internaute)
         {
-            var response = await repository.GetImageAsync(url)!;
-            string fileName = $"img_{Math.Abs(url.GetHashCode())}.jpg";
-            string localFilePath = Path.Combine(FileSystem.CacheDirectory, fileName);
-            if (File.Exists(localFilePath))
+            string fileName = $"palette_{Math.Abs(internaute.nomInternaute!.GetHashCode())}.jpg";
+            string palettePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+            if (!File.Exists(palettePath))
             {
-                return localFilePath;
+                var response = await repository.GetImageAsync(internaute)!;
+                if (response!.Length == 0) throw new ConnexionErrorException();
+                await File.WriteAllBytesAsync(palettePath, response);
             }
-            else
-            {
-                if (response!.Length == 0) return null;
-                await File.WriteAllBytesAsync(localFilePath, response);
-                return localFilePath;
-            }
+            byte[] fullImages = await File.ReadAllBytesAsync(palettePath);
+            byte[] finalImage = [..fullImages.Skip(bytesRiden).Take(groupe.imageSize!.Value)];
+            string finalImagePath = Path.Combine(FileSystem.CacheDirectory, $"image_groupe_of_{groupe.idGroupe}_internaute_{internaute.idInternaute}");
+            await File.WriteAllBytesAsync(finalImagePath, finalImage);
+            return finalImagePath;
         }
 
         public async Task<string> UploadImage(Guid? id, string filePath)

@@ -9,7 +9,7 @@ namespace com.koyok.democratia.Data.DataSource.Remote
         string? image, float? budget,
         int? nbj_dft_vote,
         int? nbj_dft_discuss,
-        int? nb_signalement, bool? is_admin) : IRemoteSource
+        int? nb_signalement, bool? is_admin, int? image_size) : IRemoteSource
     {
         public Guid? id_groupe { get; set; } = id_groupe;
         public string? nom_groupe { get; set; } = nom_groupe;
@@ -20,7 +20,8 @@ namespace com.koyok.democratia.Data.DataSource.Remote
         public int? nbj_dft_discuss { get; set; } = nbj_dft_discuss;
         public int? nb_signalement { get; set; } = nb_signalement;
         public bool? is_admin { get; set; } = is_admin;
+        public int? image_size { get; set; } = image_size;
 
-        public GroupeRemoteSource() : this(null,null,null,null,null,null,null,null,null) { }
+        public GroupeRemoteSource() : this(null,null,null,null,null,null,null,null,null,null) { }
     }
 }

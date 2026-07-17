@@ -3,7 +3,6 @@ using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows.Input;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Extension;
@@ -53,9 +52,11 @@ namespace com.koyok.democratia.UI.internaute
             jsonString = await repository.GetRoleGroupe(jsonString);
             List<Groupe> listeInformation = repository.RecuprerInformationConnexion<Groupe>(jsonString);
             groupes.Clear();
+            int byteReaden = 0;
             foreach (var groupe in listeInformation)
             {
-                groupe.image = await useCase.GetImageAsync(groupe.image!);
+                groupe.image = await useCase.GetImageAsync(groupe, byteReaden, internaute!);
+                byteReaden += groupe.imageSize!.Value;
                 groupes.Add(groupe);
             }
         }

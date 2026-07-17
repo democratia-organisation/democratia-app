@@ -94,9 +94,10 @@ namespace com.koyok.democratia.Data.Repository
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async override Task<byte[]?> GetImageAsync(string? url)
+        public async override Task<byte[]?> GetImageAsync(params object?[]? parameters)
         {
-            var requete = $"groupes/obtenirImageGroupe/{url}";
+            var idInternaute = ((Internaute)parameters![0]!).idInternaute;
+            var requete = $"groupes/obtenirImageGroupe/{idInternaute}";
             HttpResponseMessage? response;
             try
             {
