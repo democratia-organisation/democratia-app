@@ -12,11 +12,11 @@ using com.koyok.democratia.Domain.UseCase;
 namespace com.koyok.democratia.UI.internaute
 {
     public partial class HomeViewModel(IGroupeRepository repository,
-        ManipulateImageUseCase useCase) :  ObservableObject, IQueryAttributable, INotifyPropertyChanged
+        IManipulateImage useCase) :  ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         public Internaute? internaute;
         private readonly IGroupeRepository repository = repository;
-        private readonly ManipulateImageUseCase useCase = useCase;
+        private readonly IManipulateImage useCase = useCase;
         private int cursor = 0;
 
         [ObservableProperty]

@@ -13,7 +13,7 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class TroisiemeCreationViewModel(IGroupeRepository repository) 
+    public partial class TroisiemeCreationViewModel(IGroupeRepository repository, IManipulateImage manipulateImageUseCase) 
         : ObservableObject, INotifyPropertyChanged , IQueryAttributable
     {
 
@@ -21,7 +21,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
         private string imagePath = string.Empty;
         private Internaute? internaute;
         private readonly IGroupeRepository repository = repository;
-        private readonly ManipulateImageUseCase manipulateImageUseCase = new((GroupRepository)repository);
+        private readonly IManipulateImage manipulateImageUseCase = manipulateImageUseCase;
         [ObservableProperty] public partial ImageSource? image { get; set; }
         [ObservableProperty] public partial bool? isObservable { get; set; } = false;
         [ObservableProperty] public partial string? errorMessage { get; set; }

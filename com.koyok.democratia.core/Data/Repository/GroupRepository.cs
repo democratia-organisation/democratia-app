@@ -97,7 +97,7 @@ namespace com.koyok.democratia.Data.Repository
         public async override Task<byte[]?> GetImageAsync(params object?[]? parameters)
         {
             var idInternaute = ((Internaute)parameters![0]!).idInternaute;
-            var requete = $"groupes/obtenirImageGroupe/{idInternaute}";
+            var requete = $"groupes/obtenirImageGroupes/{idInternaute}";
             HttpResponseMessage? response;
             try
             {
