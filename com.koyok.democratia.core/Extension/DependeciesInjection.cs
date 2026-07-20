@@ -58,7 +58,7 @@ namespace com.koyok.democratia.Extension
                 services.AddSingleton<DeterminateRoleUseCase>();
                 services.AddSingleton<InsertionCompteUseCase>();
                 services.AddSingleton<ListeDonneeUseCase>();
-                services.AddSingleton<ManipulateImageUseCase>();
+                services.AddSingleton<IManipulateImage, ManipulateGroupeImageUseCase>();
 
                 return services;
             }

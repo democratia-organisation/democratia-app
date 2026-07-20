@@ -20,7 +20,7 @@ namespace com.koyok.democratia.Domain.Repository
         public Task<string> CreateModelAsync(params object?[]? parameters);
         public Task<string> UpdateModelAsync(params object?[]? parameters);
         public Task<string> DeleteModelAsync(params object?[]? parameters);
-        public Task<byte[]?> GetImageAsync(string? url);
+        public Task<byte[]?> GetImageAsync(params object?[]? parameters);
         public Task<string> UploadImage(Guid? id, string filePath);
         public List<T> RecuprerInformationConnexion<T>(string stringJson) where T : class, IModel;
     }
