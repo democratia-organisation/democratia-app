@@ -18,7 +18,6 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty] public partial Groupe? groupe { get; set; }
         [ObservableProperty] public partial ObservableCollection<Proposition> propositions { get; set; } = [];
         [ObservableProperty] public partial ObservableCollection<Thematique> thematiques { get; set; } = [];
-        [ObservableProperty] public partial List<Critere> criteres { get; set; } = [Critere.PRIX, Critere.POPULARITE, Critere.REACTIONS];
         [ObservableProperty] public partial Critere critere { get; set; }
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
         [ObservableProperty] public partial ComplexFilterEnum complexFilter { get; set; }
@@ -79,16 +78,14 @@ namespace com.koyok.democratia.UI.groupe
         [RelayCommand]
         private async Task ChargerElementsAsync()
         {
-            string response = await propositionRepository.GetAllPropositionsAsync(groupe!.idGroupe);
-            List<Proposition> propositionsListe = propositionRepository.RecuprerInformationConnexion<Proposition>(response)!;
-            response = await groupRepository.GetJointureThemeEtGroupeAsync(groupe!.idGroupe)!;          
-            List<Thematique> thematiquesListe = groupRepository.RecuprerInformationConnexion<Thematique>(response)!;
+            List<Proposition> propositionsListe = await propositionRepository.GetAllPropositionsAsync(groupe!.idGroupe);
+            List<Thematique> thematiquesListe = await groupRepository.GetJointureThemeEtGroupeAsync(groupe!.idGroupe)!;
             propositions.RemplacerElements(propositionsListe, p => p.jourDiscussion = (int)groupe.nombreDeJourDiscuss!);
             thematiques.RemplacerElements(thematiquesListe);
         }
 
         [RelayCommand]
-        private async Task OuvrirPropositionAsync(Proposition proposition)
+        private static async Task OuvrirPropositionAsync(Proposition proposition)
         {
             ShellNavigationQueryParameters parameters = new() { { "proposition", proposition } };
             await Shell.Current?.GoToAsync("PropositionPage", parameters)!;

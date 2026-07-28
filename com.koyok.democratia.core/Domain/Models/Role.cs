@@ -1,6 +1,6 @@
 ﻿namespace com.koyok.democratia.Domain.Models
 {
-    internal enum Role
+    public enum Role
     {
         Membre = 1,
         Administrateur = 2,

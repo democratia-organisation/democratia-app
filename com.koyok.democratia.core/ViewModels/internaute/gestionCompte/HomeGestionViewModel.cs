@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using com.koyok.democratia.Data.Repository;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Repository;
@@ -35,11 +34,16 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
         [RelayCommand]
         private async Task SupprimerCompte()
         {
-            await internauteRepository?.DeleteModelAsync(internaute)!;
-            if (((InternauteRepository)internauteRepository!).succes)
+            try
+            {
+                await internauteRepository?.DeleteModelAsync(internaute)!;
                 weakReferenceMessenger.Send<EventSuppression, string>(SuceffulyEnum.Sucess.ToString());
-            else
-                retourMessage = localizationService?.GetString("connexionErreur");
+            }
+            catch (Exception ex)
+            {
+                retourMessage = Shell.Current.AppContext.Mapper!.MappingException(ex);
+            }
+
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)

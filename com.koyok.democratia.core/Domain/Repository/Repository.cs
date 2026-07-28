@@ -1,41 +1,33 @@
 ﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Models;
-using Xunit.Abstractions;
 
 namespace com.koyok.democratia.Domain.Repository
 {
     /// <summary>
     /// Interface qui représente un fournisseur des services de l'API.
     /// </summary>
-    public interface IRepository : IXunitSerializable
+    public interface IRepository
     {
-        public Task<string> GetModelAsync(params object?[] parameters);
+        public Task<List<IModel>> GetModelAsync(params object?[] parameters);
 
-        /// <summary>
-        /// fonction qui permet de changer le port de l'API.
-        /// Utilisée pour les tests unitaires afin de simuler une erreur de connexion internet.
-        /// </summary>
-        /// <param name="port">le numéro de port</param>
-        public void SetPort(int port);
-        public Task<string> CreateModelAsync(params object?[]? parameters);
-        public Task<string> UpdateModelAsync(params object?[]? parameters);
-        public Task<string> DeleteModelAsync(params object?[]? parameters);
+        public Task<bool> CreateModelAsync(params object?[]? parameters);
+        public  Task<bool> UpdateModelAsync(params object?[]? parameters);
+        public Task<bool> DeleteModelAsync(params object?[]? parameters);
         public Task<byte[]?> GetImageAsync(params object?[]? parameters);
-        public Task<string> UploadImage(Guid? id, string filePath);
-        public List<T> RecuprerInformationConnexion<T>(string stringJson) where T : class, IModel;
+        public Task<bool> UploadImage(Guid? id, string filePath);
     }
 
     public interface IGroupeRepository : IRepository
     {
-        public Task<string> AjouterCreateur(int? idInternaute, Guid? idGroupe);
-        public Task<string> CreateJointureThemeEtGroupeAsync(Guid? idGroupe, int? idThematique, float? budgetThematique);
-        public Task<string> GetJointureThemeEtGroupeAsync(Guid? idGroupe);
-        public Task<string> GetRoleGroupe(string rowGroupe);
+        public Task<bool> AjouterCreateur(int? idInternaute, Guid? idGroupe);
+        public Task<bool> CreateJointureThemeEtGroupeAsync(Guid? idGroupe, int? idThematique, float? budgetThematique);
+        public Task<List<Thematique>> GetJointureThemeEtGroupeAsync(Guid? idGroupe);
+        protected Task<string> GetRoleGroupe(string rowGroupe);
     }
 
     public interface IInternauteRepository : IRepository
     {
-        public Task<string> DoublonEmailAsync(string email);
+        public Task<bool> DoublonEmailAsync(string email);
     }
 
     public interface IThematiqueRepository : IRepository
@@ -48,8 +40,13 @@ namespace com.koyok.democratia.Domain.Repository
 
     public interface IPropositionRepository : IRepository
     {
-        public Task<string> GetAllPropositionsAsync(params object?[] parameters);
+        public Task<List<Proposition>> GetAllPropositionsAsync(params object?[] parameters);
         public List<Proposition> TrierProposition(Critere critere);
+    }
+
+    public interface ICommentaireRepository : IRepository
+    {
+        
     }
 }
 

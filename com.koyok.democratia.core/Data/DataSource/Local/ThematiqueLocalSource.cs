@@ -1,19 +1,20 @@
 ﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace com.koyok.democratia.Data.DataSource.Local
 {
-    public partial class ThematiqueLocalSource(int? id_thematique, string? nom_thematique, float? budget) : ObservableObject, ILocalSource
+    [Table("Thematique")]
+    public partial class  ThematiqueLocalSource : ILocalSource
     {
-        public int? IdThematique { get; set; } = id_thematique;
-        public string? NomThematique { get; set; } = nom_thematique;        
-        public float? Budget { get; set; } = budget;
+        public int? IdThematique { get; set; }
+        public string? NomThematique { get; set; }
+        public float? Budget { get; set; }
         [ForeignKey(typeof(GroupeLocalSource))]
         public Guid IdGroupe { get; set; }
-        public ThematiqueLocalSource(string? nom_thematique) : this(null, nom_thematique, null) { }
+        [OneToOne]
+        public GroupeLocalSource? Groupe { get; set; }
 
-        public ThematiqueLocalSource() : this(null, null, null) { }
-        
+
     }
 }

@@ -1,32 +1,25 @@
-﻿using com.koyok.democratia.Data.DataSource.Local;
-using com.koyok.democratia.Data.DataSource.Remote;
-using com.koyok.democratia.Data.Mapper.LocalToDomain;
-using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+﻿using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Extension;
 using com.koyok.democratia.Domain.Models;
 using System.Text.Json;
 using Xunit.Abstractions;
 
-namespace com.koyok.democratia.Data.Repository
+namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
 
-    public class BaseRepository : IDisposable, IXunitSerializable
+    public class RemoteBaseRepository : IDisposable, IXunitSerializable
     {
         protected static string? BASE_URL;
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
         public HttpClient Client => client!;
-        protected ILocalSource localSource;
-        protected IRemoteSource remoteSource;
         private IRemoteToDomain remoteToDomain;
-        private ILocalToDomain localToDomain;
-
+        
         public bool succes {  get; private set; }
         
-        protected BaseRepository(HttpClient client, 
-            ILocalSource localSource, IRemoteSource remoteSource, IRemoteToDomain remoteToDomain, ILocalToDomain localToDomain)
+        protected RemoteBaseRepository(HttpClient client, IRemoteToDomain remoteToDomain)
         {
             statutsMessage = string.Empty;
             statuts = 0;
@@ -37,10 +30,7 @@ namespace com.koyok.democratia.Data.Repository
 #elif !DEBUG
             this.client.Timeout = TimeSpan.FromSeconds(10);
 #endif
-            this.localSource = localSource;
-            this.remoteSource = remoteSource;
             this.remoteToDomain = remoteToDomain;
-            this.localToDomain = localToDomain;
         }
 
         public virtual List<T> RecuprerInformationConnexion<T>(string stringJson) where T : class, IModel
@@ -57,7 +47,7 @@ namespace com.koyok.democratia.Data.Repository
                 {
                     foreach (var item in data.EnumerateArray())
                     {
-                        T domainModel = remoteToDomain.Mapping<T>(item.GetRawText())!;
+                        T domainModel = (remoteToDomain.Mapping(item.GetRawText()) as T)!;
 
                         if (domainModel is not null)
                             resultList.Add(domainModel);
@@ -107,7 +97,7 @@ namespace com.koyok.democratia.Data.Repository
         public virtual Task<byte[]?> GetImageAsync(params object?[]? parameters) => throw new NotImplementedException();
         
 
-        public virtual async Task<string> UploadImage(Guid? id, string filePath) => "";
+        public virtual async Task<bool> UploadImage(Guid? id, string filePath) => true;
         
 
         public void Dispose()

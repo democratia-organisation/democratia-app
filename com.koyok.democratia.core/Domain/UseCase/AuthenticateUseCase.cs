@@ -4,6 +4,7 @@ using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.Utils;
 using Microsoft.Maui.Storage;
+using System.Diagnostics;
 
 namespace com.koyok.democratia.Domain.UseCase
 {
@@ -27,8 +28,7 @@ namespace com.koyok.democratia.Domain.UseCase
             }
             await SecureStorage.Default.SetAsync(SecureStorageKeys.IdInternaute.ToString(), adresseMail);
             await SecureStorage.Default.SetAsync(SecureStorageKeys.MotDePasseInternaute.ToString(), motDePasse);
-            string jsonString = await internauteRepository?.GetModelAsync(adresseMail, motDePasse)!;
-            List<Internaute> listeInformation = internauteRepository.RecuprerInformationConnexion<Internaute>(jsonString);
+            List<Internaute> listeInformation = [.. (await internauteRepository?.GetModelAsync(adresseMail, motDePasse)!).Cast<Internaute>()];
             if (listeInformation.Count == 0) throw new NoUserException();
             var internaute = listeInformation[0];
             string motDePasseHash = internaute!.hashageMDP!;
@@ -44,8 +44,8 @@ namespace com.koyok.democratia.Domain.UseCase
             else
                 estAuthetifie = motDePasseHash == motDePasse;
 #elif !DEBUG
-                internaute!.tempMDP = motDePasse;
-                estAuthetifie = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
+            internaute!.tempMDP = motDePasse;
+            estAuthetifie = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
 #endif
             if (!estAuthetifie) throw new BadPasswordException();
             await SecureStorage.Default.SetAsync(SecureStorageKeys.LastLogin.ToString(), DateTime.Now.ToString("U"));

@@ -1,7 +1,4 @@
 ﻿using com.koyok.democratia.Lib;
-using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.Domain.Repository;
-using com.koyok.democratia.Lib;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
@@ -10,6 +7,7 @@ using Microsoft.Maui.Hosting;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Reflection;
+using com.koyok.democratia.Data.Repository.RemoteRepository;
 
 namespace com.koyok.democratia.Extension
 {
@@ -111,10 +109,11 @@ namespace com.koyok.democratia.Extension
             public IServiceCollection AddClients()
             {
                 services.AddHttpExtension();
-                services.AddHttpClient<IInternauteRepository, InternauteRepository>().AddAllHttpHander();
-                services.AddHttpClient<IGroupeRepository, GroupRepository>().AddAllHttpHander();
-                services.AddHttpClient<IThematiqueRepository, ThematiqueRepository>().AddAllHttpHander();
-                services.AddHttpClient<IPropositionRepository, PropositionRepository>().AddAllHttpHander();
+                services.AddHttpClient<InternauteRemoteRepository>().AddAllHttpHander();
+                services.AddHttpClient<GroupeRemoteRepository>().AddAllHttpHander();
+                services.AddHttpClient<ThematiqueRemoteRepository>().AddAllHttpHander();
+                services.AddHttpClient<PropositionRemoteRepository>().AddAllHttpHander();
+                services.AddHttpClient<CommentaireRemoteRepository>().AddAllHttpHander();
 #if DEBUG
                 // utiliser pour avoir les clé JWT dans les middlewares 
 #endif
@@ -161,7 +160,7 @@ namespace com.koyok.democratia.Extension
 #if DEBUG
                 builder.AddJSonSettings("appsettings.developpement");
 #elif !DEBUG
-            builder.AddJSonSettings("appsettings.productiont");
+            builder.AddJSonSettings("appsettings.production");
             // ajouter la configuration pour du https
 #endif
                 builder.AddJSonSettings("appsettings");
@@ -174,7 +173,7 @@ namespace com.koyok.democratia.Extension
             }
         }
 
-        extension(BaseRepository builder)
+        extension(RemoteBaseRepository builder)
         {
             public Uri AffecterURL() => GetUrl();
         }

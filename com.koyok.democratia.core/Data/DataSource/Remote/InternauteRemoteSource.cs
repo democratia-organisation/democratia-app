@@ -12,7 +12,6 @@ namespace com.koyok.democratia.Data.DataSource.Remote
         public string? adresse_postale { get; set; } = adresse_postale;
         public string? courriel { get; set; } = courriel;
         public string? hashageMDP { get; set; } = hashageMDP;
-        public string? tempMDP { get; set; }
 
         public InternauteRemoteSource() : this(null, null, null, null, null, null) { }
 

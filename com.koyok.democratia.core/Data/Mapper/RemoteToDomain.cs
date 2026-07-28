@@ -6,12 +6,12 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
 {
     public interface IRemoteToDomain
     {
-        public T? Mapping<T>(string source) where T : class, IModel;
+        public IModel Mapping(string source);
     }
 
     public class InternauteRemoteToDomain : IRemoteToDomain
     {
-        public T? Mapping<T>(string source) where T : class, IModel
+        public IModel Mapping(string source) 
         {
             var remoteSource =  JsonSerializer.Deserialize<InternauteRemoteSource>(source)!;
             var internaute = new Internaute(
@@ -22,13 +22,13 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
                 remoteSource.courriel,
                 remoteSource.hashageMDP
             );
-            return internaute as T;
+            return internaute;
         }
     }
 
     public class PropositionRemoteToDomain : IRemoteToDomain
     {
-        public T? Mapping<T>(string source) where T : class, IModel
+        public IModel Mapping(string source) 
         {
             var remoteSource = JsonSerializer.Deserialize<PropositionRemoteSource>(source)!;
             var proposition = new Proposition(
@@ -41,13 +41,13 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
                 remoteSource.id_thematique,
                 remoteSource.id_groupe
             );
-            return proposition as T;
+            return proposition;
         }
     }
 
     public class ThematiqueRemoteToDomain : IRemoteToDomain
     {
-        public T? Mapping<T>(string source) where T : class, IModel
+        public IModel Mapping(string source) 
         {
             var remoteSource = JsonSerializer.Deserialize<ThematiqueRemoteSource>(source)!;
             var thematique = new Thematique(
@@ -56,13 +56,13 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
                 remoteSource.budget_thematique,
                 remoteSource.budget
             );
-            return thematique as T;
+            return thematique;
         }
     }
 
     public class GroupeRemoteToDomain : IRemoteToDomain
     {
-        public T? Mapping<T>(string source) where T : class, IModel
+        public IModel Mapping(string source) 
         {
             var remoteSource = JsonSerializer.Deserialize<GroupeRemoteSource>(source)!;
             var groupe = new Groupe(
@@ -77,7 +77,26 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
                 remoteSource.is_admin,
                 remoteSource.image_size
             );
-            return groupe as T;
+            return groupe;
+        }
+    }
+
+    public class CommentaireRemoteToDomain : IRemoteToDomain
+    {
+        public IModel Mapping(string source) 
+        {
+            var remoteSource = JsonSerializer.Deserialize<CommentaireRemoteSource>(source);
+            var commentaire = new Commentaire(
+                remoteSource!.id_commentaire,
+                remoteSource.contenu_message,
+                remoteSource.horodatage,
+                remoteSource.nb_signalement,
+                remoteSource.nom_internaute,
+                remoteSource.prenom_internaute,
+                (Role)remoteSource.id_role,
+                remoteSource.id_internaute
+            );
+            return commentaire;
         }
     }
 }

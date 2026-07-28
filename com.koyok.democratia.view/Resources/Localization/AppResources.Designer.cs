@@ -565,6 +565,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Poster un message.
+        /// </summary>
+        public static string messagePost {
+            get {
+                return ResourceManager.GetString("messagePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Modifier mon compte.
         /// </summary>
         public static string ModifCompte {
@@ -588,6 +597,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string NewGroupe {
             get {
                 return ResourceManager.GetString("NewGroupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Soumettre une novelle proposition.
+        /// </summary>
+        public static string newPropostion {
+            get {
+                return ResourceManager.GetString("newPropostion", resourceCulture);
             }
         }
         
@@ -921,6 +939,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string toomanyRequest {
             get {
                 return ResourceManager.GetString("toomanyRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à vous.
+        /// </summary>
+        public static string vous {
+            get {
+                return ResourceManager.GetString("vous", resourceCulture);
             }
         }
     }

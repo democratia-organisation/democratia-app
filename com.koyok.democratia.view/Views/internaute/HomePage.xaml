@@ -52,6 +52,7 @@
             ChargerElementsCommand="{Binding InitialisationListeCommand}"
             Elements="{Binding groupes}"
             IsRefreshing="{Binding isRefreshing}"
+            Size="{StaticResource SpacingLarge}"
             UpdateElementsCommand="{Binding RefreshListGroupeCommand}">
             <globalComponent:RefreshView.ItemTemplate>
                 <DataTemplate>

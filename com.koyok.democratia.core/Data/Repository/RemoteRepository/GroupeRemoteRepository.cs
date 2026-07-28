@@ -1,6 +1,4 @@
-﻿using com.koyok.democratia.Data.DataSource.Local;
-using com.koyok.democratia.Data.DataSource.Remote;
-using com.koyok.democratia.Data.Mapper.LocalToDomain;
+﻿using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Models;
@@ -9,17 +7,12 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
-namespace com.koyok.democratia.Data.Repository
+namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
-    internal class GroupRepository(HttpClient client, IEnumerable<ILocalSource> localSources, IEnumerable<IRemoteSource> remoteSources,
-        IEnumerable<IRemoteToDomain> remotes, IEnumerable<ILocalToDomain> domains) 
-        : BaseRepository(client, 
-            localSources.OfType<GroupeLocalSource>().FirstOrDefault()!, 
-            remoteSources.OfType<GroupeRemoteSource>().FirstOrDefault()!,
-            remotes.OfType<GroupeRemoteToDomain>().FirstOrDefault()!,
-            domains.OfType<GroupeLocalToDomain>().FirstOrDefault()!), IGroupeRepository
+    internal class GroupeRemoteRepository(HttpClient client, IEnumerable<IRemoteToDomain> remotes) 
+        : RemoteBaseRepository(client, remotes.OfType<GroupeRemoteToDomain>().FirstOrDefault()!), IGroupeRepository
     {
-        public async Task<string> CreateModelAsync(params object?[]? parameters)
+        public  async Task<bool> CreateModelAsync(params object?[]? parameters)
         {
             var groupe = (Groupe)parameters![0]!;
             var stringContent = new StringContent(JsonSerializer.Serialize(groupe),new MediaTypeHeaderValue("application/json"));
@@ -34,10 +27,12 @@ namespace com.koyok.democratia.Data.Repository
             {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-            return await response.Content.ReadAsStringAsync();
+            string content = await response.Content.ReadAsStringAsync();
+            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
+            return sucess;
         }
 
-        public async Task<string> CreateJointureThemeEtGroupeAsync(Guid? idGroupe, int? idThematique, float? budgetThematique)
+        public async Task<bool> CreateJointureThemeEtGroupeAsync(Guid? idGroupe, int? idThematique, float? budgetThematique)
         {
             List<object> arguments = [idGroupe!,idThematique!,budgetThematique!];
             var stringContent = new StringContent(JsonSerializer.Serialize(arguments), new MediaTypeHeaderValue("application/json"));
@@ -52,10 +47,12 @@ namespace com.koyok.democratia.Data.Repository
             {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-            return await response.Content.ReadAsStringAsync();
+            string content = await response.Content.ReadAsStringAsync();
+            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
+            return sucess;
         }
 
-        public async Task<string> GetJointureThemeEtGroupeAsync(Guid? idGroupe)
+        public async Task<List<Thematique>> GetJointureThemeEtGroupeAsync(Guid? idGroupe)
         {
             var requete = $"groupes/{idGroupe}/thematiqueJoin";
 
@@ -68,10 +65,11 @@ namespace com.koyok.democratia.Data.Repository
             {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-            return await response.Content.ReadAsStringAsync();
+            string content = await response.Content.ReadAsStringAsync();
+            return RecuprerInformationConnexion<Thematique>(content);
         }
 
-        public async override Task<string> UploadImage(Guid? id, string filePath)
+        public async override Task<bool> UploadImage(Guid? id, string filePath)
         {
             var requete = $"groupes/publierImage/{id}";
 
@@ -91,7 +89,9 @@ namespace com.koyok.democratia.Data.Repository
             {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-            return await response.Content.ReadAsStringAsync();
+            string content = await response.Content.ReadAsStringAsync();
+            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
+            return sucess;
         }
 
         public async override Task<byte[]?> GetImageAsync(params object?[]? parameters)
@@ -113,12 +113,12 @@ namespace com.koyok.democratia.Data.Repository
 
         
 
-        public Task<string> DeleteModelAsync(params object?[]? parameters)
+        public Task<bool> DeleteModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<string> GetModelAsync(params object?[] parameters)
+        public async Task<List<IModel>> GetModelAsync(params object?[] parameters)
         {
             var requete = $"groupes/{((Internaute)parameters[0]!).idInternaute}";
             
@@ -131,15 +131,17 @@ namespace com.koyok.democratia.Data.Repository
             {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-            return await response.Content.ReadAsStringAsync();
+            string content = await response.Content.ReadAsStringAsync();
+            content = await GetRoleGroupe(content);
+            return [..RecuprerInformationConnexion<Groupe>(content)];
         }
 
-        public Task<string> UpdateModelAsync(params object?[]? parameters)
+        public  Task<bool> UpdateModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<string> AjouterCreateur(int? id_internaute, Guid? id_groupe)
+        public  async Task<bool> AjouterCreateur(int? id_internaute, Guid? id_groupe)
         {
             var notificationId = 1;
             List<object?> data = [id_groupe, id_internaute, (int)Role.Administrateur, notificationId];
@@ -156,7 +158,9 @@ namespace com.koyok.democratia.Data.Repository
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
 
-            return await response.Content.ReadAsStringAsync();
+            string content = await response.Content.ReadAsStringAsync();
+            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
+            return sucess;
         }
 
         public async Task<string> GetRoleGroupe(string rowGroupe)

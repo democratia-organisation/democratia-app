@@ -43,10 +43,10 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
                 groupe!.idGroupe = Guid.CreateVersion7();
                 await repository!.CreateModelAsync(groupe!);
                 foreach (Thematique item in thematiques!)
-                    await repository.CreateJointureThemeEtGroupeAsync(groupe!.idGroupe, item.idThematique, item.budget);
+                    if(!(await repository.CreateJointureThemeEtGroupeAsync(groupe!.idGroupe, item.idThematique, item.budget))) throw new Exception();
                 if (string.IsNullOrWhiteSpace(imagePath)) throw new NoImageGiven();
-                await manipulateImageUseCase.UploadImage(groupe!.idGroupe, imagePath);
-                await repository.AjouterCreateur(internaute!.idInternaute, groupe.idGroupe);                
+                if (!(await manipulateImageUseCase.UploadImage(groupe!.idGroupe, imagePath))) throw new Exception();
+                if(!(await repository.AjouterCreateur(internaute!.idInternaute, groupe.idGroupe))) throw new Exception();                
                 await Shell.Current.GoToAsync(commande, new ShellNavigationQueryParameters { {"modele" , internaute } });
             } catch (Exception ex)
             {

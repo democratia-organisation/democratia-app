@@ -46,7 +46,16 @@ public partial class RefreshView : ContentView
         get => (DataTemplate)GetValue(ItemTemplateProperty);
         set => SetValue(ItemTemplateProperty, value);
     }
-    
+
+    public static readonly BindableProperty SizelateProperty =
+    BindableProperty.Create(nameof(Size), typeof(double), typeof(RefreshView));
+
+    public double Size
+    {
+        get => (double)GetValue(SizelateProperty);
+        set => SetValue(SizelateProperty, value);
+    }
+
     public RefreshView()
 	{
 		InitializeComponent();

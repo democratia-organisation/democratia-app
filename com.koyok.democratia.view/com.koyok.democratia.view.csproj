@@ -166,6 +166,9 @@
     <MauiXaml Update="Resources\Dimension\Dimension.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\Component\groupe\CommentaireComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\Component\groupe\DecideurThematique.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

@@ -41,6 +41,5 @@ namespace com.koyok.democratia.UI
                 }   
             }
         }
-
     }
 }

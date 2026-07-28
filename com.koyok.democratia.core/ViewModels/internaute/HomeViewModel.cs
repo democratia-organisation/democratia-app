@@ -44,13 +44,11 @@ namespace com.koyok.democratia.UI.internaute
         [RelayCommand]
         private async Task InitializeAsync()
         {
-            string jsonString;
+            List<Groupe> listeInformation = [];
             try
-            { jsonString = await repository.GetModelAsync(internaute!)!; }
+            { listeInformation = [.. (await repository.GetModelAsync(internaute!)).Cast<Groupe>()]!; }
             catch (Exception)
             { throw new ConnexionErrorException(); }
-            jsonString = await repository.GetRoleGroupe(jsonString);
-            List<Groupe> listeInformation = repository.RecuprerInformationConnexion<Groupe>(jsonString);
             groupes.Clear();
             int byteReaden = 0;
             foreach (var groupe in listeInformation)

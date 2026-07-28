@@ -7,4 +7,13 @@ public partial class PropositionPage : ContentPage
 		BindingContext = viewModel;
 		InitializeComponent();
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is PropositionViewModel viewModel)
+        {
+            viewModel.LoadCommentairesCommand.Execute(null);
+        }
+    }
 }

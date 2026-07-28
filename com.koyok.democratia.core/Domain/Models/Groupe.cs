@@ -9,7 +9,9 @@ namespace com.koyok.democratia.Domain.Models
         [ObservableProperty]
         public partial string? nomGroupe { get; set; } = nomGroupe;
 
-        public string? couleurGroupe { get; set; } = couleurGroupe;
+        [ObservableProperty]
+
+        public partial string? couleurGroupe { get; set; } = couleurGroupe;
 
         public string? image { get; set; } = image;
 
