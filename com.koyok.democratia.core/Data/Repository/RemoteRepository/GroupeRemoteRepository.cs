@@ -9,8 +9,7 @@ using System.Text.Json;
 
 namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
-    internal class GroupeRemoteRepository(HttpClient client, IEnumerable<IRemoteToDomain> remotes) 
-        : RemoteBaseRepository(client, remotes.OfType<GroupeRemoteToDomain>().FirstOrDefault()!), IGroupeRepository
+    internal class GroupeRemoteRepository(HttpClient client, IRemoteToDomain remote) : RemoteBaseRepository(client, remote), IGroupeRepository
     {
         public  async Task<bool> CreateModelAsync(params object?[]? parameters)
         {

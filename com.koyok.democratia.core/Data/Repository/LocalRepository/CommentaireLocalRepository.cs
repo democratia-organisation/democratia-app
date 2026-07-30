@@ -5,8 +5,8 @@ using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository.LocalRepository
 {
-    internal class CommentaireLocalRepository(DataBaseCreation<CommentaireLocalSource> databaseConnexion, IEnumerable<ILocalToDomain> domains) : 
-        LocalBaseRepository<CommentaireLocalSource>(databaseConnexion, domains.OfType<CommentaireLocalToDomain>().FirstOrDefault()!), ICommentaireRepository
+    internal class CommentaireLocalRepository(DataBaseCreation<CommentaireLocalSource> databaseConnexion, ILocalToDomain domain) :
+        LocalBaseRepository<CommentaireLocalSource>(databaseConnexion, domain), ICommentaireRepository
     {
         public Task<bool> CreateModelAsync(params object?[]? parameters)
         {

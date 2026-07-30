@@ -6,8 +6,7 @@ using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
-    public class PropositionRemoteRepository(HttpClient client, IEnumerable<IRemoteToDomain> remotes)
-        : RemoteBaseRepository(client, remotes.OfType<PropositionRemoteToDomain>().FirstOrDefault()!), IPropositionRepository
+    public class PropositionRemoteRepository(HttpClient client, IRemoteToDomain remote) : RemoteBaseRepository(client, remote), IPropositionRepository
     {
         public Task<bool> CreateModelAsync(params object?[]? parameters)
         {

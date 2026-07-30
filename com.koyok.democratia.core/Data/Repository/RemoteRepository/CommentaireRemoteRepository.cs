@@ -4,9 +4,7 @@ using com.koyok.democratia.Domain.Repository;
 
 namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
-    internal class CommentaireRemoteRepository(
-        HttpClient client, IEnumerable<IRemoteToDomain> domains) : 
-        RemoteBaseRepository(client, domains.OfType<CommentaireRemoteToDomain>().FirstOrDefault()!), ICommentaireRepository
+    internal class CommentaireRemoteRepository(HttpClient client, IRemoteToDomain domain) : RemoteBaseRepository(client, domain), ICommentaireRepository
     {
         public Task<bool> CreateModelAsync(params object?[]? parameters)
         {

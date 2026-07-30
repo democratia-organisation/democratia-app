@@ -8,8 +8,7 @@ using System.Text.Json;
 
 namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
-    public class InternauteRemoteRepository(HttpClient client, IEnumerable<IRemoteToDomain> remotes)
-        : RemoteBaseRepository(client, remotes.OfType<InternauteRemoteToDomain>().FirstOrDefault()!), IInternauteRepository
+    public class InternauteRemoteRepository(HttpClient client, IRemoteToDomain remote) : RemoteBaseRepository(client, remote), IInternauteRepository
     {
         public  async Task<bool> CreateModelAsync(params object?[]? parameters)
         {

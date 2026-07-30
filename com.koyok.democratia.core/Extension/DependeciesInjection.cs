@@ -110,11 +110,11 @@ namespace com.koyok.democratia.Extension
                 services.AddSingleton<DataBaseCreation<ThematiqueLocalSource>>();
                 services.AddSingleton<DataBaseCreation<PropositionLocalSource>>();
                 services.AddSingleton<DataBaseCreation<CommentaireLocalSource>>();
-                services.AddSingleton<InternauteLocalRepository>();
-                services.AddSingleton<GroupeLocalRepository>();
-                services.AddSingleton<ThematiqueLocalRepository>();
-                services.AddSingleton<PropositionLocalRepository>();
-                services.AddSingleton<CommentaireLocalRepository>();
+                services.AddSingleton<InternauteLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<InternauteLocalSource>>(), s.GetServices<ILocalToDomain>().OfType<InternauteLocalToDomain>().FirstOrDefault()!));
+                services.AddSingleton<GroupeLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<GroupeLocalSource>>(),s.GetServices<ILocalToDomain>().OfType<GroupeLocalToDomain>().FirstOrDefault()!));
+                services.AddSingleton<ThematiqueLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<ThematiqueLocalSource>>(), s.GetServices<ILocalToDomain>().OfType<ThematiqueLocalToDomain>().FirstOrDefault()!));
+                services.AddSingleton<PropositionLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<PropositionLocalSource>>(), s.GetServices<ILocalToDomain>().OfType<PropositionLocalToDomain>().FirstOrDefault()!));
+                services.AddSingleton<CommentaireLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<CommentaireLocalSource>>(), s.GetServices<ILocalToDomain>().OfType<CommentaireLocalToDomain>().FirstOrDefault()!));
 
                 return services;
             }

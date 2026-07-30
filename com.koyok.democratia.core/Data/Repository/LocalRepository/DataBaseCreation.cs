@@ -7,33 +7,27 @@ namespace com.koyok.democratia.Data.Repository.LocalRepository
     {
 
         public SQLiteAsyncConnection? database;
-        public SQLiteConnection? connection;
         public DataBaseCreation(DataBaseConnexion connexion)
         {            
             connexion.Init();
             database = connexion.database;
-            connection = connexion.connection;
             Init();
         }   
 
         private void Init()
         {
-            connection?.CreateTable<T>();
+            database?.CreateTableAsync<T>();
         }
     }
 
     public class DataBaseConnexion
     {
         public SQLiteAsyncConnection? database;
-        public SQLiteConnection? connection;
         public void Init() 
         {
             if (database is not null)
                 return;
             database = new (Constants.DatabasePath, Constants.Flags);
-            if (connection is not null)
-                return;
-            connection = new(Constants.DatabasePath, Constants.Flags);
         }
         
     }

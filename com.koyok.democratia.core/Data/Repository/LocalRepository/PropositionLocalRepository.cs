@@ -6,8 +6,8 @@ using com.koyok.democratia.Data.DataSource.Local;
 
 namespace com.koyok.democratia.Data.Repository.LocalRepository  
 {
-    public class PropositionLocalRepository(DataBaseCreation<PropositionLocalSource> databaseConnexion, IEnumerable<ILocalToDomain> domains)
-        : LocalBaseRepository<PropositionLocalSource>(databaseConnexion, domains.OfType<PropositionLocalToDomain>().FirstOrDefault()!), IPropositionRepository
+    public class PropositionLocalRepository(DataBaseCreation<PropositionLocalSource> databaseConnexion, ILocalToDomain domain)
+        : LocalBaseRepository<PropositionLocalSource>(databaseConnexion, domain), IPropositionRepository
     {
         public Task<bool> CreateModelAsync(params object?[]? parameters)
         {
