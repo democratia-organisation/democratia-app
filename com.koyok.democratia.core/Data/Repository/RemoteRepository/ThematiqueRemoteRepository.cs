@@ -10,7 +10,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
     internal class ThematiqueRemoteRepository(HttpClient client, IRemoteToDomain remote) : RemoteBaseRepository(client, remote), IThematiqueRepository
     {
-        public  async Task<bool> CreateModelAsync(params object?[]? parameters)
+        public async Task<bool> CreateModelAsync(params object?[]? parameters)
         {
             var thematique = (Thematique)parameters![0]!;
             var requete = $"thematiques";
@@ -20,12 +20,11 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
                 var contenu = new StringContent(JsonSerializer.Serialize(thematique), Encoding.UTF8, new MediaTypeHeaderValue("application/json"));
                 response = await client?.PostAsync(requete, contenu)!;
             }
-            catch (Exception) { 
+            catch (Exception)
+            {
                 throw new ConnexionErrorException();
             }
-            string content = await response.Content.ReadAsStringAsync();
-            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
-            return sucess;
+            return await ExtraiteStatus(response);
 
         }
 
@@ -40,10 +39,10 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             try
             {
                 var requete = "thematiques";
-                
+
                 response = await client?.GetAsync(requete)!;
                 string content = await response.Content.ReadAsStringAsync();
-                return [.. RecuprerInformationConnexion<Internaute>(content).Cast<IModel>()];
+                return [.. RecuprerInformationConnexion<Thematique>(content)];
 
             }
             catch (HttpRequestException ex)
@@ -53,7 +52,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
 
         }
 
-        public  Task<bool> UpdateModelAsync(params object?[]? parameters)
+        public Task<bool> UpdateModelAsync(params object?[]? parameters)
         {
             throw new NotImplementedException();
         }

@@ -16,9 +16,9 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
         protected HttpClient? client;
         public HttpClient Client => client!;
         private IRemoteToDomain remoteToDomain;
-        
-        public bool succes {  get; private set; }
-        
+
+        public bool succes { get; private set; }
+
         protected RemoteBaseRepository(HttpClient client, IRemoteToDomain remoteToDomain)
         {
             statutsMessage = string.Empty;
@@ -34,13 +34,14 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
         }
 
         public virtual List<T> RecuprerInformationConnexion<T>(string stringJson) where T : class, IModel
-        {            
+        {
             var finalJson = stringJson.Trim();
-            try { 
+            try
+            {
                 using var doc = JsonDocument.Parse(finalJson);
                 var root = doc.RootElement;
                 if (!root.TryGetProperty("data", out var data))
-                    throw new ConnexionErrorException(root.TryGetProperty("message", out var message)? message.ToString() : throw new Exception());
+                    throw new ConnexionErrorException(root.TryGetProperty("message", out var message) ? message.ToString() : throw new Exception());
                 var resultList = new List<T>();
 
                 if (data.ValueKind == JsonValueKind.Array)
@@ -58,8 +59,15 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             }
             catch (TooManyRequestException) { throw; }
             catch (Exception) { throw new FetchDataException(); }
-            
 
+
+        }
+
+        protected static async Task<bool> ExtraiteStatus(HttpResponseMessage response)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
+            return sucess;
         }
 
         /// <summary>
@@ -67,8 +75,8 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
         /// Utilisée pour les tests unitaires afin de simuler une erreur de connexion internet.
         /// </summary>
         /// <param name="port">le numéro de port</param>
-        public void SetPort(int port) => client!.BaseAddress = new Uri($"http://localhost:81/rest.php"); 
-        
+        public void SetPort(int port) => client!.BaseAddress = new Uri($"http://localhost:81/rest.php");
+
 
         protected void MettreAJourStatuts(HttpResponseMessage? response)
         {
@@ -83,7 +91,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             statutsMessage = info.GetValue<string>("StatutsMessage");
             statuts = info.GetValue<int?>("Statuts");
             client = new HttpClient { BaseAddress = new Uri(BASE_URL) };
-            
+
         }
 
         public void Serialize(IXunitSerializationInfo info)
@@ -95,16 +103,16 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
 
         // vouer à ne pas être implémenté ici mais dans les repositories qui en ont besoin
         public virtual Task<byte[]?> GetImageAsync(params object?[]? parameters) => throw new NotImplementedException();
-        
+
 
         public virtual async Task<bool> UploadImage(Guid? id, string filePath) => true;
-        
+
 
         public void Dispose()
         {
             client!.Dispose();
             GC.SuppressFinalize(this);
         }
-        
+
     }
 }

@@ -10,7 +10,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
     public class InternauteRemoteRepository(HttpClient client, IRemoteToDomain remote) : RemoteBaseRepository(client, remote), IInternauteRepository
     {
-        public  async Task<bool> CreateModelAsync(params object?[]? parameters)
+        public async Task<bool> CreateModelAsync(params object?[]? parameters)
         {
             HttpResponseMessage? response;
 
@@ -19,16 +19,13 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
                 var internaute = (Internaute)parameters![0]!;
                 var request = "users";
                 var stringContent = new StringContent(JsonSerializer.Serialize(internaute));
-                response = await client!.PostAsync(request,stringContent);
+                response = await client!.PostAsync(request, stringContent);
             }
             catch (HttpRequestException ex)
             {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-
-            string content = await response.Content.ReadAsStringAsync();
-            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
-            return sucess;
+            return await ExtraiteStatus(response);
         }
 
         public async Task<List<IModel>> GetModelAsync(params object?[] parameters)
@@ -38,7 +35,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             {
                 var requete = $"""users/login""";
                 string jsonContent = JsonSerializer.Serialize(parameters);
-                var contenu = new StringContent(jsonContent, Encoding.UTF8,new MediaTypeHeaderValue("application/json"));
+                var contenu = new StringContent(jsonContent, Encoding.UTF8, new MediaTypeHeaderValue("application/json"));
                 response = await client!.PostAsync(requete, contenu);
             }
             catch (HttpRequestException ex)
@@ -47,12 +44,12 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             }
 
             string content = await response.Content.ReadAsStringAsync();
-            return [.. RecuprerInformationConnexion<Internaute>(content).Cast<IModel>()];
+            return [.. RecuprerInformationConnexion<Internaute>(content)];
         }
 
         public async Task<bool> DoublonEmailAsync(string email)
         {
-            
+
 
             HttpResponseMessage? response;
             try
@@ -74,7 +71,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
 
         public async Task<bool> UpdateModelAsync(params object?[]? parameters)
         {
-            
+
             HttpResponseMessage? response;
             var internaute = (Internaute)parameters![0]!;
             try
@@ -82,17 +79,16 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
                 var contenu = new StringContent(JsonSerializer.Serialize(internaute));
                 response = await client!.PatchAsync("users", contenu);
             }
-            catch (HttpRequestException ex) {
+            catch (HttpRequestException ex)
+            {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-            string content = await response.Content.ReadAsStringAsync();
-            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
-            return sucess;
+            return await ExtraiteStatus(response);
         }
 
         public async Task<bool> DeleteModelAsync(params object?[]? parameters)
         {
-            
+
             HttpResponseMessage? response;
             try
             {
@@ -102,9 +98,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             {
                 throw new HttpRequestException("Erreur de connexion inattendu", ex);
             }
-            string content = await response.Content.ReadAsStringAsync();
-            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
-            return sucess;
+            return await ExtraiteStatus(response);
         }
     }
 }

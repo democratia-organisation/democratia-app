@@ -11,9 +11,6 @@
     Title="PropositionPage"
     x:DataType="viewModel:PropositionViewModel"
     Style="{DynamicResource fondEcran}">
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding LoadCommentairesCommand}" EventName="Appearing" />
-    </ContentPage.Behaviors>
     <Grid
         HorizontalOptions="Fill"
         RowDefinitions="Auto, Auto ,*, Auto"

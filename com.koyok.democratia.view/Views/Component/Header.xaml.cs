@@ -38,14 +38,12 @@ namespace com.koyok.democratia.UI.Component
                             Environment.Exit(0);
                     }
                 }
-
                 if (pile.Count > 1) await shell.GoToAsync("..");
-
             }
             else
             {
                 bool isConnected = bool.Parse((await SecureStorage.Default.GetAsync(SecureStorageKeys.isConnected.ToString()))!);
-                if(isConnected) await AppShell.Current.GoToAsync($"{nameof(HomePage)}");
+                if (isConnected) await AppShell.Current.GoToAsync($"{nameof(HomePage)}");
             }
         }
 

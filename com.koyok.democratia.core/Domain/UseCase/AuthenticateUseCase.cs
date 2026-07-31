@@ -15,7 +15,7 @@ namespace com.koyok.democratia.Domain.UseCase
         public async Task<Internaute?> Authenticate(string adresseMail, string motDePasse)
         {
             string? stringTime = await SecureStorage.Default.GetAsync(SecureStorageKeys.LastLogin.ToString());
-            if(stringTime is not null)
+            if (stringTime is not null)
             {
                 TimeSpan span = DateTime.UtcNow - DateTime.Parse(stringTime);
                 if (span.Days > 7)
@@ -26,9 +26,11 @@ namespace com.koyok.democratia.Domain.UseCase
                     return null;
                 }
             }
-            await SecureStorage.Default.SetAsync(SecureStorageKeys.IdInternaute.ToString(), adresseMail);
-            await SecureStorage.Default.SetAsync(SecureStorageKeys.MotDePasseInternaute.ToString(), motDePasse);
-            List<Internaute> listeInformation = [.. (await internauteRepository?.GetModelAsync(adresseMail, motDePasse)!).Cast<Internaute>()];
+            Task adresseMailTask = SecureStorage.Default.SetAsync(SecureStorageKeys.IdInternaute.ToString(), adresseMail);
+            Task motDePasseTask = SecureStorage.Default.SetAsync(SecureStorageKeys.MotDePasseInternaute.ToString(), motDePasse);
+            List<Internaute> listeInformation = [];
+            Task listeRun = Task.Run(async () => listeInformation = [.. (await internauteRepository?.GetModelAsync(adresseMail, motDePasse)!).Cast<Internaute>()]);
+            await Task.WhenAll(adresseMailTask, motDePasseTask, listeRun);
             if (listeInformation.Count == 0) throw new NoUserException();
             var internaute = listeInformation[0];
             string motDePasseHash = internaute!.hashageMDP!;

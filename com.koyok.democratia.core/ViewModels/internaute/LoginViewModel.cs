@@ -11,7 +11,7 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute
 {
-    public partial class LoginViewModel(AuthenticateUseCase useCase) 
+    public partial class LoginViewModel(AuthenticateUseCase useCase)
         : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? adresseMail { get; set; }
@@ -31,13 +31,14 @@ namespace com.koyok.democratia.UI.internaute
                 {
                     if (string.IsNullOrWhiteSpace(adresseMail)) throw new EmptyEmailFieldException();
                     else if (string.IsNullOrWhiteSpace(motDePasse)) throw new EmptyPassWordFieldException();
-                    modele = await useCase.Authenticate(adresseMail!, motDePasse!);
-                    await SecureStorage.Default.SetAsync(SecureStorageKeys.isConnected.ToString(), $"{true}");
+                    Task modeleTask = Task.Run(async () => modele = await useCase.Authenticate(adresseMail!, motDePasse!));
+                    Task secureStorageTask = SecureStorage.Default.SetAsync(SecureStorageKeys.isConnected.ToString(), $"{true}");
+                    await Task.WhenAll(modeleTask, secureStorageTask);
                     Shell.Current.AppContext.Internaute = modele;
                     var parameters = new ShellNavigationQueryParameters { { "modele", modele! } };
                     await Shell.Current!.GoToAsync(commande, parameters);
                 }
-                catch(TooManyRequestException)
+                catch (TooManyRequestException)
                 {
                     throw;
                 }
