@@ -23,6 +23,9 @@ namespace com.koyok.democratia.UI.groupe
         [ObservableProperty]
         public partial bool isRefreshing { get; set; } = false;
 
+        [ObservableProperty]
+        public partial string? commentaire { get; set; }
+
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
@@ -51,5 +54,25 @@ namespace com.koyok.democratia.UI.groupe
             }
             catch { throw; } 
         }
+
+        [RelayCommand]
+        private async Task AjouterCommentaireAsync()
+        {
+            List<Commentaire> commentaires = [.. this.commentaires];
+            var internaute = Shell.Current.AppContext.Internaute;
+            Commentaire nouveauCommentaire = new(1, commentaire, DateTime.Now, 0, internaute!.nomInternaute!, internaute.prenomInternaute!, Role.Membre, (int)internaute.idInternaute!);
+            nouveauCommentaire.himself = true;
+            commentaires.Add(nouveauCommentaire);
+            this.commentaires.RemplacerElements(commentaires);
+            bool isSuccess = await commentaireRepository.CreateModelAsync(commentaire);
+            if (!isSuccess)
+            {
+                commentaires.Remove(nouveauCommentaire);
+                this.commentaires.RemplacerElements(commentaires);
+                throw new Exception("Erreur lors de l'ajout du commentaire");
+            }
+
+        }
+
     }
 }

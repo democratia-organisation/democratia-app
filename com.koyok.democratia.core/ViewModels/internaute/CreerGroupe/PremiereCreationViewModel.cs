@@ -65,7 +65,8 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
                 thematiquesNouvelles = [.. thematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];
                 foreach (Thematique item in thematiquesNouvelles)
                 {
-                    if (!(await repository!.CreateModelAsync(item))) throw new Exception();
+                    bool created = await repository!.CreateModelAsync(item);
+                    if (!created) throw new Exception();
                     List<Thematique> thematiques = [..(await repository.GetModelAsync()).Cast<Thematique>()];
                     item.idThematique = thematiques.Last().idThematique;
                 }

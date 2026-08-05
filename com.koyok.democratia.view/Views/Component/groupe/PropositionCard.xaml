@@ -4,42 +4,53 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:com.koyok.democratia.Domain.Models;assembly=com.koyok.democratia.core"
+    xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Shimmer;assembly=Syncfusion.Maui.Core"
     x:Name="this"
     x:DataType="models:Proposition"
     Style="{DynamicResource ContenViewStyle}">
-    <VerticalStackLayout x:Name="mainLayout">
-        <VerticalStackLayout.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding OpenCommand, Source={x:Reference this}}" CommandParameter="{Binding .}" />
-        </VerticalStackLayout.GestureRecognizers>
-        <Label
-            x:Name="titreLabel"
-            AutomationId="titreLabel"
-            HorizontalOptions="Center"
-            HorizontalTextAlignment="Center"
-            Style="{DynamicResource LabelStyle}"
-            Text="{Binding titre}" />
-        <Grid
-            x:Name="groupeLayout"
-            ColumnDefinitions="Auto,*"
-            ColumnSpacing="{DynamicResource SpacingLarge}"
-            FlowDirection="LeftToRight">
-            <Label
-                x:Name="dateLabel"
-                Grid.Column="0"
-                AutomationId="dateLabel"
-                HorizontalTextAlignment="Start" />
-            <ImageButton
-                x:Name="loupePropositionImageButton"
-                Grid.Column="1"
-                AutomationId="loupePropositionImageButton"
-                Command="{Binding OpenDetailCommand, Source={x:Reference this}}"
-                CommandParameter="{Binding .}"
-                HeightRequest="30"
-                HorizontalOptions="End"
-                IsVisible="{Binding EnableLoupe, Source={x:Reference this}}"
-                Source="loupe.png"
-                VerticalOptions="End"
-                WidthRequest="30" />
-        </Grid>
-    </VerticalStackLayout>
+    <syncfusion:SfShimmer
+        x:Name="shimmer"
+        Background="Transparent"
+        IsActive="{Binding IsLoading, Source={x:Reference this}}"
+        Type="Article"
+        VerticalOptions="Fill">
+        <syncfusion:SfShimmer.Content>
+            <VerticalStackLayout x:Name="mainLayout">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenCommand, Source={x:Reference this}}" CommandParameter="{Binding .}" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Label
+                    x:Name="titreLabel"
+                    AutomationId="titreLabel"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Style="{DynamicResource LabelStyle}"
+                    Text="{Binding titre}" />
+
+                <Grid
+                    x:Name="groupeLayout"
+                    ColumnDefinitions="Auto,*"
+                    ColumnSpacing="{DynamicResource SpacingLarge}"
+                    FlowDirection="LeftToRight">
+                    <Label
+                        x:Name="dateLabel"
+                        Grid.Column="0"
+                        AutomationId="dateLabel"
+                        HorizontalTextAlignment="Start" />
+                    <ImageButton
+                        x:Name="loupePropositionImageButton"
+                        Grid.Column="1"
+                        AutomationId="loupePropositionImageButton"
+                        Command="{Binding OpenDetailCommand, Source={x:Reference this}}"
+                        CommandParameter="{Binding .}"
+                        HeightRequest="30"
+                        HorizontalOptions="End"
+                        IsVisible="{Binding EnableLoupe, Source={x:Reference this}}"
+                        Source="loupe.png"
+                        VerticalOptions="End"
+                        WidthRequest="30" />
+                </Grid>
+            </VerticalStackLayout>
+        </syncfusion:SfShimmer.Content>
+    </syncfusion:SfShimmer>
 </ContentView>

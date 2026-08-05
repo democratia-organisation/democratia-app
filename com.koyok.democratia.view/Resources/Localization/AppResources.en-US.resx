@@ -414,4 +414,7 @@
   <data name="messagePost" xml:space="preserve">
     <value>Post a message</value>
   </data>
+  <data name="valide" xml:space="preserve">
+    <value>Valid</value>
+  </data>
 </root>

@@ -171,6 +171,11 @@ namespace com.koyok.democratia.Extension
             return url;
         }
 
+        public static string GetSyncfusionLicenseKey()
+        {
+            return maui!.GetAppSetting("SYNCFUSION_KEY");
+        }
+
         extension(MauiAppBuilder builder)
         {
             public void SetUrl()
@@ -198,7 +203,7 @@ namespace com.koyok.democratia.Extension
                 builder.AddJSonSettings("appsettings");
             }
 
-            internal string GetAppSetting(string nom_cle)
+            public string GetAppSetting(string nom_cle)
             {
                 builder.AddSettings();
                 return builder.Configuration.GetValue<string>(nom_cle)!;

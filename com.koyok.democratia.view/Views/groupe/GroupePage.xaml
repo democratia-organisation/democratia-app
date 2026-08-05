@@ -141,6 +141,7 @@
                 <DataTemplate>
                     <groupeComp:PropositionCard
                         EnableLoupe="{Binding groupe.isAdmin}"
+                        IsLoading="{Binding BindingContext.isRefreshing, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                         OpenCommand="{Binding BindingContext.OuvrirPropositionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                         OpenDetailCommand="{Binding BindingContext.OuvrirDetailPropositionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
                 </DataTemplate>

@@ -13,7 +13,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
         public async Task<bool> CreateModelAsync(params object?[]? parameters)
         {
             var thematique = (Thematique)parameters![0]!;
-            var requete = $"thematiques";
+            var requete = $"thematiques/";
             HttpResponseMessage response;
             try
             {
@@ -38,7 +38,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             HttpResponseMessage response;
             try
             {
-                var requete = "thematiques";
+                var requete = "thematiques/";
 
                 response = await client?.GetAsync(requete)!;
                 string content = await response.Content.ReadAsStringAsync();

@@ -34,7 +34,7 @@ namespace com.koyok.democratia.Lib
                 HttpRequestMessage clone = await request.CloneRequest();
                 if (response.StatusCode == HttpStatusCode.TooManyRequests)
                     throw new TooManyRequestException((int)response.Headers.RetryAfter!.Delta!.Value.TotalSeconds);
-                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                else if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.PreconditionFailed)
                 {
                     string reponse = await response.Content.ReadAsStringAsync(cancellationToken);
                     string message = JsonSerializer.Deserialize<Dictionary<string, object>>(reponse)!["message"].ToString()!;
@@ -46,7 +46,7 @@ namespace com.koyok.democratia.Lib
                         return await base.SendAsync(clone, cancellationToken);
                     }
                     
-                    else if (message == "Entête incorrect" || message == "Utilisateur incorérent")
+                    else if (message == "Entête incorrect" || message == "Utilisateur incorérent" || message == "La clé n'est pas la bonne")
                     {
                         HttpResponseMessage responseToken = await RefreshKeys(cancellationToken);
                         if (!responseToken.IsSuccessStatusCode)
@@ -111,7 +111,7 @@ namespace com.koyok.democratia.Lib
 #if DEBUG
                 string content = await response.Content.ReadAsStringAsync(cancellationToken);
 #endif
-                if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.TooManyRequests)
+                if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.TooManyRequests || response.StatusCode == HttpStatusCode.PreconditionFailed)
                     return response;
                 else
                     throw new ConnexionErrorException();

@@ -123,7 +123,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="EntryStyle" TargetType="Entry">
+    <Style TargetType="Entry">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Light-onSurfaceVariant}, Dark={DynamicResource Dark-onSurfaceVariant}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Light-surfaceVariant}, Dark={DynamicResource Dark-surfaceVariant}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />

@@ -1,14 +1,27 @@
 ﻿using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
+using System.Text;
+using System.Text.Json;
 
 namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
     internal class CommentaireRemoteRepository(HttpClient client, IRemoteToDomain domain) : RemoteBaseRepository(client, domain), ICommentaireRepository
     {
-        public Task<bool> CreateModelAsync(params object?[]? parameters)
+        public async Task<bool> CreateModelAsync(params object?[]? parameters)
         {
-            throw new NotImplementedException();
+            Commentaire commentaire = (Commentaire)parameters![0]!;
+            var content = new StringContent(JsonSerializer.Serialize(commentaire), Encoding.UTF8, "application/json");
+            HttpResponseMessage response;
+            try
+            {
+                response = await client.PostAsync("/commentaires/", content);
+                return await ExtraiteStatus(response);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error creating commentaire: {ex.Message}");
+            }
         }
 
         public Task<bool> DeleteModelAsync(params object?[]? parameters)
