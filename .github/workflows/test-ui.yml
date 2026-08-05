@@ -2,7 +2,11 @@ name: UITest
 
 on:
   pull_request:
-    branches: [ main]
+    branches: [main]
+  workflow_run:
+    workflows: ["UnitTest"]
+    types:
+      - completed
 
 permissions:
   contents: read
@@ -38,7 +42,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
       - name: Install Appium & Drivers
         run: |
           npm install -g appium
@@ -55,7 +59,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: "10.0.x"
 
       - name: Install MAUI Workload
         run: dotnet workload install maui
