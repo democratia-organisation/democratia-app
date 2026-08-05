@@ -33,11 +33,6 @@ jobs:
             os: macos-latest
             project: "UITests.iOS/UITests.iOS.csproj"
             test-driver: xcuitest
-    services:
-      backend:
-        image: zydocker25/democratia-server:latest
-        ports:
-          - 8080:8080
 
     steps:
       - name: Setup Node.js
@@ -64,14 +59,6 @@ jobs:
 
       - name: Install MAUI Workload
         run: dotnet workload install maui
-
-      - name: Create appsettings (Secrets)
-        run: |
-          mkdir -p ./com.democratia.core
-          echo '${{ secrets.APPSETTINGS_PRODUCTION_JSON }}' > ./com.democratia.core/appsettings.production.json
-          echo '${{ secrets.APPSETTINGS_JSON }}' > ./com.democratia.core/appsettings.json
-          echo '${{ secrets.APPSETTINGS_DEVELOPPEMENT_JSON }}' > ./com.democratia.core/appsettings.developpement.json
-        shell: bash 
 
       - name: Build and Run Tests
         run: |
