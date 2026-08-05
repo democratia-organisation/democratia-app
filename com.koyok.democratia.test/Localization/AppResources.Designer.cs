@@ -39,7 +39,7 @@ namespace com.koyok.democratia.test.Localization {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("com.koyok.democratia.test.Localization.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("com.koyok.democratia.view.Resources.Localization.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -106,11 +106,29 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Budget en attente.
+        /// </summary>
+        public static string budgetAttente {
+            get {
+                return ResourceManager.GetString("budgetAttente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à La somme des budget de chaque thème est inférieur au budget total donné.
         /// </summary>
         public static string budgetInsuffisant {
             get {
                 return ResourceManager.GetString("budgetInsuffisant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à budget utilisé.
+        /// </summary>
+        public static string budgetUtilise {
+            get {
+                return ResourceManager.GetString("budgetUtilise", resourceCulture);
             }
         }
         
@@ -169,11 +187,20 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à L&apos;adresse mail es déjà créé.
+        ///   Recherche une chaîne localisée semblable à L&apos;adresse mail est déjà utilisé.
         /// </summary>
         public static string compteExistantErreur {
             get {
                 return ResourceManager.GetString("compteExistantErreur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Êtes-vous sûr de vouloir vous déconnecter ?.
+        /// </summary>
+        public static string confirmDeconnexion {
+            get {
+                return ResourceManager.GetString("confirmDeconnexion", resourceCulture);
             }
         }
         
@@ -241,6 +268,33 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à critère.
+        /// </summary>
+        public static string critere {
+            get {
+                return ResourceManager.GetString("critere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Voulez-vous vous déconnecter ?.
+        /// </summary>
+        public static string deconnexion {
+            get {
+                return ResourceManager.GetString("deconnexion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le serveur est actuellement surchargé, veuillez réessayer dans {0} secondes.
+        /// </summary>
+        public static string DetailBusy {
+            get {
+                return ResourceManager.GetString("DetailBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Enregistrer.
         /// </summary>
         public static string enregistrer {
@@ -255,6 +309,15 @@ namespace com.koyok.democratia.test.Localization {
         public static string entrezNomGroupe {
             get {
                 return ResourceManager.GetString("entrezNomGroupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez remplir le champ {0}.
+        /// </summary>
+        public static string erreurChamp {
+            get {
+                return ResourceManager.GetString("erreurChamp", resourceCulture);
             }
         }
         
@@ -295,6 +358,15 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à La somme des budgets de thématiques est supérieur au budget global.
+        /// </summary>
+        public static string erreurThematiqueBudget {
+            get {
+                return ResourceManager.GetString("erreurThematiqueBudget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Veuillez saisir votre adresse mail.
         /// </summary>
         public static string errorMailMessage {
@@ -309,6 +381,42 @@ namespace com.koyok.democratia.test.Localization {
         public static string errorPasswordMessage {
             get {
                 return ResourceManager.GetString("errorPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Un champ requiert est vide.
+        /// </summary>
+        public static string errorUnknowEmptyFieldMessage {
+            get {
+                return ResourceManager.GetString("errorUnknowEmptyFieldMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Filtre des propositions.
+        /// </summary>
+        public static string filtre {
+            get {
+                return ResourceManager.GetString("filtre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Filtrer.
+        /// </summary>
+        public static string filtrer {
+            get {
+                return ResourceManager.GetString("filtrer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à La discussion prend fin le .
+        /// </summary>
+        public static string finDiscussion {
+            get {
+                return ResourceManager.GetString("finDiscussion", resourceCulture);
             }
         }
         
@@ -345,6 +453,15 @@ namespace com.koyok.democratia.test.Localization {
         public static string groupe {
             get {
                 return ResourceManager.GetString("groupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce groupe ne contient aucune proposition.
+        /// </summary>
+        public static string groupeSansProposition {
+            get {
+                return ResourceManager.GetString("groupeSansProposition", resourceCulture);
             }
         }
         
@@ -421,11 +538,38 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Maximisation satisfaction et minimisation budget.
+        /// </summary>
+        public static string MaxsatisfactionMinBudget {
+            get {
+                return ResourceManager.GetString("MaxsatisfactionMinBudget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Mot de passe.
         /// </summary>
         public static string Mdp {
             get {
                 return ResourceManager.GetString("Mdp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Déconnexion.
+        /// </summary>
+        public static string messageDeconexion {
+            get {
+                return ResourceManager.GetString("messageDeconexion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Poster un message.
+        /// </summary>
+        public static string messagePost {
+            get {
+                return ResourceManager.GetString("messagePost", resourceCulture);
             }
         }
         
@@ -453,6 +597,15 @@ namespace com.koyok.democratia.test.Localization {
         public static string NewGroupe {
             get {
                 return ResourceManager.GetString("NewGroupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Soumettre une novelle proposition.
+        /// </summary>
+        public static string newPropostion {
+            get {
+                return ResourceManager.GetString("newPropostion", resourceCulture);
             }
         }
         
@@ -511,6 +664,15 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Soumettre une nouvelle proposition.
+        /// </summary>
+        public static string nouvellProp {
+            get {
+                return ResourceManager.GetString("nouvellProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Oui.
         /// </summary>
         public static string oui {
@@ -538,6 +700,24 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Plus de propositions par thématique.
+        /// </summary>
+        public static string pluspropotheme {
+            get {
+                return ResourceManager.GetString("pluspropotheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à popularite.
+        /// </summary>
+        public static string Popularite {
+            get {
+                return ResourceManager.GetString("Popularite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Préférences.
         /// </summary>
         public static string preference {
@@ -556,11 +736,29 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à prix.
+        /// </summary>
+        public static string Prix {
+            get {
+                return ResourceManager.GetString("Prix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Quitter l&apos;application maintenant.
         /// </summary>
         public static string quitterApp {
             get {
                 return ResourceManager.GetString("quitterApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à réaction.
+        /// </summary>
+        public static string reaction {
+            get {
+                return ResourceManager.GetString("reaction", resourceCulture);
             }
         }
         
@@ -579,6 +777,15 @@ namespace com.koyok.democratia.test.Localization {
         public static string retourHome {
             get {
                 return ResourceManager.GetString("retourHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à La plus grande satisfaction de chaque thématique.
+        /// </summary>
+        public static string satisfactionTheme {
+            get {
+                return ResourceManager.GetString("satisfactionTheme", resourceCulture);
             }
         }
         
@@ -610,7 +817,7 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Sélectionner une langue de préférence.
+        ///   Recherche une chaîne localisée semblable à Sélectionner une langue.
         /// </summary>
         public static string selectionLangue {
             get {
@@ -619,11 +826,20 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Sélectionner un thème par défault.
+        ///   Recherche une chaîne localisée semblable à Sélectionner un thème.
         /// </summary>
         public static string selectionTheme {
             get {
                 return ResourceManager.GetString("selectionTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Êtes-vous prêt à débattre ?.
+        /// </summary>
+        public static string slogan {
+            get {
+                return ResourceManager.GetString("slogan", resourceCulture);
             }
         }
         
@@ -700,11 +916,47 @@ namespace com.koyok.democratia.test.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cette thématique n&apos;a pas de proposition.
+        /// </summary>
+        public static string thematiqueSansProposition {
+            get {
+                return ResourceManager.GetString("thematiqueSansProposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Thème.
         /// </summary>
         public static string theme {
             get {
                 return ResourceManager.GetString("theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Surcharge serveur.
+        /// </summary>
+        public static string toomanyRequest {
+            get {
+                return ResourceManager.GetString("toomanyRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Valider.
+        /// </summary>
+        public static string valide {
+            get {
+                return ResourceManager.GetString("valide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à vous.
+        /// </summary>
+        public static string vous {
+            get {
+                return ResourceManager.GetString("vous", resourceCulture);
             }
         }
     }

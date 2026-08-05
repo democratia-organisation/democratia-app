@@ -11,11 +11,13 @@
     <HorizontalStackLayout Spacing="{DynamicResource SpacingLarge}">
         <Grid
             x:Name="grille"
+            AutomationId="grille"
             ColumnDefinitions="Auto"
             RowDefinitions="Auto">
             <Ellipse
                 Grid.Row="0"
                 Grid.Column="0"
+                AutomationId="commentaireEllipse"
                 BackgroundColor="{Binding Couleur, Source={x:Reference this}}"
                 HeightRequest="{DynamicResource SpacingLarge}"
                 WidthRequest="{DynamicResource SpacingLarge}" />
@@ -23,6 +25,7 @@
                 x:Name="sigleLabel"
                 Grid.Row="0"
                 Grid.Column="0"
+                AutomationId="sigleLabel"
                 HorizontalOptions="Center"
                 HorizontalTextAlignment="Center"
                 VerticalOptions="Center"
@@ -31,10 +34,12 @@
         <VerticalStackLayout Spacing="{DynamicResource SpacingSmall}">
             <Label
                 x:Name="nameAuteur"
+                AutomationId="nameAuteurLabel"
                 HorizontalOptions="Center"
                 Style="{DynamicResource LabelStyle}"
                 VerticalOptions="Center" />
             <Label
+                AutomationId="contenuMessageLabel"
                 HorizontalOptions="Center"
                 Style="{DynamicResource LabelStyle}"
                 Text="{Binding contenuMessage}"

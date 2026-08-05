@@ -41,9 +41,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Localization\AppResources.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localization\AppResources.resx">
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Mapper\" />
+    <Folder Include="Data\Repository\RepositoryImpl\" />
+    <Folder Include="Domain\Exception\" />
+    <Folder Include="Domain\Utils\" />
+    <Folder Include="Domain\UseCase\" />
+    <Folder Include="Lib\" />
   </ItemGroup>
 </Project>

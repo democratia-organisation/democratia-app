@@ -13,21 +13,25 @@
     x:DataType="viewModel:PropositionViewModel"
     Style="{DynamicResource fondEcran}">
     <Grid
+        AutomationId="propositionGrid"
         HorizontalOptions="Fill"
         RowDefinitions="Auto, Auto ,*, Auto, Auto"
         RowSpacing="{DynamicResource SpacingMedium}"
         VerticalOptions="Fill">
         <Grid
             Grid.Row="0"
+            AutomationId="propositionHeaderGrid"
             BackgroundColor="{Binding groupe.couleurGroupe}"
             ColumnDefinitions="*, Auto">
             <Label
                 Grid.Column="0"
+                AutomationId="propositionTitleLabel"
                 HorizontalOptions="Center"
                 Style="{DynamicResource HeadlineStyle}"
                 Text="{Binding proposition.titre}" />
             <ImageButton
                 Grid.Column="1"
+                AutomationId="propositionSettingsButton"
                 HeightRequest="{DynamicResource SpacingLarge}"
                 HorizontalOptions="End"
                 Source="parametre.png"
@@ -35,6 +39,7 @@
         </Grid>
         <Label
             Grid.Row="1"
+            AutomationId="propositionDescriptionLabel"
             HorizontalOptions="Center"
             Style="{DynamicResource SubHeadlineStyle}"
             Text="{Binding proposition.description}"
@@ -56,17 +61,20 @@
         <Entry
             x:Name="commentaireEntry"
             Grid.Row="3"
+            AutomationId="commentaireEntry"
             IsVisible="False"
             Text="{Binding commentaire}" />
         <Button
             x:Name="messagePostButton"
             Grid.Row="4"
+            AutomationId="messagePostButton"
             Clicked="PostMessageButton_Clicked"
             IsVisible="True"
             Text="{x:Static lang:AppResources.messagePost}" />
         <Button
             x:Name="valideButton"
             Grid.Row="4"
+            AutomationId="valideButton"
             Clicked="ValideButton_Clicked"
             IsVisible="False"
             Text="{x:Static lang:AppResources.valide}" />
