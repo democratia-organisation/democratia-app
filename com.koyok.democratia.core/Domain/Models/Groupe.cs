@@ -9,7 +9,7 @@
         
         public string? couleurGroupe { get; set; } = couleurGroupe;
 
-        public string? image = image;
+        public string? image { get; set; } = image;
 
         public float? budget = budget;
 

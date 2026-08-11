@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Windows.Input;
 
 namespace com.koyok.democratia.UI.Component.groupe;
