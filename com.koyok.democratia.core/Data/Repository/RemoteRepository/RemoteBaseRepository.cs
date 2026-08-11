@@ -1,32 +1,25 @@
-﻿using com.koyok.democratia.Data.DataSource.Local;
-using com.koyok.democratia.Data.DataSource.Remote;
-using com.koyok.democratia.Data.Mapper.LocalToDomain;
-using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+﻿using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Extension;
 using com.koyok.democratia.Domain.Models;
 using System.Text.Json;
 using Xunit.Abstractions;
 
-namespace com.koyok.democratia.Data.Repository
+namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
 
-    public class BaseRepository : IDisposable, IXunitSerializable
+    public class RemoteBaseRepository : IDisposable, IXunitSerializable
     {
         protected static string? BASE_URL;
         protected string? statutsMessage;
         protected int? statuts;
         protected HttpClient? client;
         public HttpClient Client => client!;
-        protected ILocalSource localSource;
-        protected IRemoteSource remoteSource;
         private IRemoteToDomain remoteToDomain;
-        private ILocalToDomain localToDomain;
 
-        public bool succes {  get; private set; }
-        
-        protected BaseRepository(HttpClient client, 
-            ILocalSource localSource, IRemoteSource remoteSource, IRemoteToDomain remoteToDomain, ILocalToDomain localToDomain)
+        public bool succes { get; private set; }
+
+        protected RemoteBaseRepository(HttpClient client, IRemoteToDomain remoteToDomain)
         {
             statutsMessage = string.Empty;
             statuts = 0;
@@ -37,27 +30,25 @@ namespace com.koyok.democratia.Data.Repository
 #elif !DEBUG
             this.client.Timeout = TimeSpan.FromSeconds(10);
 #endif
-            this.localSource = localSource;
-            this.remoteSource = remoteSource;
             this.remoteToDomain = remoteToDomain;
-            this.localToDomain = localToDomain;
         }
 
         public virtual List<T> RecuprerInformationConnexion<T>(string stringJson) where T : class, IModel
-        {            
+        {
             var finalJson = stringJson.Trim();
-            try { 
+            try
+            {
                 using var doc = JsonDocument.Parse(finalJson);
                 var root = doc.RootElement;
                 if (!root.TryGetProperty("data", out var data))
-                    throw new ConnexionErrorException(root.TryGetProperty("message", out var message)? message.ToString() : throw new Exception());
+                    throw new ConnexionErrorException(root.TryGetProperty("message", out var message) ? message.ToString() : throw new Exception());
                 var resultList = new List<T>();
 
                 if (data.ValueKind == JsonValueKind.Array)
                 {
                     foreach (var item in data.EnumerateArray())
                     {
-                        T domainModel = remoteToDomain.Mapping<T>(item.GetRawText())!;
+                        T domainModel = (remoteToDomain.Mapping(item.GetRawText()) as T)!;
 
                         if (domainModel is not null)
                             resultList.Add(domainModel);
@@ -68,8 +59,15 @@ namespace com.koyok.democratia.Data.Repository
             }
             catch (TooManyRequestException) { throw; }
             catch (Exception) { throw new FetchDataException(); }
-            
 
+
+        }
+
+        protected static async Task<bool> ExtraiteStatus(HttpResponseMessage response)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
+            return sucess;
         }
 
         /// <summary>
@@ -77,8 +75,8 @@ namespace com.koyok.democratia.Data.Repository
         /// Utilisée pour les tests unitaires afin de simuler une erreur de connexion internet.
         /// </summary>
         /// <param name="port">le numéro de port</param>
-        public void SetPort(int port) => client!.BaseAddress = new Uri($"http://localhost:81/rest.php"); 
-        
+        public void SetPort(int port) => client!.BaseAddress = new Uri($"http://localhost:81/rest.php");
+
 
         protected void MettreAJourStatuts(HttpResponseMessage? response)
         {
@@ -93,7 +91,7 @@ namespace com.koyok.democratia.Data.Repository
             statutsMessage = info.GetValue<string>("StatutsMessage");
             statuts = info.GetValue<int?>("Statuts");
             client = new HttpClient { BaseAddress = new Uri(BASE_URL) };
-            
+
         }
 
         public void Serialize(IXunitSerializationInfo info)
@@ -105,16 +103,16 @@ namespace com.koyok.democratia.Data.Repository
 
         // vouer à ne pas être implémenté ici mais dans les repositories qui en ont besoin
         public virtual Task<byte[]?> GetImageAsync(params object?[]? parameters) => throw new NotImplementedException();
-        
 
-        public virtual async Task<string> UploadImage(Guid? id, string filePath) => "";
-        
+
+        public virtual async Task<bool> UploadImage(Guid? id, string filePath) => true;
+
 
         public void Dispose()
         {
             client!.Dispose();
             GC.SuppressFinalize(this);
         }
-        
+
     }
 }

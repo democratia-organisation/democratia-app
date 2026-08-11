@@ -2,33 +2,36 @@ name: windowsCI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["UITest"]
+    types:
+      - completed
 
 env:
-    DOTNETVERSION: 10.0.x
-    
+  DOTNETVERSION: 10.0.x
+
 jobs:
   buildWindows:
     runs-on: windows-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup .NET SDK ${{env.DOTNETVERSION}}
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '${{env.DOTNETVERSION}}'
-          
+          dotnet-version: "${{env.DOTNETVERSION}}"
+
       - name: Install .NET MAUI
         shell: pwsh
         run: |
           & dotnet nuget locals all --clear
-          & dotnet workload install maui android maui-windows 
-      
+          & dotnet workload install maui android maui-windows
+
       # https://docs.microsoft.com/en-us/dotnet/maui/windows/deployment/overview
       - name: Build Windows MSIX
         run: |
@@ -64,54 +67,54 @@ jobs:
           name: artifacts-windows
           path: |
             **\*.msix
-      
+
   buildAndroid:
-      runs-on: windows-latest
+    runs-on: windows-latest
 
-      steps:
-        - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-        - name: Setup .NET SDK ${{env.DOTNETVERSION}}
-          uses: actions/setup-dotnet@v4
-          with:
-            dotnet-version:  '${{env.DOTNETVERSION}}'
+      - name: Setup .NET SDK ${{env.DOTNETVERSION}}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "${{env.DOTNETVERSION}}"
 
-        - name: List installed .NET info
-          shell: pwsh
-          run: dotnet --info
+      - name: List installed .NET info
+        shell: pwsh
+        run: dotnet --info
 
-        - name: Install .NET MAUI
-          shell: bash
-          run: |
-            dotnet nuget locals all --clear 
-            dotnet workload install maui android 
+      - name: Install .NET MAUI
+        shell: bash
+        run: |
+          dotnet nuget locals all --clear 
+          dotnet workload install maui android
 
-        - name: Restore nuget packages
-          run: dotnet restore com.democratia.sln
+      - name: Restore nuget packages
+        run: dotnet restore com.democratia.sln
 
-          # https://docs.microsoft.com/en-us/dotnet/maui/android/deployment/overview
-        - name : Build Android App
-          shell: bash
-          run: |
-            cd com.democratia.view
-            dotnet publish -f:net10.0-android -c:Release
-            
-        # # Store Android Signing Keystore and password in Secrets using base64 encoding
-        # # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/certutil
-        # # commandline util to encode to base64 on windows
-        # - name: Extract Android signing key from env
-        #   shell: bash
-        #   run: |
-        #     echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
-        #     base64 -d android/release.jks.base64 > android/release.decrypted.jks
+        # https://docs.microsoft.com/en-us/dotnet/maui/android/deployment/overview
+      - name: Build Android App
+        shell: bash
+        run: |
+          cd com.democratia.view
+          dotnet publish -f:net10.0-android -c:Release
 
-        # # check android SDK paths etc in installed VM : https://github.com/actions/virtual-environments#available-environments
-        # - name: Sign dev build
-        #   shell: bash
-        #   run: jarsigner -keystore android/release.decrypted.jks -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./android/app/build/outputs/bundle/release/app-release-signed.aab ./android/app/build/outputs/bundle/release/app-release.aab release
+      # # Store Android Signing Keystore and password in Secrets using base64 encoding
+      # # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/certutil
+      # # commandline util to encode to base64 on windows
+      # - name: Extract Android signing key from env
+      #   shell: bash
+      #   run: |
+      #     echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
+      #     base64 -d android/release.jks.base64 > android/release.decrypted.jks
 
-        - uses: actions/upload-artifact@v4
-          with:
-            name: artifacts-android
-            path: |
-              .\com.democratia.view\bin\Release\net10.0-android\publish\*.apk
+      # # check android SDK paths etc in installed VM : https://github.com/actions/virtual-environments#available-environments
+      # - name: Sign dev build
+      #   shell: bash
+      #   run: jarsigner -keystore android/release.decrypted.jks -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./android/app/build/outputs/bundle/release/app-release-signed.aab ./android/app/build/outputs/bundle/release/app-release.aab release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifacts-android
+          path: |
+            .\com.democratia.view\bin\Release\net10.0-android\publish\*.apk

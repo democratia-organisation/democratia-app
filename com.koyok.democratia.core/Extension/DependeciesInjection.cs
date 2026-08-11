@@ -2,6 +2,8 @@
 using com.koyok.democratia.Data.DataSource.Remote;
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+using com.koyok.democratia.Data.Repository.LocalRepository;
+using com.koyok.democratia.Data.Repository.RepositoryImpl;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Domain.UseCase;
 using com.koyok.democratia.UI;
@@ -10,6 +12,7 @@ using com.koyok.democratia.UI.internaute;
 using com.koyok.democratia.UI.internaute.CreerGroupe;
 using com.koyok.democratia.UI.internaute.gestionCompte;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace com.koyok.democratia.Extension
 {
@@ -28,6 +31,8 @@ namespace com.koyok.democratia.Extension
                 services.AddLocalToDomain();
                 services.AddRemoteToDomain();
                 services.AddClient();
+                services.AddLocalRepository();
+                services.AddRepositoryImpl();
                 services.AddUsesCases();
                 services.AddTransientViewModel();
                 return services;
@@ -39,6 +44,7 @@ namespace com.koyok.democratia.Extension
                 services.AddSingleton<IRemoteToDomain, GroupeRemoteToDomain>();
                 services.AddSingleton<IRemoteToDomain, ThematiqueRemoteToDomain>();
                 services.AddSingleton<IRemoteToDomain, PropositionRemoteToDomain>();
+                services.AddSingleton<IRemoteToDomain, CommentaireRemoteToDomain>();
                 return services;
             }
 
@@ -48,6 +54,7 @@ namespace com.koyok.democratia.Extension
                 services.AddSingleton<ILocalToDomain, GroupeLocalToDomain>();
                 services.AddSingleton<ILocalToDomain, ThematiqueLocalToDomain>();
                 services.AddSingleton<ILocalToDomain, PropositionLocalToDomain>();
+                services.AddSingleton<ILocalToDomain, CommentaireLocalToDomain>();
                 return services;
             }
 
@@ -65,29 +72,61 @@ namespace com.koyok.democratia.Extension
 
             public IServiceCollection AddDataLocalSources()
             {
-                services.AddTransient<ILocalSource, InternauteLocalSource>();
-                services.AddTransient<ILocalSource, GroupeLocalSource>();
-                services.AddTransient<ILocalSource, ThematiqueLocalSource>();
-                services.AddTransient<ILocalSource, PropositionLocalSource>();
+                services.AddSingleton<ILocalSource, InternauteLocalSource>();
+                services.AddSingleton<ILocalSource, GroupeLocalSource>();
+                services.AddSingleton<ILocalSource, ThematiqueLocalSource>();
+                services.AddSingleton<ILocalSource, PropositionLocalSource>();
+                services.AddSingleton<ILocalSource, CommentaireLocalSource>();
                 return services;
             }
 
             public IServiceCollection AddDataRemoteSources()
             {
-                services.AddTransient<IRemoteSource, InternauteRemoteSource>();
-                services.AddTransient<IRemoteSource, GroupeRemoteSource>();
-                services.AddTransient<IRemoteSource, ThematiqueRemoteSource>();
-                services.AddTransient<IRemoteSource, PropositionRemoteSource>();
+                services.AddSingleton<IRemoteSource, InternauteRemoteSource>();
+                services.AddSingleton<IRemoteSource, GroupeRemoteSource>();
+                services.AddSingleton<IRemoteSource, ThematiqueRemoteSource>();
+                services.AddSingleton<IRemoteSource, PropositionRemoteSource>();
+                services.AddSingleton<IRemoteSource, CommentaireRemoteSource>();
 
                 return services;
             }
             public IServiceCollection AddClient()
             {
 
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IInternauteRepository>());
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IGroupeRepository>());
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IThematiqueRepository>());
-                services.AddTransient<IRepository>(s => s.GetRequiredService<IPropositionRepository>());
+                services.AddSingleton<IRepository>(s => s.GetRequiredService<IInternauteRepository>());
+                services.AddSingleton<IRepository>(s => s.GetRequiredService<IGroupeRepository>());
+                services.AddSingleton<IRepository>(s => s.GetRequiredService<IThematiqueRepository>());
+                services.AddSingleton<IRepository>(s => s.GetRequiredService<IPropositionRepository>());
+                services.AddSingleton<IRepository>(s => s.GetRequiredService<ICommentaireRepository>());
+
+                return services;
+            }
+
+            public IServiceCollection AddLocalRepository()
+            {
+                services.AddSingleton<DataBaseConnexion>();
+                services.AddSingleton<DataBaseCreation<InternauteLocalSource>>();
+                services.AddSingleton<DataBaseCreation<GroupeLocalSource>>();
+                services.AddSingleton<DataBaseCreation<ThematiqueLocalSource>>();
+                services.AddSingleton<DataBaseCreation<PropositionLocalSource>>();
+                services.AddSingleton<DataBaseCreation<CommentaireLocalSource>>();
+                services.AddSingleton<InternauteLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<InternauteLocalSource>>(), s.GetServices<ILocalToDomain>().OfType<InternauteLocalToDomain>().FirstOrDefault()!));
+                services.AddSingleton<GroupeLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<GroupeLocalSource>>(),s.GetServices<ILocalToDomain>().OfType<GroupeLocalToDomain>().FirstOrDefault()!));
+                services.AddSingleton<ThematiqueLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<ThematiqueLocalSource>>(), s.GetServices<ILocalToDomain>().OfType<ThematiqueLocalToDomain>().FirstOrDefault()!));
+                services.AddSingleton<PropositionLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<PropositionLocalSource>>(), s.GetServices<ILocalToDomain>().OfType<PropositionLocalToDomain>().FirstOrDefault()!));
+                services.AddSingleton<CommentaireLocalRepository>(s => new(s.GetRequiredService<DataBaseCreation<CommentaireLocalSource>>(), s.GetServices<ILocalToDomain>().OfType<CommentaireLocalToDomain>().FirstOrDefault()!));
+
+                return services;
+            }
+
+            public IServiceCollection AddRepositoryImpl()
+            {
+
+                services.AddSingleton<IInternauteRepository, InternauteRepository>();
+                services.AddSingleton<IGroupeRepository, GroupeRepository>();
+                services.AddSingleton<IThematiqueRepository, ThematiqueRepository>();
+                services.AddSingleton<IPropositionRepository, PropositionRepository>();
+                services.AddSingleton<ICommentaireRepository, CommentaireRepository>();
 
                 return services;
             }

@@ -405,4 +405,16 @@
   <data name="MaxsatisfactionMinBudget" xml:space="preserve">
     <value>Maximisation satisfaction et minimisation budget</value>
   </data>
+  <data name="vous" xml:space="preserve">
+    <value>vous</value>
+  </data>
+  <data name="newPropostion" xml:space="preserve">
+    <value>Soumettre une novelle proposition</value>
+  </data>
+  <data name="messagePost" xml:space="preserve">
+    <value>Poster un message</value>
+  </data>
+  <data name="valide" xml:space="preserve">
+    <value>Valider</value>
+  </data>
 </root>

@@ -1,10 +1,10 @@
-﻿using com.koyok.democratia.Lib;
-using com.koyok.democratia.Data.Repository;
-using com.koyok.democratia.Domain.Repository;
+﻿using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+using com.koyok.democratia.Data.Repository.RemoteRepository;
 using com.koyok.democratia.Lib;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
 using System.Collections.ObjectModel;
@@ -90,7 +90,7 @@ namespace com.koyok.democratia.Extension
 
         extension(IHttpClientBuilder builder)
         {
-            public IHttpClientBuilder AddAllHttpHander()
+            public IHttpClientBuilder AddAllHttpHandler()
             {
                 builder.AddHttpMessageHandler<AuthentificationHandler>()
                     .AddHttpMessageHandler<DebutRequete>()
@@ -111,10 +111,41 @@ namespace com.koyok.democratia.Extension
             public IServiceCollection AddClients()
             {
                 services.AddHttpExtension();
-                services.AddHttpClient<IInternauteRepository, InternauteRepository>().AddAllHttpHander();
-                services.AddHttpClient<IGroupeRepository, GroupRepository>().AddAllHttpHander();
-                services.AddHttpClient<IThematiqueRepository, ThematiqueRepository>().AddAllHttpHander();
-                services.AddHttpClient<IPropositionRepository, PropositionRepository>().AddAllHttpHander();
+                services.AddHttpClient<InternauteRemoteRepository>().AddAllHttpHandler();
+                services.AddTransient<InternauteRemoteRepository>(s =>
+                {
+                    var factory = s.GetRequiredService<IHttpClientFactory>();
+                    var client = factory.CreateClient(nameof(InternauteRemoteRepository));
+                    return new(client, s.GetServices<IRemoteToDomain>().OfType<InternauteRemoteToDomain>().FirstOrDefault()!);
+                });
+                services.AddHttpClient<GroupeRemoteRepository>().AddAllHttpHandler();
+                services.AddTransient<GroupeRemoteRepository>(s =>
+                {
+                    var factory = s.GetRequiredService<IHttpClientFactory>();
+                    var client = factory.CreateClient(nameof(GroupeRemoteRepository));
+                    return new(client, s.GetServices<IRemoteToDomain>().OfType<GroupeRemoteToDomain>().FirstOrDefault()!);
+                });
+                services.AddHttpClient<ThematiqueRemoteRepository>().AddAllHttpHandler();
+                services.AddTransient<ThematiqueRemoteRepository>(s =>
+                {
+                    var factory = s.GetRequiredService<IHttpClientFactory>();
+                    var client = factory.CreateClient(nameof(ThematiqueRemoteRepository));
+                    return new(client, s.GetServices<IRemoteToDomain>().OfType<ThematiqueRemoteToDomain>().FirstOrDefault()!);
+                });
+                services.AddHttpClient<PropositionRemoteRepository>().AddAllHttpHandler();
+                services.AddTransient<PropositionRemoteRepository>(s =>
+                {
+                    var factory = s.GetRequiredService<IHttpClientFactory>();
+                    var client = factory.CreateClient(nameof(PropositionRemoteRepository));
+                    return new(client, s.GetServices<IRemoteToDomain>().OfType<PropositionRemoteToDomain>().FirstOrDefault()!);
+                });
+                services.AddHttpClient<CommentaireRemoteRepository>().AddAllHttpHandler();
+                services.AddTransient<CommentaireRemoteRepository>(s =>
+                {
+                    var factory = s.GetRequiredService<IHttpClientFactory>();
+                    var client = factory.CreateClient(nameof(CommentaireRemoteRepository));
+                    return new(client, s.GetServices<IRemoteToDomain>().OfType<CommentaireRemoteToDomain>().FirstOrDefault()!);
+                });
 #if DEBUG
                 // utiliser pour avoir les clé JWT dans les middlewares 
 #endif
@@ -140,6 +171,11 @@ namespace com.koyok.democratia.Extension
             return url;
         }
 
+        public static string GetSyncfusionLicenseKey()
+        {
+            return maui!.GetAppSetting("SYNCFUSION_KEY");
+        }
+
         extension(MauiAppBuilder builder)
         {
             public void SetUrl()
@@ -161,20 +197,20 @@ namespace com.koyok.democratia.Extension
 #if DEBUG
                 builder.AddJSonSettings("appsettings.developpement");
 #elif !DEBUG
-            builder.AddJSonSettings("appsettings.productiont");
+            builder.AddJSonSettings("appsettings.production");
             // ajouter la configuration pour du https
 #endif
                 builder.AddJSonSettings("appsettings");
             }
 
-            internal string GetAppSetting(string nom_cle)
+            public string GetAppSetting(string nom_cle)
             {
                 builder.AddSettings();
                 return builder.Configuration.GetValue<string>(nom_cle)!;
             }
         }
 
-        extension(BaseRepository builder)
+        extension(RemoteBaseRepository builder)
         {
             public Uri AffecterURL() => GetUrl();
         }

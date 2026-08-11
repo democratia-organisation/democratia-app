@@ -1,5 +1,4 @@
-﻿using com.koyok.democratia.Lib;
-using com.koyok.democratia.Domain.Exception;
+﻿using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Extension;
 using Microsoft.Maui.Storage;
 using System.Net;
@@ -10,23 +9,21 @@ using System.Text.Json;
 
 namespace com.koyok.democratia.Lib
 {
-    
+
     public class AuthentificationHandler(IHttpClientFactory factory) : DelegatingHandler
     {
         private readonly IHttpClientFactory _factory = factory;
-        private int _maxRetryAttempts = 0;
-        private readonly static int MAX_RETRY_ATTEMPTS = 3;
 
         private async Task<HttpResponseMessage> RefreshKeys(CancellationToken ct)
         {
             string email = await SecureStorage.Default.GetAsync(SecureStorageKeys.IdInternaute.ToString()) ?? string.Empty;
             var brutClient = _factory.CreateClient("ClientBrut");
 #if DEBUG
-            brutClient.Timeout = TimeSpan.FromSeconds(60*5);
+            brutClient.Timeout = TimeSpan.FromSeconds(60 * 5);
 #elif !DEBUG
             brutClient.Timeout = TimeSpan.FromSeconds(10);
 #endif
-            var resp = await brutClient.PostAsync("users/refresh", new StringContent(JsonSerializer.Serialize(new List<string>([email])),Encoding.UTF8,new MediaTypeHeaderValue("application/json")), ct);
+            var resp = await brutClient.PostAsync("users/refresh", new StringContent(JsonSerializer.Serialize(new List<string>([email])), Encoding.UTF8, new MediaTypeHeaderValue("application/json")), ct);
             return resp;
         }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -35,22 +32,21 @@ namespace com.koyok.democratia.Lib
             if (!response.IsSuccessStatusCode)
             {
                 HttpRequestMessage clone = await request.CloneRequest();
-                if (response.StatusCode == HttpStatusCode.TooManyRequests )
+                if (response.StatusCode == HttpStatusCode.TooManyRequests)
                     throw new TooManyRequestException((int)response.Headers.RetryAfter!.Delta!.Value.TotalSeconds);
-                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                else if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.PreconditionFailed)
                 {
                     string reponse = await response.Content.ReadAsStringAsync(cancellationToken);
                     string message = JsonSerializer.Deserialize<Dictionary<string, object>>(reponse)!["message"].ToString()!;
-                    if (message == "Token expiré")
+                    string authorisation = response.RequestMessage!.Headers.Authorization!.Parameter!;
+                    string refreshKey = (await SecureStorage.Default.GetAsync(SecureStorageKeys.REFRESH.ToString()))!;
+                    if (message == "Token expiré" && authorisation == refreshKey)
                     {
-                        string authorisation = response.RequestMessage!.Headers.Authorization!.Parameter!;
-                        if (authorisation.Equals(await SecureStorage.Default.GetAsync(SecureStorageKeys.REFRESH.ToString())))
-                            await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{false}");
-                        else response.StatusCode = HttpStatusCode.Unauthorized;
-                        return await base.SendAsync(clone,cancellationToken);
+                        await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{false}");
+                        return await base.SendAsync(clone, cancellationToken);
                     }
-
-                    else if (message == "Entête incorrect" || message == "Utilisateur incorérent")
+                    
+                    else if (message == "Entête incorrect" || message == "Utilisateur incorérent" || message == "La clé n'est pas la bonne")
                     {
                         HttpResponseMessage responseToken = await RefreshKeys(cancellationToken);
                         if (!responseToken.IsSuccessStatusCode)
@@ -66,9 +62,10 @@ namespace com.koyok.democratia.Lib
                             var réponse = await responseToken.Content.ReadFromJsonAsync<Dictionary<string, object>>(cancellationToken);
                             string key = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![SecureStorageKeys.API_KEY.ToString()];
                             string refresh = JsonSerializer.Deserialize<Dictionary<string, string>>(réponse!["data"].ToString()!)![SecureStorageKeys.REFRESH.ToString()];
-                            await SecureStorage.Default.SetAsync(SecureStorageKeys.API_KEY.ToString(), key);
-                            await SecureStorage.Default.SetAsync(SecureStorageKeys.REFRESH.ToString(), refresh);
-                            await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{true}");
+                            Task taskApi = SecureStorage.Default.SetAsync(SecureStorageKeys.API_KEY.ToString(), key);
+                            Task taskRefresh = SecureStorage.Default.SetAsync(SecureStorageKeys.REFRESH.ToString(), refresh);
+                            Task taskIsFresh = SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{true}");
+                            await Task.WhenAll(taskApi, taskRefresh, taskIsFresh);
 
                             return await base.SendAsync(clone, cancellationToken);
                         }
@@ -93,13 +90,13 @@ namespace com.koyok.democratia.Lib
             bool isParsed = bool.TryParse(await SecureStorage.Default.GetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString()), out bool isFresh);
             if (!isParsed)
                 return await base.SendAsync(request, cancellationToken);
-            
+
             if (isFresh && await SecureStorage.Default.GetAsync(SecureStorageKeys.REFRESH.ToString()) is string refresh)
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", refresh);
-            
-            else if(await SecureStorage.Default.GetAsync(SecureStorageKeys.API_KEY.ToString()) is string apiKey)
+
+            else if (await SecureStorage.Default.GetAsync(SecureStorageKeys.API_KEY.ToString()) is string apiKey)
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-            
+
             return await base.SendAsync(request, cancellationToken);
         }
     }
@@ -114,7 +111,7 @@ namespace com.koyok.democratia.Lib
 #if DEBUG
                 string content = await response.Content.ReadAsStringAsync(cancellationToken);
 #endif
-                if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.TooManyRequests)
+                if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.TooManyRequests || response.StatusCode == HttpStatusCode.PreconditionFailed)
                     return response;
                 else
                     throw new ConnexionErrorException();

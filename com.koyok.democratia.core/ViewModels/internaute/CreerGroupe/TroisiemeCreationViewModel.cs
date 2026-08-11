@@ -13,8 +13,8 @@ using System.ComponentModel;
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
 {
-    public partial class TroisiemeCreationViewModel(IGroupeRepository repository, IManipulateImage manipulateImageUseCase) 
-        : ObservableObject, INotifyPropertyChanged , IQueryAttributable
+    public partial class TroisiemeCreationViewModel(IGroupeRepository repository, IManipulateImage manipulateImageUseCase)
+        : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
 
         private Groupe? groupe;
@@ -42,15 +42,22 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
             {
                 groupe!.idGroupe = Guid.CreateVersion7();
                 await repository!.CreateModelAsync(groupe!);
+                bool susefullOperation = false;
                 foreach (Thematique item in thematiques!)
-                    await repository.CreateJointureThemeEtGroupeAsync(groupe!.idGroupe, item.idThematique, item.budget);
+                {
+                    susefullOperation = await repository.CreateJointureThemeEtGroupeAsync(groupe!.idGroupe, item.idThematique, item.budget);
+                    if (!susefullOperation) throw new Exception();
+                }
                 if (string.IsNullOrWhiteSpace(imagePath)) throw new NoImageGiven();
-                await manipulateImageUseCase.UploadImage(groupe!.idGroupe, imagePath);
-                await repository.AjouterCreateur(internaute!.idInternaute, groupe.idGroupe);                
-                await Shell.Current.GoToAsync(commande, new ShellNavigationQueryParameters { {"modele" , internaute } });
-            } catch (Exception ex)
+                susefullOperation = await manipulateImageUseCase.UploadImage(groupe!.idGroupe, imagePath);
+                if (!susefullOperation) throw new Exception();
+                susefullOperation = await repository.AjouterCreateur(internaute!.idInternaute, groupe.idGroupe);
+                if (!susefullOperation) throw new Exception();
+                await Shell.Current.GoToAsync(commande, new ShellNavigationQueryParameters { { "modele", internaute } });
+            }
+            catch (Exception ex)
             {
-               Shell.Current?.AppContext.Mapper?.MappingException(ex);
+                Shell.Current?.AppContext.Mapper?.MappingException(ex);
             }
         }
 

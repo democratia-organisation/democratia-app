@@ -88,7 +88,7 @@
                 Grid.Column="0"
                 ios:Picker.UpdateMode="WhenFinished"
                 AutomationId="criterePicker"
-                ItemsSource="{Binding criteres}"
+                ItemsSource="{enum:CritereMarkup {x:Type enum:Critere}}"
                 SelectedItem="{Binding critere}">
                 <Picker.Behaviors>
                     <toolkit:EventToCommandBehavior Command="{Binding ClasserPropositionsCommand}" EventName="SelectedIndexChanged" />
@@ -135,11 +135,13 @@
             ChargerElementsCommand="{Binding InitialisationElementsCommand}"
             Elements="{Binding propositions}"
             IsRefreshing="{Binding isRefreshing}"
+            Size="{StaticResource SpacingSmall}"
             UpdateElementsCommand="{Binding UpdateListCommand}">
             <comp:RefreshView.ItemTemplate>
                 <DataTemplate>
                     <groupeComp:PropositionCard
                         EnableLoupe="{Binding groupe.isAdmin}"
+                        IsLoading="{Binding BindingContext.isRefreshing, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                         OpenCommand="{Binding BindingContext.OuvrirPropositionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                         OpenDetailCommand="{Binding BindingContext.OuvrirDetailPropositionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
                 </DataTemplate>

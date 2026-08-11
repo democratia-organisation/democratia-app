@@ -96,13 +96,15 @@
 		<AndroidResource Include="Platforms\Android\Resources\xml\network_security_config.xml" />
 	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Maui" Version="14.1.0" />
+    <PackageReference Include="CommunityToolkit.Maui" Version="15.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.7" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.7" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.60" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.7" />
-    <PackageReference Include="nor0x.Maui.ColorPicker" Version="2.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.90" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.10" />
+    <PackageReference Include="Syncfusion.Licensing" Version="34.2.2" />
+    <PackageReference Include="Syncfusion.Maui.Inputs" Version="34.2.2" />
+    <PackageReference Include="Syncfusion.Maui.Toolkit" Version="1.0.10" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\com.koyok.democratia.core\com.koyok.democratia.core.csproj" />
@@ -164,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <MauiXaml Update="Resources\Dimension\Dimension.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Component\groupe\CommentaireComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\Component\groupe\DecideurThematique.xaml">

@@ -29,7 +29,7 @@ namespace com.koyok.democratia.Domain.UseCase
             return finalImagePath;
         }
 
-        public async Task<string> UploadImage(params object[] args)
+        public async Task<bool> UploadImage(params object[] args)
         {
             Guid? id = (Guid?)args[0];
             string filePath = (string)args[1]; 

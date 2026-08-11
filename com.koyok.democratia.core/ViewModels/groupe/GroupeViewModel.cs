@@ -1,24 +1,24 @@
-﻿using com.koyok.democratia.Lib;
-using com.koyok.democratia.Domain.Models;
+﻿using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.UseCase;
+using com.koyok.democratia.Extension;
+using com.koyok.democratia.Lib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
-using com.koyok.democratia.Extension;
 using System.ComponentModel;
-using com.koyok.democratia.Domain.UseCase;
 
 namespace com.koyok.democratia.UI.groupe
 {
     [QueryProperty(nameof(image), "Image")]
-    public partial class GroupeViewModel : ObservableObject, INotifyPropertyChanged ,IQueryAttributable
+    public partial class GroupeViewModel : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
-        [ObservableProperty] public partial string? image { get; set;}
+        [ObservableProperty] public partial string? image { get; set; }
         [ObservableProperty] public partial Groupe? groupe { get; set; }
         [ObservableProperty] public partial ObservableCollection<Proposition> propositions { get; set; } = [];
         [ObservableProperty] public partial ObservableCollection<Thematique> thematiques { get; set; } = [];
-        [ObservableProperty] public partial List<Critere> criteres { get; set; } = [Critere.PRIX, Critere.POPULARITE, Critere.REACTIONS];
         [ObservableProperty] public partial Critere critere { get; set; }
         [ObservableProperty] public partial bool isRefreshing { get; set; } = false;
         [ObservableProperty] public partial ComplexFilterEnum complexFilter { get; set; }
@@ -27,23 +27,23 @@ namespace com.koyok.democratia.UI.groupe
         private readonly IGroupeRepository groupRepository;
         private readonly ClassementPropositionUseCase useCase;
         private int cursor = 0;
-        public GroupeViewModel(IPropositionRepository propositionRepository,IGroupeRepository groupRepository)
+        public GroupeViewModel(IPropositionRepository propositionRepository, IGroupeRepository groupRepository)
         {
             this.propositionRepository = propositionRepository;
             this.groupRepository = groupRepository;
-            useCase = new([..propositions], propositionRepository);
+            useCase = new([.. propositions], propositionRepository);
         }
 
 
         [RelayCommand]
         public async Task NavigateTapped(string commande)
         {
-            ShellNavigationQueryParameters parameters = new() { { "thematiques", thematiques }, { "groupe" , groupe! } };
+            ShellNavigationQueryParameters parameters = new() { { "thematiques", thematiques }, { "groupe", groupe! } };
             await Shell.Current?.GoToAsync(commande, parameters)!;
         }
 
         [RelayCommand]
-        private void ClasserPropositions() 
+        private void ClasserPropositions()
         {
             var propositionsClasser = useCase.Classer(critere);
             propositions.RemplacerElements(propositionsClasser);
@@ -55,7 +55,7 @@ namespace com.koyok.democratia.UI.groupe
             // TODO : déléguer cette tâche au useCase
             switch (complexFilter)
             {
-                case ComplexFilterEnum.MaxSatisfactionMinBudget :
+                case ComplexFilterEnum.MaxSatisfactionMinBudget:
                     break;
                 case ComplexFilterEnum.PlusGrandeSatisfactionTheme:
                     break;
@@ -79,16 +79,23 @@ namespace com.koyok.democratia.UI.groupe
         [RelayCommand]
         private async Task ChargerElementsAsync()
         {
-            string response = await propositionRepository.GetAllPropositionsAsync(groupe!.idGroupe);
-            List<Proposition> propositionsListe = propositionRepository.RecuprerInformationConnexion<Proposition>(response)!;
-            response = await groupRepository.GetJointureThemeEtGroupeAsync(groupe!.idGroupe)!;          
-            List<Thematique> thematiquesListe = groupRepository.RecuprerInformationConnexion<Thematique>(response)!;
-            propositions.RemplacerElements(propositionsListe, p => p.jourDiscussion = (int)groupe.nombreDeJourDiscuss!);
-            thematiques.RemplacerElements(thematiquesListe);
+            var thematiquesTask = groupRepository.GetJointureThemeEtGroupeAsync(groupe!.idGroupe);
+            var propositionsTask = propositionRepository.GetAllPropositionsAsync(groupe!.idGroupe);
+
+            await Task.WhenAll(thematiquesTask, propositionsTask);
+
+            var thematiquesListe = await thematiquesTask;
+            var propositionsListe = await propositionsTask;
+            // executer dans le MainThread afin que seulement un thread nettoie puis ajout les éléments dans la liste
+            MainThread.BeginInvokeOnMainThread(() => 
+            {
+                thematiques.RemplacerElements(thematiquesListe);
+                propositions.RemplacerElements(propositionsListe);
+            });
         }
 
         [RelayCommand]
-        private async Task OuvrirPropositionAsync(Proposition proposition)
+        private static async Task OuvrirPropositionAsync(Proposition proposition)
         {
             ShellNavigationQueryParameters parameters = new() { { "proposition", proposition } };
             await Shell.Current?.GoToAsync("PropositionPage", parameters)!;

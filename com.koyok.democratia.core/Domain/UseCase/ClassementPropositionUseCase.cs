@@ -12,7 +12,7 @@ namespace com.koyok.democratia.Domain.UseCase
 
         public List<Proposition> Classer(Critere critere)
         {
-            if (propositions.Count == MAX_PROPOSITIONS)
+            if (propositions.Count <= MAX_PROPOSITIONS)
             {
                 return critere switch
                 {

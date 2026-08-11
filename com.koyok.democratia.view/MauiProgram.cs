@@ -1,7 +1,7 @@
 ﻿using com.koyok.democratia.UI;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using SkiaSharp.Views.Maui.Controls.Hosting;
+using Syncfusion.Maui.Core.Hosting;
 using System.Diagnostics;
 using System.Text;
 using com.koyok.democratia.Extension;
@@ -19,7 +19,7 @@ namespace com.koyok.democratia
 
             builder
                 .UseMauiApp<App>()
-                .UseSkiaSharp()
+                .ConfigureSyncfusionCore()
                 .UseMauiCommunityToolkit(options =>
                 {
                     options.SetShouldEnableSnackbarOnWindows(true);

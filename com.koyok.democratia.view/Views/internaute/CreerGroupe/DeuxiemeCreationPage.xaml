@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Component="clr-namespace:com.koyok.democratia.UI.Component"
-    xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
+    xmlns:controls="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
     xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.internaute.CreerGroupe;assembly=com.koyok.democratia.core"
@@ -30,15 +30,13 @@
                 MaximumWidthRequest="500"
                 MinimumHeightRequest="500"
                 RowDefinitions="*">
-                <controls:ColorPicker
+                <controls:SfColorPicker
                     x:Name="groupeColorColorPicker"
                     Grid.Row="0"
                     Grid.Column="0"
                     AutomationId="groupeColorColorPicker"
-                    ColorFlowDirection="Horizontal"
-                    ColorSpectrumStyle="ShadeToHueStyle"
                     HorizontalOptions="Fill"
-                    PickedColor="{Binding couleur, Mode=OneWayToSource}"
+                    SelectedColor="{Binding couleur, Mode=OneWayToSource}"
                     VerticalOptions="Fill" />
             </Grid>
             <Rectangle

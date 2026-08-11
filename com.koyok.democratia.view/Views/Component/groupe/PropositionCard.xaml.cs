@@ -21,14 +21,19 @@ namespace com.koyok.democratia.UI.Component.groupe
             get => (ICommand)GetValue(OpenDetailCommandProperty);
             set => SetValue(OpenDetailCommandProperty, value);
         }
+
+        public static readonly BindableProperty EnableLoupeProperty = BindableProperty.Create(
+            nameof(EnableLoupe), typeof(bool), typeof(PropositionCard), defaultValue: true, defaultBindingMode: BindingMode.TwoWay);
+        
         public bool EnableLoupe 
         { get => (bool)GetValue(EnableLoupeProperty); 
           set => SetValue(EnableLoupeProperty, value); 
         }
+        
 
-        public static readonly BindableProperty EnableLoupeProperty = BindableProperty.Create(
-            nameof(EnableLoupe), typeof(bool), typeof(PropositionCard), defaultValue: true, defaultBindingMode: BindingMode.TwoWay);
-
+        public static readonly BindableProperty IsLoadingProperty = BindableProperty.Create(
+            nameof(IsLoading), typeof(bool), typeof(PropositionCard), defaultValue: false, defaultBindingMode: BindingMode.TwoWay);
+        public bool IsLoading { get => (bool)GetValue(IsLoadingProperty); set => SetValue(IsLoadingProperty, value); }
         public PropositionCard()
         {
             InitializeComponent();

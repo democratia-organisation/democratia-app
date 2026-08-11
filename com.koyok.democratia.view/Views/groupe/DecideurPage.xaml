@@ -30,6 +30,7 @@
         <component:RefreshView
             ChargerElementsCommand="{Binding InitialisationListeCommand}"
             Elements="{Binding thematiques}"
+            Size="{StaticResource SpacingSmall}"
             UpdateElementsCommand="{Binding RechargeThematiquesCommand}">
             <component:RefreshView.ItemTemplate>
                 <DataTemplate x:Name="decideurThematiqueTemplate">

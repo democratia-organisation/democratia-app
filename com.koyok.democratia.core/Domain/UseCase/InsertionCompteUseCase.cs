@@ -17,18 +17,17 @@ namespace com.koyok.democratia.Domain.UseCase
             if (mailValide)
             {
                 await Verification.HasherMotDePasse(internaute!);
-                string reponse = type == TypeGestion.AJOUTER ? 
+                bool reponse = type == TypeGestion.AJOUTER ? 
                     await repository?.CreateModelAsync(internaute)! : await repository?.UpdateModelAsync(internaute!)!;
+                if (!reponse) throw new System.Exception(); 
             }
             else throw new CompteExistantException();
         }
 
         private async Task<bool> VerifierMailDoublon(Internaute internaute)
         {
-            string retourJson = await repository?.DoublonEmailAsync(internaute!.courriel!)!;
-            var tableau = JsonSerializer.Deserialize<Dictionary<string, object>>(retourJson);
-            var reponse = tableau!["data"] as List<Dictionary<string,object>>;
-            return int.Parse(reponse![0]["COUNT(courriel)"].ToString()!) == 0;
+            return await repository?.DoublonEmailAsync(internaute!.courriel!)!;
+            
         }
 
     }

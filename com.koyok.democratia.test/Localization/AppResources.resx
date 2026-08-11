@@ -204,9 +204,6 @@
   <data name="formatEmail" xml:space="preserve">
     <value>Le format de l'adresse mail est incorrecte</value>
   </data>
-  <data name="compteExistantErreur" xml:space="preserve">
-    <value>L'adresse mail es déjà créé</value>
-  </data>
   <data name="formatMotDePasse" xml:space="preserve">
     <value>Le format du mot de passe est incorrecte</value>
   </data>
@@ -310,10 +307,10 @@
     <value>Préférences</value>
   </data>
   <data name="selectionLangue" xml:space="preserve">
-    <value>Sélectionner une langue de préférence</value>
+    <value>Sélectionner une langue</value>
   </data>
   <data name="selectionTheme" xml:space="preserve">
-    <value>Sélectionner un thème par défault</value>
+    <value>Sélectionner un thème</value>
   </data>
   <data name="theme" xml:space="preserve">
     <value>Thème</value>
@@ -332,5 +329,92 @@
   </data>
   <data name="continuer" xml:space="preserve">
     <value>Continuer</value>
+  </data>
+  <data name="erreurChamp" xml:space="preserve">
+    <value>Veuillez remplir le champ {0}</value>
+  </data>
+  <data name="compteExistantErreur" xml:space="preserve">
+    <value>L'adresse mail est déjà utilisé</value>
+  </data>
+  <data name="errorUnknowEmptyFieldMessage" xml:space="preserve">
+    <value>Un champ requiert est vide</value>
+  </data>
+  <data name="groupeSansProposition" xml:space="preserve">
+    <value>Ce groupe ne contient aucune proposition</value>
+  </data>
+  <data name="thematiqueSansProposition" xml:space="preserve">
+    <value>Cette thématique n'a pas de proposition</value>
+  </data>
+  <data name="finDiscussion" xml:space="preserve">
+    <value>La discussion prend fin le </value>
+  </data>
+  <data name="nouvellProp" xml:space="preserve">
+    <value>Soumettre une nouvelle proposition</value>
+  </data>
+  <data name="Prix" xml:space="preserve">
+    <value>prix</value>
+  </data>
+  <data name="Popularite" xml:space="preserve">
+    <value>popularite</value>
+  </data>
+  <data name="reaction" xml:space="preserve">
+    <value>réaction</value>
+  </data>
+  <data name="critere" xml:space="preserve">
+    <value>critère</value>
+  </data>
+  <data name="budgetAttente" xml:space="preserve">
+    <value>Budget en attente</value>
+  </data>
+  <data name="budgetUtilise" xml:space="preserve">
+    <value>budget utilisé</value>
+  </data>
+  <data name="erreurThematiqueBudget" xml:space="preserve">
+    <value>La somme des budgets de thématiques est supérieur au budget global</value>
+  </data>
+  <data name="slogan" xml:space="preserve">
+    <value>Êtes-vous prêt à débattre ?</value>
+  </data>
+  <data name="deconnexion" xml:space="preserve">
+    <value>Voulez-vous vous déconnecter ?</value>
+  </data>
+  <data name="messageDeconexion" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
+  <data name="confirmDeconnexion" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir vous déconnecter ?</value>
+  </data>
+  <data name="toomanyRequest" xml:space="preserve">
+    <value>Surcharge serveur</value>
+  </data>
+  <data name="DetailBusy" xml:space="preserve">
+    <value>Le serveur est actuellement surchargé, veuillez réessayer dans {0} secondes</value>
+  </data>
+  <data name="filtre" xml:space="preserve">
+    <value>Filtre des propositions</value>
+  </data>
+  <data name="filtrer" xml:space="preserve">
+    <value>Filtrer</value>
+  </data>
+  <data name="pluspropotheme" xml:space="preserve">
+    <value>Plus de propositions par thématique</value>
+  </data>
+  <data name="satisfactionTheme" xml:space="preserve">
+    <value>La plus grande satisfaction de chaque thématique</value>
+  </data>
+  <data name="MaxsatisfactionMinBudget" xml:space="preserve">
+    <value>Maximisation satisfaction et minimisation budget</value>
+  </data>
+  <data name="vous" xml:space="preserve">
+    <value>vous</value>
+  </data>
+  <data name="newPropostion" xml:space="preserve">
+    <value>Soumettre une novelle proposition</value>
+  </data>
+  <data name="messagePost" xml:space="preserve">
+    <value>Poster un message</value>
+  </data>
+  <data name="valide" xml:space="preserve">
+    <value>Valider</value>
   </data>
 </root>

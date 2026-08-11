@@ -9,7 +9,6 @@ using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Exception;
 using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Extension;
-using com.koyok.democratia.Lib;
 
 
 namespace com.koyok.democratia.UI.internaute.CreerGroupe
@@ -66,8 +65,9 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
                 thematiquesNouvelles = [.. thematiquesRetenues.Except(thematiquesExistantes!, new ThematiqueEqualityComparer())];
                 foreach (Thematique item in thematiquesNouvelles)
                 {
-                    await repository!.CreateModelAsync(item);
-                    List<Thematique> thematiques = repository.RecuprerInformationConnexion<Thematique>(await repository.GetModelAsync());
+                    bool created = await repository!.CreateModelAsync(item);
+                    if (!created) throw new Exception();
+                    List<Thematique> thematiques = [..(await repository.GetModelAsync()).Cast<Thematique>()];
                     item.idThematique = thematiques.Last().idThematique;
                 }
 
@@ -120,8 +120,7 @@ namespace com.koyok.democratia.UI.internaute.CreerGroupe
 
         public async Task RemplirThematique()
         {
-            string listeRequete = await repository!.GetModelAsync();
-            List<Thematique> thematiques = repository.RecuprerInformationConnexion<Thematique>(listeRequete);
+            List<Thematique> thematiques = [..(await repository!.GetModelAsync()).Cast<Thematique>()];
             thematiques.ForEach(t => thematiquesExistantes!.Add(t));
             thematiquesAffiches = [..thematiquesExistantes!];
         }
