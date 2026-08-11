@@ -1,13 +1,13 @@
 ﻿namespace com.koyok.democratia.Domain.Models
 {
-    public class Groupe(Guid? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement, bool? isAdmin, int? imageSize)
+    public class Groupe(Guid? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement, bool? isAdmin, int? imageSize) : IModel
     {
 
         public Guid? idGroupe = idGroupe;
-        public string? nomGroupe = nomGroupe;
+        public string? nomGroupe { get; set; } = nomGroupe;
 
         
-        public string? couleurGroupe = couleurGroupe;
+        public string? couleurGroupe { get; set; } = couleurGroupe;
 
         public string? image = image;
 

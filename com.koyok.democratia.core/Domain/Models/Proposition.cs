@@ -1,9 +1,9 @@
 ﻿namespace com.koyok.democratia.Domain.Models
 {
-    public class Proposition(int? idProposition, string? titre, string? description, string? publication, float? budget, int? nombreSignalement, int? thematique, Guid? idGroupe)
+    public class Proposition(int? idProposition, string? titre, string? description, string? publication, float? budget, int? nombreSignalement, int? thematique, Guid? idGroupe) : IModel
     {
         public int? idProposition = idProposition;
-        public string? titre = titre;
+        public string? titre { get; set; } = titre;
         public string? description = description;
         public string? publication = publication;
         public float? budget = budget;

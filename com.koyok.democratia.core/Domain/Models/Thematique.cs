@@ -1,6 +1,6 @@
 ﻿namespace com.koyok.democratia.Domain.Models
 {
-    public class Thematique(int? id_thematique, string? nom_thematique, float? budget, float? budget_groupe)
+    public class Thematique(int? id_thematique, string? nom_thematique, float? budget, float? budget_groupe) : IModel
     {
         public int? idThematique = id_thematique;
         public string? nomThematique = nom_thematique;        

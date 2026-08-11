@@ -1,13 +1,14 @@
-﻿using com.koyok.democratia.Lib;
-using com.koyok.democratia.Domain.Models;
+﻿using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Domain.UseCase;
+using com.koyok.democratia.Extension;
+using com.koyok.democratia.Lib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
-using com.koyok.democratia.Extension;
 using System.ComponentModel;
-using com.koyok.democratia.Domain.UseCase;
 
 namespace com.koyok.democratia.UI.groupe
 {
@@ -78,18 +79,19 @@ namespace com.koyok.democratia.UI.groupe
         [RelayCommand]
         private async Task ChargerElementsAsync()
         {
-            Task thematiqueTask = Task.Run(async () =>
+            var thematiquesTask = groupRepository.GetJointureThemeEtGroupeAsync(groupe!.idGroupe);
+            var propositionsTask = propositionRepository.GetAllPropositionsAsync(groupe!.idGroupe);
+
+            await Task.WhenAll(thematiquesTask, propositionsTask);
+
+            var thematiquesListe = await thematiquesTask;
+            var propositionsListe = await propositionsTask;
+            // executer dans le MainThread afin que seulement un thread nettoie puis ajout les éléments dans la liste
+            MainThread.BeginInvokeOnMainThread(() => 
             {
-                List<Thematique> thematiquesListe = await groupRepository.GetJointureThemeEtGroupeAsync(groupe!.idGroupe)!;
                 thematiques.RemplacerElements(thematiquesListe);
+                propositions.RemplacerElements(propositionsListe);
             });
-            Task propostionTask = Task.Run(async () =>
-            {
-                // TODO : fix liste size qui est de propositionsListe.Count * 2
-                List<Proposition> propositionsListe = await propositionRepository.GetAllPropositionsAsync(groupe!.idGroupe);
-                propositions.RemplacerElements(propositionsListe, p => p.jourDiscussion = (int)groupe.nombreDeJourDiscuss!);
-            });
-            await Task.WhenAll(thematiqueTask, propostionTask);
         }
 
         [RelayCommand]
