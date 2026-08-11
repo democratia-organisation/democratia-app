@@ -19,41 +19,20 @@ namespace UITests.UI
 
     public static class WebDriverExtensions
     {
-        private static WebDriverWait? wait;
-        extension(IWebDriver driver)
+        public static IWebElement WaitAndFind(this IWebDriver driver, By by, int timeoutInSeconds = 15)
         {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+            return wait.Until(drv => drv.FindElement(by));
+        }
 
-            public IWebElement WaitAndFind(By by, int timeoutInSeconds = 15)
+        public static ReadOnlyCollection<IWebElement>? WaitAndFinds(this IWebDriver driver, By by, int timeoutInSeconds = 15)
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+            return wait.Until(drv =>
             {
-                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-                return wait.Until(drv =>
-                {
-                    try
-                    {
-                        return drv.FindElement(by);
-                    } catch (Exception)
-                    {
-                        throw;
-                    }
-
-                });
-            }
-
-            public ReadOnlyCollection<IWebElement> WaitAndFinds(By by, int timeoutInSeconds = 15)
-            {
-                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-                return wait.Until(drv => {
-                    try
-                    {
-                        return drv.FindElements(by);
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-
-                });
-            }
+                var elements = drv.FindElements(by);
+                return elements.Count > 0 ? elements : null;
+            });
         }
     }
 
@@ -116,16 +95,20 @@ namespace UITests.UI
 
         protected ReadOnlyCollection<AppiumElement>? FindUIElements(string id)
         {
-            ReadOnlyCollection<IWebElement> elements;
+            
             try
             {
-                elements = App.WaitAndFinds(funcResearrch(id), timeout);
+                var elements = App.WaitAndFinds(funcResearrch(id), timeout);
+                if (elements is null || elements.Count == 0) return null;
+                return elements.Cast<AppiumElement>().ToList().AsReadOnly();
+
+
             }
             catch (Exception)
             {
                 return null;
             }
-            return elements.Count > 0 ? elements.Cast<AppiumElement>().ToList().AsReadOnly() : null;
+            
         }
 
         protected bool SeConnecter(string identifiant, string motDePasse)

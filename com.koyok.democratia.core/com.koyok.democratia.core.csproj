@@ -29,10 +29,9 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.10" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.10" />
     <PackageReference Include="Microsoft.Maui.Controls.Core" Version="10.0.90" />
-    <PackageReference Include="NSubstitute" Version="6.0.0" />
+    <PackageReference Include="NSubstitute" Version="6.1.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.11.285" />
     <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
-    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="3.53.3" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <InternalsVisibleTo Include="com.koyok.democratia.Test" />
   </ItemGroup>

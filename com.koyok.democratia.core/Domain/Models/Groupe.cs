@@ -1,39 +1,32 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace com.koyok.democratia.Domain.Models
+﻿namespace com.koyok.democratia.Domain.Models
 {
-    public partial class Groupe(Guid? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement, bool? isAdmin, int? imageSize) : ObservableObject, IModel
+    public class Groupe(Guid? idGroupe, string? nomGroupe, string? couleurGroupe, string? image, float? budget, int? nombreDeJourVote, int? nombreDeJourDiscuss, int? nombreSignalement, bool? isAdmin, int? imageSize)
     {
 
-        public Guid? idGroupe { get; set; } = idGroupe;
-        [ObservableProperty]
-        public partial string? nomGroupe { get; set; } = nomGroupe;
+        public Guid? idGroupe = idGroupe;
+        public string? nomGroupe = nomGroupe;
 
-        [ObservableProperty]
+        
+        public string? couleurGroupe = couleurGroupe;
 
-        public partial string? couleurGroupe { get; set; } = couleurGroupe;
+        public string? image = image;
 
-        public string? image { get; set; } = image;
+        public float? budget = budget;
 
-        public float? budget { get; set; } = budget;
+        public int? nombreDeJourVote = nombreDeJourVote;
 
-        public int? nombreDeJourVote { get; set; } = nombreDeJourVote;
+        public int? nombreDeJourDiscuss = nombreDeJourDiscuss;
 
-        public int? nombreDeJourDiscuss { get; set; } = nombreDeJourDiscuss;
+        public int? nombreSignalement = nombreSignalement;
 
-        public int? nombreSignalement { get; set; } = nombreSignalement;
+        public int? imageSize = imageSize;
 
-        public int? imageSize { get; set; } = imageSize;
-
-        [ObservableProperty]
-        public partial bool? isAdmin { get; set; } = isAdmin;
+        public bool? isAdmin = isAdmin;
 
         // TODO : attente de plus ample calcul
-        [ObservableProperty]
-        public partial float  ratioUtilise { get; set; } = 0.5f;
+        public float  ratioUtilise = 0.5f;
 
-        [ObservableProperty]
-        public partial float ratioAttente { get; set; } = 0.7f;
+        public float ratioAttente = 0.7f;
 
         public Groupe() : this(null,null,null,null,null,null,null,null, null,null) { }
     }
