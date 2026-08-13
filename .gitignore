@@ -75,3 +75,4 @@ dotnet-tools.json
 /com.koyok.democratia.core/appsettings.developpement.json
 /com.koyok.democratia.core/appsettings.json
 /com.koyok.democratia.core/appsettings.production.json
+com.koyok.democratia.view/Platforms/Android/google-services.json
