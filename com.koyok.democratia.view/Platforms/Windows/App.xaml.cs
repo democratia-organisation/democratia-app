@@ -18,16 +18,17 @@ namespace com.koyok.democratia.WinUI
     {
         public static string? AZURE_KEY;
         public static readonly CultureInfo cultureInfo = CultureInfo.CurrentCulture;
-        public readonly INotificationRegistrationService notificationRegistrationService;
-        public readonly IDeviceInstallationService deviceInstallationService;
+        public INotificationRegistrationService? notificationRegistrationService;
+        public IDeviceInstallationService? deviceInstallationService;
+
+        public INotificationRegistrationService NotificationRegistrationService => notificationRegistrationService ??= IPlatformApplication.Current!.Services.GetService<INotificationRegistrationService>()!;
+        public IDeviceInstallationService DeviceInstallationService => deviceInstallationService ??= IPlatformApplication.Current!.Services.GetService<IDeviceInstallationService>()!;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        public App(INotificationRegistrationService notificationRegistrationService, IDeviceInstallationService deviceInstallationService)
+        public App()
         {
-            this.notificationRegistrationService = notificationRegistrationService;
-            this.deviceInstallationService = deviceInstallationService;
             this.InitializeComponent();
             this.UnhandledException += (sender, e) =>
             {
