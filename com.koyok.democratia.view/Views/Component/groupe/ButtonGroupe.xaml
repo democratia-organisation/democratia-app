@@ -7,26 +7,38 @@
     x:Name="this"
     x:DataType="models:Groupe">
     <VerticalStackLayout Spacing="{DynamicResource SpacingUltraSmall}">
-        <Border
-            MaximumHeightRequest="{StaticResource SpacingUltraLarge}"
-            MaximumWidthRequest="{StaticResource SpacingUltraLarge}"
-            Style="{StaticResource BorderStyle}">
-            <ImageButton
-                x:Name="enterGroupeImageButton"
-                AutomationId="{Binding Path=nomGroupe, StringFormat='Groupe {0}'}"
-                Command="{Binding OpenGroupeCommand, Source={x:Reference this}}"
-                CommandParameter="{Binding .}"
-                HeightRequest="{StaticResource SpacingUltraLarge}"
-                HorizontalOptions="Center"
-                Source="{Binding image}"
-                WidthRequest="{StaticResource SpacingUltraLarge}" />
-        </Border>
-        <Label
-            x:Name="nomGroupeLabel"
-            AutomationId="nomGroupeLabel"
+        <ImageButton
+            x:Name="enterGroupeImageButton"
+            AutomationId="{Binding Path=nomGroupe, StringFormat='Groupe {0}'}"
+            Command="{Binding OpenGroupeCommand, Source={x:Reference this}}"
+            CommandParameter="{Binding .}"
+            HeightRequest="{StaticResource SpacingUltraLarge}"
             HorizontalOptions="Center"
-            LineBreakMode="WordWrap"
-            Style="{StaticResource SubHeadlineStyle}"
-            Text="{Binding nomGroupe}" />
+            Source="{Binding image}"
+            WidthRequest="{StaticResource SpacingUltraLarge}" />
+        <HorizontalStackLayout
+            BackgroundColor="{AppThemeBinding Dark={DynamicResource Dark-inverseSurface},
+                                              Light={DynamicResource Light-inverseSurface}}"
+            HorizontalOptions="Center"
+            Spacing="30">
+            <Label
+                x:Name="nomGroupeLabel"
+                AutomationId="nomGroupeLabel"
+                HorizontalOptions="Center"
+                LineBreakMode="WordWrap"
+                Style="{StaticResource LabelStyle}"
+                Text="{Binding nomGroupe}"
+                TextColor="{AppThemeBinding Dark={DynamicResource Dark-inverseOnSurface},
+                                            Light={DynamicResource Light-inverseOnSurface}}" />
+            <ImageButton
+                x:Name="parametreGroupeImageButton"
+                AutomationId="parametreGroupeImageButton"
+                Command="{Binding OpenParameter, Source={x:Reference this}}"
+                CommandParameter="ParametrePage"
+                HeightRequest="{StaticResource SpacingLarge}"
+                Source="rouage.png"
+                WidthRequest="{StaticResource SpacingLarge}" />
+        </HorizontalStackLayout>
+
     </VerticalStackLayout>
 </ContentView>

@@ -1,8 +1,8 @@
 namespace com.koyok.democratia.UI.groupe;
 
-public partial class Parametre : ContentPage
+public partial class ParametrePage : ContentPage
 {
-	public Parametre()
+	public ParametrePage()
 	{
 		InitializeComponent();
 	}

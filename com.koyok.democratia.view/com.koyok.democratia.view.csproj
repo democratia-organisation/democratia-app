@@ -151,8 +151,8 @@
     <Compile Update="Views\groupe\Membre.xaml.cs">
       <DependentUpon>Membre.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\groupe\Parametre.xaml.cs">
-      <DependentUpon>Parametre.xaml</DependentUpon>
+    <Compile Update="Views\groupe\ParametrePage.xaml.cs">
+      <DependentUpon>ParametrePage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\internaute\CreerGroupe\TroisiemeCreationPage.xaml.cs">
       <DependentUpon>TroisiemeCreationPage.xaml</DependentUpon>
@@ -225,7 +225,7 @@
     <MauiXaml Update="Views\groupe\NouvelleProposition.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\groupe\Parametre.xaml">
+    <MauiXaml Update="Views\groupe\ParametrePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\groupe\PropositionPage.xaml">

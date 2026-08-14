@@ -19,7 +19,7 @@ public partial class PropositionPage : ContentPage
         }
     }
 
-    private void PostMessageButton_Clicked(object sender, EventArgs e)
+    private void PostMessageButton_Clicked(object? sender, EventArgs? e)
     {
 
         valideButton.IsVisible = true;
@@ -27,7 +27,7 @@ public partial class PropositionPage : ContentPage
         commentaireEntry.IsVisible = true;
     }
 
-    private async void ValideButton_Clicked(object sender, EventArgs e)
+    private async void ValideButton_Clicked(object? sender, EventArgs? e)
     {
         valideButton.IsEnabled = false;
         commentaireEntry.IsEnabled = false;

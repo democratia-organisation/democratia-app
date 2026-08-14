@@ -69,7 +69,7 @@ namespace com.koyok.democratia.UI.internaute
 
 
         [RelayCommand]
-        public async Task NavigateTapped(string commande) 
+        private async Task NavigateTapped(string commande) 
             => await Shell.Current?.GoToAsync(commande, new ShellNavigationQueryParameters{{ "modele", internaute! }})!;
 
         [RelayCommand]

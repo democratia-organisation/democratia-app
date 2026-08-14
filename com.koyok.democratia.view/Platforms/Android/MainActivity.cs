@@ -10,7 +10,6 @@ namespace com.koyok.democratia
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
     public class MainActivity : MauiAppCompatActivity
     {
-#if !DEBUG
         IDeviceInstallationService? deviceInstallationService;
         INotificationRegistrationService? notificationRegistrationService;
         IDeviceInstallationService? IDeviceInstallationService => deviceInstallationService ??= IPlatformApplication.Current!.Services.GetService<IDeviceInstallationService>();
@@ -29,6 +28,5 @@ namespace com.koyok.democratia
             IDeviceInstallationService?.Token = result!.ToString();
             notificationRegistrationService?.RegisterDeviceAsync();
         }
-#endif
     }
 }
