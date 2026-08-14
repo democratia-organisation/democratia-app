@@ -99,4 +99,20 @@ namespace com.koyok.democratia.Data.Mapper.RemoteToDomain
             return commentaire;
         }
     }
+
+    public class DeviceInstallationRemoteToDomain : IRemoteToDomain
+    {
+        public IModel Mapping(string source)
+        {
+            var remoteSource = JsonSerializer.Deserialize<DeviceInstallationRemoteSource>(source);
+            var deviceInstallation = new DeviceInstallation
+            {
+                InstallationId = remoteSource!.InstallationId,
+                Platform = remoteSource.Platform,
+                PushChannel = remoteSource.PushChannel,
+                Tags = remoteSource.Tags
+            };
+            return deviceInstallation;
+        }
+    }
 }

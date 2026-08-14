@@ -4,7 +4,6 @@ using com.koyok.democratia.Lib;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
 using System.Collections.ObjectModel;
@@ -108,7 +107,7 @@ namespace com.koyok.democratia.Extension
                 services.AddTransient<AuthentificationHandler>();
                 services.AddTransient<FinRequete>();
             }
-            public IServiceCollection AddClients()
+            public IServiceCollection AddRemoteRepositories()
             {
                 services.AddHttpExtension();
                 services.AddHttpClient<InternauteRemoteRepository>().AddAllHttpHandler();
@@ -146,6 +145,13 @@ namespace com.koyok.democratia.Extension
                     var client = factory.CreateClient(nameof(CommentaireRemoteRepository));
                     return new(client, s.GetServices<IRemoteToDomain>().OfType<CommentaireRemoteToDomain>().FirstOrDefault()!);
                 });
+                services.AddHttpClient<NotificationRegistrationRemoteRepository>().AddAllHttpHandler();
+                services.AddTransient<INotificationRegistrationService,NotificationRegistrationRemoteRepository>(s =>
+                {
+                    var factory = s.GetRequiredService<IHttpClientFactory>();
+                    var client = factory.CreateClient(nameof(NotificationRegistrationRemoteRepository));
+                    return new(client, s.GetServices<IRemoteToDomain>().OfType<DeviceInstallationRemoteToDomain>().FirstOrDefault()!);
+                });
 #if DEBUG
                 // utiliser pour avoir les clé JWT dans les middlewares 
 #endif
@@ -169,11 +175,6 @@ namespace com.koyok.democratia.Extension
                 url = new(maui!.GetAppSetting("API_URL"));
 #endif
             return url;
-        }
-
-        public static string GetSyncfusionLicenseKey()
-        {
-            return maui!.GetAppSetting("SYNCFUSION_KEY");
         }
 
         extension(MauiAppBuilder builder)

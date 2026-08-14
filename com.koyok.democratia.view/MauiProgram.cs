@@ -1,13 +1,16 @@
-﻿using com.koyok.democratia.UI;
+﻿using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Extension;
+using com.koyok.democratia.Lib;
+using com.koyok.democratia.UI;
+using com.koyok.democratia.view.Resources.Localization;
+#if WINDOWS
+using com.koyok.democratia.WinUI;
+#endif
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Core.Hosting;
 using System.Diagnostics;
 using System.Text;
-using com.koyok.democratia.Extension;
-using com.koyok.democratia.Lib;
-using com.koyok.democratia.Domain.Exception;
-using com.koyok.democratia.view.Resources.Localization;
 
 namespace com.koyok.democratia
 {
@@ -31,13 +34,21 @@ namespace com.koyok.democratia
                 });
             builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
             builder.Services.AddServices();
-            builder.Services.AddClients();
+            builder.Services.AddRemoteRepositories();
             builder.SetUrl();
+#if WINDOWS && !DEBUG
+            WinUI.App.AZURE_KEY = builder.GetAppSetting("AZURE_KEY");
+#endif
 
 #if DEBUG
             builder.Logging.AddDebug();
             builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
+#if !DEBUG
+            builder.Services.AddSingleton<IDeviceInstallationService, DeviceInstallationService>();
+#endif
+
+
 
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
                 GererErreur((e.ExceptionObject as Exception)!, "AppDomain.UnhandledException");

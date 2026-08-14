@@ -55,6 +55,7 @@
 					</com:ExeServer>
 				</com:ComServer>
 			</com:Extension>
+			<desktop:Extension Category="windows.pushNotificationRegistration" />
 
 		</Extensions>
     </Application>

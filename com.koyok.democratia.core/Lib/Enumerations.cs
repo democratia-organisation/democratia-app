@@ -33,7 +33,10 @@
         IdInternaute,
         MotDePasseInternaute,
         LastLogin,
-        isConnected
+        isConnected,
+        CachedDeviceTokenKey,
+        CachedTagsKey
+
     }
     public enum ComplexFilterEnum
     {

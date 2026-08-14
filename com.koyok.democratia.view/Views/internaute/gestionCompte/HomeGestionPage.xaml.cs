@@ -26,9 +26,10 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
             referenceMessenger.Register<HomeGestionPage, HomeGestionViewModel.EventDeconnexion, string>
                 (this, HomeGestionViewModel.SuceffulyEnum.Send.ToString(),async (r, m) =>
                 {
-                    bool souhaiteQuitter = await App.Current!.Windows[0].Page!.DisplayAlertAsync(AppResources.deconnexion, AppResources.confirmDeconnexion, AppResources.oui, AppResources.non);
+                    bool souhaiteQuitter = await DisplayAlertAsync(AppResources.deconnexion, AppResources.confirmDeconnexion, AppResources.oui, AppResources.non);
                     if (souhaiteQuitter)
                     {
+                        viewModel.DeconnecterCommand.Execute(null);
                         SecureStorage.Default.RemoveAll();
                         Environment.Exit(0);
                     }
