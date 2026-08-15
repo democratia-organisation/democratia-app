@@ -40,7 +40,6 @@ namespace com.koyok.democratia.WinUI
                 file.Write(Encoding.UTF8.GetBytes(e.Exception.StackTrace ?? string.Empty));
             };
         }
-#if !DEBUG
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             base.OnLaunched(args);
@@ -72,7 +71,6 @@ namespace com.koyok.democratia.WinUI
                 await notificationRegistrationService.RefreshRegistrationAsync();
             }
         }
-#endif
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 
         public static void SetLocal(string langage)
