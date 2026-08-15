@@ -44,7 +44,7 @@ namespace com.koyok.democratia
             builder.Logging.AddDebug();
             builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
-#if !DEBUG
+#if ANDROID || WINDOWS
             builder.Services.AddSingleton<IDeviceInstallationService, DeviceInstallationService>();
 #endif
 
