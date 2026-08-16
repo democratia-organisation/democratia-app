@@ -29,7 +29,7 @@ namespace com.koyok.democratia.Domain.Repository
     public interface IInternauteRepository : IRepository
     {
         public Task<bool> DoublonEmailAsync(string email);
-        public Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices);
+        public Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices, Internaute internaute);
     }
 
     public interface IThematiqueRepository : IRepository

@@ -17,18 +17,21 @@ namespace com.koyok.democratia.UI.groupe
         public partial Groupe groupe { get; set; }
         [ObservableProperty]
         public partial string retourErreur { get; set; }
+        private Internaute? internaute;
+
         private IInternauteRepository internauteRepository = repository;
         private ILocalizationService localizationService = localizationService;
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             groupe = (Groupe)query["groupe"] ?? Shell.Current.AppContext.Groupe!;
+            internaute = (Internaute)query["modele"] ?? Shell.Current.AppContext.Internaute!;
         }
 
         [RelayCommand]
         private async Task SaveNotificationAsync(BitArray bits)
         {
-            bool success = await internauteRepository.SaveNotification(groupe, bits);
+            bool success = await internauteRepository.SaveNotification(groupe, bits, internaute!);
             if (success)
             {
                 ShellNavigationQueryParameters parameters = new()

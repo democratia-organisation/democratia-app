@@ -102,12 +102,12 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             return await ExtraiteStatus(response);
         }
 
-        public async Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices)
+        public async Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices, Internaute internaute)
         {
             HttpResponseMessage? response;
             try
             {
-                response = await client!.PatchAsync($"users/{groupe.idGroupe}/notifications", new StringContent(JsonSerializer.Serialize(notificationChoices)));
+                response = await client!.PatchAsync($"notifications/{groupe.idGroupe}/{internaute.idInternaute}", new StringContent(JsonSerializer.Serialize(notificationChoices)));
             }
             catch (HttpRequestException ex)
             {

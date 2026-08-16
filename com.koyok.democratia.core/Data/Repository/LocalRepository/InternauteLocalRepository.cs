@@ -44,7 +44,7 @@ namespace com.koyok.democratia.Data.Repository.LocalRepository
             throw new NotImplementedException();
         }
 
-        public Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices)
+        public Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices, Internaute internaute)
         {
             throw new NotImplementedException();
         }

@@ -47,9 +47,9 @@ namespace com.koyok.democratia.Data.Repository.RepositoryImpl
             return await remote.DeleteModelAsync(parameters);
         }
 
-        public async Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices)
+        public async Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices, Internaute internaute)
         {
-            return await remote.SaveNotification(groupe, notificationChoices);
+            return await remote.SaveNotification(groupe, notificationChoices, internaute);
         }
     }
 }

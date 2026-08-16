@@ -40,11 +40,12 @@ public class NotificationRegistrationRemoteRepository(HttpClient client, IRemote
     public async Task RegisterDeviceAsync(params string[] tags)
     {
         var deviceInstallation = DeviceInstallationService?.GetDeviceInstallation(tags);
+        var deviceId = DeviceInstallationService?.GetDeviceId();
 
         HttpResponseMessage response; 
         try
         {
-            response = await client!.PostAsync(RequestUrl, new StringContent(JsonSerializer.Serialize(deviceInstallation), Encoding.UTF8, "application/json"));
+            response = await client!.PatchAsync($"{RequestUrl}/{deviceId}", new StringContent(JsonSerializer.Serialize(deviceInstallation), Encoding.UTF8, "application/json"));
         }
         catch (Exception)
         {
