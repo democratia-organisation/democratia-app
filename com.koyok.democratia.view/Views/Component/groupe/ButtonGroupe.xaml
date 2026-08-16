@@ -34,7 +34,7 @@
                 x:Name="parametreGroupeImageButton"
                 AutomationId="parametreGroupeImageButton"
                 Command="{Binding OpenParameter, Source={x:Reference this}}"
-                CommandParameter="ParametrePage"
+                CommandParameter="{Binding .}"
                 HeightRequest="{StaticResource SpacingLarge}"
                 Source="rouage.png"
                 WidthRequest="{StaticResource SpacingLarge}" />

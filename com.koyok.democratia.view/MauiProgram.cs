@@ -36,9 +36,6 @@ namespace com.koyok.democratia
             builder.Services.AddServices();
             builder.Services.AddRemoteRepositories();
             builder.SetUrl();
-#if WINDOWS && !DEBUG
-            WinUI.App.AZURE_KEY = builder.GetAppSetting("AZURE_KEY");
-#endif
 
 #if DEBUG
             builder.Logging.AddDebug();

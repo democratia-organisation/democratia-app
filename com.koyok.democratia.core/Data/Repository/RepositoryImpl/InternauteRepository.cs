@@ -3,6 +3,7 @@ using com.koyok.democratia.Data.Repository.LocalRepository;
 using com.koyok.democratia.Data.Repository.RemoteRepository;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
+using System.Collections;
 
 namespace com.koyok.democratia.Data.Repository.RepositoryImpl
 {
@@ -44,6 +45,11 @@ namespace com.koyok.democratia.Data.Repository.RepositoryImpl
         {
 
             return await remote.DeleteModelAsync(parameters);
+        }
+
+        public async Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices)
+        {
+            return await remote.SaveNotification(groupe, notificationChoices);
         }
     }
 }

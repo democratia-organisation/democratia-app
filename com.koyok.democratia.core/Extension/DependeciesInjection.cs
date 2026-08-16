@@ -146,6 +146,8 @@ namespace com.koyok.democratia.Extension
                 services.AddTransient<ModifierGestionViewModel>();
                 services.AddTransient<PreferenceViewModel>();
                 services.AddTransient<PropositionViewModel>();
+                services.AddTransient<NotificationViewModel>();
+                services.AddTransient<ParametreViewModel>();
 
                 return services;
             }

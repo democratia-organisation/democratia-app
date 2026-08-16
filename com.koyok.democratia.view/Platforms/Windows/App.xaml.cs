@@ -3,10 +3,10 @@
 
 using com.koyok.democratia.Lib;
 using Microsoft.UI.Xaml;
-using Microsoft.Windows.PushNotifications;
-using Microsoft.Windows.AppLifecycle;
+using Windows.Networking.PushNotifications;
 using System.Globalization;
 using System.Text;
+using Windows.UI.Notifications;
 
 namespace com.koyok.democratia.WinUI
 {
@@ -16,7 +16,6 @@ namespace com.koyok.democratia.WinUI
     /// </summary>
     public partial class App : MauiWinUIApplication
     {
-        public static string? AZURE_KEY;
         public static readonly CultureInfo cultureInfo = CultureInfo.CurrentCulture;
         public INotificationRegistrationService? notificationRegistrationService;
         public IDeviceInstallationService? deviceInstallationService;
@@ -46,32 +45,31 @@ namespace com.koyok.democratia.WinUI
             await SetupWindowsPushNotificationsAsync();
         }
 
-        private async Task SetupWindowsPushNotificationsAsync()
+    private async Task SetupWindowsPushNotificationsAsync()
+    {
+        try
         {
-            PushNotificationManager.Default.PushReceived += (sender, e) =>
-            {
-                var payload = e.Payload;
-
-            };
-            if (deviceInstallationService.NotificationsSupported)
-            {
-                PushNotificationManager.Default.Register();
-                AppInstance.GetCurrent().GetActivatedEventArgs();
-            }
-
-            var channelOperation = await PushNotificationManager.Default.CreateChannelAsync(new Guid(AZURE_KEY!));
             
+            PushNotificationChannel channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
 
-            if (channelOperation.Status == PushNotificationChannelStatus.CompletedSuccess)
+            DeviceInstallationService.Token = channel.Uri;
+
+            channel.PushNotificationReceived += (sender, e) =>
             {
-                var channel = channelOperation.Channel;
-                string channelUri = channel.Uri.ToString();
-                deviceInstallationService.Token = channelUri;
-
-                await notificationRegistrationService.RefreshRegistrationAsync();
-            }
+                RawNotification notification = e.RawNotification;
+                ToastNotification toastNotification = e.ToastNotification;
+                TileNotification tileNotification = e.TileNotification;
+                BadgeNotification badgeNotification = e.BadgeNotification;
+            };
+            
+            await NotificationRegistrationService.RegisterDeviceAsync();
         }
-        protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 
         public static void SetLocal(string langage)
         {

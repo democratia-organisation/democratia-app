@@ -12,7 +12,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository;
 public class NotificationRegistrationRemoteRepository(HttpClient client, IRemoteToDomain remoteToDomain) : 
     RemoteBaseRepository(client, remoteToDomain) , INotificationRegistrationService
 {
-    const string RequestUrl = "notifications/registrations";
+    const string RequestUrl = "notifications";
 
     IDeviceInstallationService? _deviceInstallationService;
 
@@ -64,8 +64,8 @@ public class NotificationRegistrationRemoteRepository(HttpClient client, IRemote
 
         await Task.WhenAll(cachedTokenTask, serializedTagsTask);
 
-        var cachedToken = await cachedTokenTask;
-        var serializedTagsResult = await serializedTagsTask;
+        string? cachedToken = await cachedTokenTask;
+        string? serializedTagsResult = await serializedTagsTask;
 
         if (string.IsNullOrWhiteSpace(cachedToken) ||
             string.IsNullOrWhiteSpace(serializedTagsResult) ||

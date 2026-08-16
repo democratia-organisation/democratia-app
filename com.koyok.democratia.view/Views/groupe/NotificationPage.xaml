@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="com.koyok.democratia.UI.groupe.NotificationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:component="clr-namespace:com.koyok.democratia.UI.Component.groupe"
+    xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia.core"
+    x:DataType="viewModel:NotificationViewModel"
+    Style="{StaticResource fondEcran}">
+    <VerticalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout x:Name="NotificationStackLayout">
+                <Label
+                    x:Name="NotificationLabel"
+                    AutomationId="NotificationLabel"
+                    Style="{DynamicResource HeadlineStyle}"
+                    Text="{Binding Source=groupe.nomGroupe, StringFormat='Notifications \n {0}'}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.nouveauMembre}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.membreSupprime}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.nouvelProposition}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.propSupprime}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.DisucussPropTermine}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.newVote}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.votefini}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.newComm}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.newPropReact}" />
+                <Label
+                    x:Name="typeReceptionLabel"
+                    AutomationId="typeReceptionLabel"
+                    Style="{DynamicResource SubHeadlineStyle}"
+                    Text="{x:Static lang:AppResources.typeNotif}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.pushNotif}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.notifMail}" />
+                <Label
+                    x:Name="RetourErreurLabel"
+                    AutomationId="RetourErreurLabel"
+                    Style="{DynamicResource ErrorLabelStyle}"
+                    Text="{Binding retourErreur}" />
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button
+            x:Name="EnregistrerButton"
+            AutomationId="EnregistrerButton"
+            Clicked="EnregistrerButton_Clicked"
+            Text="{x:Static lang:AppResources.enregistrer}" />
+    </VerticalStackLayout>
+
+</ContentPage>

@@ -3,11 +3,27 @@
     x:Class="com.koyok.democratia.UI.groupe.ParametrePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lang="clr-namespace:com.koyok.democratia.view.Resources.Localization"
+    xmlns:viewModel="clr-namespace:com.koyok.democratia.UI.groupe;assembly=com.koyok.democratia.core"
+    x:DataType="viewModel:ParametreViewModel"
     Style="{StaticResource fondEcran}">
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="{DynamicResource SpacingMedium}">
         <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+            x:Name="titreLabel"
+            AutomationId="titreLabel"
+            Style="{DynamicResource SubHeadlineStyle}"
+            Text="{Binding groupe.nomGroupe}" />
+        <Button
+            x:Name="gestionNotifButton"
+            AutomationId="gestionNotifButton"
+            Command="{Binding NavigatePageCommand}"
+            CommandParameter="NotificationPage"
+            Text="{x:Static lang:AppResources.gererNotif}" />
+        <Button
+            x:Name="signalerButton"
+            AutomationId="signalerButton"
+            Command="{Binding NavigatePageCommand}"
+            CommandParameter="SiganlementPage"
+            Text="{x:Static lang:AppResources.signal}" />
     </VerticalStackLayout>
 </ContentPage>

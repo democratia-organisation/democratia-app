@@ -59,7 +59,7 @@
                     <groupeComponent:ButtonGroupe
                         AutomationId="buttonGroupe"
                         OpenGroupeCommand="{Binding BindingContext.OpenGroupCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                        OpenParameter="{Binding BindingContext.NavigateTappedCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                        OpenParameter="{Binding BindingContext.NavigateToParametreCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
                 </DataTemplate>
             </globalComponent:RefreshView.ItemTemplate>
         </globalComponent:RefreshView>

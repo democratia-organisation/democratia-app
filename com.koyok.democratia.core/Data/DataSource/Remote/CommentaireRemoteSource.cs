@@ -1,4 +1,4 @@
-﻿using com.koyok.democratia.core.Lib;
+﻿using com.koyok.democratia.Lib;
 using System.Text.Json.Serialization;
 namespace com.koyok.democratia.Data.DataSource.Remote
 {

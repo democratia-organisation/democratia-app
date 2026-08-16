@@ -6,7 +6,8 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
   xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-  IgnorableNamespaces="uap rescap com desktop">
+  xmlns:desktop10="http://schemas.microsoft.com/appx/manifest/desktop/windows10/10"
+  IgnorableNamespaces="uap rescap com desktop desktop10">
 
   <Identity Name="com.koyok.democratia" Publisher="CN=User Name" Version="1.0.0.0" />
 
@@ -43,7 +44,7 @@
 
 			<!-- Specify which CLSID to activate when notification is clicked -->
 			<desktop:Extension Category="windows.toastNotificationActivation">
-				<desktop:ToastNotificationActivation ToastActivatorCLSID="6e919706-2634-4d97-a93c-2213b2acc334" />
+				<desktop:ToastNotificationActivation ToastActivatorCLSID="42610e69-b444-4e90-a92c-0b8110ab7fc9" />
 			</desktop:Extension>
 
 			<!-- Register COM CLSID -->
@@ -51,11 +52,10 @@
 				<com:ComServer>
 					<com:ExeServer Executable="com.koyok.democratia.view\com.koyok.democratia.view.exe" DisplayName="$targetnametoken$" Arguments="----AppNotificationActivated:">
 						<!-- Example path to executable: CommunityToolkit.Maui.Sample\CommunityToolkit.Maui.Sample.exe -->
-						<com:Class Id="6e919706-2634-4d97-a93c-2213b2acc334" />
+						<com:Class Id="42610e69-b444-4e90-a92c-0b8110ab7fc9" />
 					</com:ExeServer>
 				</com:ComServer>
 			</com:Extension>
-			<desktop:Extension Category="windows.pushNotificationRegistration" />
 
 		</Extensions>
     </Application>

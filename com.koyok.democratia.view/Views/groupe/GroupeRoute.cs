@@ -10,6 +10,7 @@
             Routing.RegisterRoute($"{nameof(ParametrePage)}", typeof(ParametrePage));
             Routing.RegisterRoute($"{nameof(DecideurPage)}", typeof(DecideurPage));
             Routing.RegisterRoute($"{nameof(PropositionPage)}", typeof(PropositionPage));
+            Routing.RegisterRoute($"{nameof(NotificationPage)}", typeof(NotificationPage));
         }
     }
 }

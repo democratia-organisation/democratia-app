@@ -1,5 +1,6 @@
 ﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Models;
+using System.Collections;
 
 namespace com.koyok.democratia.Domain.Repository
 {
@@ -28,6 +29,7 @@ namespace com.koyok.democratia.Domain.Repository
     public interface IInternauteRepository : IRepository
     {
         public Task<bool> DoublonEmailAsync(string email);
+        public Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices);
     }
 
     public interface IThematiqueRepository : IRepository

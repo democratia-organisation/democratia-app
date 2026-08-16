@@ -295,6 +295,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Discussion d&apos;une proposition terminée.
+        /// </summary>
+        public static string DisucussPropTermine {
+            get {
+                return ResourceManager.GetString("DisucussPropTermine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Enregistrer.
         /// </summary>
         public static string enregistrer {
@@ -448,6 +457,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Gérez les notifications.
+        /// </summary>
+        public static string gererNotif {
+            get {
+                return ResourceManager.GetString("gererNotif", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Mes groupes.
         /// </summary>
         public static string groupe {
@@ -556,6 +574,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Membre supprimé.
+        /// </summary>
+        public static string membreSupprime {
+            get {
+                return ResourceManager.GetString("membreSupprime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Déconnexion.
         /// </summary>
         public static string messageDeconexion {
@@ -583,6 +610,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nouveau commentaire.
+        /// </summary>
+        public static string newComm {
+            get {
+                return ResourceManager.GetString("newComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Créer en un !.
         /// </summary>
         public static string NewCompte {
@@ -606,6 +642,24 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string newPropostion {
             get {
                 return ResourceManager.GetString("newPropostion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nouvelle réaction à une proposition.
+        /// </summary>
+        public static string newPropReact {
+            get {
+                return ResourceManager.GetString("newPropReact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nouveau vote.
+        /// </summary>
+        public static string newVote {
+            get {
+                return ResourceManager.GetString("newVote", resourceCulture);
             }
         }
         
@@ -655,6 +709,33 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enregistrement échoué.
+        /// </summary>
+        public static string notifEchec {
+            get {
+                return ResourceManager.GetString("notifEchec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Notification par mail.
+        /// </summary>
+        public static string notifMail {
+            get {
+                return ResourceManager.GetString("notifMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Paramètre de notification \n enregistré.
+        /// </summary>
+        public static string notifReussi {
+            get {
+                return ResourceManager.GetString("notifReussi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pas d&apos;utilisateur trouvé.
         /// </summary>
         public static string noUser {
@@ -664,11 +745,29 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nouveau Membre.
+        /// </summary>
+        public static string nouveauMembre {
+            get {
+                return ResourceManager.GetString("nouveauMembre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Soumettre une nouvelle proposition.
         /// </summary>
         public static string nouvellProp {
             get {
                 return ResourceManager.GetString("nouvellProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nouvelle proposition.
+        /// </summary>
+        public static string nouvelProposition {
+            get {
+                return ResourceManager.GetString("nouvelProposition", resourceCulture);
             }
         }
         
@@ -741,6 +840,24 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string Prix {
             get {
                 return ResourceManager.GetString("Prix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Proposition supprimée.
+        /// </summary>
+        public static string propSupprime {
+            get {
+                return ResourceManager.GetString("propSupprime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Notification par push.
+        /// </summary>
+        public static string pushNotif {
+            get {
+                return ResourceManager.GetString("pushNotif", resourceCulture);
             }
         }
         
@@ -831,6 +948,15 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string selectionTheme {
             get {
                 return ResourceManager.GetString("selectionTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Signaler le groupe.
+        /// </summary>
+        public static string signal {
+            get {
+                return ResourceManager.GetString("signal", resourceCulture);
             }
         }
         
@@ -943,11 +1069,29 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Type de notification.
+        /// </summary>
+        public static string typeNotif {
+            get {
+                return ResourceManager.GetString("typeNotif", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Valider.
         /// </summary>
         public static string valide {
             get {
                 return ResourceManager.GetString("valide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vote fini.
+        /// </summary>
+        public static string votefini {
+            get {
+                return ResourceManager.GetString("votefini", resourceCulture);
             }
         }
         
