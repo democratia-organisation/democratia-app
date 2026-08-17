@@ -60,7 +60,7 @@ namespace com.koyok.democratia.UI.groupe
         {
             List<Commentaire> commentaires = [.. this.commentaires];
             var internaute = Shell.Current.AppContext.Internaute;
-            Commentaire nouveauCommentaire = new(1, commentaire, DateTime.Now, 0, internaute!.nomInternaute!, internaute.prenomInternaute!, Role.Membre, (int)internaute.idInternaute!);
+            Commentaire nouveauCommentaire = new(1, commentaire, DateTime.Now, 0, internaute!.nomInternaute!, internaute.prenomInternaute!, Role.Membre, (Guid)internaute.idInternaute!);
             nouveauCommentaire.himself = true;
             commentaires.Add(nouveauCommentaire);
             this.commentaires.RemplacerElements(commentaires);

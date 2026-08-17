@@ -20,7 +20,7 @@ namespace com.koyok.democratia.Domain.Repository
 
     public interface IGroupeRepository : IRepository
     {
-        public Task<bool> AjouterCreateur(int? idInternaute, Guid? idGroupe);
+        public Task<bool> AjouterCreateur(Guid? idInternaute, Guid? idGroupe);
         public Task<bool> CreateJointureThemeEtGroupeAsync(Guid? idGroupe, int? idThematique, float? budgetThematique);
         public Task<List<Thematique>> GetJointureThemeEtGroupeAsync(Guid? idGroupe);
         protected Task<string> GetRoleGroupe(string rowGroupe);

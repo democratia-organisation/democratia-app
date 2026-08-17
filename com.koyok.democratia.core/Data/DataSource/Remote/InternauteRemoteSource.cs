@@ -4,9 +4,9 @@ namespace com.koyok.democratia.Data.DataSource.Remote
 {
 
     [method: JsonConstructor]
-    public class InternauteRemoteSource(int? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postale, string? courriel, string? hashageMDP) : IRemoteSource
+    public class InternauteRemoteSource(Guid? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postale, string? courriel, string? hashageMDP) : IRemoteSource
     {
-        public int? id_internaute { get; set; } = id_internaute;
+        public Guid? id_internaute { get; set; } = id_internaute;
         public string? nom_internaute { get; set; } = nom_internaute;
         public string? prenom_internaute { get; set; } = prenom_internaute;
         public string? adresse_postale { get; set; } = adresse_postale;

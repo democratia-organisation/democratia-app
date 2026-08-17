@@ -4,9 +4,9 @@ using com.koyok.democratia.Domain.Utils;
 namespace com.koyok.democratia.Domain.Models
 {
 
-    public class Internaute(int? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postale, string? courriel, string? hashageMDP) : IModel
+    public class Internaute(Guid? id_internaute, string? nom_internaute, string? prenom_internaute, string? adresse_postale, string? courriel, string? hashageMDP) : IModel
     {
-        public int? idInternaute { get; set; } = id_internaute;
+        public Guid? idInternaute { get; set; } = id_internaute;
         public string? nomInternaute { get; set; } = nom_internaute;
         public string? prenomInternaute { get; set; } = prenom_internaute;
         public string? adressePostale { get; set; } = adresse_postale;
@@ -21,8 +21,9 @@ namespace com.koyok.democratia.Domain.Models
             }
         } = courriel;
         public string? hashageMDP { get; set; } = hashageMDP;
-        public string? tempMDP { 
-            get; set 
+        public string? tempMDP
+        {
+            get; set
             {
                 if (value is null) { field = value; return; }
                 if (!Verification.VerifierFormatage(value!, new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$")))
@@ -33,5 +34,15 @@ namespace com.koyok.democratia.Domain.Models
 
         public Internaute() : this(null, null, null, null, null, null) { }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is Internaute internaute &&
+                   idInternaute == internaute.idInternaute;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(idInternaute);
+        }
     }
 }

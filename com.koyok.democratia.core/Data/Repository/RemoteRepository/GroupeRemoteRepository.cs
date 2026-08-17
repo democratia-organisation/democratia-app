@@ -134,7 +134,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             throw new NotImplementedException();
         }
 
-        public async Task<bool> AjouterCreateur(int? id_internaute, Guid? id_groupe)
+        public async Task<bool> AjouterCreateur(Guid? id_internaute, Guid? id_groupe)
         {
             var notificationId = 1;
             List<object?> data = [id_groupe, id_internaute, (int)Role.Administrateur, notificationId];

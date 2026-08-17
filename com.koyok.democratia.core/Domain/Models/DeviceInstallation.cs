@@ -4,13 +4,13 @@ namespace com.koyok.democratia.Domain.Models;
 
 public class DeviceInstallation : IModel
 {
-    [JsonPropertyName("installationId")]
+    [JsonPropertyName("device_id")]
     public string? InstallationId { get; set; }
 
-    [JsonPropertyName("platform")]
+    [JsonPropertyName("type_device")]
     public string? Platform { get; set; }
 
-    [JsonPropertyName("pushChannel")]
+    [JsonPropertyName("token")]
     public string? PushChannel { get; set; }
 
     [JsonPropertyName("tags")]
