@@ -4,13 +4,13 @@ namespace com.koyok.democratia.Data.DataSource.Remote;
 
 public class DeviceInstallationRemoteSource : IRemoteSource
 {
-    [JsonPropertyName("installationId")]
+    [JsonPropertyName("device_id")]
     public string? InstallationId { get; set; }
 
-    [JsonPropertyName("platform")]
+    [JsonPropertyName("type_device")]
     public string? Platform { get; set; }
 
-    [JsonPropertyName("pushChannel")]
+    [JsonPropertyName("token")]
     public string? PushChannel { get; set; }
 
     [JsonPropertyName("tags")]
