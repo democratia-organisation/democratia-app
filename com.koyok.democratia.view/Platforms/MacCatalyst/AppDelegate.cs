@@ -1,4 +1,5 @@
-﻿using com.koyok.democratia.Lib;
+﻿using com.koyok.democratia.Domain.Repository;
+using com.koyok.democratia.Lib;
 using Foundation;
 using System.Diagnostics;
 using System.Globalization;
@@ -10,10 +11,10 @@ namespace com.koyok.democratia
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate
     {
-        INotificationRegistrationService? _notificationRegistrationService;
+        INotificationRegistrationRepository? _notificationRegistrationService;
         IDeviceInstallationService? _deviceInstallationService;
-        INotificationRegistrationService NotificationRegistrationService =>
-            _notificationRegistrationService ??=  IPlatformApplication.Current!.Services.GetService<INotificationRegistrationService>()!;
+        INotificationRegistrationRepository NotificationRegistrationService =>
+            _notificationRegistrationService ??=  IPlatformApplication.Current!.Services.GetService<INotificationRegistrationRepository>()!;
 
         IDeviceInstallationService DeviceInstallationService =>
             _deviceInstallationService ??= IPlatformApplication.Current!.Services.GetService<IDeviceInstallationService>()!;
@@ -43,10 +44,12 @@ namespace com.koyok.democratia
 
             return base.FinishedLaunching(application, launchOptions);
         }
-        Task CompleteRegistrationAsync(NSData deviceToken)
+        async Task CompleteRegistrationAsync(NSData deviceToken)
         {
             DeviceInstallationService.Token = deviceToken.ToHexString();
-            return NotificationRegistrationService.RefreshRegistrationAsync();
+            string? key = await SecureStorage.Default.GetAsync(SecureStorageKeys.API_KEY.ToString());
+            if (key == null) NotificationRegistrationService.SerializeDevice(DeviceInstallationService);
+            else await NotificationRegistrationService.RefreshRegistrationAsync();
         }
         [Export("application:didRegisterForRemoteNotificationsWithDeviceToken:")]
         public void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)

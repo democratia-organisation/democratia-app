@@ -16,7 +16,7 @@ namespace com.koyok.democratia.Domain.Models
             {
                 if (value is null) { field = value; return; }
                 if (!Verification.VerifierFormatage(value!, new(@"^[\w.\+\-]+@[\w\-]+\.[A-Za-z]{2,}$")))
-                    throw new MailException();
+                    throw new CredentialException();
                 else field = value;
             }
         } = courriel;
@@ -27,7 +27,7 @@ namespace com.koyok.democratia.Domain.Models
             {
                 if (value is null) { field = value; return; }
                 if (!Verification.VerifierFormatage(value!, new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$")))
-                    throw new PassWordException();
+                    throw new CredentialException();
                 else field = value;
             }
         }

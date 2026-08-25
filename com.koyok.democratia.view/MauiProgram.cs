@@ -54,9 +54,7 @@ namespace com.koyok.democratia
                 GererErreur(e.Exception, "TaskScheduler.UnobservedTaskException");
            
             var app = builder.Build();
-            ServiceHelper.Initialize(app.Services);
-            Lib.ServiceHelper.Initialize(app.Services);
-            
+
             return app;
 
         }

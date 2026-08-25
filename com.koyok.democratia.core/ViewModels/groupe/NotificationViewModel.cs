@@ -14,7 +14,7 @@ namespace com.koyok.democratia.UI.groupe
         ILocalizationService localizationService) : ObservableObject, INotifyPropertyChanged, IQueryAttributable
     {
         [ObservableProperty]
-        public partial Groupe groupe { get; set; }
+        public partial Groupe? groupe { get; set; }
         [ObservableProperty]
         public partial string retourErreur { get; set; }
         private Internaute? internaute;
@@ -24,14 +24,14 @@ namespace com.koyok.democratia.UI.groupe
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            groupe = (Groupe)query["groupe"] ?? Shell.Current.AppContext.Groupe!;
-            internaute = (Internaute)query["modele"] ?? Shell.Current.AppContext.Internaute!;
+            groupe = query.TryGetValue("groupe", out var group) ? (Groupe)group : Shell.Current.AppContext.Groupe;
+            internaute = query.TryGetValue("internaute", out var user) ? (Internaute)user : Shell.Current.AppContext.Internaute;
         }
 
         [RelayCommand]
         private async Task SaveNotificationAsync(BitArray bits)
         {
-            bool success = await internauteRepository.SaveNotification(groupe, bits, internaute!);
+            bool success = await internauteRepository.SaveNotification(groupe!, bits, internaute!);
             if (success)
             {
                 ShellNavigationQueryParameters parameters = new()

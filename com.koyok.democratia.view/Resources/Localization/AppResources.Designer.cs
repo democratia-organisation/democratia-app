@@ -376,20 +376,11 @@ namespace com.koyok.democratia.view.Resources.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Veuillez saisir votre adresse mail.
+        ///   Recherche une chaîne localisée semblable à Identifiant ou mot de passe incorrect.
         /// </summary>
-        public static string errorMailMessage {
+        public static string errorCredential {
             get {
-                return ResourceManager.GetString("errorMailMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Veuillez saisir votre mot de passe.
-        /// </summary>
-        public static string errorPasswordMessage {
-            get {
-                return ResourceManager.GetString("errorPasswordMessage", resourceCulture);
+                return ResourceManager.GetString("errorCredential", resourceCulture);
             }
         }
         
@@ -543,15 +534,6 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string mauvaiseNouvelle {
             get {
                 return ResourceManager.GetString("mauvaiseNouvelle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Mot de passe incorrecte.
-        /// </summary>
-        public static string mauvaisMdp {
-            get {
-                return ResourceManager.GetString("mauvaisMdp", resourceCulture);
             }
         }
         
@@ -732,15 +714,6 @@ namespace com.koyok.democratia.view.Resources.Localization {
         public static string notifReussi {
             get {
                 return ResourceManager.GetString("notifReussi", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Pas d&apos;utilisateur trouvé.
-        /// </summary>
-        public static string noUser {
-            get {
-                return ResourceManager.GetString("noUser", resourceCulture);
             }
         }
         

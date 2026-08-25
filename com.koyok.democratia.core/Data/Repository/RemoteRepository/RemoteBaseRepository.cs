@@ -15,7 +15,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
         protected int? statuts;
         protected HttpClient? client;
         public HttpClient Client => client!;
-        private IRemoteToDomain remoteToDomain;
+        protected IRemoteToDomain remoteToDomain;
 
         public bool succes { get; private set; }
 
@@ -66,8 +66,8 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
         protected static async Task<bool> ExtraiteStatus(HttpResponseMessage response)
         {
             string content = await response.Content.ReadAsStringAsync();
-            var sucess = (bool)JsonSerializer.Deserialize<Dictionary<string, object>>(content)!["sucess"];
-            return sucess;
+            var sucess = JsonSerializer.Deserialize<Dictionary<string, object>>(content);
+            return ((JsonElement)sucess!["sucess"]).ValueKind == JsonValueKind.True;
         }
 
         /// <summary>

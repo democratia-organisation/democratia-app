@@ -12,13 +12,13 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
 
     public partial class HomeGestionViewModel(ILocalizationService localizationService, 
-        IInternauteRepository internauteRepository, INotificationRegistrationService? notificationRegistrationService) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
+        IInternauteRepository internauteRepository, INotificationRegistrationRepository? notificationRegistrationService) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? retourMessage { get; set; }
         private readonly IInternauteRepository? internauteRepository = internauteRepository;
         private Internaute? internaute;
         private readonly ILocalizationService localizationService = localizationService;
-        private readonly INotificationRegistrationService? notificationRegistrationService = notificationRegistrationService;
+        private readonly INotificationRegistrationRepository? notificationRegistrationService = notificationRegistrationService;
         private bool _isNavigating = false;
         private readonly WeakReferenceMessenger weakReferenceMessenger = WeakReferenceMessenger.Default;
 

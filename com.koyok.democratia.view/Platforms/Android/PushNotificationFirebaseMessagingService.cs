@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Lib;
 using Firebase.Messaging;
 
@@ -9,11 +10,11 @@ namespace PushNotificationsDemo.Platforms.Android;
 public class PushNotificationFirebaseMessagingService : FirebaseMessagingService
 {
     
-    INotificationRegistrationService? _notificationRegistrationService;
+    INotificationRegistrationRepository? _notificationRegistrationService;
     IDeviceInstallationService? _deviceInstallationService;
 
-    INotificationRegistrationService NotificationRegistrationService =>
-        _notificationRegistrationService ??= IPlatformApplication.Current!.Services.GetService<INotificationRegistrationService>()!;
+    INotificationRegistrationRepository NotificationRegistrationService =>
+        _notificationRegistrationService ??= IPlatformApplication.Current!.Services.GetService<INotificationRegistrationRepository>()!;
 
     IDeviceInstallationService DeviceInstallationService =>
         _deviceInstallationService ??= IPlatformApplication.Current!.Services.GetService<IDeviceInstallationService>()!;

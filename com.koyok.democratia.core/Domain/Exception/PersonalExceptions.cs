@@ -2,9 +2,7 @@
 
 namespace com.koyok.democratia.Domain.Exception
 {
-    internal class MailException : System.Exception { }
-
-    internal class PassWordException : System.Exception { }
+    internal class CredentialException : System.Exception { }
 
     internal class EmptyEmailFieldException : System.Exception { }
 
@@ -32,9 +30,6 @@ namespace com.koyok.democratia.Domain.Exception
     {
         public ConnexionErrorException() : this("") { }
     }
-    internal class BadPasswordException : System.Exception { }
-
-    internal class NoUserException : System.Exception { }
     internal class FetchDataException : System.Exception { }
 
     internal class CompteExistantException : System.Exception { }
@@ -53,12 +48,9 @@ namespace com.koyok.democratia.Domain.Exception
                 EmptyPassWordFieldException => localizationService?.GetString("errorPasswordMessage"),
                 EmptyRequiredFieldException when args.Length > 0 => localizationService?.GetString("errorEmptyFieldMessage", args[0]),
                 EmptyRequiredFieldException => localizationService?.GetString("errorUnknowEmptyFieldMessage"),
-                MailException => localizationService?.GetString("errorMailMessage"),
-                PassWordException => localizationService?.GetString("errorPasswordMessage"),
+                CredentialException => localizationService?.GetString("errorCredential"),
                 ConnexionErrorException when args.Length > 0 => localizationService?.GetString("connexionErreur", args[0]),
                 ConnexionErrorException => localizationService?.GetString("connexionErreur"),
-                NoUserException => localizationService?.GetString("noUser"),
-                BadPasswordException => localizationService?.GetString("mauvaisMdp"),
                 FetchDataException => localizationService?.GetString("erreurDonne"),
                 CompteExistantException => localizationService?.GetString("compteExistantErreur"),
                 NoImageGiven => localizationService?.GetString("erreurPhoto"),

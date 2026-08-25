@@ -159,12 +159,6 @@
   <data name="SuppCompte" xml:space="preserve">
     <value>Supprimer mon compte</value>
   </data>
-  <data name="errorMailMessage" xml:space="preserve">
-    <value>Veuillez saisir votre adresse mail</value>
-  </data>
-  <data name="errorPasswordMessage" xml:space="preserve">
-    <value>Veuillez saisir votre mot de passe</value>
-  </data>
   <data name="enregistrer" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
@@ -179,12 +173,6 @@
   </data>
   <data name="connexionErreur" xml:space="preserve">
     <value>Erreur de connexion inattendu</value>
-  </data>
-  <data name="noUser" xml:space="preserve">
-    <value>Pas d'utilisateur trouvé</value>
-  </data>
-  <data name="mauvaisMdp" xml:space="preserve">
-    <value>Mot de passe incorrecte</value>
   </data>
   <data name="inscription" xml:space="preserve">
     <value>M'inscrire</value>
@@ -464,5 +452,8 @@
   </data>
   <data name="notifEchec" xml:space="preserve">
     <value>Enregistrement échoué</value>
+  </data>
+  <data name="errorCredential" xml:space="preserve">
+    <value>Identifiant ou mot de passe incorrect</value>
   </data>
 </root>

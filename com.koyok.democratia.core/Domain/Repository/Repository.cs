@@ -50,5 +50,15 @@ namespace com.koyok.democratia.Domain.Repository
     {
         
     }
+
+    public interface INotificationRegistrationRepository
+    {
+        Task DeregisterDeviceAsync();
+        Task RegisterDeviceAsync(params string[] tags);
+        void SerializeDevice(IDeviceInstallationService device);
+        Task RefreshRegistrationAsync();
+    }
+
+
 }
 

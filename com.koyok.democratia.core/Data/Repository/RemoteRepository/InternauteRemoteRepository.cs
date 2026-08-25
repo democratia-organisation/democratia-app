@@ -104,10 +104,17 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
 
         public async Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices, Internaute internaute)
         {
+            if (notificationChoices.Length > 16)
+                throw new ArgumentException("Le BitArray ne doit pas dépasser 16 bits.");
+
+            byte[] bytes = new byte[2];
+            notificationChoices.CopyTo(bytes, 0);
+            List<ushort> notificationsConverties = [BitConverter.ToUInt16(bytes, 0)];
             HttpResponseMessage? response;
             try
             {
-                response = await client!.PatchAsync($"notifications/{groupe.idGroupe}/{internaute.idInternaute}", new StringContent(JsonSerializer.Serialize(notificationChoices)));
+                
+                response = await client!.PatchAsync($"notifications/choixUtilisateur/{groupe.idGroupe}/{internaute.idInternaute}", new StringContent(JsonSerializer.Serialize(notificationsConverties)));
             }
             catch (HttpRequestException ex)
             {

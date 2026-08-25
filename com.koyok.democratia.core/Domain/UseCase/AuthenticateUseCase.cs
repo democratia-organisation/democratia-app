@@ -31,7 +31,7 @@ namespace com.koyok.democratia.Domain.UseCase
             List<Internaute> listeInformation = [];
             Task listeRun = Task.Run(async () => listeInformation = [.. (await internauteRepository?.GetModelAsync(adresseMail, motDePasse)!).Cast<Internaute>()]);
             await Task.WhenAll(adresseMailTask, motDePasseTask, listeRun);
-            if (listeInformation.Count == 0) throw new NoUserException();
+            if (listeInformation.Count == 0) throw new CredentialException();
             var internaute = listeInformation[0];
             string motDePasseHash = internaute!.hashageMDP!;
             bool estAuthetifie;
@@ -49,7 +49,7 @@ namespace com.koyok.democratia.Domain.UseCase
             internaute!.tempMDP = motDePasse;
             estAuthetifie = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
 #endif
-            if (!estAuthetifie) throw new BadPasswordException();
+            if (!estAuthetifie) throw new CredentialException();
             await SecureStorage.Default.SetAsync(SecureStorageKeys.LastLogin.ToString(), DateTime.Now.ToString("U"));
             return internaute;
         }

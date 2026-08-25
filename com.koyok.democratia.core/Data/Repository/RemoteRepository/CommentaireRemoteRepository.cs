@@ -15,7 +15,7 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             HttpResponseMessage response;
             try
             {
-                response = await client.PostAsync("/commentaires/", content);
+                response = await client!.PostAsync("/commentaires/", content);
                 return await ExtraiteStatus(response);
             }
             catch (Exception ex)

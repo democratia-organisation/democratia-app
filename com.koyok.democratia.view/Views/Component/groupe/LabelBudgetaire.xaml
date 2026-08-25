@@ -33,7 +33,6 @@
                 HorizontalOptions="Center"
                 Keyboard="Numeric"
                 MaximumWidthRequest="100"
-                Style="{StaticResource EntryStyle}"
                 Text="{Binding Texte, Source={x:Reference this}, Mode=TwoWay}"
                 TextChanged="OnEntryTextChanged"
                 VerticalOptions="Center" />

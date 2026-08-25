@@ -28,10 +28,11 @@
                 <Label
                     x:Name="typeReceptionLabel"
                     AutomationId="typeReceptionLabel"
+                    HorizontalOptions="Start"
                     Style="{DynamicResource SubHeadlineStyle}"
                     Text="{x:Static lang:AppResources.typeNotif}" />
-                <component:ValidationComponent Text="{x:Static lang:AppResources.pushNotif}" />
                 <component:ValidationComponent Text="{x:Static lang:AppResources.notifMail}" />
+                <component:ValidationComponent Text="{x:Static lang:AppResources.pushNotif}" />
                 <Label
                     x:Name="RetourErreurLabel"
                     AutomationId="RetourErreurLabel"

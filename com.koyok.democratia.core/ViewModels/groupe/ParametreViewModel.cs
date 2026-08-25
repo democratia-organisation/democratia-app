@@ -16,9 +16,9 @@ namespace com.koyok.democratia.UI.groupe
         private Internaute? internaute;
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            groupe = (Groupe?)query["groupe"] ?? Shell.Current.AppContext.Groupe;
-            internaute = (Internaute?)query["internaute"] ?? Shell.Current.AppContext.Internaute;
-            retourErreur = (string?)query["retourMessage"] ?? string.Empty;
+            groupe = query.TryGetValue("groupe", out var group) ? (Groupe)group: Shell.Current.AppContext.Groupe;
+            internaute = query.TryGetValue("internaute",out var user) ? (Internaute)user : Shell.Current.AppContext.Internaute;
+            retourErreur = query.TryGetValue("retourMessage", out var message) ? (string)message : string.Empty;
         }
 
         [RelayCommand]

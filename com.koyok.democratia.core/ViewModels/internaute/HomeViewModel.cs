@@ -71,6 +71,7 @@ namespace com.koyok.democratia.UI.internaute
         private async Task NavigateToParametre(Groupe groupe)
         {
             var parameters = new ShellNavigationQueryParameters { { "groupe", groupe }, { "modele", internaute! } };
+            Shell.Current.AppContext.Groupe = groupe;
             await Shell.Current?.GoToAsync("ParametrePage", parameters)!;
         }
 

@@ -1,5 +1,8 @@
-﻿using com.koyok.democratia.Data.Mapper.RemoteToDomain;
+﻿using com.koyok.democratia.Data.DataSource.Remote;
+using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Domain.Exception;
+using com.koyok.democratia.Domain.Models;
+using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Lib;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
@@ -10,9 +13,10 @@ using System.Text.Json;
 namespace com.koyok.democratia.Data.Repository.RemoteRepository;
 
 public class NotificationRegistrationRemoteRepository(HttpClient client, IRemoteToDomain remoteToDomain) : 
-    RemoteBaseRepository(client, remoteToDomain) , INotificationRegistrationService
+    RemoteBaseRepository(client, remoteToDomain) , INotificationRegistrationRepository
 {
     const string RequestUrl = "notifications";
+    private static string PATHDEVICE = Path.Combine(FileSystem.Current.AppDataDirectory, "device.json");
 
     IDeviceInstallationService? _deviceInstallationService;
 
@@ -39,13 +43,20 @@ public class NotificationRegistrationRemoteRepository(HttpClient client, IRemote
 
     public async Task RegisterDeviceAsync(params string[] tags)
     {
-        var deviceInstallation = DeviceInstallationService?.GetDeviceInstallation(tags);
-        var deviceId = DeviceInstallationService?.GetDeviceId();
+        DeviceInstallation? deviceInstallation;
+        string? key = await SecureStorage.Default.GetAsync(SecureStorageKeys.API_KEY.ToString());
+        if (File.Exists(PATHDEVICE) && key == null)
+        {
+            string devicestring = Encoding.UTF8.GetString(File.ReadAllBytes(PATHDEVICE));
+            deviceInstallation = remoteToDomain.Mapping(devicestring) as DeviceInstallation;
+        }
+        else
+         deviceInstallation = DeviceInstallationService?.GetDeviceInstallation(tags);
 
         HttpResponseMessage response; 
         try
         {
-            response = await client!.PatchAsync($"{RequestUrl}/{deviceId}", new StringContent(JsonSerializer.Serialize(deviceInstallation), Encoding.UTF8, "application/json"));
+            response = await client!.PatchAsync($"{RequestUrl}/{deviceInstallation!.InstallationId}", new StringContent(JsonSerializer.Serialize(deviceInstallation), Encoding.UTF8, "application/json"));
         }
         catch (Exception)
         {
@@ -77,5 +88,12 @@ public class NotificationRegistrationRemoteRepository(HttpClient client, IRemote
         var tags = JsonSerializer.Deserialize<string[]>(serializedTagsResult);
 
         await RegisterDeviceAsync(tags!);
+    }
+
+    public void SerializeDevice(IDeviceInstallationService device)
+    {
+        string devicestring = JsonSerializer.Serialize(device);
+        using FileStream file = File.Create(PATHDEVICE);
+        file.Write(Encoding.UTF8.GetBytes(devicestring));
     }
 }
