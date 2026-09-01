@@ -38,7 +38,7 @@ public partial class PropositionPage : ContentPage
             }
         }
         catch {
-            await DisplayAlertAsync("Erreur", AppResources.erreurInattendu, AppResources.ChangementOk);
+            await DisplayAlertAsync("Erreur", AppResources.erreurInattendu, AppResources.erreurInattendu);
             valideButton.IsEnabled = true;
             commentaireEntry.IsEnabled = true;
         }

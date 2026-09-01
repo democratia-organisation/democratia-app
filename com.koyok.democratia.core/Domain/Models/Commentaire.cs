@@ -2,15 +2,16 @@
 {
     public class Commentaire(int id_commentaire, string? contenu_message, DateTime horodatage, int nb_signalement, string nom_auteur, string prenom_auteur, Role role, Guid id_internaute) : IModel
     {
+        
         public int idCommentaire = id_commentaire;
 
         public string? contenuMessage { get; set; } = contenu_message;
-        public DateTime horodatage = horodatage;
+        public DateTime horodatage { get; set; } = horodatage;
         public int nbSignalement = nb_signalement;
         public string nomAuteur = nom_auteur;
         public string prenomAuteur = prenom_auteur;
         public Role role = role;
-        public Guid idInternaute = id_internaute;
+        public Guid idInternaute { get; set; } = id_internaute;
         public bool? himself;
 
     }

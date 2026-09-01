@@ -64,7 +64,7 @@ namespace com.koyok.democratia.UI.groupe
             nouveauCommentaire.himself = true;
             commentaires.Add(nouveauCommentaire);
             this.commentaires.RemplacerElements(commentaires);
-            bool isSuccess = await commentaireRepository.CreateModelAsync(commentaire);
+            bool isSuccess = await commentaireRepository.CreateModelAsync(nouveauCommentaire,groupe!.idGroupe, proposition!.idProposition);
             if (!isSuccess)
             {
                 commentaires.Remove(nouveauCommentaire);

@@ -18,16 +18,7 @@ namespace com.koyok.democratia.Data.Repository.RepositoryImpl
         public async Task<List<IModel>> GetModelAsync(params object?[] parameters)
         {
             
-            List<IModel> liste = await local.GetModelAsync(parameters);
-            if (liste.Count < 1)
-            {
-                liste = await remote.GetModelAsync(parameters);
-                foreach (var item in liste)
-                {
-                    if (!(await local.CreateModelAsync(item))) throw new Exception();
-                }
-            }
-            return liste;
+            return await remote.GetModelAsync(parameters);
         }
 
         public async Task<bool> DoublonEmailAsync(string email)
