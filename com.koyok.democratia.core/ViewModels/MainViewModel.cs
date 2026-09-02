@@ -19,7 +19,7 @@ namespace com.koyok.democratia.UI
         [RelayCommand]
         private async Task Connect()
         {
-            string? identifiant = await SecureStorage.Default.GetAsync(SecureStorageKeys.IdInternaute.ToString());
+            string? identifiant = await SecureStorage.Default.GetAsync(SecureStorageKeys.email.ToString());
             string? motDePasse = await SecureStorage.Default.GetAsync(SecureStorageKeys.MotDePasseInternaute.ToString());
             if (identifiant is null || motDePasse is null)
                 isConnected = false;

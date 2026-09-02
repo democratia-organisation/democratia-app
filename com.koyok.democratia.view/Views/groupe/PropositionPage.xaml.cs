@@ -21,10 +21,17 @@ public partial class PropositionPage : ContentPage
 
     private void PostMessageButton_Clicked(object? sender, EventArgs? e)
     {
+        TurnComponent(true);
+    }
 
-        valideButton.IsVisible = true;
-        messagePostButton.IsVisible = false;
-        commentaireEntry.IsVisible = true;
+    private void TurnComponent(bool isPosting)
+    {
+        valideButton.IsVisible = isPosting;
+        valideButton.IsEnabled = isPosting;
+        messagePostButton.IsVisible = !isPosting;
+        messagePostButton.IsEnabled = !isPosting;
+        commentaireEntry.IsVisible = isPosting;
+        commentaireEntry.IsEnabled = isPosting;
     }
 
     private async void ValideButton_Clicked(object? sender, EventArgs? e)
@@ -39,11 +46,7 @@ public partial class PropositionPage : ContentPage
         }
         catch {
             await DisplayAlertAsync("Erreur", AppResources.erreurInattendu, AppResources.erreurInattendu);
-            valideButton.IsEnabled = true;
-            commentaireEntry.IsEnabled = true;
         }
-        valideButton.IsVisible = false;
-        messagePostButton.IsVisible = true;
-        commentaireEntry.IsVisible = false;
+        TurnComponent(false);
     }
 }

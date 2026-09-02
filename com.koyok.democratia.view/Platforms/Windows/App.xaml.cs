@@ -43,15 +43,15 @@ namespace com.koyok.democratia.WinUI
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             base.OnLaunched(args);
-                      
+#if !DEBUG
             await SetupWindowsPushNotificationsAsync();
+#endif
         }
 
         private async Task SetupWindowsPushNotificationsAsync()
         {
             try
             {
-            
                 PushNotificationChannel channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
 
                 DeviceInstallationService.Token = channel.Uri;

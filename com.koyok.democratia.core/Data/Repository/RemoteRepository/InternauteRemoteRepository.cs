@@ -113,7 +113,6 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             HttpResponseMessage? response;
             try
             {
-                
                 response = await client!.PatchAsync($"notifications/choixUtilisateur/{groupe.idGroupe}/{internaute.idInternaute}", new StringContent(JsonSerializer.Serialize(notificationsConverties)));
             }
             catch (HttpRequestException ex)

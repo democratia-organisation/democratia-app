@@ -45,6 +45,7 @@ public class NotificationRegistrationRemoteRepository(HttpClient client, IRemote
     {
         DeviceInstallation? deviceInstallation;
         string? key = await SecureStorage.Default.GetAsync(SecureStorageKeys.API_KEY.ToString());
+
         if (File.Exists(PATHDEVICE) && key == null)
         {
             string devicestring = Encoding.UTF8.GetString(File.ReadAllBytes(PATHDEVICE));
@@ -52,11 +53,13 @@ public class NotificationRegistrationRemoteRepository(HttpClient client, IRemote
         }
         else
          deviceInstallation = DeviceInstallationService?.GetDeviceInstallation(tags);
+        string? idInternaute = await SecureStorage.Default.GetAsync(SecureStorageKeys.IdInternaute.ToString());
+        if (idInternaute == null) return;
 
         HttpResponseMessage response; 
         try
         {
-            response = await client!.PatchAsync($"{RequestUrl}/{deviceInstallation!.InstallationId}", new StringContent(JsonSerializer.Serialize(deviceInstallation), Encoding.UTF8, "application/json"));
+            response = await client!.PatchAsync($"{RequestUrl}/{idInternaute}/{deviceInstallation!.InstallationId}", new StringContent(JsonSerializer.Serialize(deviceInstallation), Encoding.UTF8, "application/json"));
         }
         catch (Exception)
         {

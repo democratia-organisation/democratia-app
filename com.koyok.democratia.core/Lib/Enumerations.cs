@@ -30,6 +30,7 @@
         API_KEY,
         REFRESH,
         is_refresh_key_fresh,
+        email,
         IdInternaute,
         MotDePasseInternaute,
         LastLogin,
