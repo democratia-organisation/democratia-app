@@ -60,11 +60,11 @@ namespace com.koyok.democratia.UI.groupe
         {
             List<Commentaire> commentaires = [.. this.commentaires];
             var internaute = Shell.Current.AppContext.Internaute;
-            Commentaire nouveauCommentaire = new(1, commentaire, DateTime.Now, 0, internaute!.nomInternaute!, internaute.prenomInternaute!, Role.Membre, (int)internaute.idInternaute!);
+            Commentaire nouveauCommentaire = new(1, commentaire, DateTime.Now, 0, internaute!.nomInternaute!, internaute.prenomInternaute!, Role.Membre, (Guid)internaute.idInternaute!);
             nouveauCommentaire.himself = true;
             commentaires.Add(nouveauCommentaire);
             this.commentaires.RemplacerElements(commentaires);
-            bool isSuccess = await commentaireRepository.CreateModelAsync(commentaire);
+            bool isSuccess = await commentaireRepository.CreateModelAsync(nouveauCommentaire,groupe!.idGroupe, proposition!.idProposition);
             if (!isSuccess)
             {
                 commentaires.Remove(nouveauCommentaire);

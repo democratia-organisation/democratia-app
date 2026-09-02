@@ -7,9 +7,10 @@
             Routing.RegisterRoute($"{nameof(GroupePage)}",typeof(GroupePage));
             Routing.RegisterRoute($"{nameof(Membre)}", typeof(Membre));
             Routing.RegisterRoute($"{nameof(NouvelleProposition)}", typeof(NouvelleProposition));
-            Routing.RegisterRoute($"{nameof(Parametre)}", typeof(Parametre));
+            Routing.RegisterRoute($"{nameof(ParametrePage)}", typeof(ParametrePage));
             Routing.RegisterRoute($"{nameof(DecideurPage)}", typeof(DecideurPage));
             Routing.RegisterRoute($"{nameof(PropositionPage)}", typeof(PropositionPage));
+            Routing.RegisterRoute($"{nameof(NotificationPage)}", typeof(NotificationPage));
         }
     }
 }

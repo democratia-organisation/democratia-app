@@ -17,7 +17,6 @@
                 IsPassword="{Binding PassWord, Source={x:Reference this}}"
                 Keyboard="Plain"
                 MaximumWidthRequest="300"
-                Style="{StaticResource EntryStyle}"
                 Text="{Binding ValeurDonne, Source={x:Reference this}, Mode=TwoWay}" />
         </Border>
     </VerticalStackLayout>

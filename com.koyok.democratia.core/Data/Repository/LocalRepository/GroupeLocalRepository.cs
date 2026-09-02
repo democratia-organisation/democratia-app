@@ -50,7 +50,7 @@ namespace com.koyok.democratia.Data.Repository.LocalRepository
             throw new NotImplementedException();
         }
 
-        public  async Task<bool> AjouterCreateur(int? id_internaute, Guid? id_groupe)
+        public  async Task<bool> AjouterCreateur(Guid? id_internaute, Guid? id_groupe)
         {
             throw new NotImplementedException();
         }

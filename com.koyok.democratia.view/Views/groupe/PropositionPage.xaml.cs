@@ -19,15 +19,22 @@ public partial class PropositionPage : ContentPage
         }
     }
 
-    private void PostMessageButton_Clicked(object sender, EventArgs e)
+    private void PostMessageButton_Clicked(object? sender, EventArgs? e)
     {
-
-        valideButton.IsVisible = true;
-        messagePostButton.IsVisible = false;
-        commentaireEntry.IsVisible = true;
+        TurnComponent(true);
     }
 
-    private async void ValideButton_Clicked(object sender, EventArgs e)
+    private void TurnComponent(bool isPosting)
+    {
+        valideButton.IsVisible = isPosting;
+        valideButton.IsEnabled = isPosting;
+        messagePostButton.IsVisible = !isPosting;
+        messagePostButton.IsEnabled = !isPosting;
+        commentaireEntry.IsVisible = isPosting;
+        commentaireEntry.IsEnabled = isPosting;
+    }
+
+    private async void ValideButton_Clicked(object? sender, EventArgs? e)
     {
         valideButton.IsEnabled = false;
         commentaireEntry.IsEnabled = false;
@@ -38,12 +45,8 @@ public partial class PropositionPage : ContentPage
             }
         }
         catch {
-            await DisplayAlertAsync("Erreur", AppResources.erreurInattendu, AppResources.ChangementOk);
-            valideButton.IsEnabled = true;
-            commentaireEntry.IsEnabled = true;
+            await DisplayAlertAsync("Erreur", AppResources.erreurInattendu, AppResources.erreurInattendu);
         }
-        valideButton.IsVisible = false;
-        messagePostButton.IsVisible = true;
-        commentaireEntry.IsVisible = false;
+        TurnComponent(false);
     }
 }

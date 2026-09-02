@@ -12,12 +12,13 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
 {
 
     public partial class HomeGestionViewModel(ILocalizationService localizationService, 
-        IInternauteRepository internauteRepository) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
+        IInternauteRepository internauteRepository, INotificationRegistrationRepository? notificationRegistrationService) : ObservableObject, IQueryAttributable, INotifyPropertyChanged
     {
         [ObservableProperty] public partial string? retourMessage { get; set; }
         private readonly IInternauteRepository? internauteRepository = internauteRepository;
         private Internaute? internaute;
         private readonly ILocalizationService localizationService = localizationService;
+        private readonly INotificationRegistrationRepository? notificationRegistrationService = notificationRegistrationService;
         private bool _isNavigating = false;
         private readonly WeakReferenceMessenger weakReferenceMessenger = WeakReferenceMessenger.Default;
 
@@ -44,6 +45,19 @@ namespace com.koyok.democratia.UI.internaute.gestionCompte
                 retourMessage = Shell.Current.AppContext.Mapper!.MappingException(ex);
             }
 
+        }
+
+        [RelayCommand]
+        private async Task Deconnecter()
+        {
+            try
+            {
+                await notificationRegistrationService?.DeregisterDeviceAsync()!;
+            }
+            catch (Exception ex)
+            {
+                retourMessage = Shell.Current.AppContext.Mapper!.MappingException(ex);
+            }
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)

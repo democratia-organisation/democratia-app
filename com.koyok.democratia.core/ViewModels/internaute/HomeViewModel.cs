@@ -67,9 +67,17 @@ namespace com.koyok.democratia.UI.internaute
             await Shell.Current?.GoToAsync("GroupePage", parameters)!;
         }
 
+        [RelayCommand]
+        private async Task NavigateToParametre(Groupe groupe)
+        {
+            var parameters = new ShellNavigationQueryParameters { { "groupe", groupe }, { "modele", internaute! } };
+            Shell.Current.AppContext.Groupe = groupe;
+            await Shell.Current?.GoToAsync("ParametrePage", parameters)!;
+        }
+
 
         [RelayCommand]
-        public async Task NavigateTapped(string commande) 
+        private async Task NavigateTapped(string commande) 
             => await Shell.Current?.GoToAsync(commande, new ShellNavigationQueryParameters{{ "modele", internaute! }})!;
 
         [RelayCommand]

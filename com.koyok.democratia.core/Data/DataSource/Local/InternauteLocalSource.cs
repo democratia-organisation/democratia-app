@@ -6,7 +6,7 @@ namespace com.koyok.democratia.Data.DataSource.Local
     public class InternauteLocalSource : ILocalSource
     {
         [PrimaryKey]
-        public int? IdInternaute { get; set; }
+        public Guid? IdInternaute { get; set; }
         public string? NomInternaute { get; set; }
         public string? PrenomInternaute { get; set; }
         public string? AdressePostale { get; set; }

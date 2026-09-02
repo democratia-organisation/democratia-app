@@ -45,6 +45,7 @@ namespace com.koyok.democratia.Extension
                 services.AddSingleton<IRemoteToDomain, ThematiqueRemoteToDomain>();
                 services.AddSingleton<IRemoteToDomain, PropositionRemoteToDomain>();
                 services.AddSingleton<IRemoteToDomain, CommentaireRemoteToDomain>();
+                services.AddSingleton<IRemoteToDomain, DeviceInstallationRemoteToDomain>();
                 return services;
             }
 
@@ -87,6 +88,7 @@ namespace com.koyok.democratia.Extension
                 services.AddSingleton<IRemoteSource, ThematiqueRemoteSource>();
                 services.AddSingleton<IRemoteSource, PropositionRemoteSource>();
                 services.AddSingleton<IRemoteSource, CommentaireRemoteSource>();
+                services.AddSingleton<IRemoteSource, DeviceInstallationRemoteSource>();
 
                 return services;
             }
@@ -144,6 +146,8 @@ namespace com.koyok.democratia.Extension
                 services.AddTransient<ModifierGestionViewModel>();
                 services.AddTransient<PreferenceViewModel>();
                 services.AddTransient<PropositionViewModel>();
+                services.AddTransient<NotificationViewModel>();
+                services.AddTransient<ParametreViewModel>();
 
                 return services;
             }

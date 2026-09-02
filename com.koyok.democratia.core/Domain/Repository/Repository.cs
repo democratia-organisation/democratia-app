@@ -1,5 +1,6 @@
 ﻿using com.koyok.democratia.Lib;
 using com.koyok.democratia.Domain.Models;
+using System.Collections;
 
 namespace com.koyok.democratia.Domain.Repository
 {
@@ -19,7 +20,7 @@ namespace com.koyok.democratia.Domain.Repository
 
     public interface IGroupeRepository : IRepository
     {
-        public Task<bool> AjouterCreateur(int? idInternaute, Guid? idGroupe);
+        public Task<bool> AjouterCreateur(Guid? idInternaute, Guid? idGroupe);
         public Task<bool> CreateJointureThemeEtGroupeAsync(Guid? idGroupe, int? idThematique, float? budgetThematique);
         public Task<List<Thematique>> GetJointureThemeEtGroupeAsync(Guid? idGroupe);
         protected Task<string> GetRoleGroupe(string rowGroupe);
@@ -28,6 +29,7 @@ namespace com.koyok.democratia.Domain.Repository
     public interface IInternauteRepository : IRepository
     {
         public Task<bool> DoublonEmailAsync(string email);
+        public Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices, Internaute internaute);
     }
 
     public interface IThematiqueRepository : IRepository
@@ -48,5 +50,15 @@ namespace com.koyok.democratia.Domain.Repository
     {
         
     }
+
+    public interface INotificationRegistrationRepository
+    {
+        Task DeregisterDeviceAsync();
+        Task RegisterDeviceAsync(params string[] tags);
+        void SerializeDevice(IDeviceInstallationService device);
+        Task RefreshRegistrationAsync();
+    }
+
+
 }
 

@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Windows.Input;
 
 namespace com.koyok.democratia.UI.Component.groupe;
@@ -13,6 +12,14 @@ public partial class ButtonGroupe : ContentView
         get => (ICommand)GetValue(OpenGroupeCommandProperty);
         set => SetValue(OpenGroupeCommandProperty, value);
     }
+    public ICommand OpenParameter 
+    { 
+       get => (ICommand)GetValue(OpenParameterProperty); 
+       set => SetValue(OpenParameterProperty, value); 
+    }
+
+    public static readonly BindableProperty OpenParameterProperty = BindableProperty.Create(
+        nameof(OpenParameter), typeof(ICommand), typeof(ButtonGroupe));
 
     public ButtonGroupe()
     {

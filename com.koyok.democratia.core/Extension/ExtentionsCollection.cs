@@ -1,12 +1,14 @@
 ﻿using com.koyok.democratia.Data.Mapper.RemoteToDomain;
 using com.koyok.democratia.Data.Repository.RemoteRepository;
+using com.koyok.democratia.Domain.Repository;
 using com.koyok.democratia.Lib;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Hosting;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -68,6 +70,27 @@ namespace com.koyok.democratia.Extension
             }
         }
 
+        // Source - https://stackoverflow.com/a/10439461
+        // Posted by fmDream, modified by community. See post 'Timeline' for change history
+        // Retrieved 2026-08-26, License - CC BY-SA 3.0
+
+        public static BitArray BitsReverse(this BitArray bits)
+        {
+            int len = bits.Count;
+            BitArray a = new(bits);
+            BitArray b = new(bits);
+
+            for (int i = 0, j = len - 1; i < len; ++i, --j)
+            {
+                a[i] = a[i] ^ b[j];
+                b[j] = a[i] ^ b[j];
+                a[i] = a[i] ^ b[j];
+            }
+
+            return a;
+        }
+
+
         /// <summary>
         /// Remplace les éléments de la collection
         /// </summary>
@@ -108,7 +131,7 @@ namespace com.koyok.democratia.Extension
                 services.AddTransient<AuthentificationHandler>();
                 services.AddTransient<FinRequete>();
             }
-            public IServiceCollection AddClients()
+            public IServiceCollection AddRemoteRepositories()
             {
                 services.AddHttpExtension();
                 services.AddHttpClient<InternauteRemoteRepository>().AddAllHttpHandler();
@@ -146,6 +169,13 @@ namespace com.koyok.democratia.Extension
                     var client = factory.CreateClient(nameof(CommentaireRemoteRepository));
                     return new(client, s.GetServices<IRemoteToDomain>().OfType<CommentaireRemoteToDomain>().FirstOrDefault()!);
                 });
+                services.AddHttpClient<NotificationRegistrationRemoteRepository>().AddAllHttpHandler();
+                services.AddTransient<INotificationRegistrationRepository,NotificationRegistrationRemoteRepository>(s =>
+                {
+                    var factory = s.GetRequiredService<IHttpClientFactory>();
+                    var client = factory.CreateClient(nameof(NotificationRegistrationRemoteRepository));
+                    return new(client, s.GetServices<IRemoteToDomain>().OfType<DeviceInstallationRemoteToDomain>().FirstOrDefault()!);
+                });
 #if DEBUG
                 // utiliser pour avoir les clé JWT dans les middlewares 
 #endif
@@ -169,11 +199,6 @@ namespace com.koyok.democratia.Extension
                 url = new(maui!.GetAppSetting("API_URL"));
 #endif
             return url;
-        }
-
-        public static string GetSyncfusionLicenseKey()
-        {
-            return maui!.GetAppSetting("SYNCFUSION_KEY");
         }
 
         extension(MauiAppBuilder builder)
@@ -218,7 +243,7 @@ namespace com.koyok.democratia.Extension
 
     public static class ShellExtension
     {
-        private static Lib.AppContext appContext = new(new(ServiceHelper.GetService<ILocalizationService>()!));
+        private static Lib.AppContext appContext = new(new(IPlatformApplication.Current!.Services.GetService<ILocalizationService>()!));
 
         extension(Shell shell)
         {

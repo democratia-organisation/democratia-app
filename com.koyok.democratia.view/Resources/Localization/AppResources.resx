@@ -159,12 +159,6 @@
   <data name="SuppCompte" xml:space="preserve">
     <value>Supprimer mon compte</value>
   </data>
-  <data name="errorMailMessage" xml:space="preserve">
-    <value>Veuillez saisir votre adresse mail</value>
-  </data>
-  <data name="errorPasswordMessage" xml:space="preserve">
-    <value>Veuillez saisir votre mot de passe</value>
-  </data>
   <data name="enregistrer" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
@@ -179,12 +173,6 @@
   </data>
   <data name="connexionErreur" xml:space="preserve">
     <value>Erreur de connexion inattendu</value>
-  </data>
-  <data name="noUser" xml:space="preserve">
-    <value>Pas d'utilisateur trouvé</value>
-  </data>
-  <data name="mauvaisMdp" xml:space="preserve">
-    <value>Mot de passe incorrecte</value>
   </data>
   <data name="inscription" xml:space="preserve">
     <value>M'inscrire</value>
@@ -416,5 +404,56 @@
   </data>
   <data name="valide" xml:space="preserve">
     <value>Valider</value>
+  </data>
+  <data name="gererNotif" xml:space="preserve">
+    <value>Gérez les notifications</value>
+  </data>
+  <data name="signal" xml:space="preserve">
+    <value>Signaler le groupe</value>
+  </data>
+  <data name="nouveauMembre" xml:space="preserve">
+    <value>Nouveau Membre</value>
+  </data>
+  <data name="membreSupprime" xml:space="preserve">
+    <value>Membre supprimé</value>
+  </data>
+  <data name="nouvelProposition" xml:space="preserve">
+    <value>Nouvelle proposition</value>
+  </data>
+  <data name="propSupprime" xml:space="preserve">
+    <value>Proposition supprimée</value>
+  </data>
+  <data name="DisucussPropTermine" xml:space="preserve">
+    <value>Discussion d'une proposition terminée</value>
+  </data>
+  <data name="newVote" xml:space="preserve">
+    <value>Nouveau vote</value>
+  </data>
+  <data name="votefini" xml:space="preserve">
+    <value>Vote fini</value>
+  </data>
+  <data name="newComm" xml:space="preserve">
+    <value>Nouveau commentaire</value>
+  </data>
+  <data name="newPropReact" xml:space="preserve">
+    <value>Nouvelle réaction à une proposition</value>
+  </data>
+  <data name="typeNotif" xml:space="preserve">
+    <value>Type de notification</value>
+  </data>
+  <data name="pushNotif" xml:space="preserve">
+    <value>Notification par push</value>
+  </data>
+  <data name="notifMail" xml:space="preserve">
+    <value>Notification par mail</value>
+  </data>
+  <data name="notifReussi" xml:space="preserve">
+    <value>Paramètre de notification \n enregistré</value>
+  </data>
+  <data name="notifEchec" xml:space="preserve">
+    <value>Enregistrement échoué</value>
+  </data>
+  <data name="errorCredential" xml:space="preserve">
+    <value>Identifiant ou mot de passe incorrect</value>
   </data>
 </root>

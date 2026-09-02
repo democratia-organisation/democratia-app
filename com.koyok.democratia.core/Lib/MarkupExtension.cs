@@ -7,7 +7,7 @@ namespace com.koyok.democratia.Lib
     [ContentProperty(nameof(EnumType))]
     public class CritereMarkup : IMarkupExtension
     {
-        public required Type EnumType { get; set; }
+        public Type? EnumType { get; set; }
 
         public CritereMarkup() { }
 

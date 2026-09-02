@@ -49,7 +49,7 @@ namespace com.koyok.democratia.Data.Repository.RepositoryImpl
             throw new NotImplementedException();
         }
 
-        public  async Task<bool> AjouterCreateur(int? id_internaute, Guid? id_groupe)
+        public  async Task<bool> AjouterCreateur(Guid? id_internaute, Guid? id_groupe)
         {
             return await remote.AjouterCreateur(id_internaute, id_groupe);
         }

@@ -16,7 +16,7 @@ namespace com.koyok.democratia.Lib
 
         private async Task<HttpResponseMessage> RefreshKeys(CancellationToken ct)
         {
-            string email = await SecureStorage.Default.GetAsync(SecureStorageKeys.IdInternaute.ToString()) ?? string.Empty;
+            string email = await SecureStorage.Default.GetAsync(SecureStorageKeys.email.ToString()) ?? string.Empty;
             var brutClient = _factory.CreateClient("ClientBrut");
 #if DEBUG
             brutClient.Timeout = TimeSpan.FromSeconds(60 * 5);
@@ -38,9 +38,9 @@ namespace com.koyok.democratia.Lib
                 {
                     string reponse = await response.Content.ReadAsStringAsync(cancellationToken);
                     string message = JsonSerializer.Deserialize<Dictionary<string, object>>(reponse)!["message"].ToString()!;
-                    string authorisation = response.RequestMessage!.Headers.Authorization!.Parameter!;
+                    AuthenticationHeaderValue? authorisation = response.RequestMessage!.Headers.Authorization;
                     string refreshKey = (await SecureStorage.Default.GetAsync(SecureStorageKeys.REFRESH.ToString()))!;
-                    if (message == "Token expiré" && authorisation == refreshKey)
+                    if (authorisation != null && message == "Token expiré" && authorisation.Parameter == refreshKey)
                     {
                         await SecureStorage.Default.SetAsync(SecureStorageKeys.is_refresh_key_fresh.ToString(), $"{false}");
                         return await base.SendAsync(clone, cancellationToken);

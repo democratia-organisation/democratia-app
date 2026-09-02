@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using System.Globalization;
 
-namespace com.koyok.democratia.core.Lib
+namespace com.koyok.democratia.Lib
 {
 
     public class CustomDateTimeConverter : JsonConverter<DateTime>

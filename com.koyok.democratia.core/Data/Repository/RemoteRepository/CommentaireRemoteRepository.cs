@@ -10,12 +10,15 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
     {
         public async Task<bool> CreateModelAsync(params object?[]? parameters)
         {
-            Commentaire commentaire = (Commentaire)parameters![0]!;
-            var content = new StringContent(JsonSerializer.Serialize(commentaire), Encoding.UTF8, "application/json");
+            var commentaire = (Commentaire)parameters![0]!;
+            var groupeId = (Guid)parameters![1]!;
+            var propositionId = (int)parameters![2]!;
+            var message = JsonSerializer.Serialize(new List<Commentaire> { commentaire });
+            var content = new StringContent(message, Encoding.UTF8, "application/json");
             HttpResponseMessage response;
             try
             {
-                response = await client.PostAsync("/commentaires/", content);
+                response = await client!.PostAsync($"/commentaires/{groupeId}/{propositionId}", content);
                 return await ExtraiteStatus(response);
             }
             catch (Exception ex)

@@ -159,12 +159,6 @@
   <data name="SuppCompte" xml:space="preserve">
     <value>Delete my account</value>
   </data>
-  <data name="errorMailMessage" xml:space="preserve">
-    <value>Please enter your email adress</value>
-  </data>
-  <data name="errorPasswordMessage" xml:space="preserve">
-    <value>Please enter your password</value>
-  </data>
   <data name="enregistrer" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -179,12 +173,6 @@
   </data>
   <data name="connexionErreur" xml:space="preserve">
     <value>Unexcepted Error Connexion</value>
-  </data>
-  <data name="noUser" xml:space="preserve">
-    <value>No user found</value>
-  </data>
-  <data name="mauvaisMdp" xml:space="preserve">
-    <value>Incorrect password</value>
   </data>
   <data name="inscription" xml:space="preserve">
     <value>SIgn in</value>
@@ -416,5 +404,56 @@
   </data>
   <data name="valide" xml:space="preserve">
     <value>Valid</value>
+  </data>
+  <data name="gererNotif" xml:space="preserve">
+    <value>Manager Notifications</value>
+  </data>
+  <data name="signal" xml:space="preserve">
+    <value>Signal the group</value>
+  </data>
+  <data name="nouveauMembre" xml:space="preserve">
+    <value>New member</value>
+  </data>
+  <data name="membreSupprime" xml:space="preserve">
+    <value>Member deleted</value>
+  </data>
+  <data name="nouvelProposition" xml:space="preserve">
+    <value>New proposition</value>
+  </data>
+  <data name="propSupprime" xml:space="preserve">
+    <value>Proposition deleted</value>
+  </data>
+  <data name="DisucussPropTermine" xml:space="preserve">
+    <value>Proposition's discussion finished</value>
+  </data>
+  <data name="newVote" xml:space="preserve">
+    <value>New vote</value>
+  </data>
+  <data name="votefini" xml:space="preserve">
+    <value>Vote finished</value>
+  </data>
+  <data name="newComm" xml:space="preserve">
+    <value>New comment</value>
+  </data>
+  <data name="newPropReact" xml:space="preserve">
+    <value>New proposition's reaction</value>
+  </data>
+  <data name="typeNotif" xml:space="preserve">
+    <value>Notification's type</value>
+  </data>
+  <data name="pushNotif" xml:space="preserve">
+    <value>Push notification</value>
+  </data>
+  <data name="notifMail" xml:space="preserve">
+    <value>Email notification</value>
+  </data>
+  <data name="notifReussi" xml:space="preserve">
+    <value>Notification parameters \n saved</value>
+  </data>
+  <data name="notifEchec" xml:space="preserve">
+    <value>Saving failed</value>
+  </data>
+  <data name="errorCredential" xml:space="preserve">
+    <value>Identifiant or password incorrect</value>
   </data>
 </root>

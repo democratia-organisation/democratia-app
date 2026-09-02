@@ -1,14 +1,7 @@
 {
   "profiles": {
-    "iOS Simulator": {
-      "commandName": "Project",
-      "targetFramework": "net10.0-ios",
-      "remoteDebugEnabled": false,
-      "authenticationMode": "None",
-      "nativeDebugging": false
-    },
     "Windows Machine": {
-      "commandName": "Project",
+      "commandName": "MsixPackage",
       "nativeDebugging": false,
       "externalConsole": true,
       "keepConsoleOpen": true

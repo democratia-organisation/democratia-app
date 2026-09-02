@@ -2,6 +2,7 @@
 using com.koyok.democratia.Data.Mapper.LocalToDomain;
 using com.koyok.democratia.Domain.Models;
 using com.koyok.democratia.Domain.Repository;
+using System.Collections;
 
 namespace com.koyok.democratia.Data.Repository.LocalRepository
 {
@@ -40,6 +41,11 @@ namespace com.koyok.democratia.Data.Repository.LocalRepository
         public async Task<bool> DeleteModelAsync(params object?[]? parameters)
         {
 
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices, Internaute internaute)
+        {
             throw new NotImplementedException();
         }
     }

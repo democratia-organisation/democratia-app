@@ -30,10 +30,14 @@
         API_KEY,
         REFRESH,
         is_refresh_key_fresh,
+        email,
         IdInternaute,
         MotDePasseInternaute,
         LastLogin,
-        isConnected
+        isConnected,
+        CachedDeviceTokenKey,
+        CachedTagsKey
+
     }
     public enum ComplexFilterEnum
     {

@@ -5,6 +5,7 @@ using com.koyok.democratia.Domain.Exception;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Collections;
 
 namespace com.koyok.democratia.Data.Repository.RemoteRepository
 {
@@ -93,6 +94,26 @@ namespace com.koyok.democratia.Data.Repository.RemoteRepository
             try
             {
                 response = await client?.DeleteAsync($"users/{((Internaute)parameters![0]!).idInternaute}")!;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException("Erreur de connexion inattendu", ex);
+            }
+            return await ExtraiteStatus(response);
+        }
+
+        public async Task<bool> SaveNotification(Groupe groupe, BitArray notificationChoices, Internaute internaute)
+        {
+            if (notificationChoices.Length > 16)
+                throw new ArgumentException("Le BitArray ne doit pas dépasser 16 bits.");
+
+            byte[] bytes = new byte[2];
+            notificationChoices.CopyTo(bytes, 0);
+            List<ushort> notificationsConverties = [BitConverter.ToUInt16(bytes, 0)];
+            HttpResponseMessage? response;
+            try
+            {
+                response = await client!.PatchAsync($"notifications/choixUtilisateur/{groupe.idGroupe}/{internaute.idInternaute}", new StringContent(JsonSerializer.Serialize(notificationsConverties)));
             }
             catch (HttpRequestException ex)
             {

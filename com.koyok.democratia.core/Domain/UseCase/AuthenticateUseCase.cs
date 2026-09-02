@@ -20,19 +20,21 @@ namespace com.koyok.democratia.Domain.UseCase
                 TimeSpan span = DateTime.UtcNow - DateTime.Parse(stringTime);
                 if (span.Days > 7)
                 {
-                    SecureStorage.Default.Remove(SecureStorageKeys.IdInternaute.ToString());
+                    SecureStorage.Default.Remove(SecureStorageKeys.email.ToString());
                     SecureStorage.Default.Remove(SecureStorageKeys.MotDePasseInternaute.ToString());
                     await SecureStorage.Default.SetAsync(SecureStorageKeys.LastLogin.ToString(), DateTime.Now.ToString("U"));
                     return null;
                 }
             }
-            Task adresseMailTask = SecureStorage.Default.SetAsync(SecureStorageKeys.IdInternaute.ToString(), adresseMail);
+            Task adresseMailTask = SecureStorage.Default.SetAsync(SecureStorageKeys.email.ToString(), adresseMail);
+
             Task motDePasseTask = SecureStorage.Default.SetAsync(SecureStorageKeys.MotDePasseInternaute.ToString(), motDePasse);
             List<Internaute> listeInformation = [];
             Task listeRun = Task.Run(async () => listeInformation = [.. (await internauteRepository?.GetModelAsync(adresseMail, motDePasse)!).Cast<Internaute>()]);
             await Task.WhenAll(adresseMailTask, motDePasseTask, listeRun);
-            if (listeInformation.Count == 0) throw new NoUserException();
+            if (listeInformation.Count == 0) throw new CredentialException();
             var internaute = listeInformation[0];
+            await SecureStorage.Default.SetAsync(SecureStorageKeys.IdInternaute.ToString(), internaute!.idInternaute.ToString()!);
             string motDePasseHash = internaute!.hashageMDP!;
             bool estAuthetifie;
 #if DEBUG
@@ -49,7 +51,7 @@ namespace com.koyok.democratia.Domain.UseCase
             internaute!.tempMDP = motDePasse;
             estAuthetifie = !await Verification.VerifierMotDePasseUtilisateur(internaute!.tempMDP!, motDePasseHash);
 #endif
-            if (!estAuthetifie) throw new BadPasswordException();
+            if (!estAuthetifie) throw new CredentialException();
             await SecureStorage.Default.SetAsync(SecureStorageKeys.LastLogin.ToString(), DateTime.Now.ToString("U"));
             return internaute;
         }
